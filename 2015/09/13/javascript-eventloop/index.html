@@ -17,20 +17,20 @@
 <!--<![endif]-->
 
 <head>
-  <title>Hexo</title>
+  <title>自己对javascript异步IO和事件循环的理解 | 大盗贼的后院</title>
   <!-- Meta data -->
     <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="generator" content="Hexo">
-    <meta name="author" content="John Doe">
-    <meta name="description" content="" />
+    <meta name="generator" content="大盗贼的后院">
+    <meta name="author" content="lwd426">
+    <meta name="description" content="墨小儿的StudyStudio" />
     <meta name="keywords" content="" />
 
     <!-- Favicon, (keep icon in root folder) -->
     <link rel="Shortcut Icon" href="/img/favicon.ico" type="image/ico">
 
-    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+    <link rel="alternate" href="/atom.xml" title="大盗贼的后院" type="application/atom+xml">
     <link rel="stylesheet" href="/css/all.css" media="screen" type="text/css">
 	
     <link rel="stylesheet" href="/highlightjs/vs.css" type="text/css">
@@ -154,7 +154,7 @@
                     <!-- Info-bar -->
                     <nav>
                         <ul class="nav">
-                            <li><a href="/" class="animsition-link">Hexo</a></li>
+                            <li><a href="/" class="animsition-link">大盗贼的后院</a></li>
                             <li class="nolink"><span>Always </span>Creative.</li>
                             
                             <li><a href="https://github.com/" title="Github" target="_blank"><i class="icon-github"></i></a></li>
@@ -226,17 +226,16 @@
         <div class="row col-md-offset-2">
             <div class="col-md-8">
     			<span class="post-meta">
-      <time datetime="2015-09-13T11:37:19.000Z" itemprop="datePublished">
+      <time datetime="2015-09-13T11:42:39.000Z" itemprop="datePublished">
           2015-09-13
       </time>
     
 </span>
-                <h1></h1>
+                <h1>自己对javascript异步IO和事件循环的理解</h1>
             </div>
         </div>
         <div class="col-md-8 col-md-offset-2">
-      		<p>##自己对javascript异步IO和事件循环的理解</p>
-<blockquote>
+      		<blockquote>
 <p>最近在了解javascript的异步IO和事件循环机制。最近有幸浏览了阮一峰老师的[JavaScript 运行机制详解：再谈Event Loop][1]，感觉阮老师把一直困扰我的这个问题弄明白了，所以非常感谢阮老师。以下是我自己对javascript异步io和事件循环的一些理解和笔记。</p>
 </blockquote>
 <p>相信我们在一开始接触javascript的时候都被各种贴子填鸭般的教导说“javascript是单线程的”。这没有错，javascript也只能是单线程，因为当初javascript被设计出来主要是为了操作DOM，设计成单线程，也就巧妙的避开了很多状态同步问题。有关状态的最近很火的一个库，大家可以看下<code>react</code>是怎么操作状态的，很巧妙。额，扯得有点远了，那么单线程的javascript是怎么做到<code>异步IO和并发</code>的呢？这多亏了<code>javascript的事件循环机制</code>。</p>
@@ -263,7 +262,7 @@
 </nav>
 
         <div class="duoshuo">
-<div class="ds-thread" data-thread-key="2015/09/13/javascript-eventloop-mardown/" data-title="" data-url="http://yoursite.com/2015/09/13/javascript-eventloop-mardown/"></div>
+<div class="ds-thread" data-thread-key="2015/09/13/javascript-eventloop/" data-title="自己对javascript异步IO和事件循环的理解" data-url="http://lwd426.com/2015/09/13/javascript-eventloop/"></div>
 <script type="text/javascript">
 var duoshuoQuery = {short_name:"duoshuo_name"};
 (function() {
@@ -287,7 +286,7 @@ var duoshuoQuery = {short_name:"duoshuo_name"};
     <div class="container">
             <div class="copy">
                 <p>
-                    &copy; 2014<script>new Date().getFullYear()>2010&&document.write("-"+new Date().getFullYear());</script>, Content By John Doe. All Rights Reserved.
+                    &copy; 2014<script>new Date().getFullYear()>2010&&document.write("-"+new Date().getFullYear());</script>, Content By lwd426. All Rights Reserved.
                 </p>
                 <p>Theme By <a href="//go.kieran.top" style="color: #767D84">Kieran</a></p>
             </div>
