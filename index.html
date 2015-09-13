@@ -173,7 +173,7 @@
       <div class="post-meta">
         <span class="post-time">
           發表於
-          <time itemprop="dateCreated" datetime="2015-09-13T21:07:23+08:00" content="2015-09-13">
+          <time itemprop="dateCreated" datetime="2015-09-13T21:16:23+08:00" content="2015-09-13">
             2015-09-13
           </time>
         </span>
@@ -197,7 +197,7 @@
 <p>最近在了解javascript的异步IO和事件循环机制。最近有幸浏览了阮一峰老师的<a href="http://www.ruanyifeng.com/blog/2014/10/event-loop.html" target="_blank" rel="external">JavaScript 运行机制详解：再谈Event Loop</a>，感觉阮老师把一直困扰我的这个问题弄明白了，所以非常感谢阮老师。以下是我自己对javascript异步io和事件循环的一些理解和笔记。</p>
 </blockquote>
 <p>相信我们在一开始接触javascript的时候都被各种贴子填鸭般的教导说“javascript是单线程的”。这没有错，javascript也只能是单线程，因为当初javascript被设计出来主要是为了操作DOM，设计成单线程，也就巧妙的避开了很多状态同步问题。有关状态的最近很火的一个库，大家可以看下<code>react</code>是怎么操作状态的，很巧妙。额，扯得有点远了，那么单线程的javascript是怎么做到<code>异步IO和并发</code>的呢？这多亏了<code>javascript的事件循环机制</code>。</p>
-<p>下面这张图是我对事件循环的了解。<br><img src="./images/javascript-eventloop1.png" alt=""></p>
+<p>下面这张图是我对事件循环的了解。<br><img src="/images/javascript-eventloop1.png" alt=""></p>
 <ol>
 <li>所有任务都在主线程上执行，形成一个<code>执行栈</code>。换句话说，我们写的所有js代码（函数声明、变量声明/赋值、注册监听等）都是一个个的代码块，跑在主线程上。</li>
 <li>除了主线程，还有一个<code>任务队列</code>。系统通过调用各种接口完成了注册监听（给DOM元素，比如onclick、onload）、注册事件、调用ajax、设置定时任务、操作IO等）<code>把这些异步任务放到任务队列，执行栈继续向下执行后面的任务</code>。</li>
