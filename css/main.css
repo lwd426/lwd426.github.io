@@ -853,6 +853,7 @@ dy {
     margin: 0 -10px;
     padding: 0 10px;
     clear: both;
+    background-color: #fff;
     border-top: 1px solid #ddd;
   }
 }
@@ -1054,7 +1055,7 @@ dy {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #7325a4;
+  background: #7eff04;
 }
 .sidebar-nav {
   margin: 0;
