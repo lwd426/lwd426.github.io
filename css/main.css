@@ -835,6 +835,8 @@ dy {
   position: absolute;
   top: 10px;
   left: 10px;
+  background: #fff f;
+  z-index: 1000;
 }
 @media (max-width: 767px) {
   .site-nav-toggle {
@@ -1055,7 +1057,7 @@ dy {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #2bff6c;
+  background: #f9ffb9;
 }
 .sidebar-nav {
   margin: 0;
