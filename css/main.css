@@ -844,6 +844,7 @@ dy {
 .site-nav-toggle button {
   margin-top: 2px;
   padding: 9px 10px;
+  background: #fff;
   border: none;
 }
 @media (max-width: 767px) {
@@ -1053,7 +1054,7 @@ dy {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #9fffff;
+  background: #06e018;
 }
 .sidebar-nav {
   margin: 0;
