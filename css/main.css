@@ -747,7 +747,7 @@ dy {
 }
 .header-inner {
   margin: 0 auto;
-  padding: 40px 0 0px;
+  padding: 40px 0 30px;
   width: 960px;
 }
 .one-column .header-inner {
@@ -1057,7 +1057,7 @@ dy {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #f9ffb9;
+  background: #da5d4e;
 }
 .sidebar-nav {
   margin: 0;
