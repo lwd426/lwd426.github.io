@@ -748,7 +748,7 @@ body {
 }
 .header-inner {
   margin: 0 auto;
-  padding: 100px 0 70px;
+  padding: 40px 0 0px;
   width: 960px;
 }
 .one-column .header-inner {
@@ -1055,7 +1055,7 @@ body {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #5754e4;
+  background: #ff59ff;
 }
 .sidebar-nav {
   margin: 0;
