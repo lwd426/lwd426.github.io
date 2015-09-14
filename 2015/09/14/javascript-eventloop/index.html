@@ -67,6 +67,13 @@
     scheme: '',
     sidebar: 'post'
   };
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?dfebab011aa209e3aba8c279886c25cd";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
 </script>
 
   <title> 自己对javascript异步IO和事件循环的理解 | 大盗贼的后院 </title>
@@ -84,6 +91,16 @@
   </div>
 <![endif]-->
   
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?dfebab011aa209e3aba8c279886c25cd";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
 
 
 
@@ -187,6 +204,13 @@
 
         
           
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2015/09/14/javascript-eventloop/#comments" itemprop="discussionUrl">
+              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/09/14/javascript-eventloop/" itemprop="commentsCount"></span>
+            </a>
+          </span>
+          
         
       </div>
     </header>
@@ -259,6 +283,10 @@ $(<span class="function"><span class="keyword">function</span><span class="param
 
         
           <div class="comments" id="comments">
+            
+              <div id="disqus_thread">
+                <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+              </div>
             
           </div>
         
@@ -390,6 +418,27 @@ $(<span class="function"><span class="keyword">function</span><span class="param
     
     
 
+  
+
+    <script type="text/javascript">
+      var disqus_shortname = 'lwd426';
+      var disqus_identifier = '2015/09/14/javascript-eventloop/';
+      var disqus_title = '自己对javascript异步IO和事件循环的理解';
+      var disqus_url = 'http://lwd426.com/2015/09/14/javascript-eventloop/';
+
+      function run_disqus_script(disqus_script){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }
+
+      run_disqus_script('count.js');
+      
+        run_disqus_script('embed.js');
+      
+    </script>
   
 
 
@@ -589,6 +638,10 @@ $(<span class="function"><span class="keyword">function</span><span class="param
 
   
   
+
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"slide":{"type":"slide","bdImg":"3","bdPos":"left","bdTop":"250"}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+
 
   
   <script type="text/javascript" src="/js/lazyload.js"></script>
