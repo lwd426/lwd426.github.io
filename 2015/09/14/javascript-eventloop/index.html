@@ -205,11 +205,11 @@ var _hmt = _hmt || [];
         
           
             <span class="post-comments-count">
-            &nbsp; | &nbsp;
-            <a href="/2015/09/14/javascript-eventloop/#comments" itemprop="discussionUrl">
-              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/09/14/javascript-eventloop/" itemprop="commentsCount"></span>
-            </a>
-          </span>
+              &nbsp; | &nbsp;
+              <a href="/2015/09/14/javascript-eventloop/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2015/09/14/javascript-eventloop/" itemprop="commentsCount"></span>
+              </a>
+            </span>
           
         
       </div>
@@ -274,6 +274,25 @@ $(<span class="function"><span class="keyword">function</span><span class="param
 
     <div class="post-spread">
       
+        <div class="ds-share flat" data-thread-key="2015/09/14/javascript-eventloop/"
+     data-title="自己对javascript异步IO和事件循环的理解"
+     data-content=""
+     data-url="http://lwd426.com/2015/09/14/javascript-eventloop/">
+  <div class="ds-share-inline">
+    <ul  class="ds-share-icons-16">
+
+      <li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+      <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+      <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+      <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+      <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+
+    </ul>
+    <div class="ds-share-icons-more">
+    </div>
+  </div>
+</div>
+      
     </div>
   </div>
 
@@ -284,8 +303,8 @@ $(<span class="function"><span class="keyword">function</span><span class="param
         
           <div class="comments" id="comments">
             
-              <div id="disqus_thread">
-                <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+              <div class="ds-thread" data-thread-key="2015/09/14/javascript-eventloop/"
+                   data-title="自己对javascript异步IO和事件循环的理解" data-url="http://lwd426.com/2015/09/14/javascript-eventloop/">
               </div>
             
           </div>
@@ -416,32 +435,26 @@ $(<span class="function"><span class="keyword">function</span><span class="param
   
   
     
+
+  
     
-
   
 
-    <script type="text/javascript">
-      var disqus_shortname = 'lwd426';
-      var disqus_identifier = '2015/09/14/javascript-eventloop/';
-      var disqus_title = '自己对javascript异步IO和事件循环的理解';
-      var disqus_url = 'http://lwd426.com/2015/09/14/javascript-eventloop/';
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"lwd426"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+    
+     
 
-      function run_disqus_script(disqus_script){
-        var dsq = document.createElement('script');
-        dsq.type = 'text/javascript';
-        dsq.async = true;
-        dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
-        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-      }
-
-      run_disqus_script('count.js');
-      
-        run_disqus_script('embed.js');
-      
-    </script>
-  
-
-
+    
   
   
   <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
