@@ -179,86 +179,6 @@ var _hmt = _hmt || [];
           
           
             
-              <a class="post-title-link" href="/2015/09/14/nodejsio/" itemprop="url">
-                自己对nodeJS异步IO和事件循环的理解
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          發表於
-          <time itemprop="dateCreated" datetime="2014-09-14T16:25:16+08:00" content="2014-09-14">
-            2014-09-14
-          </time>
-        </span>
-
-        
-
-        
-          
-            <span class="post-comments-count">
-              &nbsp; | &nbsp;
-              <a href="/2015/09/14/nodejsio/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2015/09/14/nodejsio/" itemprop="commentsCount"></span>
-              </a>
-            </span>
-          
-        
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <span itemprop="articleBody"><blockquote>
-<p>终于把node的异步IO给搞的稍微明白些了，之前看朴灵老师的《深入浅出NodeJS》还有些吃力，最近终于可以下定决心把它搞明白。以下是我参阅朴灵老师的《深入浅出NodeJS》后，自己对node异步io的理解，画了一张图，记录一下。</p>
-</blockquote>
-<p><img src="/images/nodeio.png" alt="NodeJS异步IO和事件循环图解"></p>
-<p>完成NodeJS的整个异步I/O环节的有事件循环、观察者（队列）、IOCP和请求对象等。</p>
-<ol>
-<li><code>事件循环</code>：nodejs自身的执行模型–事件循环。它使在node启动时创建的，每执行一次循环体称做Tick.每个Tick的过程就是<code>看观察者队列里是否有事件要处理</code>。</li>
-<li><code>观察者（队列）</code>：在Node中，事件主要来源于网络请求、文件I/O等，所以<code>Node用观察者把事件分类</code>，这些事件对应的观察者有网络请求观察者、文件I/O观察者等，当线程池中的请求对象执行完毕，就会把执行结果req–&gt;result后，调用PostQueueCompletionStatus()通知IOCP该请求对象执行完毕。</li>
-<li><code>IOCP</code>:事件观察者会在每次Tick的过程中，都会<code>调用GetQueueCompletionStatus()询问IOCP线程池中是否有执行完的请求</code>。如果有，则把它加入到对应的<code>观察者队列</code>中，等待被事件循环执行。</li>
-<li><code>请求对象</code>：它可以理解为node从js发起异步调用到内核执行完异步操作的一个<code>中间载体</code>。它在libuv层被组装，组装的时候把各种参数、回调函数、执行状态都封装了进去。当请求对象执行完毕后，会把执行结果封装到他的result中。最终由<code>事件循环调用回调函数（result）</code>.</li>
-</ol>
-<p>以上是我在阅读《深入浅出NodeJS》后，查询很多资料后的一些个人理解，其中肯定肯定有理解上的不足，姑且记录下，慢慢理解提升。</p>
-</span>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
-            
               <a class="post-title-link" href="/2015/09/14/javascript-eventloop/" itemprop="url">
                 自己对javascript异步IO和事件循环的理解
               </a>
@@ -270,7 +190,7 @@ var _hmt = _hmt || [];
       <div class="post-meta">
         <span class="post-time">
           發表於
-          <time itemprop="dateCreated" datetime="2014-09-14T13:18:26+08:00" content="2014-09-14">
+          <time itemprop="dateCreated" datetime="2014-09-14T16:27:56+08:00" content="2014-09-14">
             2014-09-14
           </time>
         </span>
@@ -329,7 +249,7 @@ $(<span class="function"><span class="keyword">function</span><span class="param
      &lt;button id=<span class="string">"submit"</span>&gt;&lt;/button&gt;
 &lt;/body&gt;
 &lt;/html&gt; 
-</code></pre><p>下面这张图是我对事件循环的了解。<br><img src="http://cdn.sinacloud.net/blog-images/javascript-eventloop/9E370456-2137-42D1-9511-AC27B71C0054.png?KID=sina,swso1oKg1qbFY5Epg7l8&amp;Expires=1442147811&amp;ssig=SHYc7NyefD" alt=""></p>
+</code></pre><p>下面这张图是我对事件循环的了解。<br><img src="/images/javascript-eventloop1.png" alt=""></p>
 <ol>
 <li>所有任务都在主线程上执行，形成一个<code>执行栈</code>。换句话说，我们写的所有js代码（函数声明、变量声明/赋值、注册监听等）都是一个个的代码块，跑在主线程上。</li>
 <li>除了主线程，还有一个<code>任务队列</code>。系统通过调用各种接口完成了注册监听（给DOM元素，比如onclick、onload）、注册事件、调用ajax、设置定时任务、操作IO等）<code>把这些异步任务放到任务队列，执行栈继续向下执行后面的任务</code>。</li>
@@ -337,7 +257,89 @@ $(<span class="function"><span class="keyword">function</span><span class="param
 <li>一旦”执行栈”中的所有任务执行完毕，事件循环就会读取”任务队列”。如果这个时候，异步任务已经<code>结束了等待状态</code>，就会从”任务队列”<code>进入执行栈，恢复执行</code>。</li>
 <li>主线程不断重复上面的第三步。</li>
 </ol>
-<p>以上是我个人的一个理解，是给各个小白看的。对这个过程描述的而更为透彻是下图（转引自Philip Roberts的演讲《Help, I’m stuck in an event-loop》）<br><img src="http://cdn.sinacloud.net/blog-images/javascript-eventloop/untitled.png?KID=sina,swso1oKg1qbFY5Epg7l8&amp;Expires=1442147841&amp;ssig=EAT%2FGGm5rX" alt="图片描述"><br>上图中，主线程运行的时候，产生堆（heap）和栈（stack），栈中的代码调用各种外部API，它们在”任务队列”中加入各种事件（click，load，done）。只要栈中的代码执行完毕，主线程就会去读取”任务队列”，依次执行那些事件所对应的回调函数。<br>这是我对javascript的异步IO和事件循环的理解。接下来我还会了解下nodeJS的异步IO机制。</p>
+<p>以上是我个人的一个理解，是给各个小白看的。对这个过程描述的而更为透彻是下图（转引自Philip Roberts的演讲《Help, I’m stuck in an event-loop》）</p>
+<p><img src="/images/javascript-eventloop2.png" alt=""></p>
+<p>上图中，主线程运行的时候，产生堆（heap）和栈（stack），栈中的代码调用各种外部API，它们在”任务队列”中加入各种事件（click，load，done）。只要栈中的代码执行完毕，主线程就会去读取”任务队列”，依次执行那些事件所对应的回调函数。<br>这是我对javascript的异步IO和事件循环的理解。接下来我还会了解下nodeJS的异步IO机制。</p>
+</span>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
+              <a class="post-title-link" href="/2015/09/14/nodejsio/" itemprop="url">
+                自己对nodeJS异步IO和事件循环的理解
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          發表於
+          <time itemprop="dateCreated" datetime="2014-09-14T16:25:16+08:00" content="2014-09-14">
+            2014-09-14
+          </time>
+        </span>
+
+        
+
+        
+          
+            <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2015/09/14/nodejsio/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2015/09/14/nodejsio/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody"><blockquote>
+<p>终于把node的异步IO给搞的稍微明白些了，之前看朴灵老师的《深入浅出NodeJS》还有些吃力，最近终于可以下定决心把它搞明白。以下是我参阅朴灵老师的《深入浅出NodeJS》后，自己对node异步io的理解，画了一张图，记录一下。</p>
+</blockquote>
+<p><img src="/images/nodeio.png" alt="NodeJS异步IO和事件循环图解"></p>
+<p>完成NodeJS的整个异步I/O环节的有事件循环、观察者（队列）、IOCP和请求对象等。</p>
+<ol>
+<li><code>事件循环</code>：nodejs自身的执行模型–事件循环。它使在node启动时创建的，每执行一次循环体称做Tick.每个Tick的过程就是<code>看观察者队列里是否有事件要处理</code>。</li>
+<li><code>观察者（队列）</code>：在Node中，事件主要来源于网络请求、文件I/O等，所以<code>Node用观察者把事件分类</code>，这些事件对应的观察者有网络请求观察者、文件I/O观察者等，当线程池中的请求对象执行完毕，就会把执行结果req–&gt;result后，调用PostQueueCompletionStatus()通知IOCP该请求对象执行完毕。</li>
+<li><code>IOCP</code>:事件观察者会在每次Tick的过程中，都会<code>调用GetQueueCompletionStatus()询问IOCP线程池中是否有执行完的请求</code>。如果有，则把它加入到对应的<code>观察者队列</code>中，等待被事件循环执行。</li>
+<li><code>请求对象</code>：它可以理解为node从js发起异步调用到内核执行完异步操作的一个<code>中间载体</code>。它在libuv层被组装，组装的时候把各种参数、回调函数、执行状态都封装了进去。当请求对象执行完毕后，会把执行结果封装到他的result中。最终由<code>事件循环调用回调函数（result）</code>.</li>
+</ol>
+<p>以上是我在阅读《深入浅出NodeJS》后，查询很多资料后的一些个人理解，其中肯定肯定有理解上的不足，姑且记录下，慢慢理解提升。</p>
 </span>
         
       
