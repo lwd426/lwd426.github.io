@@ -62,10 +62,10 @@
 朴灵老师对事件循环的描述如下：
 
 在调用uv_fs_open方法的过程中实际上应用到了事件">
-<meta property="og:image" content="http://lwd426.com/images/nodeio2">
-<meta property="og:image" content="http://lwd426.com/images/nodeio3">
+<meta property="og:image" content="http://lwd426.com/images/nodeio2.png">
+<meta property="og:image" content="http://lwd426.com/images/nodeio3.png">
 <meta property="og:image" content="http://lwd426.com/images/nodeio.png">
-<meta property="og:updated_time" content="2015-09-14T13:10:07.000Z">
+<meta property="og:updated_time" content="2015-09-14T13:14:25.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="自己对nodeJS的异步I/O模型的理解">
 <meta name="twitter:description" content="终于把node的异步IO给搞的稍微明白些了，之前看朴灵老师的《深入浅出NodeJS》还有些吃力，最近终于可以下定决心把它搞明白。以下是我参阅朴灵老师的《深入浅出NodeJS》后，自己对node异步io的理解，画了一张图，记录一下。
@@ -211,7 +211,7 @@ var _hmt = _hmt || [];
       <div class="post-meta">
         <span class="post-time">
           發表於
-          <time itemprop="dateCreated" datetime="2014-09-14T21:10:07+08:00" content="2014-09-14">
+          <time itemprop="dateCreated" datetime="2014-09-14T21:14:25+08:00" content="2014-09-14">
             2014-09-14
           </time>
         </span>
@@ -241,7 +241,7 @@ var _hmt = _hmt || [];
 <p>终于把node的异步IO给搞的稍微明白些了，之前看朴灵老师的《深入浅出NodeJS》还有些吃力，最近终于可以下定决心把它搞明白。以下是我参阅朴灵老师的《深入浅出NodeJS》后，自己对node异步io的理解，画了一张图，记录一下。</p>
 </blockquote>
 <p>这张是朴灵老师在他的Infoq中画的一张图：</p>
-<p><img src="/images/nodeio2" alt=""></p>
+<p><img src="/images/nodeio2.png" alt=""></p>
 <p>####事件循环和异步调用</p>
 <p>朴灵老师对事件循环的描述如下：</p>
 <blockquote>
@@ -251,7 +251,7 @@ var _hmt = _hmt || [];
 <blockquote>
 <p>每次循环中，它会调用IOCP相关的<em>GetQueuedCompletionStatus</em>方法检查是否线程池中有执行完的请求，如果存在，poll操作会将请求对象加入到loop的pending_reqs_tail属性上。 另一边这个循环也会不断检查loop对象上的pending_reqs_tail引用，如果有可用的请求对象，就取出请求对象的result属性作为结果传递给oncomplete_sym执行，以此达到调用JavaScript中传入的回调函数的目的。 至此，整个异步I/O的流程完成结束。其流程如下：</p>
 </blockquote>
-<p><img src="/images/nodeio3" alt="事件循环和异步调用"></p>
+<p><img src="/images/nodeio3.png" alt="事件循环和异步调用"></p>
 <blockquote>
 <p><code>事件循环</code>和<code>请求对象</code>构成了Node.js的异步I/O模型的两个基本元素，这也是典型的消费者生产者场景。在Windows下通过IOCP的GetQueuedCompletionStatus、PostQueuedCompletionStatus、QueueUserWorkItem方法与事件循环实。对于*nix平台下，这个流程的不同之处在与实现这些功能的方法是由libeio和libev提供。</p>
 </blockquote>
