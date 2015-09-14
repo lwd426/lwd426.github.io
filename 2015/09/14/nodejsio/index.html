@@ -42,15 +42,32 @@
   <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.1" />
 
 
-<meta name="description" content="前端杂文">
-<meta property="og:type" content="website">
-<meta property="og:title" content="大盗贼的后院">
-<meta property="og:url" content="http://lwd426.com/index.html">
+<meta name="description" content="终于把node的异步IO给搞的稍微明白些了，之前看朴灵老师的《深入浅出NodeJS》还有些吃力，最近终于可以下定决心把它搞明白。以下是我参阅朴灵老师的《深入浅出NodeJS》后，自己对node异步io的理解，画了一张图，记录一下。
+
+
+完成NodeJS的整个异步I/O环节的有事件循环、观察者（队列）、IOCP和请求对象等。
+
+事件循环：nodejs自身的执行模型–事件循环。它使在node启动时创建">
+<meta property="og:type" content="article">
+<meta property="og:title" content="自己对nodeJS异步IO和事件循环的理解">
+<meta property="og:url" content="http://lwd426.com/2015/09/14/nodejsio/index.html">
 <meta property="og:site_name" content="大盗贼的后院">
-<meta property="og:description" content="前端杂文">
+<meta property="og:description" content="终于把node的异步IO给搞的稍微明白些了，之前看朴灵老师的《深入浅出NodeJS》还有些吃力，最近终于可以下定决心把它搞明白。以下是我参阅朴灵老师的《深入浅出NodeJS》后，自己对node异步io的理解，画了一张图，记录一下。
+
+
+完成NodeJS的整个异步I/O环节的有事件循环、观察者（队列）、IOCP和请求对象等。
+
+事件循环：nodejs自身的执行模型–事件循环。它使在node启动时创建">
+<meta property="og:image" content="http://lwd426.com/images/nodeio.png">
+<meta property="og:updated_time" content="2015-09-14T08:25:16.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="大盗贼的后院">
-<meta name="twitter:description" content="前端杂文">
+<meta name="twitter:title" content="自己对nodeJS异步IO和事件循环的理解">
+<meta name="twitter:description" content="终于把node的异步IO给搞的稍微明白些了，之前看朴灵老师的《深入浅出NodeJS》还有些吃力，最近终于可以下定决心把它搞明白。以下是我参阅朴灵老师的《深入浅出NodeJS》后，自己对node异步io的理解，画了一张图，记录一下。
+
+
+完成NodeJS的整个异步I/O环节的有事件循环、观察者（队列）、IOCP和请求对象等。
+
+事件循环：nodejs自身的执行模型–事件循环。它使在node启动时创建">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -67,7 +84,7 @@ var _hmt = _hmt || [];
 })();
 </script>
 
-  <title> 大盗贼的后院 </title>
+  <title> 自己对nodeJS异步IO和事件循环的理解 | 大盗贼的后院 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
@@ -95,9 +112,7 @@ var _hmt = _hmt || [];
 
 
 
-  <div class="container one-column 
-   page-home 
-">
+  <div class="container one-column page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -166,9 +181,9 @@ var _hmt = _hmt || [];
     <main id="main" class="main">
       <div class="main-inner">
         <div id="content" class="content"> 
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <header class="post-header">
@@ -179,9 +194,7 @@ var _hmt = _hmt || [];
           
           
             
-              <a class="post-title-link" href="/2015/09/14/nodejsio/" itemprop="url">
-                自己对nodeJS异步IO和事件循环的理解
-              </a>
+              自己对nodeJS异步IO和事件循环的理解
             
           
         </h1>
@@ -216,8 +229,7 @@ var _hmt = _hmt || [];
       
 
       
-        
-          <span itemprop="articleBody"><blockquote>
+        <span itemprop="articleBody"><blockquote>
 <p>终于把node的异步IO给搞的稍微明白些了，之前看朴灵老师的《深入浅出NodeJS》还有些吃力，最近终于可以下定决心把它搞明白。以下是我参阅朴灵老师的《深入浅出NodeJS》后，自己对node异步io的理解，画了一张图，记录一下。</p>
 </blockquote>
 <p><img src="/images/nodeio.png" alt="NodeJS异步IO和事件循环图解"></p>
@@ -230,7 +242,6 @@ var _hmt = _hmt || [];
 </ol>
 <p>以上是我在阅读《深入浅出NodeJS》后，查询很多资料后的一些个人理解，其中肯定肯定有理解上的不足，姑且记录下，慢慢理解提升。</p>
 </span>
-        
       
     </div>
 
@@ -238,132 +249,62 @@ var _hmt = _hmt || [];
       
 
       
+        <div class="post-nav">
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/09/14/javascript-eventloop/" rel="next">自己对javascript异步IO和事件循环的理解</a>
+            
+          </div>
+        </div>
+      
 
       
-      
-        <div class="post-eof"></div>
       
     </footer>
   </article>
 
 
-    
+
+    <div class="post-spread">
       
+        <div class="ds-share flat" data-thread-key="2015/09/14/nodejsio/"
+     data-title="自己对nodeJS异步IO和事件循环的理解"
+     data-content=""
+     data-url="http://lwd426.com/2015/09/14/nodejsio/">
+  <div class="ds-share-inline">
+    <ul  class="ds-share-icons-16">
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+      <li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+      <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+      <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+      <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+      <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
 
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
-            
-              <a class="post-title-link" href="/2015/09/14/javascript-eventloop/" itemprop="url">
-                自己对javascript异步IO和事件循环的理解
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          發表於
-          <time itemprop="dateCreated" datetime="2014-09-14T13:18:26+08:00" content="2014-09-14">
-            2014-09-14
-          </time>
-        </span>
-
-        
-
-        
-          
-            <span class="post-comments-count">
-              &nbsp; | &nbsp;
-              <a href="/2015/09/14/javascript-eventloop/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2015/09/14/javascript-eventloop/" itemprop="commentsCount"></span>
-              </a>
-            </span>
-          
-        
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <span itemprop="articleBody"><blockquote>
-<p>最近在了解javascript的异步IO和事件循环机制。最近有幸浏览了阮一峰老师的<a href="http://www.ruanyifeng.com/blog/2014/10/event-loop.html" target="_blank" rel="external">JavaScript 运行机制详解：再谈Event Loop</a>，感觉阮老师把一直困扰我的这个问题弄明白了，所以非常感谢阮老师。以下是我自己对javascript异步io和事件循环的一些理解和笔记。</p>
-</blockquote>
-<p>相信我们在一开始接触javascript的时候都被各种贴子填鸭般的教导说“javascript是单线程的”。这没有错，javascript也只能是单线程，因为当初javascript被设计出来主要是为了操作DOM，设计成单线程，也就巧妙的避开了很多状态同步问题。有关状态的最近很火的一个库，大家可以看下<code>react</code>是怎么操作状态的，很巧妙。额，扯得有点远了，那么单线程的javascript是怎么做到<code>异步IO和并发</code>的呢？这多亏了<code>javascript的事件循环机制</code>。<br>以下用代码的方式大概的说明下：</p>
-<pre><code>&lt;html&gt;
-&lt;head&gt;
-&lt;javascript src=<span class="string">"jquery.1.7.0.min.js"</span>&gt;&lt;/javascript&gt;
-&lt;javascript&gt;
- <span class="comment">//1.ajax异步任务</span>
-<span class="function"><span class="keyword">function</span> <span class="title">getUserList</span><span class="params">()</span></span>{
-    $.<span class="keyword">get</span>(<span class="string">"/getusersinfo"</span>,{},<span class="function"><span class="keyword">function</span><span class="params">(error,response)</span></span>{
-        ......
-    });
-}
-
-$(<span class="function"><span class="keyword">function</span><span class="params">()</span></span>{
-    <span class="comment">//2.定时任务</span>
-     setTimout(test(),<span class="number">200</span>); 
-     <span class="function"><span class="keyword">function</span> <span class="title">test</span><span class="params">()</span> </span>{ 
-         alert(<span class="number">1</span>); 
-     } 
-     <span class="comment">//3.DOM注册click事件        </span>
-     $(<span class="string">"#submit"</span>).click(<span class="function"><span class="keyword">function</span><span class="params">()</span></span>{
-        getUserList();
-    });
-});
-&lt;/javascript&gt;
-&lt;/head&gt;
-&lt;body&gt;
-     &lt;button id=<span class="string">"submit"</span>&gt;&lt;/button&gt;
-&lt;/body&gt;
-&lt;/html&gt; 
-</code></pre><p>下面这张图是我对事件循环的了解。<br><img src="http://cdn.sinacloud.net/blog-images/javascript-eventloop/9E370456-2137-42D1-9511-AC27B71C0054.png?KID=sina,swso1oKg1qbFY5Epg7l8&amp;Expires=1442147811&amp;ssig=SHYc7NyefD" alt=""></p>
-<ol>
-<li>所有任务都在主线程上执行，形成一个<code>执行栈</code>。换句话说，我们写的所有js代码（函数声明、变量声明/赋值、注册监听等）都是一个个的代码块，跑在主线程上。</li>
-<li>除了主线程，还有一个<code>任务队列</code>。系统通过调用各种接口完成了注册监听（给DOM元素，比如onclick、onload）、注册事件、调用ajax、设置定时任务、操作IO等）<code>把这些异步任务放到任务队列，执行栈继续向下执行后面的任务</code>。</li>
-<li>在主线程执行栈和任务队列中间有一个很牛的东西叫“<code>事件循环</code>”。</li>
-<li>一旦”执行栈”中的所有任务执行完毕，事件循环就会读取”任务队列”。如果这个时候，异步任务已经<code>结束了等待状态</code>，就会从”任务队列”<code>进入执行栈，恢复执行</code>。</li>
-<li>主线程不断重复上面的第三步。</li>
-</ol>
-<p>以上是我个人的一个理解，是给各个小白看的。对这个过程描述的而更为透彻是下图（转引自Philip Roberts的演讲《Help, I’m stuck in an event-loop》）<br><img src="http://cdn.sinacloud.net/blog-images/javascript-eventloop/untitled.png?KID=sina,swso1oKg1qbFY5Epg7l8&amp;Expires=1442147841&amp;ssig=EAT%2FGGm5rX" alt="图片描述"><br>上图中，主线程运行的时候，产生堆（heap）和栈（stack），栈中的代码调用各种外部API，它们在”任务队列”中加入各种事件（click，load，done）。只要栈中的代码执行完毕，主线程就会去读取”任务队列”，依次执行那些事件所对应的回调函数。<br>这是我对javascript的异步IO和事件循环的理解。接下来我还会了解下nodeJS的异步IO机制。</p>
-</span>
-        
+    </ul>
+    <div class="ds-share-icons-more">
+    </div>
+  </div>
+</div>
       
     </div>
+  </div>
 
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-  </section>
-
-  
  </div>
 
         
 
+        
+          <div class="comments" id="comments">
+            
+              <div class="ds-thread" data-thread-key="2015/09/14/nodejsio/"
+                   data-title="自己对nodeJS异步IO和事件循环的理解" data-url="http://lwd426.com/2015/09/14/nodejsio/">
+              </div>
+            
+          </div>
         
       </div>
 
@@ -380,6 +321,15 @@ $(<span class="function"><span class="keyword">function</span><span class="param
   <aside id="sidebar" class="sidebar">
     <div class="sidebar-inner">
 
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目錄
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            本站概覽
+          </li>
+        </ul>
       
 
       <section class="site-overview">
@@ -427,6 +377,17 @@ $(<span class="function"><span class="keyword">function</span><span class="param
 
       </section>
 
+      
+        <section class="post-toc-wrap sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator"></div>
+          <div class="post-toc">
+            
+            
+              <p class="post-toc-empty">此文章未包含目錄</p>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator"></div>
+        </section>
       
 
     </div>
@@ -512,6 +473,165 @@ $(<span class="function"><span class="keyword">function</span><span class="param
   <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
 
   
+  
+<script type="text/javascript" src="/js/bootstrap.scrollspy.js?v=0.4.5.1" id="bootstrap.scrollspy.custom"></script>
+
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      var $indicator = $(indicator);
+      var opacity = action === 'show' ? 0.4 : 0;
+      $indicator.velocity ?
+        $indicator.velocity('stop').velocity({
+          opacity: opacity
+        }, { duration: 100 }) :
+        $indicator.stop().animate({
+          opacity: opacity
+        }, 100);
+    }
+
+  });
+</script>
+
+<script type="text/javascript" id="sidebar.nav">
+  $(document).ready(function () {
+    var html = $('html');
+    var TAB_ANIMATE_DURATION = 200;
+    var hasVelocity = $.isFunction(html.velocity);
+
+    $('.sidebar-nav li').on('click', function () {
+      var item = $(this);
+      var activeTabClassName = 'sidebar-nav-active';
+      var activePanelClassName = 'sidebar-panel-active';
+      if (item.hasClass(activeTabClassName)) {
+        return;
+      }
+
+      var currentTarget = $('.' + activePanelClassName);
+      var target = $('.' + item.data('target'));
+
+      hasVelocity ?
+        currentTarget.velocity('transition.slideUpOut', TAB_ANIMATE_DURATION, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', TAB_ANIMATE_DURATION)
+            .addClass(activePanelClassName);
+        }) :
+        currentTarget.animate({ opacity: 0 }, TAB_ANIMATE_DURATION, function () {
+          currentTarget.hide();
+          target
+            .stop()
+            .css({'opacity': 0, 'display': 'block'})
+            .animate({ opacity: 1 }, TAB_ANIMATE_DURATION, function () {
+              currentTarget.removeClass(activePanelClassName);
+              target.addClass(activePanelClassName);
+            });
+        });
+
+      item.siblings().removeClass(activeTabClassName);
+      item.addClass(activeTabClassName);
+    });
+
+    $('.post-toc a').on('click', function (e) {
+      e.preventDefault();
+      var targetSelector = escapeSelector(this.getAttribute('href'));
+      var offset = $(targetSelector).offset().top;
+      hasVelocity ?
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        }) :
+        $('html, body').stop().animate({
+          scrollTop: offset
+        }, 500);
+    });
+
+    // Expand sidebar on post detail page by default, when post has a toc.
+    var $tocContent = $('.post-toc-content');
+    if (isDesktop() && CONFIG.sidebar === 'post') {
+      if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+        displaySidebar();
+      }
+    }
+  });
+</script>
+
+
 
   <script type="text/javascript">
     $(document).ready(function () {
@@ -528,6 +648,10 @@ $(<span class="function"><span class="keyword">function</span><span class="param
 
   
   
+
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"slide":{"type":"slide","bdImg":"3","bdPos":"left","bdTop":"250"}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+
 
   
   <script type="text/javascript" src="/js/lazyload.js"></script>
