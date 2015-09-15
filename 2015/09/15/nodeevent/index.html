@@ -40,22 +40,22 @@
   <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.1" />
 
 
-<meta name="description" content="觉得Node的书里，貌似只有铺平来时的《深入浅出NodeJS》一直在讲比较深刻的东西，章节顺序安排的也比较合理（毕竟是从博客转过来的，从另一个角度也放映了老师当年的研究路线），之前也是关注他的博客，所以我的学习路线基本是按照这本书来的。
+<meta name="description" content="觉得Node的书里，貌似只有朴灵的《深入浅出NodeJS》一直在讲比较深刻的东西，章节顺序安排的也比较合理（毕竟是从博客转过来的，从另一个角度也放映了老师当年的研究路线），之前也是关注他的博客，所以我的学习路线基本是按照这本书来的。
 
-今天了解了下Node的异步编程。因为NodeJS的单线程、非阻塞（外）、异步执行（内）和事件驱动的特点，最终决定了他的编程方式很大程度采用了事件发布/订阅模式，">
+今天了解了下Node的异步编程。因为NodeJS的单线程、非阻塞（外）、异步执行（内）和事件驱动的特点，最终决定了他的编程方式很大程度采用了事件发布/订阅模式，可以">
 <meta property="og:type" content="article">
 <meta property="og:title" content="自己对node事件驱动的理解">
 <meta property="og:url" content="http://lwd426.com/2015/09/15/nodeevent/index.html">
 <meta property="og:site_name" content="大盗贼的后院">
-<meta property="og:description" content="觉得Node的书里，貌似只有铺平来时的《深入浅出NodeJS》一直在讲比较深刻的东西，章节顺序安排的也比较合理（毕竟是从博客转过来的，从另一个角度也放映了老师当年的研究路线），之前也是关注他的博客，所以我的学习路线基本是按照这本书来的。
+<meta property="og:description" content="觉得Node的书里，貌似只有朴灵的《深入浅出NodeJS》一直在讲比较深刻的东西，章节顺序安排的也比较合理（毕竟是从博客转过来的，从另一个角度也放映了老师当年的研究路线），之前也是关注他的博客，所以我的学习路线基本是按照这本书来的。
 
-今天了解了下Node的异步编程。因为NodeJS的单线程、非阻塞（外）、异步执行（内）和事件驱动的特点，最终决定了他的编程方式很大程度采用了事件发布/订阅模式，">
-<meta property="og:updated_time" content="2015-09-15T01:35:16.000Z">
+今天了解了下Node的异步编程。因为NodeJS的单线程、非阻塞（外）、异步执行（内）和事件驱动的特点，最终决定了他的编程方式很大程度采用了事件发布/订阅模式，可以">
+<meta property="og:updated_time" content="2015-09-15T01:38:36.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="自己对node事件驱动的理解">
-<meta name="twitter:description" content="觉得Node的书里，貌似只有铺平来时的《深入浅出NodeJS》一直在讲比较深刻的东西，章节顺序安排的也比较合理（毕竟是从博客转过来的，从另一个角度也放映了老师当年的研究路线），之前也是关注他的博客，所以我的学习路线基本是按照这本书来的。
+<meta name="twitter:description" content="觉得Node的书里，貌似只有朴灵的《深入浅出NodeJS》一直在讲比较深刻的东西，章节顺序安排的也比较合理（毕竟是从博客转过来的，从另一个角度也放映了老师当年的研究路线），之前也是关注他的博客，所以我的学习路线基本是按照这本书来的。
 
-今天了解了下Node的异步编程。因为NodeJS的单线程、非阻塞（外）、异步执行（内）和事件驱动的特点，最终决定了他的编程方式很大程度采用了事件发布/订阅模式，">
+今天了解了下Node的异步编程。因为NodeJS的单线程、非阻塞（外）、异步执行（内）和事件驱动的特点，最终决定了他的编程方式很大程度采用了事件发布/订阅模式，可以">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -191,7 +191,7 @@ var _hmt = _hmt || [];
       <div class="post-meta">
         <span class="post-time">
           发表于
-          <time itemprop="dateCreated" datetime="2014-09-15T09:35:16+08:00" content="2014-09-15">
+          <time itemprop="dateCreated" datetime="2014-09-15T09:38:36+08:00" content="2014-09-15">
             2014-09-15
           </time>
         </span>
@@ -218,7 +218,7 @@ var _hmt = _hmt || [];
 
       
         <span itemprop="articleBody"><blockquote>
-<p>觉得Node的书里，貌似只有铺平来时的《深入浅出NodeJS》一直在讲比较深刻的东西，章节顺序安排的也比较合理（毕竟是从博客转过来的，从另一个角度也放映了老师当年的研究路线），之前也是关注他的博客，所以我的学习路线基本是按照这本书来的。</p>
+<p>觉得Node的书里，貌似只有朴灵的《深入浅出NodeJS》一直在讲比较深刻的东西，章节顺序安排的也比较合理（毕竟是从博客转过来的，从另一个角度也放映了老师当年的研究路线），之前也是关注他的博客，所以我的学习路线基本是按照这本书来的。</p>
 </blockquote>
 <p>今天了解了下Node的异步编程。因为NodeJS的单线程、非阻塞（外）、异步执行（内）和事件驱动的特点，最终决定了他的编程方式很大程度采用了事件发布/订阅模式，可以说就是基于事件发布/订阅模式，node才大放光彩。以下是对这个模式的描述：</p>
 <ol>
