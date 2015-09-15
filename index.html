@@ -188,7 +188,7 @@ var _hmt = _hmt || [];
       <div class="post-meta">
         <span class="post-time">
           发表于
-          <time itemprop="dateCreated" datetime="2014-09-15T09:38:36+08:00" content="2014-09-15">
+          <time itemprop="dateCreated" datetime="2014-09-15T10:02:55+08:00" content="2014-09-15">
             2014-09-15
           </time>
         </span>
@@ -227,7 +227,7 @@ var _hmt = _hmt || [];
 <li>node为了健壮性，EventEmitter对象会在运行时出错时，先看用户是否对<code>error</code>事件设置了监听器，如果有，则执行，如果没有则抛出异常，如果程序员也没有处理该error,则node线程就退出了。</li>
 <li>node设定最多对一个时间设置<code>10个监听器</code>，要是多了，会报错，可以通过setMaxListeners(0)移除限制。</li>
 </ol>
-<p>更高级的Promise/Deffered以及各种库（bluebird、Q等）也都是以它为基础(在定义Promise的时候首先继承EventEmitter对象)，无非就是<code>设置成功状态的监听和失败状态的监听</code>，然后<code>在resolve()的时候触发成功事件的监听</code>，<code>reject()的时候触发失败状态的监听事件</code>。所以“事件是头等重要的”“一切以事件先行”</p>
+<p>更高级的Promise/Deffered以及各种库（bluebird、Q等）也都是以它为基础(在定义Promise的时候首先继承EventEmitter对象)，无非就是<code>设置成功状态的监听和失败状态的监听</code>，然后<code>在resolve()的时候触发成功事件的监听</code>，<code>reject()的时候触发失败状态的监听事件</code>。事件是node能够完成异步的很重要的一环。所以“事件是头等重要的”“一切以事件先行”。膜拜。</p>
 </span>
         
       
