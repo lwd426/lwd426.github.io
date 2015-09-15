@@ -40,25 +40,22 @@
   <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.1" />
 
 
-<meta name="description" content="自己对node事件驱动的理解
-觉得Node的书里，貌似只有铺平来时的《深入浅出NodeJS》一直在讲比较深刻的东西，章节顺序安排的也比较合理（毕竟是从博客转过来的，从另一个角度也放映了老师当年的研究路线），之前也是关注他的博客，所以我的学习路线基本是按照这本书来的。
+<meta name="description" content="觉得Node的书里，貌似只有铺平来时的《深入浅出NodeJS》一直在讲比较深刻的东西，章节顺序安排的也比较合理（毕竟是从博客转过来的，从另一个角度也放映了老师当年的研究路线），之前也是关注他的博客，所以我的学习路线基本是按照这本书来的。
 
-今天了解了下Node的异步编程。因为NodeJS的单线程、非阻塞（外）、异步执行（内）和事件驱动的特点，最终决定了他的编程方式很大">
+今天了解了下Node的异步编程。因为NodeJS的单线程、非阻塞（外）、异步执行（内）和事件驱动的特点，最终决定了他的编程方式很大程度采用了事件发布/订阅模式，">
 <meta property="og:type" content="article">
-<meta property="og:title" content="大盗贼的后院">
+<meta property="og:title" content="自己对node事件驱动的理解">
 <meta property="og:url" content="http://lwd426.com/2015/09/15/nodeevent/index.html">
 <meta property="og:site_name" content="大盗贼的后院">
-<meta property="og:description" content="自己对node事件驱动的理解
-觉得Node的书里，貌似只有铺平来时的《深入浅出NodeJS》一直在讲比较深刻的东西，章节顺序安排的也比较合理（毕竟是从博客转过来的，从另一个角度也放映了老师当年的研究路线），之前也是关注他的博客，所以我的学习路线基本是按照这本书来的。
+<meta property="og:description" content="觉得Node的书里，貌似只有铺平来时的《深入浅出NodeJS》一直在讲比较深刻的东西，章节顺序安排的也比较合理（毕竟是从博客转过来的，从另一个角度也放映了老师当年的研究路线），之前也是关注他的博客，所以我的学习路线基本是按照这本书来的。
 
-今天了解了下Node的异步编程。因为NodeJS的单线程、非阻塞（外）、异步执行（内）和事件驱动的特点，最终决定了他的编程方式很大">
-<meta property="og:updated_time" content="2015-09-15T01:29:08.000Z">
+今天了解了下Node的异步编程。因为NodeJS的单线程、非阻塞（外）、异步执行（内）和事件驱动的特点，最终决定了他的编程方式很大程度采用了事件发布/订阅模式，">
+<meta property="og:updated_time" content="2015-09-15T01:35:16.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="大盗贼的后院">
-<meta name="twitter:description" content="自己对node事件驱动的理解
-觉得Node的书里，貌似只有铺平来时的《深入浅出NodeJS》一直在讲比较深刻的东西，章节顺序安排的也比较合理（毕竟是从博客转过来的，从另一个角度也放映了老师当年的研究路线），之前也是关注他的博客，所以我的学习路线基本是按照这本书来的。
+<meta name="twitter:title" content="自己对node事件驱动的理解">
+<meta name="twitter:description" content="觉得Node的书里，貌似只有铺平来时的《深入浅出NodeJS》一直在讲比较深刻的东西，章节顺序安排的也比较合理（毕竟是从博客转过来的，从另一个角度也放映了老师当年的研究路线），之前也是关注他的博客，所以我的学习路线基本是按照这本书来的。
 
-今天了解了下Node的异步编程。因为NodeJS的单线程、非阻塞（外）、异步执行（内）和事件驱动的特点，最终决定了他的编程方式很大">
+今天了解了下Node的异步编程。因为NodeJS的单线程、非阻塞（外）、异步执行（内）和事件驱动的特点，最终决定了他的编程方式很大程度采用了事件发布/订阅模式，">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -75,7 +72,7 @@ var _hmt = _hmt || [];
 })();
 </script>
 
-  <title>  | 大盗贼的后院 </title>
+  <title> 自己对node事件驱动的理解 | 大盗贼的后院 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -185,7 +182,7 @@ var _hmt = _hmt || [];
           
           
             
-              
+              自己对node事件驱动的理解
             
           
         </h1>
@@ -194,7 +191,7 @@ var _hmt = _hmt || [];
       <div class="post-meta">
         <span class="post-time">
           发表于
-          <time itemprop="dateCreated" datetime="2014-09-15T09:29:16+08:00" content="2014-09-15">
+          <time itemprop="dateCreated" datetime="2014-09-15T09:35:16+08:00" content="2014-09-15">
             2014-09-15
           </time>
         </span>
@@ -220,7 +217,7 @@ var _hmt = _hmt || [];
       
 
       
-        <span itemprop="articleBody"><h2 id="自己对node事件驱动的理解">自己对node事件驱动的理解</h2><blockquote>
+        <span itemprop="articleBody"><blockquote>
 <p>觉得Node的书里，貌似只有铺平来时的《深入浅出NodeJS》一直在讲比较深刻的东西，章节顺序安排的也比较合理（毕竟是从博客转过来的，从另一个角度也放映了老师当年的研究路线），之前也是关注他的博客，所以我的学习路线基本是按照这本书来的。</p>
 </blockquote>
 <p>今天了解了下Node的异步编程。因为NodeJS的单线程、非阻塞（外）、异步执行（内）和事件驱动的特点，最终决定了他的编程方式很大程度采用了事件发布/订阅模式，可以说就是基于事件发布/订阅模式，node才大放光彩。以下是对这个模式的描述：</p>
@@ -264,7 +261,7 @@ var _hmt = _hmt || [];
     <div class="post-spread">
       
         <div class="ds-share flat" data-thread-key="2015/09/15/nodeevent/"
-     data-title=""
+     data-title="自己对node事件驱动的理解"
      data-content=""
      data-url="http://lwd426.com/2015/09/15/nodeevent/">
   <div class="ds-share-inline">
@@ -293,7 +290,7 @@ var _hmt = _hmt || [];
           <div class="comments" id="comments">
             
               <div class="ds-thread" data-thread-key="2015/09/15/nodeevent/"
-                   data-title="" data-url="http://lwd426.com/2015/09/15/nodeevent/">
+                   data-title="自己对node事件驱动的理解" data-url="http://lwd426.com/2015/09/15/nodeevent/">
               </div>
             
           </div>
@@ -375,7 +372,7 @@ var _hmt = _hmt || [];
           <div class="post-toc">
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#自己对node事件驱动的理解"><span class="nav-number">1.</span> <span class="nav-text">自己对node事件驱动的理解</span></a></li></ol></div>
+              <p class="post-toc-empty">此文章未包含目录</p>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>
@@ -640,6 +637,10 @@ var _hmt = _hmt || [];
 
   
   
+
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"slide":{"type":"slide","bdImg":"3","bdPos":"left","bdTop":"250"}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+
 
   
   <script type="text/javascript" src="/js/lazyload.js"></script>
