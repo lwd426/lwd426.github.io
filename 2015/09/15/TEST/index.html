@@ -40,24 +40,16 @@
   <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.1" />
 
 
-<meta name="description" content="最近在了解javascript的异步IO和事件循环机制。最近有幸浏览了阮一峰老师的JavaScript 运行机制详解：再谈Event Loop，感觉阮老师把一直困扰我的这个问题弄明白了，所以非常感谢阮老师。以下是我自己对javascript异步io和事件循环的一些理解和笔记。
-
-相信我们在一开始接触javascript的时候都被各种贴子填鸭般的教导说“javascript是单线程的”。这没有错，j">
+<meta name="description" content="前端杂文">
 <meta property="og:type" content="article">
-<meta property="og:title" content="自己对javascript异步IO和事件循环的理解">
-<meta property="og:url" content="http://lwd426.com/2015/09/15/javascript-eventloop/index.html">
+<meta property="og:title" content="TEST">
+<meta property="og:url" content="http://lwd426.com/2015/09/15/TEST/index.html">
 <meta property="og:site_name" content="大盗贼的后院">
-<meta property="og:description" content="最近在了解javascript的异步IO和事件循环机制。最近有幸浏览了阮一峰老师的JavaScript 运行机制详解：再谈Event Loop，感觉阮老师把一直困扰我的这个问题弄明白了，所以非常感谢阮老师。以下是我自己对javascript异步io和事件循环的一些理解和笔记。
-
-相信我们在一开始接触javascript的时候都被各种贴子填鸭般的教导说“javascript是单线程的”。这没有错，j">
-<meta property="og:image" content="http://lwd426.com/images/javascript-eventloop1.png">
-<meta property="og:image" content="http://lwd426.com/images/javascript-eventloop2.png">
-<meta property="og:updated_time" content="2015-09-15T02:05:54.000Z">
+<meta property="og:description" content="前端杂文">
+<meta property="og:updated_time" content="2015-09-15T02:15:49.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="自己对javascript异步IO和事件循环的理解">
-<meta name="twitter:description" content="最近在了解javascript的异步IO和事件循环机制。最近有幸浏览了阮一峰老师的JavaScript 运行机制详解：再谈Event Loop，感觉阮老师把一直困扰我的这个问题弄明白了，所以非常感谢阮老师。以下是我自己对javascript异步io和事件循环的一些理解和笔记。
-
-相信我们在一开始接触javascript的时候都被各种贴子填鸭般的教导说“javascript是单线程的”。这没有错，j">
+<meta name="twitter:title" content="TEST">
+<meta name="twitter:description" content="前端杂文">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -74,7 +66,7 @@ var _hmt = _hmt || [];
 })();
 </script>
 
-  <title> 自己对javascript异步IO和事件循环的理解 | 大盗贼的后院 </title>
+  <title> TEST | 大盗贼的后院 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -184,7 +176,7 @@ var _hmt = _hmt || [];
           
           
             
-              自己对javascript异步IO和事件循环的理解
+              TEST
             
           
         </h1>
@@ -193,7 +185,7 @@ var _hmt = _hmt || [];
       <div class="post-meta">
         <span class="post-time">
           发表于
-          <time itemprop="dateCreated" datetime="2014-09-15T10:05:54+08:00" content="2014-09-15">
+          <time itemprop="dateCreated" datetime="2014-09-15T10:15:49+08:00" content="2014-09-15">
             2014-09-15
           </time>
         </span>
@@ -204,8 +196,8 @@ var _hmt = _hmt || [];
           
             <span class="post-comments-count">
               &nbsp; | &nbsp;
-              <a href="/2015/09/15/javascript-eventloop/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2015/09/15/javascript-eventloop/" itemprop="commentsCount"></span>
+              <a href="/2015/09/15/TEST/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2015/09/15/TEST/" itemprop="commentsCount"></span>
               </a>
             </span>
           
@@ -219,50 +211,7 @@ var _hmt = _hmt || [];
       
 
       
-        <span itemprop="articleBody"><blockquote>
-<p>最近在了解javascript的异步IO和事件循环机制。最近有幸浏览了阮一峰老师的<a href="http://www.ruanyifeng.com/blog/2014/10/event-loop.html" target="_blank" rel="external">JavaScript 运行机制详解：再谈Event Loop</a>，感觉阮老师把一直困扰我的这个问题弄明白了，所以非常感谢阮老师。以下是我自己对javascript异步io和事件循环的一些理解和笔记。</p>
-</blockquote>
-<p>相信我们在一开始接触javascript的时候都被各种贴子填鸭般的教导说“javascript是单线程的”。这没有错，javascript也只能是单线程，因为当初javascript被设计出来主要是为了操作DOM，设计成单线程，也就巧妙的避开了很多状态同步问题。有关状态的最近很火的一个库，大家可以看下<code>react</code>是怎么操作状态的，很巧妙。额，扯得有点远了，那么单线程的javascript是怎么做到<code>异步IO和并发</code>的呢？这多亏了<code>javascript的事件循环机制</code>。<br><a id="more"></a><br>以下用代码的方式大概的说明下：</p>
-<pre><code>&lt;html&gt;
-&lt;head&gt;
-&lt;javascript src=<span class="string">"jquery.1.7.0.min.js"</span>&gt;&lt;/javascript&gt;
-&lt;javascript&gt;
- <span class="comment">//1.ajax异步任务</span>
-<span class="function"><span class="keyword">function</span> <span class="title">getUserList</span><span class="params">()</span></span>{
-    $.<span class="keyword">get</span>(<span class="string">"/getusersinfo"</span>,{},<span class="function"><span class="keyword">function</span><span class="params">(error,response)</span></span>{
-        ......
-    });
-}
-
-$(<span class="function"><span class="keyword">function</span><span class="params">()</span></span>{
-    <span class="comment">//2.定时任务</span>
-     setTimout(test(),<span class="number">200</span>); 
-     <span class="function"><span class="keyword">function</span> <span class="title">test</span><span class="params">()</span> </span>{ 
-         alert(<span class="number">1</span>); 
-     } 
-     <span class="comment">//3.DOM注册click事件        </span>
-     $(<span class="string">"#submit"</span>).click(<span class="function"><span class="keyword">function</span><span class="params">()</span></span>{
-        getUserList();
-    });
-});
-&lt;/javascript&gt;
-&lt;/head&gt;
-&lt;body&gt;
-     &lt;button id=<span class="string">"submit"</span>&gt;&lt;/button&gt;
-&lt;/body&gt;
-&lt;/html&gt; 
-</code></pre><p>下面这张图是我对事件循环的了解。<br><img src="/images/javascript-eventloop1.png" alt=""></p>
-<ol>
-<li>所有任务都在主线程上执行，形成一个<code>执行栈</code>。换句话说，我们写的所有js代码（函数声明、变量声明/赋值、注册监听等）都是一个个的代码块，跑在主线程上。</li>
-<li>除了主线程，还有一个<code>任务队列</code>。系统通过调用各种接口完成了注册监听（给DOM元素，比如onclick、onload）、注册事件、调用ajax、设置定时任务、操作IO等）<code>把这些异步任务放到任务队列，执行栈继续向下执行后面的任务</code>。</li>
-<li>在主线程执行栈和任务队列中间有一个很牛的东西叫“<code>事件循环</code>”。</li>
-<li>一旦”执行栈”中的所有任务执行完毕，事件循环就会读取”任务队列”。如果这个时候，异步任务已经<code>结束了等待状态</code>，就会从”任务队列”<code>进入执行栈，恢复执行</code>。</li>
-<li>主线程不断重复上面的第三步。</li>
-</ol>
-<p>以上是我个人的一个理解，是给各个小白看的。对这个过程描述的而更为透彻是下图（转引自Philip Roberts的演讲《Help, I’m stuck in an event-loop》）</p>
-<p><img src="/images/javascript-eventloop2.png" alt=""></p>
-<p>上图中，主线程运行的时候，产生堆（heap）和栈（stack），栈中的代码调用各种外部API，它们在”任务队列”中加入各种事件（click，load，done）。只要栈中的代码执行完毕，主线程就会去读取”任务队列”，依次执行那些事件所对应的回调函数。<br>这是我对javascript的异步IO和事件循环的理解。接下来我还会了解下nodeJS的异步IO机制。</p>
-</span>
+        <span itemprop="articleBody"></span>
       
     </div>
 
@@ -273,11 +222,11 @@ $(<span class="function"><span class="keyword">function</span><span class="param
         <div class="post-nav">
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2015/09/15/nodejsio/" rel="prev">自己对nodeJS的异步I/O模型的理解</a>
-            
           </div>
 
           <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/09/15/nodeevent/" rel="next">自己对node事件驱动的理解</a>
             
           </div>
         </div>
@@ -292,10 +241,10 @@ $(<span class="function"><span class="keyword">function</span><span class="param
 
     <div class="post-spread">
       
-        <div class="ds-share flat" data-thread-key="2015/09/15/javascript-eventloop/"
-     data-title="自己对javascript异步IO和事件循环的理解"
+        <div class="ds-share flat" data-thread-key="2015/09/15/TEST/"
+     data-title="TEST"
      data-content=""
-     data-url="http://lwd426.com/2015/09/15/javascript-eventloop/">
+     data-url="http://lwd426.com/2015/09/15/TEST/">
   <div class="ds-share-inline">
     <ul  class="ds-share-icons-16">
 
@@ -321,8 +270,8 @@ $(<span class="function"><span class="keyword">function</span><span class="param
         
           <div class="comments" id="comments">
             
-              <div class="ds-thread" data-thread-key="2015/09/15/javascript-eventloop/"
-                   data-title="自己对javascript异步IO和事件循环的理解" data-url="http://lwd426.com/2015/09/15/javascript-eventloop/">
+              <div class="ds-thread" data-thread-key="2015/09/15/TEST/"
+                   data-title="TEST" data-url="http://lwd426.com/2015/09/15/TEST/">
               </div>
             
           </div>
@@ -362,7 +311,7 @@ $(<span class="function"><span class="keyword">function</span><span class="param
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">3</span>
+              <span class="site-state-item-count">4</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
