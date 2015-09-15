@@ -31,7 +31,7 @@
 
 
 
-  <meta name="keywords" content="Hexo,next" />
+  <meta name="keywords" content="nodejs 异步," />
 
 
 
@@ -45,12 +45,12 @@
 今天了解了下Node的异步编程。因为NodeJS的单线程、非阻塞（外）、异步执行（内）和事件驱动的特点，最终决定了他的编程方式很大程度采用了事件发布/订阅模式，可以">
 <meta property="og:type" content="article">
 <meta property="og:title" content="自己对node事件驱动的理解">
-<meta property="og:url" content="http://lwd426.com/2015/09/15/nodeevent/index.html">
+<meta property="og:url" content="http://lwd426.com/2015/09/01/nodeevent/index.html">
 <meta property="og:site_name" content="大盗贼的后院">
 <meta property="og:description" content="觉得Node的书里，貌似只有朴灵的《深入浅出NodeJS》一直在讲比较深刻的东西，章节顺序安排的也比较合理（毕竟是从博客转过来的，从另一个角度也放映了老师当年的研究路线），之前也是关注他的博客，所以我的学习路线基本是按照这本书来的。
 
 今天了解了下Node的异步编程。因为NodeJS的单线程、非阻塞（外）、异步执行（内）和事件驱动的特点，最终决定了他的编程方式很大程度采用了事件发布/订阅模式，可以">
-<meta property="og:updated_time" content="2015-09-15T02:06:22.000Z">
+<meta property="og:updated_time" content="2015-09-15T06:17:32.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="自己对node事件驱动的理解">
 <meta name="twitter:description" content="觉得Node的书里，貌似只有朴灵的《深入浅出NodeJS》一直在讲比较深刻的东西，章节顺序安排的也比较合理（毕竟是从博客转过来的，从另一个角度也放映了老师当年的研究路线），之前也是关注他的博客，所以我的学习路线基本是按照这本书来的。
@@ -191,8 +191,8 @@ var _hmt = _hmt || [];
       <div class="post-meta">
         <span class="post-time">
           发表于
-          <time itemprop="dateCreated" datetime="2014-09-15T10:06:22+08:00" content="2014-09-15">
-            2014-09-15
+          <time itemprop="dateCreated" datetime="2014-09-01T09:15:49+08:00" content="2014-09-01">
+            2014-09-01
           </time>
         </span>
 
@@ -202,8 +202,8 @@ var _hmt = _hmt || [];
           
             <span class="post-comments-count">
               &nbsp; | &nbsp;
-              <a href="/2015/09/15/nodeevent/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2015/09/15/nodeevent/" itemprop="commentsCount"></span>
+              <a href="/2015/09/01/nodeevent/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2015/09/01/nodeevent/" itemprop="commentsCount"></span>
               </a>
             </span>
           
@@ -236,16 +236,22 @@ var _hmt = _hmt || [];
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/nodejs-异步/" rel="tag">#nodejs 异步</a>
+          
+        </div>
+      
 
       
         <div class="post-nav">
           <div class="post-nav-prev post-nav-item">
             
+              <a href="/2015/09/10/nodeasync/" rel="prev">自己对node异步编程方案的理解</a>
+            
           </div>
 
           <div class="post-nav-next post-nav-item">
-            
-              <a href="/2015/09/14/nodejsio/" rel="next">自己对nodeJS的异步I/O模型的理解</a>
             
           </div>
         </div>
@@ -260,10 +266,10 @@ var _hmt = _hmt || [];
 
     <div class="post-spread">
       
-        <div class="ds-share flat" data-thread-key="2015/09/15/nodeevent/"
+        <div class="ds-share flat" data-thread-key="2015/09/01/nodeevent/"
      data-title="自己对node事件驱动的理解"
      data-content=""
-     data-url="http://lwd426.com/2015/09/15/nodeevent/">
+     data-url="http://lwd426.com/2015/09/01/nodeevent/">
   <div class="ds-share-inline">
     <ul  class="ds-share-icons-16">
 
@@ -289,8 +295,8 @@ var _hmt = _hmt || [];
         
           <div class="comments" id="comments">
             
-              <div class="ds-thread" data-thread-key="2015/09/15/nodeevent/"
-                   data-title="自己对node事件驱动的理解" data-url="http://lwd426.com/2015/09/15/nodeevent/">
+              <div class="ds-thread" data-thread-key="2015/09/01/nodeevent/"
+                   data-title="自己对node事件驱动的理解" data-url="http://lwd426.com/2015/09/01/nodeevent/">
               </div>
             
           </div>
@@ -330,7 +336,7 @@ var _hmt = _hmt || [];
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">3</span>
+              <span class="site-state-item-count">4</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -344,7 +350,7 @@ var _hmt = _hmt || [];
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">0</span>
+              <span class="site-state-item-count">2</span>
               <span class="site-state-item-name">标签</span>
               </a>
           </div>
