@@ -40,40 +40,24 @@
   <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.1" />
 
 
-<meta name="description" content="终于把node的异步IO给搞的稍微明白些了，之前看朴灵老师的《深入浅出NodeJS》还有些吃力，最近终于可以下定决心把它搞明白。以下是我参阅朴灵老师的《深入浅出NodeJS》后，自己对node异步io的理解，画了一张图，记录一下。
+<meta name="description" content="最近在了解javascript的异步IO和事件循环机制。最近有幸浏览了阮一峰老师的JavaScript 运行机制详解：再谈Event Loop，感觉阮老师把一直困扰我的这个问题弄明白了，所以非常感谢阮老师。以下是我自己对javascript异步io和事件循环的一些理解和笔记。
 
-这张是朴灵老师在他的Infoq中画的一张图：
-
-####事件循环和异步调用
-朴灵老师对事件循环的描述如下：
-
-在调用uv_fs_open方法的过程中实际上应用到了事件">
+相信我们在一开始接触javascript的时候都被各种贴子填鸭般的教导说“javascript是单线程的”。这没有错，j">
 <meta property="og:type" content="article">
-<meta property="og:title" content="自己对nodeJS的异步I/O模型的理解">
-<meta property="og:url" content="http://lwd426.com/2015/09/14/nodejsio/index.html">
+<meta property="og:title" content="自己对javascript异步IO和事件循环的理解">
+<meta property="og:url" content="http://lwd426.com/2015/09/15/javascript-eventloop/index.html">
 <meta property="og:site_name" content="大盗贼的后院">
-<meta property="og:description" content="终于把node的异步IO给搞的稍微明白些了，之前看朴灵老师的《深入浅出NodeJS》还有些吃力，最近终于可以下定决心把它搞明白。以下是我参阅朴灵老师的《深入浅出NodeJS》后，自己对node异步io的理解，画了一张图，记录一下。
+<meta property="og:description" content="最近在了解javascript的异步IO和事件循环机制。最近有幸浏览了阮一峰老师的JavaScript 运行机制详解：再谈Event Loop，感觉阮老师把一直困扰我的这个问题弄明白了，所以非常感谢阮老师。以下是我自己对javascript异步io和事件循环的一些理解和笔记。
 
-这张是朴灵老师在他的Infoq中画的一张图：
-
-####事件循环和异步调用
-朴灵老师对事件循环的描述如下：
-
-在调用uv_fs_open方法的过程中实际上应用到了事件">
-<meta property="og:image" content="http://lwd426.com/images/nodeio2.png">
-<meta property="og:image" content="http://lwd426.com/images/nodeio3.png">
-<meta property="og:image" content="http://lwd426.com/images/nodeio.png">
-<meta property="og:updated_time" content="2015-09-14T13:47:09.000Z">
+相信我们在一开始接触javascript的时候都被各种贴子填鸭般的教导说“javascript是单线程的”。这没有错，j">
+<meta property="og:image" content="http://lwd426.com/images/javascript-eventloop1.png">
+<meta property="og:image" content="http://lwd426.com/images/javascript-eventloop2.png">
+<meta property="og:updated_time" content="2015-09-15T02:05:52.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="自己对nodeJS的异步I/O模型的理解">
-<meta name="twitter:description" content="终于把node的异步IO给搞的稍微明白些了，之前看朴灵老师的《深入浅出NodeJS》还有些吃力，最近终于可以下定决心把它搞明白。以下是我参阅朴灵老师的《深入浅出NodeJS》后，自己对node异步io的理解，画了一张图，记录一下。
+<meta name="twitter:title" content="自己对javascript异步IO和事件循环的理解">
+<meta name="twitter:description" content="最近在了解javascript的异步IO和事件循环机制。最近有幸浏览了阮一峰老师的JavaScript 运行机制详解：再谈Event Loop，感觉阮老师把一直困扰我的这个问题弄明白了，所以非常感谢阮老师。以下是我自己对javascript异步io和事件循环的一些理解和笔记。
 
-这张是朴灵老师在他的Infoq中画的一张图：
-
-####事件循环和异步调用
-朴灵老师对事件循环的描述如下：
-
-在调用uv_fs_open方法的过程中实际上应用到了事件">
+相信我们在一开始接触javascript的时候都被各种贴子填鸭般的教导说“javascript是单线程的”。这没有错，j">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -90,7 +74,7 @@ var _hmt = _hmt || [];
 })();
 </script>
 
-  <title> 自己对nodeJS的异步I/O模型的理解 | 大盗贼的后院 </title>
+  <title> 自己对javascript异步IO和事件循环的理解 | 大盗贼的后院 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -200,7 +184,7 @@ var _hmt = _hmt || [];
           
           
             
-              自己对nodeJS的异步I/O模型的理解
+              自己对javascript异步IO和事件循环的理解
             
           
         </h1>
@@ -209,8 +193,8 @@ var _hmt = _hmt || [];
       <div class="post-meta">
         <span class="post-time">
           发表于
-          <time itemprop="dateCreated" datetime="2014-09-14T21:47:09+08:00" content="2014-09-14">
-            2014-09-14
+          <time itemprop="dateCreated" datetime="2014-09-15T10:05:52+08:00" content="2014-09-15">
+            2014-09-15
           </time>
         </span>
 
@@ -220,8 +204,8 @@ var _hmt = _hmt || [];
           
             <span class="post-comments-count">
               &nbsp; | &nbsp;
-              <a href="/2015/09/14/nodejsio/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2015/09/14/nodejsio/" itemprop="commentsCount"></span>
+              <a href="/2015/09/15/javascript-eventloop/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2015/09/15/javascript-eventloop/" itemprop="commentsCount"></span>
               </a>
             </span>
           
@@ -236,51 +220,48 @@ var _hmt = _hmt || [];
 
       
         <span itemprop="articleBody"><blockquote>
-<p>终于把node的异步IO给搞的稍微明白些了，之前看朴灵老师的《深入浅出NodeJS》还有些吃力，最近终于可以下定决心把它搞明白。以下是我参阅朴灵老师的《深入浅出NodeJS》后，自己对node异步io的理解，画了一张图，记录一下。</p>
+<p>最近在了解javascript的异步IO和事件循环机制。最近有幸浏览了阮一峰老师的<a href="http://www.ruanyifeng.com/blog/2014/10/event-loop.html" target="_blank" rel="external">JavaScript 运行机制详解：再谈Event Loop</a>，感觉阮老师把一直困扰我的这个问题弄明白了，所以非常感谢阮老师。以下是我自己对javascript异步io和事件循环的一些理解和笔记。</p>
 </blockquote>
-<p>这张是朴灵老师在他的Infoq中画的一张图：</p>
-<p><img src="/images/nodeio2.png" alt=""></p>
-<p>####事件循环和异步调用</p>
-<p>朴灵老师对事件循环的描述如下：</p>
-<blockquote>
-<p>在调用uv_fs_open方法的过程中实际上应用到了事件循环。以在Windows平台下的实现中，启动Node.js时，便创建了一个基于IOCP的事件循环loop，并一直处于执行状态。</p>
-</blockquote>
-<p><code>uv_run(uv_default_loop());</code></p>
-<blockquote>
-<p>每次循环中，它会调用IOCP相关的<em>GetQueuedCompletionStatus</em>方法检查是否线程池中有执行完的请求，如果存在，poll操作会将请求对象加入到loop的pending_reqs_tail属性上。 另一边这个循环也会不断检查loop对象上的pending_reqs_tail引用，如果有可用的请求对象，就取出请求对象的result属性作为结果传递给oncomplete_sym执行，以此达到调用JavaScript中传入的回调函数的目的。 至此，整个异步I/O的流程完成结束。其流程如下：</p>
-</blockquote>
-<p><img src="/images/nodeio3.png" alt="事件循环和异步调用"></p>
-<blockquote>
-<p><code>事件循环</code>和<code>请求对象</code>构成了Node.js的异步I/O模型的两个基本元素，这也是典型的消费者生产者场景。在Windows下通过IOCP的GetQueuedCompletionStatus、PostQueuedCompletionStatus、QueueUserWorkItem方法与事件循环实。对于*nix平台下，这个流程的不同之处在与实现这些功能的方法是由libeio和libev提供。</p>
-</blockquote>
-<p>####以下是我个人的理解：</p>
-<p><img src="/images/nodeio.png" alt="NodeJS异步IO和事件循环图解"></p>
-<p>完成NodeJS的整个异步I/O环节的有事件循环、观察者（队列）、IOCP和请求对象等。</p>
+<p>相信我们在一开始接触javascript的时候都被各种贴子填鸭般的教导说“javascript是单线程的”。这没有错，javascript也只能是单线程，因为当初javascript被设计出来主要是为了操作DOM，设计成单线程，也就巧妙的避开了很多状态同步问题。有关状态的最近很火的一个库，大家可以看下<code>react</code>是怎么操作状态的，很巧妙。额，扯得有点远了，那么单线程的javascript是怎么做到<code>异步IO和并发</code>的呢？这多亏了<code>javascript的事件循环机制</code>。<br><a id="more"></a><br>以下用代码的方式大概的说明下：</p>
+<pre><code>&lt;html&gt;
+&lt;head&gt;
+&lt;javascript src=<span class="string">"jquery.1.7.0.min.js"</span>&gt;&lt;/javascript&gt;
+&lt;javascript&gt;
+ <span class="comment">//1.ajax异步任务</span>
+<span class="function"><span class="keyword">function</span> <span class="title">getUserList</span><span class="params">()</span></span>{
+    $.<span class="keyword">get</span>(<span class="string">"/getusersinfo"</span>,{},<span class="function"><span class="keyword">function</span><span class="params">(error,response)</span></span>{
+        ......
+    });
+}
+
+$(<span class="function"><span class="keyword">function</span><span class="params">()</span></span>{
+    <span class="comment">//2.定时任务</span>
+     setTimout(test(),<span class="number">200</span>); 
+     <span class="function"><span class="keyword">function</span> <span class="title">test</span><span class="params">()</span> </span>{ 
+         alert(<span class="number">1</span>); 
+     } 
+     <span class="comment">//3.DOM注册click事件        </span>
+     $(<span class="string">"#submit"</span>).click(<span class="function"><span class="keyword">function</span><span class="params">()</span></span>{
+        getUserList();
+    });
+});
+&lt;/javascript&gt;
+&lt;/head&gt;
+&lt;body&gt;
+     &lt;button id=<span class="string">"submit"</span>&gt;&lt;/button&gt;
+&lt;/body&gt;
+&lt;/html&gt; 
+</code></pre><p>下面这张图是我对事件循环的了解。<br><img src="/images/javascript-eventloop1.png" alt=""></p>
 <ol>
-<li><code>事件循环</code>：nodejs自身的执行模型–事件循环。它使在node启动时创建的，每执行一次循环体称做Tick.每个Tick的过程就是<code>看观察者队列里是否有事件要处理</code>。</li>
-<li><code>观察者（队列）</code>：在Node中，事件主要来源于网络请求、文件I/O等，所以<code>Node用观察者把事件分类</code>，这些事件对应的观察者有网络请求观察者、文件I/O观察者等，当线程池中的请求对象执行完毕，就会把执行结果req–&gt;result后，调用<code>PostQueueCompletionStatus()</code>通知IOCP该请求对象执行完毕。</li>
-<li><code>IOCP</code>:事件观察者会在每次Tick的过程中，都会<code>调用GetQueueCompletionStatus()询问IOCP线程池中是否有执行完的请求</code>。如果有，则把它加入到对应的<code>观察者队列</code>中，等待被事件循环执行。</li>
-<li><code>请求对象</code>：它可以理解为node从js发起异步调用到内核执行完异步操作的一个<code>中间载体</code>。它在libuv层被组装，组装的时候把各种参数、回调函数、执行状态都封装了进去。当请求对象执行完毕后，会把执行结果封装到他的result中。最终由<code>事件循环调用回调函数（result）</code>.</li>
+<li>所有任务都在主线程上执行，形成一个<code>执行栈</code>。换句话说，我们写的所有js代码（函数声明、变量声明/赋值、注册监听等）都是一个个的代码块，跑在主线程上。</li>
+<li>除了主线程，还有一个<code>任务队列</code>。系统通过调用各种接口完成了注册监听（给DOM元素，比如onclick、onload）、注册事件、调用ajax、设置定时任务、操作IO等）<code>把这些异步任务放到任务队列，执行栈继续向下执行后面的任务</code>。</li>
+<li>在主线程执行栈和任务队列中间有一个很牛的东西叫“<code>事件循环</code>”。</li>
+<li>一旦”执行栈”中的所有任务执行完毕，事件循环就会读取”任务队列”。如果这个时候，异步任务已经<code>结束了等待状态</code>，就会从”任务队列”<code>进入执行栈，恢复执行</code>。</li>
+<li>主线程不断重复上面的第三步。</li>
 </ol>
-<p>异步I/O不仅仅应用在文件操作中，对于网络套接字，node也用到了I/O。以下描述<code>node构建web服务器的原理</code>：</p>
-<ol>
-<li>开始</li>
-<li>监听端口（套接字）</li>
-<li>事件循环会不断的处理这些网络I/O事件：<ul>
-<li>接收到网络请求</li>
-<li>把请求对象发给I/O观察者形成事件</li>
-<li>请求对象进入到事件循环</li>
-<li>执行I/O观察者中事件对象的回调函数</li>
-<li>判断是否有业务层逻辑的回调函数：如果是，则执行回调，如果没有回调，则结束</li>
-</ul>
-</li>
-</ol>
-<p>以上是我在阅读《深入浅出NodeJS》后，查询很多资料后的一些个人理解，其中肯定肯定有理解上的不足，姑且记录下，慢慢理解提升。</p>
-<p>参考：</p>
-<ul>
-<li>《nodejs异步IO的实现》<a href="http://cnodejs.org/blog/?p=244" target="_blank" rel="external">http://cnodejs.org/blog/?p=244</a></li>
-<li>《深入浅出Node.js（五）：初探Node.js的异步I/O实现》<a href="http://www.infoq.com/cn/articles/nodejs-asynchronous-io" target="_blank" rel="external">http://www.infoq.com/cn/articles/nodejs-asynchronous-io</a></li>
-</ul>
+<p>以上是我个人的一个理解，是给各个小白看的。对这个过程描述的而更为透彻是下图（转引自Philip Roberts的演讲《Help, I’m stuck in an event-loop》）</p>
+<p><img src="/images/javascript-eventloop2.png" alt=""></p>
+<p>上图中，主线程运行的时候，产生堆（heap）和栈（stack），栈中的代码调用各种外部API，它们在”任务队列”中加入各种事件（click，load，done）。只要栈中的代码执行完毕，主线程就会去读取”任务队列”，依次执行那些事件所对应的回调函数。<br>这是我对javascript的异步IO和事件循环的理解。接下来我还会了解下nodeJS的异步IO机制。</p>
 </span>
       
     </div>
@@ -292,13 +273,11 @@ var _hmt = _hmt || [];
         <div class="post-nav">
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2015/09/15/nodeevent/" rel="prev">自己对node事件驱动的理解</a>
+              <a href="/2015/09/15/nodejsio/" rel="prev">自己对nodeJS的异步I/O模型的理解</a>
             
           </div>
 
           <div class="post-nav-next post-nav-item">
-            
-              <a href="/2015/09/14/javascript-eventloop/" rel="next">自己对javascript异步IO和事件循环的理解</a>
             
           </div>
         </div>
@@ -313,10 +292,10 @@ var _hmt = _hmt || [];
 
     <div class="post-spread">
       
-        <div class="ds-share flat" data-thread-key="2015/09/14/nodejsio/"
-     data-title="自己对nodeJS的异步I/O模型的理解"
+        <div class="ds-share flat" data-thread-key="2015/09/15/javascript-eventloop/"
+     data-title="自己对javascript异步IO和事件循环的理解"
      data-content=""
-     data-url="http://lwd426.com/2015/09/14/nodejsio/">
+     data-url="http://lwd426.com/2015/09/15/javascript-eventloop/">
   <div class="ds-share-inline">
     <ul  class="ds-share-icons-16">
 
@@ -342,8 +321,8 @@ var _hmt = _hmt || [];
         
           <div class="comments" id="comments">
             
-              <div class="ds-thread" data-thread-key="2015/09/14/nodejsio/"
-                   data-title="自己对nodeJS的异步I/O模型的理解" data-url="http://lwd426.com/2015/09/14/nodejsio/">
+              <div class="ds-thread" data-thread-key="2015/09/15/javascript-eventloop/"
+                   data-title="自己对javascript异步IO和事件循环的理解" data-url="http://lwd426.com/2015/09/15/javascript-eventloop/">
               </div>
             
           </div>
