@@ -31,7 +31,7 @@
 
 
 
-  <meta name="keywords" content="nodejs,事件驱动," />
+  <meta name="keywords" content="异步," />
 
 
 
@@ -40,22 +40,16 @@
   <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.1" />
 
 
-<meta name="description" content="觉得Node的书里，貌似只有朴灵的《深入浅出NodeJS》一直在讲比较深刻的东西，章节顺序安排的也比较合理（毕竟是从博客转过来的，从另一个角度也放映了老师当年的研究路线），之前也是关注他的博客，所以我的学习路线基本是按照这本书来的。
-
-今天了解了下Node的异步编程。因为NodeJS的单线程、非阻塞（外）、异步执行（内）和事件驱动的特点，最终决定了他的编程方式很大程度采用了事件发布/订阅模式，可以">
+<meta name="description" content="因为node是单线程，所以要用异步来提升性能。但编程一牵扯到“异步”两个字，那么什么时候调用回调函数就不是我们自己说了算的了。当我们进行顺序性特别强的多异步任务协作时，一切就会显得“不那么美好”了。所以我们要想办法更好更方便的进行异步编程。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="自己对node事件驱动的理解">
-<meta property="og:url" content="http://lwd426.com/2015/08/21/nodeevent/index.html">
+<meta property="og:title" content="自己对node异步编程方案的理解">
+<meta property="og:url" content="http://lwd426.com/2015/06/10/nodeasync/index.html">
 <meta property="og:site_name" content="大盗贼的后院">
-<meta property="og:description" content="觉得Node的书里，貌似只有朴灵的《深入浅出NodeJS》一直在讲比较深刻的东西，章节顺序安排的也比较合理（毕竟是从博客转过来的，从另一个角度也放映了老师当年的研究路线），之前也是关注他的博客，所以我的学习路线基本是按照这本书来的。
-
-今天了解了下Node的异步编程。因为NodeJS的单线程、非阻塞（外）、异步执行（内）和事件驱动的特点，最终决定了他的编程方式很大程度采用了事件发布/订阅模式，可以">
-<meta property="og:updated_time" content="2015-09-15T06:21:21.000Z">
+<meta property="og:description" content="因为node是单线程，所以要用异步来提升性能。但编程一牵扯到“异步”两个字，那么什么时候调用回调函数就不是我们自己说了算的了。当我们进行顺序性特别强的多异步任务协作时，一切就会显得“不那么美好”了。所以我们要想办法更好更方便的进行异步编程。">
+<meta property="og:updated_time" content="2015-09-16T14:10:00.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="自己对node事件驱动的理解">
-<meta name="twitter:description" content="觉得Node的书里，貌似只有朴灵的《深入浅出NodeJS》一直在讲比较深刻的东西，章节顺序安排的也比较合理（毕竟是从博客转过来的，从另一个角度也放映了老师当年的研究路线），之前也是关注他的博客，所以我的学习路线基本是按照这本书来的。
-
-今天了解了下Node的异步编程。因为NodeJS的单线程、非阻塞（外）、异步执行（内）和事件驱动的特点，最终决定了他的编程方式很大程度采用了事件发布/订阅模式，可以">
+<meta name="twitter:title" content="自己对node异步编程方案的理解">
+<meta name="twitter:description" content="因为node是单线程，所以要用异步来提升性能。但编程一牵扯到“异步”两个字，那么什么时候调用回调函数就不是我们自己说了算的了。当我们进行顺序性特别强的多异步任务协作时，一切就会显得“不那么美好”了。所以我们要想办法更好更方便的进行异步编程。">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -72,7 +66,7 @@ var _hmt = _hmt || [];
 })();
 </script>
 
-  <title> 自己对node事件驱动的理解 | 大盗贼的后院 </title>
+  <title> 自己对node异步编程方案的理解 | 大盗贼的后院 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -182,7 +176,7 @@ var _hmt = _hmt || [];
           
           
             
-              自己对node事件驱动的理解
+              自己对node异步编程方案的理解
             
           
         </h1>
@@ -191,34 +185,19 @@ var _hmt = _hmt || [];
       <div class="post-meta">
         <span class="post-time">
           发表于
-          <time itemprop="dateCreated" datetime="2015-02-21T09:15:49+08:00" content="2015-02-21">
-            2015-02-21
+          <time itemprop="dateCreated" datetime="2015-05-10T09:15:49+08:00" content="2015-05-10">
+            2015-05-10
           </time>
         </span>
 
-        
-          <span class="post-category" >
-            &nbsp; | &nbsp; 分类于
-            
-              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                <a href="/categories/nodeJS/" itemprop="url" rel="index">
-                  <span itemprop="name">nodeJS</span>
-                </a>
-              </span>
-
-              
-              
-
-            
-          </span>
         
 
         
           
             <span class="post-comments-count">
               &nbsp; | &nbsp;
-              <a href="/2015/08/21/nodeevent/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2015/08/21/nodeevent/" itemprop="commentsCount"></span>
+              <a href="/2015/06/10/nodeasync/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2015/06/10/nodeasync/" itemprop="commentsCount"></span>
               </a>
             </span>
           
@@ -232,19 +211,24 @@ var _hmt = _hmt || [];
       
 
       
-        <span itemprop="articleBody"><blockquote>
-<p>觉得Node的书里，貌似只有朴灵的《深入浅出NodeJS》一直在讲比较深刻的东西，章节顺序安排的也比较合理（毕竟是从博客转过来的，从另一个角度也放映了老师当年的研究路线），之前也是关注他的博客，所以我的学习路线基本是按照这本书来的。</p>
-</blockquote>
-<p>今天了解了下Node的异步编程。因为NodeJS的单线程、非阻塞（外）、异步执行（内）和事件驱动的特点，最终决定了他的编程方式很大程度采用了事件发布/订阅模式，可以说就是基于事件发布/订阅模式，node才大放光彩。<br><a id="more"></a><br>以下是对这个模式的描述：</p>
+        <span itemprop="articleBody"><p>因为node是单线程，所以要用异步来提升性能。但编程一牵扯到“异步”两个字，那么什么时候调用回调函数就不是我们自己说了算的了。当我们进行顺序性特别强的多异步任务协作时，一切就会显得“不那么美好”了。所以我们要想办法更好更方便的进行异步编程。</p>
+<a id="more"></a>
+<blockquote>
+<p>朴灵写到：<br>目前，异步编程的主要解决方案有如下3种:</p>
 <ol>
-<li>node中大半的对象都继承了events模块（<code>EventEmitter类</code>）</li>
-<li>由于第1点导致node中的众多模块都有addListener/on()、once()、removeListener()、removeAllListeners()和emit()等基本事件监听模式的方法的实现。但比DOM简单，不存在事件冒泡，也就没有preventDefault()、stopPropagation()和stopImmediatePropagation()等控制事件传递的方法。</li>
-<li>采用事件发布/订阅模式能够<code>解耦业务逻辑</code>、有<code>黑盒</code>的特点</li>
-<li>也是一种<code>钩子机制</code>（利用钩子暴露出内部数据或状态给外部调用），让开发者只需要把注意力放在事件点上即可。比如http模块的error、data、end等业务事件点，其实react的各种生命周期事件也是钩子函数。</li>
-<li>node为了健壮性，EventEmitter对象会在运行时出错时，先看用户是否对<code>error</code>事件设置了监听器，如果有，则执行，如果没有则抛出异常，如果程序员也没有处理该error,则node线程就退出了。</li>
-<li>node设定最多对一个时间设置<code>10个监听器</code>，要是多了，会报错，可以通过setMaxListeners(0)移除限制。</li>
+<li>事件发布/订阅模式</li>
+<li>Promise/Defered模式</li>
+<li>流程控制库</li>
 </ol>
-<p>更高级的Promise/Deffered以及各种库（bluebird、Q等）也都是以它为基础(在定义Promise的时候首先继承EventEmitter对象)，无非就是<code>设置成功状态的监听和失败状态的监听</code>，然后<code>在resolve()的时候触发成功事件的监听</code>，<code>reject()的时候触发失败状态的监听事件</code>。事件是node能够完成异步的很重要的一环。所以“事件是头等重要的”“一切以事件先行”。膜拜。</p>
+</blockquote>
+<ul>
+<li>其中事件发布模式我已经在我之前的博客中<br><a href="http://lwd426.com/2015/09/15/nodeevent/#more" title="自己对node事件驱动的理解">自己对node事件驱动的理解</a>中大致描述清楚了。算是比较原始的方式。</li>
+<li><p>Promise/Defered模式很巧妙地使用这种事件订阅/发布模式抽象出了一套需要<code>预先定义好</code>的异步任务模型：<code>对异步调用的部分进行封装，暴露出自定义部分（成功执行函数和失败执行函数）</code>。这种模式需要封装，但很强大，有侵入性。各种Promise规范的实现库（Q、Bluebird等）也对<code>多个异步协作任务的异步调用部分也进行了很好的封装</code>，使用者可以十分方便的直接调用api，可读性也十分好，可以链式调用等，所以，个人推荐此种方法进行异步编程。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> fs = <span class="built_in">require</span>(<span class="string">'fs'</span>)</span><br><span class="line"><span class="keyword">var</span> <span class="built_in">Promise</span> = <span class="built_in">require</span>(<span class="string">'bluebird'</span>)</span><br><span class="line"><span class="comment">//改造fs.readFile为Promise版本</span></span><br><span class="line"><span class="keyword">var</span> readFileAsync = <span class="function"><span class="keyword">function</span>(<span class="params">path</span>)</span>&#123;</span><br><span class="line">	<span class="comment">//返回一个Promise对象，初始状态pending</span></span><br><span class="line">	<span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="keyword">function</span>(<span class="params">fulfill, reject</span>)</span>&#123;</span><br><span class="line">		fs.readFile(path,  <span class="string">'utf8'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">err, content</span>)</span>&#123;</span><br><span class="line">			<span class="comment">//由pending状态进入rejected状态</span></span><br><span class="line">			<span class="keyword">if</span>(err)<span class="keyword">return</span> reject(err)</span><br><span class="line">			<span class="comment">//由pending状态进入fulfilled状态</span></span><br><span class="line">			<span class="keyword">return</span> fulfill(content)</span><br><span class="line">		&#125;)</span><br><span class="line">	&#125;)</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//开始使用，调用其then方法，回调接受执行成功的返回值</span></span><br><span class="line">readFileAsync(<span class="string">'./promise-1.js'</span>).then(<span class="function"><span class="keyword">function</span>(<span class="params">content</span>)</span>&#123;</span><br><span class="line">	<span class="built_in">console</span>.log(content)</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>对于流程控制库，与Promise的思路完全不同，是另外一种解决方案。（Promise的重点在于<code>封装异步调用</code>的部分，流程控制库则没有显示的模式，将处理重点放到了<code>回调函数注入</code>（使用高阶函数注入）上。）它与事件订阅/发布模式基本无关，而是在回调函数上做文章，通过对所有异步操作数组里的结果进行”缓存“–最终向使用者暴露出总回调函数（封装了缓存的结果数组）来达到流程控制的目的。如果有一个异步任务失败，则都会把失败信息放到总回调中的第一个参数中。比较流行的有async库。这种方案更为灵活。<br>async示例：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//异步的串行任务（异步的并行任务只需要把series方法换成parallel就ok了）</span></span><br><span class="line"><span class="keyword">async</span>.series([</span><br><span class="line">        <span class="function"><span class="keyword">function</span> (<span class="params">callback</span>) </span>&#123;</span><br><span class="line">          fs.readFile(<span class="string">'file1.txt'</span>,<span class="string">'utf-8'</span>,callback);</span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="function"><span class="keyword">function</span>(<span class="params">callback</span>) </span>&#123;</span><br><span class="line">          fs.readFile(<span class="string">'file2.txt'</span>,<span class="string">'utf-8'</span>,callback);</span><br><span class="line">        &#125;</span><br><span class="line">      ],<span class="function"><span class="keyword">function</span>(<span class="params">err, results</span>)</span>&#123;</span><br><span class="line">        <span class="comment">//results =&gt; [file1.txt,file2.txt]</span></span><br><span class="line">        TODO</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></li>
+</ul>
 </span>
       
     </div>
@@ -253,9 +237,7 @@ var _hmt = _hmt || [];
       
         <div class="post-tags">
           
-            <a href="/tags/nodejs/" rel="tag">#nodejs</a>
-          
-            <a href="/tags/事件驱动/" rel="tag">#事件驱动</a>
+            <a href="/tags/异步/" rel="tag">#异步</a>
           
         </div>
       
@@ -264,13 +246,13 @@ var _hmt = _hmt || [];
         <div class="post-nav">
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2015/09/10/nodeasync/" rel="prev">自己对node异步编程方案的理解</a>
+              <a href="/2015/06/14/nodejsio/" rel="prev">自己对nodeJS的异步I/O模型的理解</a>
             
           </div>
 
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2015/08/08/node-WebSocket/" rel="next">自己对WebSocket+nodeJS的理解</a>
+              <a href="/2014/10/13/javascript-eventloop/" rel="next">自己对javascript异步IO和事件循环的理解</a>
             
           </div>
         </div>
@@ -285,10 +267,10 @@ var _hmt = _hmt || [];
 
     <div class="post-spread">
       
-        <div class="ds-share flat" data-thread-key="2015/08/21/nodeevent/"
-     data-title="自己对node事件驱动的理解"
+        <div class="ds-share flat" data-thread-key="2015/06/10/nodeasync/"
+     data-title="自己对node异步编程方案的理解"
      data-content=""
-     data-url="http://lwd426.com/2015/08/21/nodeevent/">
+     data-url="http://lwd426.com/2015/06/10/nodeasync/">
   <div class="ds-share-inline">
     <ul  class="ds-share-icons-16">
 
@@ -314,8 +296,8 @@ var _hmt = _hmt || [];
         
           <div class="comments" id="comments">
             
-              <div class="ds-thread" data-thread-key="2015/08/21/nodeevent/"
-                   data-title="自己对node事件驱动的理解" data-url="http://lwd426.com/2015/08/21/nodeevent/">
+              <div class="ds-thread" data-thread-key="2015/06/10/nodeasync/"
+                   data-title="自己对node异步编程方案的理解" data-url="http://lwd426.com/2015/06/10/nodeasync/">
               </div>
             
           </div>
