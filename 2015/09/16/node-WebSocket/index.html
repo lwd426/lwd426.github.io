@@ -40,15 +40,32 @@
   <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.1" />
 
 
-<meta name="description" content="前端杂文">
-<meta property="og:type" content="website">
-<meta property="og:title" content="大盗贼的后院">
-<meta property="og:url" content="http://lwd426.com/index.html">
+<meta name="description" content="WebSocket最初是作为html5的一个重要特性出现的，但最终在w3c和IETF的推动下，形成了标准，目前，大部分浏览器都得以支持。
+WebSocket有明显的优势：
+
+服务端和客户端只要建立一次TCP连接就可以完成双向通信，可以使用更少的连接。
+WebSocket服务端可以推送数据到客户端，不需要传统的长连接或者轮循的方式。这也比HTTP的请求/响应模式更加灵活、更加高效。
+协议头更轻量，减">
+<meta property="og:type" content="article">
+<meta property="og:title" content="自己对websocket+nodeJS的理解">
+<meta property="og:url" content="http://lwd426.com/2015/09/16/node-WebSocket/index.html">
 <meta property="og:site_name" content="大盗贼的后院">
-<meta property="og:description" content="前端杂文">
+<meta property="og:description" content="WebSocket最初是作为html5的一个重要特性出现的，但最终在w3c和IETF的推动下，形成了标准，目前，大部分浏览器都得以支持。
+WebSocket有明显的优势：
+
+服务端和客户端只要建立一次TCP连接就可以完成双向通信，可以使用更少的连接。
+WebSocket服务端可以推送数据到客户端，不需要传统的长连接或者轮循的方式。这也比HTTP的请求/响应模式更加灵活、更加高效。
+协议头更轻量，减">
+<meta property="og:image" content="http://lwd426.com/images/nodewebsocket.png">
+<meta property="og:updated_time" content="2015-09-16T13:58:48.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="大盗贼的后院">
-<meta name="twitter:description" content="前端杂文">
+<meta name="twitter:title" content="自己对websocket+nodeJS的理解">
+<meta name="twitter:description" content="WebSocket最初是作为html5的一个重要特性出现的，但最终在w3c和IETF的推动下，形成了标准，目前，大部分浏览器都得以支持。
+WebSocket有明显的优势：
+
+服务端和客户端只要建立一次TCP连接就可以完成双向通信，可以使用更少的连接。
+WebSocket服务端可以推送数据到客户端，不需要传统的长连接或者轮循的方式。这也比HTTP的请求/响应模式更加灵活、更加高效。
+协议头更轻量，减">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -65,7 +82,7 @@ var _hmt = _hmt || [];
 })();
 </script>
 
-  <title> 大盗贼的后院 </title>
+  <title> 自己对websocket+nodeJS的理解 | 大盗贼的后院 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -93,9 +110,7 @@ var _hmt = _hmt || [];
 
 
 
-  <div class="container one-column 
-   page-home 
-">
+  <div class="container one-column page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -164,9 +179,9 @@ var _hmt = _hmt || [];
     <main id="main" class="main">
       <div class="main-inner">
         <div id="content" class="content"> 
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <header class="post-header">
@@ -177,9 +192,7 @@ var _hmt = _hmt || [];
           
           
             
-              <a class="post-title-link" href="/2015/09/16/node-WebSocket/" itemprop="url">
-                自己对websocket+nodeJS的理解
-              </a>
+              自己对websocket+nodeJS的理解
             
           
         </h1>
@@ -214,8 +227,7 @@ var _hmt = _hmt || [];
       
 
       
-        
-          <span itemprop="articleBody"><pre><code>WebSocket最初是作为html5的一个重要特性出现的，但最终在w3c和IETF的推动下，形成了标准，目前，大部分浏览器都得以支持。
+        <span itemprop="articleBody"><pre><code>WebSocket最初是作为html5的一个重要特性出现的，但最终在w3c和IETF的推动下，形成了标准，目前，大部分浏览器都得以支持。
 </code></pre><p>WebSocket有明显的优势：</p>
 <ul>
 <li>服务端和客户端只要建立一次TCP连接就可以完成双向通信，可以使用<code>更少的连接</code>。</li>
@@ -250,7 +262,6 @@ var _hmt = _hmt || [];
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="title">html</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">head</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">meta</span> <span class="attribute">charset</span>=<span class="value">"utf-8"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">meta</span> <span class="attribute">name</span>=<span class="value">"format-detection"</span> <span class="attribute">content</span>=<span class="value">"telephone=no"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">meta</span> <span class="attribute">name</span>=<span class="value">"format-detection"</span> <span class="attribute">content</span>=<span class="value">"email=no"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">meta</span> <span class="attribute">content</span>=<span class="value">"width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0"</span> <span class="attribute">name</span>=<span class="value">"viewport"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">title</span>&gt;</span>多人聊天室<span class="tag">&lt;/<span class="title">title</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">link</span> <span class="attribute">rel</span>=<span class="value">"stylesheet"</span> <span class="attribute">type</span>=<span class="value">"text/css"</span> <span class="attribute">href</span>=<span class="value">"./style.css"</span> /&gt;</span></span><br><span class="line">        <span class="comment">&lt;!--[if lt IE 8]&gt;&lt;script src="./json3.min.js"&gt;&lt;/script&gt;&lt;![endif]--&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">script</span> <span class="attribute">src</span>=<span class="value">"http://realtime.plhwin.com:3000/socket.io/socket.io.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="title">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">body</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"loginbox"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="title">div</span> <span class="attribute">style</span>=<span class="value">"width:260px;margin:200px auto;"</span>&gt;</span></span><br><span class="line">                请先输入你在聊天室的昵称</span><br><span class="line">                <span class="tag">&lt;<span class="title">br</span>/&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="title">br</span>/&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="title">input</span> <span class="attribute">type</span>=<span class="value">"text"</span> <span class="attribute">style</span>=<span class="value">"width:180px;"</span> <span class="attribute">placeholder</span>=<span class="value">"请输入用户名"</span> <span class="attribute">id</span>=<span class="value">"username"</span> <span class="attribute">name</span>=<span class="value">"username"</span> /&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="title">input</span> <span class="attribute">type</span>=<span class="value">"button"</span> <span class="attribute">style</span>=<span class="value">"width:50px;"</span> <span class="attribute">value</span>=<span class="value">"提交"</span> <span class="attribute">onclick</span>=<span class="value">"CHAT.usernameSubmit();"</span>/&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"chatbox"</span> <span class="attribute">style</span>=<span class="value">"display:none;"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="title">div</span> <span class="attribute">style</span>=<span class="value">"background:#3d3d3d;height: 28px; width: 100%;font-size:12px;"</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="title">div</span> <span class="attribute">style</span>=<span class="value">"line-height: 28px;color:#fff;"</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="title">span</span> <span class="attribute">style</span>=<span class="value">"text-align:left;margin-left:10px;"</span>&gt;</span>Websocket多人聊天室<span class="tag">&lt;/<span class="title">span</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="title">span</span> <span class="attribute">style</span>=<span class="value">"float:right; margin-right:10px;"</span>&gt;</span><span class="tag">&lt;<span class="title">span</span> <span class="attribute">id</span>=<span class="value">"showusername"</span>&gt;</span><span class="tag">&lt;/<span class="title">span</span>&gt;</span> |</span><br><span class="line">                    <span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"javascript:;"</span> <span class="attribute">onclick</span>=<span class="value">"CHAT.logout()"</span> <span class="attribute">style</span>=<span class="value">"color:#fff;"</span>&gt;</span>退出<span class="tag">&lt;/<span class="title">a</span>&gt;</span><span class="tag">&lt;/<span class="title">span</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"doc"</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"chat"</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"message"</span> <span class="attribute">class</span>=<span class="value">"message"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"onlinecount"</span> <span class="attribute">style</span>=<span class="value">"background:#EFEFF4; font-size:12px; margin-top:10px; margin-left:10px; color:#666;"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"input-box"</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"input"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">input</span> <span class="attribute">type</span>=<span class="value">"text"</span> <span class="attribute">maxlength</span>=<span class="value">"140"</span> <span class="attribute">placeholder</span>=<span class="value">"请输入聊天内容，按Ctrl提交"</span> <span class="attribute">id</span>=<span class="value">"content"</span> <span class="attribute">name</span>=<span class="value">"content"</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"action"</span>&gt;</span></span><br><span class="line">                            <span class="tag">&lt;<span class="title">button</span> <span class="attribute">type</span>=<span class="value">"button"</span> <span class="attribute">id</span>=<span class="value">"mjr_send"</span> <span class="attribute">onclick</span>=<span class="value">"CHAT.submit();"</span>&gt;</span>提交<span class="tag">&lt;/<span class="title">button</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">script</span> <span class="attribute">type</span>=<span class="value">"text/javascript"</span> <span class="attribute">src</span>=<span class="value">"./client.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="title">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">html</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
 <p>client.js实现代码：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br></pre></td><td class="code"><pre><span class="line">(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> d = <span class="built_in">document</span>,</span><br><span class="line">    w = <span class="built_in">window</span>,</span><br><span class="line">    p = <span class="built_in">parseInt</span>,</span><br><span class="line">    dd = d.documentElement,</span><br><span class="line">    db = d.body,</span><br><span class="line">    dc = d.compatMode == <span class="string">'CSS1Compat'</span>,</span><br><span class="line">    dx = dc ? dd: db,</span><br><span class="line">    ec = <span class="built_in">encodeURIComponent</span>;</span><br><span class="line">     </span><br><span class="line">     </span><br><span class="line">    w.CHAT = &#123;</span><br><span class="line">        msgObj:d.getElementById(<span class="string">"message"</span>),</span><br><span class="line">        screenheight:w.innerHeight ? w.innerHeight : dx.clientHeight,</span><br><span class="line">        username:<span class="literal">null</span>,</span><br><span class="line">        userid:<span class="literal">null</span>,</span><br><span class="line">        socket:<span class="literal">null</span>,</span><br><span class="line">        <span class="comment">//让浏览器滚动条保持在最低部</span></span><br><span class="line">        scrollToBottom:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">            w.scrollTo(<span class="number">0</span>, <span class="keyword">this</span>.msgObj.clientHeight);</span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="comment">//退出，本例只是一个简单的刷新</span></span><br><span class="line">        logout:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">            <span class="comment">//this.socket.disconnect();</span></span><br><span class="line">            location.reload();</span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="comment">//提交聊天消息内容</span></span><br><span class="line">        submit:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">            <span class="keyword">var</span> content = d.getElementById(<span class="string">"content"</span>).value;</span><br><span class="line">            <span class="keyword">if</span>(content != <span class="string">''</span>)&#123;</span><br><span class="line">                <span class="keyword">var</span> obj = &#123;</span><br><span class="line">                    userid: <span class="keyword">this</span>.userid,</span><br><span class="line">                    username: <span class="keyword">this</span>.username,</span><br><span class="line">                    content: content</span><br><span class="line">                &#125;;</span><br><span class="line">                <span class="keyword">this</span>.socket.emit(<span class="string">'message'</span>, obj);</span><br><span class="line">                d.getElementById(<span class="string">"content"</span>).value = <span class="string">''</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;,</span><br><span class="line">        genUid:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Date</span>().getTime()+<span class="string">""</span>+<span class="built_in">Math</span>.floor(<span class="built_in">Math</span>.random()*<span class="number">899</span>+<span class="number">100</span>);</span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="comment">//更新系统消息，本例中在用户加入、退出的时候调用</span></span><br><span class="line">        updateSysMsg:<span class="function"><span class="keyword">function</span>(<span class="params">o, action</span>)</span>&#123;</span><br><span class="line">            <span class="comment">//当前在线用户列表</span></span><br><span class="line">            <span class="keyword">var</span> onlineUsers = o.onlineUsers;</span><br><span class="line">            <span class="comment">//当前在线人数</span></span><br><span class="line">            <span class="keyword">var</span> onlineCount = o.onlineCount;</span><br><span class="line">            <span class="comment">//新加入用户的信息</span></span><br><span class="line">            <span class="keyword">var</span> user = o.user;</span><br><span class="line">                 </span><br><span class="line">            <span class="comment">//更新在线人数</span></span><br><span class="line">            <span class="keyword">var</span> userhtml = <span class="string">''</span>;</span><br><span class="line">            <span class="keyword">var</span> separator = <span class="string">''</span>;</span><br><span class="line">            <span class="keyword">for</span>(key <span class="keyword">in</span> onlineUsers) &#123;</span><br><span class="line">                <span class="keyword">if</span>(onlineUsers.hasOwnProperty(key))&#123;</span><br><span class="line">                    userhtml += separator+onlineUsers[key];</span><br><span class="line">                    separator = <span class="string">'、'</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            d.getElementById(<span class="string">"onlinecount"</span>).innerHTML = <span class="string">'当前共有 '</span>+onlineCount+<span class="string">' 人在线，在线列表：'</span>+userhtml;</span><br><span class="line">             </span><br><span class="line">            <span class="comment">//添加系统消息</span></span><br><span class="line">            <span class="keyword">var</span> html = <span class="string">''</span>;</span><br><span class="line">            html += <span class="string">'&lt;div class="msg-system"&gt;'</span>;</span><br><span class="line">            html += user.username;</span><br><span class="line">            html += (action == <span class="string">'login'</span>) ? <span class="string">' 加入了聊天室'</span> : <span class="string">' 退出了聊天室'</span>;</span><br><span class="line">            html += <span class="string">'&lt;/div&gt;'</span>;</span><br><span class="line">            <span class="keyword">var</span> section = d.createElement(<span class="string">'section'</span>);</span><br><span class="line">            section.className = <span class="string">'system J-mjrlinkWrap J-cutMsg'</span>;</span><br><span class="line">            section.innerHTML = html;</span><br><span class="line">            <span class="keyword">this</span>.msgObj.appendChild(section);  </span><br><span class="line">            <span class="keyword">this</span>.scrollToBottom();</span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="comment">//第一个界面用户提交用户名</span></span><br><span class="line">        usernameSubmit:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">            <span class="keyword">var</span> username = d.getElementById(<span class="string">"username"</span>).value;</span><br><span class="line">            <span class="keyword">if</span>(username != <span class="string">""</span>)&#123;</span><br><span class="line">                d.getElementById(<span class="string">"username"</span>).value = <span class="string">''</span>;</span><br><span class="line">                d.getElementById(<span class="string">"loginbox"</span>).style.display = <span class="string">'none'</span>;</span><br><span class="line">                d.getElementById(<span class="string">"chatbox"</span>).style.display = <span class="string">'block'</span>;</span><br><span class="line">                <span class="keyword">this</span>.init(username);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;,</span><br><span class="line">        init:<span class="function"><span class="keyword">function</span>(<span class="params">username</span>)</span>&#123;</span><br><span class="line">            <span class="comment">/*</span><br><span class="line">            客户端根据时间和随机数生成uid,这样使得聊天室用户名称可以重复。</span><br><span class="line">            实际项目中，如果是需要用户登录，那么直接采用用户的uid来做标识就可以</span><br><span class="line">            */</span></span><br><span class="line">            <span class="keyword">this</span>.userid = <span class="keyword">this</span>.genUid();</span><br><span class="line">            <span class="keyword">this</span>.username = username;</span><br><span class="line">             </span><br><span class="line">            d.getElementById(<span class="string">"showusername"</span>).innerHTML = <span class="keyword">this</span>.username;</span><br><span class="line">            <span class="keyword">this</span>.msgObj.style.minHeight = (<span class="keyword">this</span>.screenheight - db.clientHeight + <span class="keyword">this</span>.msgObj.clientHeight) + <span class="string">"px"</span>;</span><br><span class="line">            <span class="keyword">this</span>.scrollToBottom();</span><br><span class="line">             </span><br><span class="line">            <span class="comment">//连接websocket后端服务器</span></span><br><span class="line">            <span class="keyword">this</span>.socket = io.connect(<span class="string">'ws://realtime.plhwin.com:3000'</span>);</span><br><span class="line">             </span><br><span class="line">            <span class="comment">//告诉服务器端有用户登录</span></span><br><span class="line">            <span class="keyword">this</span>.socket.emit(<span class="string">'login'</span>, &#123;userid:<span class="keyword">this</span>.userid, username:<span class="keyword">this</span>.username&#125;);</span><br><span class="line">             </span><br><span class="line">            <span class="comment">//监听新用户登录</span></span><br><span class="line">            <span class="keyword">this</span>.socket.on(<span class="string">'login'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">o</span>)</span>&#123;</span><br><span class="line">                CHAT.updateSysMsg(o, <span class="string">'login'</span>); </span><br><span class="line">            &#125;);</span><br><span class="line">             </span><br><span class="line">            <span class="comment">//监听用户退出</span></span><br><span class="line">            <span class="keyword">this</span>.socket.on(<span class="string">'logout'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">o</span>)</span>&#123;</span><br><span class="line">                CHAT.updateSysMsg(o, <span class="string">'logout'</span>);</span><br><span class="line">            &#125;);</span><br><span class="line">             </span><br><span class="line">            <span class="comment">//监听消息发送</span></span><br><span class="line">            <span class="keyword">this</span>.socket.on(<span class="string">'message'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">obj</span>)</span>&#123;</span><br><span class="line">                <span class="keyword">var</span> isme = (obj.userid == CHAT.userid) ? <span class="literal">true</span> : <span class="literal">false</span>;</span><br><span class="line">                <span class="keyword">var</span> contentDiv = <span class="string">'&lt;div&gt;'</span>+obj.content+<span class="string">'&lt;/div&gt;'</span>;</span><br><span class="line">                <span class="keyword">var</span> usernameDiv = <span class="string">'&lt;span&gt;'</span>+obj.username+<span class="string">'&lt;/span&gt;'</span>;</span><br><span class="line">                 </span><br><span class="line">                <span class="keyword">var</span> section = d.createElement(<span class="string">'section'</span>);</span><br><span class="line">                <span class="keyword">if</span>(isme)&#123;</span><br><span class="line">                    section.className = <span class="string">'user'</span>;</span><br><span class="line">                    section.innerHTML = contentDiv + usernameDiv;</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    section.className = <span class="string">'service'</span>;</span><br><span class="line">                    section.innerHTML = usernameDiv + contentDiv;</span><br><span class="line">                &#125;</span><br><span class="line">                CHAT.msgObj.appendChild(section);</span><br><span class="line">                CHAT.scrollToBottom(); </span><br><span class="line">            &#125;);</span><br><span class="line"> </span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="comment">//通过“回车”提交用户名</span></span><br><span class="line">    d.getElementById(<span class="string">"username"</span>).onkeydown = <span class="function"><span class="keyword">function</span>(<span class="params">e</span>) </span>&#123;</span><br><span class="line">        e = e || event;</span><br><span class="line">        <span class="keyword">if</span> (e.keyCode === <span class="number">13</span>) &#123;</span><br><span class="line">            CHAT.usernameSubmit();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="comment">//通过“回车”提交信息</span></span><br><span class="line">    d.getElementById(<span class="string">"content"</span>).onkeydown = <span class="function"><span class="keyword">function</span>(<span class="params">e</span>) </span>&#123;</span><br><span class="line">        e = e || event;</span><br><span class="line">        <span class="keyword">if</span> (e.keyCode === <span class="number">13</span>) &#123;</span><br><span class="line">            CHAT.submit();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;)();</span><br></pre></td></tr></table></figure></span>
-        
       
     </div>
 
@@ -258,337 +269,62 @@ var _hmt = _hmt || [];
       
 
       
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
+        <div class="post-nav">
+          <div class="post-nav-prev post-nav-item">
             
-              <a class="post-title-link" href="/2015/09/10/nodeasync/" itemprop="url">
-                自己对node异步编程方案的理解
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2014-09-10T09:15:49+08:00" content="2014-09-10">
-            2014-09-10
-          </time>
-        </span>
-
-        
-
-        
-          
-            <span class="post-comments-count">
-              &nbsp; | &nbsp;
-              <a href="/2015/09/10/nodeasync/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2015/09/10/nodeasync/" itemprop="commentsCount"></span>
-              </a>
-            </span>
-          
-        
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <p>因为node是单线程，所以要用异步来提升性能。但编程一牵扯到“异步”两个字，那么什么时候调用回调函数就不是我们自己说了算的了。当我们进行顺序性特别强的多异步任务协作时，一切就会显得“不那么美好”了。所以我们要想办法更好更方便的进行异步编程。</p>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2015/09/10/nodeasync/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
           </div>
-        
-      
-    </div>
 
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
+          <div class="post-nav-next post-nav-item">
             
-              <a class="post-title-link" href="/2015/08/21/nodeevent/" itemprop="url">
-                自己对node事件驱动的理解
-              </a>
+              <a href="/2015/09/10/nodeasync/" rel="next">自己对node异步编程方案的理解</a>
             
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2014-08-21T09:15:49+08:00" content="2014-08-21">
-            2014-08-21
-          </time>
-        </span>
-
-        
-          <span class="post-category" >
-            &nbsp; | &nbsp; 分类于
-            
-              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                <a href="/categories/nodeJS/" itemprop="url" rel="index">
-                  <span itemprop="name">nodeJS</span>
-                </a>
-              </span>
-
-              
-              
-
-            
-          </span>
-        
-
-        
-          
-            <span class="post-comments-count">
-              &nbsp; | &nbsp;
-              <a href="/2015/08/21/nodeevent/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2015/08/21/nodeevent/" itemprop="commentsCount"></span>
-              </a>
-            </span>
-          
-        
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <blockquote>
-<p>觉得Node的书里，貌似只有朴灵的《深入浅出NodeJS》一直在讲比较深刻的东西，章节顺序安排的也比较合理（毕竟是从博客转过来的，从另一个角度也放映了老师当年的研究路线），之前也是关注他的博客，所以我的学习路线基本是按照这本书来的。</p>
-</blockquote>
-<p>今天了解了下Node的异步编程。因为NodeJS的单线程、非阻塞（外）、异步执行（内）和事件驱动的特点，最终决定了他的编程方式很大程度采用了事件发布/订阅模式，可以说就是基于事件发布/订阅模式，node才大放光彩。<br>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2015/08/21/nodeevent/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
           </div>
-        
-      
-    </div>
-
-    <footer class="post-footer">
+        </div>
       
 
       
-
-      
-      
-        <div class="post-eof"></div>
       
     </footer>
   </article>
 
 
-    
+
+    <div class="post-spread">
       
+        <div class="ds-share flat" data-thread-key="2015/09/16/node-WebSocket/"
+     data-title="自己对websocket+nodeJS的理解"
+     data-content=""
+     data-url="http://lwd426.com/2015/09/16/node-WebSocket/">
+  <div class="ds-share-inline">
+    <ul  class="ds-share-icons-16">
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+      <li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+      <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+      <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+      <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+      <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
 
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
-            
-              <a class="post-title-link" href="/2015/06/14/nodejsio/" itemprop="url">
-                自己对nodeJS的异步I/O模型的理解
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2014-06-14T01:15:49+08:00" content="2014-06-14">
-            2014-06-14
-          </time>
-        </span>
-
-        
-
-        
-          
-            <span class="post-comments-count">
-              &nbsp; | &nbsp;
-              <a href="/2015/06/14/nodejsio/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2015/06/14/nodejsio/" itemprop="commentsCount"></span>
-              </a>
-            </span>
-          
-        
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <blockquote>
-<p>终于把node的异步IO给搞的稍微明白些了，之前看朴灵老师的《深入浅出NodeJS》还有些吃力，最近终于可以下定决心把它搞明白。以下是我参阅朴灵老师的《深入浅出NodeJS》后，自己对node异步io的理解，画了一张图，记录一下。<br>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2015/06/14/nodejsio/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
+    </ul>
+    <div class="ds-share-icons-more">
+    </div>
+  </div>
+</div>
       
     </div>
+  </div>
 
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
-            
-              <a class="post-title-link" href="/2015/04/13/javascript-eventloop/" itemprop="url">
-                自己对javascript异步IO和事件循环的理解
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2014-04-13T09:15:49+08:00" content="2014-04-13">
-            2014-04-13
-          </time>
-        </span>
-
-        
-
-        
-          
-            <span class="post-comments-count">
-              &nbsp; | &nbsp;
-              <a href="/2015/04/13/javascript-eventloop/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2015/04/13/javascript-eventloop/" itemprop="commentsCount"></span>
-              </a>
-            </span>
-          
-        
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <blockquote>
-<p>最近在了解javascript的异步IO和事件循环机制。最近有幸浏览了阮一峰老师的<a href="http://www.ruanyifeng.com/blog/2014/10/event-loop.html">JavaScript 运行机制详解：再谈Event Loop</a>，感觉阮老师把一直困扰我的这个问题弄明白了，所以非常感谢阮老师。以下是我自己对javascript异步io和事件循环的一些理解和笔记。</p>
-</blockquote>
-<p>相信我们在一开始接触javascript的时候都被各种贴子填鸭般的教导说“javascript是单线程的”。这没有错，javascript也只能是单线程，因为当初javascript被设计出来主要是为了操作DOM，设计成单线程，也就巧妙的避开了很多状态同步问题。有关状态的最近很火的一个库，大家可以看下<code>react</code>是怎么操作状态的，很巧妙。额，扯得有点远了，那么单线程的javascript是怎么做到<code>异步IO和并发</code>的呢？这多亏了<code>javascript的事件循环机制</code>。<br>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2015/04/13/javascript-eventloop/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-  </section>
-
-  
  </div>
 
         
 
+        
+          <div class="comments" id="comments">
+            
+              <div class="ds-thread" data-thread-key="2015/09/16/node-WebSocket/"
+                   data-title="自己对websocket+nodeJS的理解" data-url="http://lwd426.com/2015/09/16/node-WebSocket/">
+              </div>
+            
+          </div>
         
       </div>
 
@@ -605,6 +341,15 @@ var _hmt = _hmt || [];
   <aside id="sidebar" class="sidebar">
     <div class="sidebar-inner">
 
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
       
 
       <section class="site-overview">
@@ -652,6 +397,17 @@ var _hmt = _hmt || [];
 
       </section>
 
+      
+        <section class="post-toc-wrap sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator"></div>
+          <div class="post-toc">
+            
+            
+              <p class="post-toc-empty">此文章未包含目录</p>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator"></div>
+        </section>
       
 
     </div>
@@ -737,6 +493,165 @@ var _hmt = _hmt || [];
   <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
 
   
+  
+<script type="text/javascript" src="/js/bootstrap.scrollspy.js?v=0.4.5.1" id="bootstrap.scrollspy.custom"></script>
+
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      var $indicator = $(indicator);
+      var opacity = action === 'show' ? 0.4 : 0;
+      $indicator.velocity ?
+        $indicator.velocity('stop').velocity({
+          opacity: opacity
+        }, { duration: 100 }) :
+        $indicator.stop().animate({
+          opacity: opacity
+        }, 100);
+    }
+
+  });
+</script>
+
+<script type="text/javascript" id="sidebar.nav">
+  $(document).ready(function () {
+    var html = $('html');
+    var TAB_ANIMATE_DURATION = 200;
+    var hasVelocity = $.isFunction(html.velocity);
+
+    $('.sidebar-nav li').on('click', function () {
+      var item = $(this);
+      var activeTabClassName = 'sidebar-nav-active';
+      var activePanelClassName = 'sidebar-panel-active';
+      if (item.hasClass(activeTabClassName)) {
+        return;
+      }
+
+      var currentTarget = $('.' + activePanelClassName);
+      var target = $('.' + item.data('target'));
+
+      hasVelocity ?
+        currentTarget.velocity('transition.slideUpOut', TAB_ANIMATE_DURATION, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', TAB_ANIMATE_DURATION)
+            .addClass(activePanelClassName);
+        }) :
+        currentTarget.animate({ opacity: 0 }, TAB_ANIMATE_DURATION, function () {
+          currentTarget.hide();
+          target
+            .stop()
+            .css({'opacity': 0, 'display': 'block'})
+            .animate({ opacity: 1 }, TAB_ANIMATE_DURATION, function () {
+              currentTarget.removeClass(activePanelClassName);
+              target.addClass(activePanelClassName);
+            });
+        });
+
+      item.siblings().removeClass(activeTabClassName);
+      item.addClass(activeTabClassName);
+    });
+
+    $('.post-toc a').on('click', function (e) {
+      e.preventDefault();
+      var targetSelector = escapeSelector(this.getAttribute('href'));
+      var offset = $(targetSelector).offset().top;
+      hasVelocity ?
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        }) :
+        $('html, body').stop().animate({
+          scrollTop: offset
+        }, 500);
+    });
+
+    // Expand sidebar on post detail page by default, when post has a toc.
+    var $tocContent = $('.post-toc-content');
+    if (isDesktop() && CONFIG.sidebar === 'post') {
+      if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+        displaySidebar();
+      }
+    }
+  });
+</script>
+
+
 
   <script type="text/javascript">
     $(document).ready(function () {
@@ -753,6 +668,10 @@ var _hmt = _hmt || [];
 
   
   
+
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"slide":{"type":"slide","bdImg":"3","bdPos":"left","bdTop":"250"}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+
 
   
   <script type="text/javascript" src="/js/lazyload.js"></script>
