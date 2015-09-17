@@ -40,19 +40,23 @@
   <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.1" />
 
 
-<meta name="description" content="终于把node的异步IO给搞的稍微明白些了，之前看朴灵老师的《深入浅出NodeJS》还有些吃力，最近终于可以下定决心把它搞明白。以下是我参阅朴灵老师的《深入浅出NodeJS》后，自己对node异步io的理解，画了一张图，记录一下。">
+<meta name="description" content="title: javascript检测类型方法汇总date: 2014-01-03 10:15:49tags: 
+
+javascriptcategories: javascript">
 <meta property="og:type" content="article">
-<meta property="og:title" content="自己对nodeJS的异步I/O模型的理解">
-<meta property="og:url" content="http://lwd426.com/2014/07/10/nodejsio/index.html">
+<meta property="og:title" content="大盗贼的后院">
+<meta property="og:url" content="http://lwd426.com/2015/09/17/js-typecheck/index.html">
 <meta property="og:site_name" content="大盗贼的后院">
-<meta property="og:description" content="终于把node的异步IO给搞的稍微明白些了，之前看朴灵老师的《深入浅出NodeJS》还有些吃力，最近终于可以下定决心把它搞明白。以下是我参阅朴灵老师的《深入浅出NodeJS》后，自己对node异步io的理解，画了一张图，记录一下。">
-<meta property="og:image" content="http://lwd426.com/images/nodeio2.png">
-<meta property="og:image" content="http://lwd426.com/images/nodeio3.png">
-<meta property="og:image" content="http://lwd426.com/images/nodeio.png">
-<meta property="og:updated_time" content="2015-09-16T14:15:33.000Z">
+<meta property="og:description" content="title: javascript检测类型方法汇总date: 2014-01-03 10:15:49tags: 
+
+javascriptcategories: javascript">
+<meta property="og:image" content="http://lwd426.com/images/javascripttype.png">
+<meta property="og:updated_time" content="2015-09-17T01:39:05.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="自己对nodeJS的异步I/O模型的理解">
-<meta name="twitter:description" content="终于把node的异步IO给搞的稍微明白些了，之前看朴灵老师的《深入浅出NodeJS》还有些吃力，最近终于可以下定决心把它搞明白。以下是我参阅朴灵老师的《深入浅出NodeJS》后，自己对node异步io的理解，画了一张图，记录一下。">
+<meta name="twitter:title" content="大盗贼的后院">
+<meta name="twitter:description" content="title: javascript检测类型方法汇总date: 2014-01-03 10:15:49tags: 
+
+javascriptcategories: javascript">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -69,7 +73,7 @@ var _hmt = _hmt || [];
 })();
 </script>
 
-  <title> 自己对nodeJS的异步I/O模型的理解 | 大盗贼的后院 </title>
+  <title>  | 大盗贼的后院 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -179,7 +183,7 @@ var _hmt = _hmt || [];
           
           
             
-              自己对nodeJS的异步I/O模型的理解
+              
             
           
         </h1>
@@ -188,8 +192,8 @@ var _hmt = _hmt || [];
       <div class="post-meta">
         <span class="post-time">
           发表于
-          <time itemprop="dateCreated" datetime="2014-06-10T01:15:49+08:00" content="2014-06-10">
-            2014-06-10
+          <time itemprop="dateCreated" datetime="2015-08-17T09:39:05+08:00" content="2015-08-17">
+            2015-08-17
           </time>
         </span>
 
@@ -199,8 +203,8 @@ var _hmt = _hmt || [];
           
             <span class="post-comments-count">
               &nbsp; | &nbsp;
-              <a href="/2014/07/10/nodejsio/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2014/07/10/nodejsio/" itemprop="commentsCount"></span>
+              <a href="/2015/09/17/js-typecheck/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2015/09/17/js-typecheck/" itemprop="commentsCount"></span>
               </a>
             </span>
           
@@ -214,51 +218,11 @@ var _hmt = _hmt || [];
       
 
       
-        <span itemprop="articleBody"><blockquote>
-<p>终于把node的异步IO给搞的稍微明白些了，之前看朴灵老师的《深入浅出NodeJS》还有些吃力，最近终于可以下定决心把它搞明白。以下是我参阅朴灵老师的《深入浅出NodeJS》后，自己对node异步io的理解，画了一张图，记录一下。<br><a id="more"></a><br>这张是朴灵老师在他的Infoq中画的一张图：</p>
-</blockquote>
-<p><img src="/images/nodeio2.png" alt=""></p>
-<p>####事件循环和异步调用</p>
-<p>朴灵老师对事件循环的描述如下：</p>
-<blockquote>
-<p>在调用uv_fs_open方法的过程中实际上应用到了事件循环。以在Windows平台下的实现中，启动Node.js时，便创建了一个基于IOCP的事件循环loop，并一直处于执行状态。</p>
-</blockquote>
-<p><code>uv_run(uv_default_loop());</code></p>
-<blockquote>
-<p>每次循环中，它会调用IOCP相关的<em>GetQueuedCompletionStatus</em>方法检查是否线程池中有执行完的请求，如果存在，poll操作会将请求对象加入到loop的pending_reqs_tail属性上。 另一边这个循环也会不断检查loop对象上的pending_reqs_tail引用，如果有可用的请求对象，就取出请求对象的result属性作为结果传递给oncomplete_sym执行，以此达到调用JavaScript中传入的回调函数的目的。 至此，整个异步I/O的流程完成结束。其流程如下：</p>
-</blockquote>
-<p><img src="/images/nodeio3.png" alt="事件循环和异步调用"></p>
-<blockquote>
-<p><code>事件循环</code>和<code>请求对象</code>构成了Node.js的异步I/O模型的两个基本元素，这也是典型的消费者生产者场景。在Windows下通过IOCP的GetQueuedCompletionStatus、PostQueuedCompletionStatus、QueueUserWorkItem方法与事件循环实。对于*nix平台下，这个流程的不同之处在与实现这些功能的方法是由libeio和libev提供。</p>
-</blockquote>
-<p>####以下是我个人的理解：</p>
-<p><img src="/images/nodeio.png" alt="NodeJS异步IO和事件循环图解"></p>
-<p>完成NodeJS的整个异步I/O环节的有事件循环、观察者（队列）、IOCP和请求对象等。</p>
-<ol>
-<li><code>事件循环</code>：nodejs自身的执行模型–事件循环。它使在node启动时创建的，每执行一次循环体称做Tick.每个Tick的过程就是<code>看观察者队列里是否有事件要处理</code>。</li>
-<li><code>观察者（队列）</code>：在Node中，事件主要来源于网络请求、文件I/O等，所以<code>Node用观察者把事件分类</code>，这些事件对应的观察者有网络请求观察者、文件I/O观察者等，当线程池中的请求对象执行完毕，就会把执行结果req–&gt;result后，调用<code>PostQueueCompletionStatus()</code>通知IOCP该请求对象执行完毕。</li>
-<li><code>IOCP</code>:事件观察者会在每次Tick的过程中，都会<code>调用GetQueueCompletionStatus()询问IOCP线程池中是否有执行完的请求</code>。如果有，则把它加入到对应的<code>观察者队列</code>中，等待被事件循环执行。</li>
-<li><code>请求对象</code>：它可以理解为node从js发起异步调用到内核执行完异步操作的一个<code>中间载体</code>。它在libuv层被组装，组装的时候把各种参数、回调函数、执行状态都封装了进去。当请求对象执行完毕后，会把执行结果封装到他的result中。最终由<code>事件循环调用回调函数（result）</code>.</li>
-</ol>
-<p>异步I/O不仅仅应用在文件操作中，对于网络套接字，node也用到了I/O。以下描述<code>node构建web服务器的原理</code>：</p>
-<ol>
-<li>开始</li>
-<li>监听端口（套接字）</li>
-<li>事件循环会不断的处理这些网络I/O事件：<ul>
-<li>接收到网络请求</li>
-<li>把请求对象发给I/O观察者形成事件</li>
-<li>请求对象进入到事件循环</li>
-<li>执行I/O观察者中事件对象的回调函数</li>
-<li>判断是否有业务层逻辑的回调函数：如果是，则执行回调，如果没有回调，则结束</li>
-</ul>
-</li>
-</ol>
-<p>以上是我在阅读《深入浅出NodeJS》后，查询很多资料后的一些个人理解，其中肯定肯定有理解上的不足，姑且记录下，慢慢理解提升。</p>
-<p>参考：</p>
+        <span itemprop="articleBody"><p>title: javascript检测类型方法汇总<br>date: 2014-01-03 10:15:49<br>tags: </p>
 <ul>
-<li>《nodejs异步IO的实现》<a href="http://cnodejs.org/blog/?p=244" target="_blank" rel="external">http://cnodejs.org/blog/?p=244</a></li>
-<li>《深入浅出Node.js（五）：初探Node.js的异步I/O实现》<a href="http://www.infoq.com/cn/articles/nodejs-asynchronous-io" target="_blank" rel="external">http://www.infoq.com/cn/articles/nodejs-asynchronous-io</a></li>
+<li>javascript<br>categories: javascript</li>
 </ul>
+<p><img src="/images/javascripttype.png" alt=""></p>
 </span>
       
     </div>
@@ -270,13 +234,11 @@ var _hmt = _hmt || [];
         <div class="post-nav">
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2014/07/20/node-WebSocket/" rel="prev">自己对WebSocket+nodeJS的理解</a>
-            
           </div>
 
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2014/06/21/nodeevent/" rel="next">自己对node事件驱动的理解</a>
+              <a href="/2015/09/17/jsxingneng/" rel="next"></a>
             
           </div>
         </div>
@@ -291,10 +253,10 @@ var _hmt = _hmt || [];
 
     <div class="post-spread">
       
-        <div class="ds-share flat" data-thread-key="2014/07/10/nodejsio/"
-     data-title="自己对nodeJS的异步I/O模型的理解"
+        <div class="ds-share flat" data-thread-key="2015/09/17/js-typecheck/"
+     data-title=""
      data-content=""
-     data-url="http://lwd426.com/2014/07/10/nodejsio/">
+     data-url="http://lwd426.com/2015/09/17/js-typecheck/">
   <div class="ds-share-inline">
     <ul  class="ds-share-icons-16">
 
@@ -320,8 +282,8 @@ var _hmt = _hmt || [];
         
           <div class="comments" id="comments">
             
-              <div class="ds-thread" data-thread-key="2014/07/10/nodejsio/"
-                   data-title="自己对nodeJS的异步I/O模型的理解" data-url="http://lwd426.com/2014/07/10/nodejsio/">
+              <div class="ds-thread" data-thread-key="2015/09/17/js-typecheck/"
+                   data-title="" data-url="http://lwd426.com/2015/09/17/js-typecheck/">
               </div>
             
           </div>
@@ -668,10 +630,6 @@ var _hmt = _hmt || [];
 
   
   
-
-<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"slide":{"type":"slide","bdImg":"3","bdPos":"left","bdTop":"250"}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
-
-
 
   
   <script type="text/javascript" src="/js/lazyload.js"></script>
