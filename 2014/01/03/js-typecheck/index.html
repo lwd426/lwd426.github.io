@@ -31,7 +31,7 @@
 
 
 
-  <meta name="keywords" content="Hexo,next" />
+  <meta name="keywords" content="javascript," />
 
 
 
@@ -40,37 +40,17 @@
   <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.1" />
 
 
-<meta name="description" content="title: 关于js加载性能问题：无阻塞式加载和顺序加载date: 2013-12-13 10:15:49tags: 
-
-性能categories: javascript
-
-把不需要操作dom的脚本都放到文档底部
-
-如果有多个不操作DOM的脚本，对，把他们放到页面底部了，那么各个脚本也是之间也是阻塞加载的啊（现代部分浏览器已经可以并行下载脚本），所以我们考虑异步加载这些脚本。
-脚本必须顺序执行，">
+<meta name="description">
 <meta property="og:type" content="article">
-<meta property="og:title" content="大盗贼的后院">
-<meta property="og:url" content="http://lwd426.com/2015/09/17/jsxingneng/index.html">
+<meta property="og:title" content="javascript检测类型方法汇总">
+<meta property="og:url" content="http://lwd426.com/2014/01/03/js-typecheck/index.html">
 <meta property="og:site_name" content="大盗贼的后院">
-<meta property="og:description" content="title: 关于js加载性能问题：无阻塞式加载和顺序加载date: 2013-12-13 10:15:49tags: 
-
-性能categories: javascript
-
-把不需要操作dom的脚本都放到文档底部
-
-如果有多个不操作DOM的脚本，对，把他们放到页面底部了，那么各个脚本也是之间也是阻塞加载的啊（现代部分浏览器已经可以并行下载脚本），所以我们考虑异步加载这些脚本。
-脚本必须顺序执行，">
-<meta property="og:updated_time" content="2015-09-17T01:29:32.000Z">
+<meta property="og:description">
+<meta property="og:image" content="http://lwd426.com/images/javascripttype.png">
+<meta property="og:updated_time" content="2015-09-17T02:12:45.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="大盗贼的后院">
-<meta name="twitter:description" content="title: 关于js加载性能问题：无阻塞式加载和顺序加载date: 2013-12-13 10:15:49tags: 
-
-性能categories: javascript
-
-把不需要操作dom的脚本都放到文档底部
-
-如果有多个不操作DOM的脚本，对，把他们放到页面底部了，那么各个脚本也是之间也是阻塞加载的啊（现代部分浏览器已经可以并行下载脚本），所以我们考虑异步加载这些脚本。
-脚本必须顺序执行，">
+<meta name="twitter:title" content="javascript检测类型方法汇总">
+<meta name="twitter:description">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -87,7 +67,7 @@ var _hmt = _hmt || [];
 })();
 </script>
 
-  <title>  | 大盗贼的后院 </title>
+  <title> javascript检测类型方法汇总 | 大盗贼的后院 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -197,7 +177,7 @@ var _hmt = _hmt || [];
           
           
             
-              
+              javascript检测类型方法汇总
             
           
         </h1>
@@ -206,19 +186,34 @@ var _hmt = _hmt || [];
       <div class="post-meta">
         <span class="post-time">
           发表于
-          <time itemprop="dateCreated" datetime="2015-08-17T09:29:32+08:00" content="2015-08-17">
-            2015-08-17
+          <time itemprop="dateCreated" datetime="2013-12-03T10:15:49+08:00" content="2013-12-03">
+            2013-12-03
           </time>
         </span>
 
+        
+          <span class="post-category" >
+            &nbsp; | &nbsp; 分类于
+            
+              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                <a href="/categories/javascript/" itemprop="url" rel="index">
+                  <span itemprop="name">javascript</span>
+                </a>
+              </span>
+
+              
+              
+
+            
+          </span>
         
 
         
           
             <span class="post-comments-count">
               &nbsp; | &nbsp;
-              <a href="/2015/09/17/jsxingneng/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2015/09/17/jsxingneng/" itemprop="commentsCount"></span>
+              <a href="/2014/01/03/js-typecheck/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2014/01/03/js-typecheck/" itemprop="commentsCount"></span>
               </a>
             </span>
           
@@ -232,50 +227,31 @@ var _hmt = _hmt || [];
       
 
       
-        <span itemprop="articleBody"><p>title: 关于js加载性能问题：无阻塞式加载和顺序加载<br>date: 2013-12-13 10:15:49<br>tags: </p>
-<ul>
-<li>性能<br>categories: javascript</li>
-</ul>
-<p><code>把不需要操作dom的脚本都放到文档底部</code></p>
-<ol>
-<li>如果有多个不操作DOM的脚本，对，把他们放到页面底部了，那么各个脚本也是之间也是阻塞加载的啊（现代部分浏览器已经可以并行下载脚本），所以我们考虑异步加载这些脚本。</li>
-<li>脚本必须顺序执行，但不一定要顺序下载，所以我们可以用“无阻塞加载脚本”的方式加载脚本，无阻塞也就是异步加载，这里指不阻塞其他组件组件，允许脚本和其他组件并行下载：<ul>
-<li>延迟加载的defer(ie)和ascyn(html5)来做，但html5得做法不能保证脚本的依赖性；ie的做法在“脚本不包含对document.write调用，并且当前页面没有其他脚本依赖它时”，这个方法是最好的。当然，此时把它放到最底部是最方便的。</li>
-<li>第二种就是script DOM element动态加载脚本。允许跨域。注意：就是因为动态添加的脚本在执行完毕前都会阻塞onload函数的执行，所以要把script dom的过程绑定到onload函数中，保证在其之后加载脚本。</li>
-</ul>
-</li>
-</ol>
-<p>以上是最主要的两种无阻塞加载脚本的方式，其他还有ajax注入加载脚本，ajax eval加载脚本，script in iframe方式和document.write标签的方式。</p>
-<p><code>脚本是异步加载了，那脚本之间有依赖怎么办？怎么保证执行顺序？</code></p>
-<p>然而这些无阻塞加载脚本的方式，除了ie 的defer的方式和document.write(也是ie的)可以保证顺序执行，其他的都不行，因为他们是并行下载的，他们会按照到达顺序执行，所以会引发竞争状态，进而导致未定义标示符错误。<br>在ff和opera下，可以用动态加载脚本script DOM的方式保证顺序执行。</p>
-<ol>
-<li>最后需要考虑的是，选用那种技术取决于脚本的执行顺序是否与下载顺序有关系，如果其他资源与脚本并行下载并且要按顺序执行，那么需要根据不同的浏览器来综合使用多重技术。</li>
-</ol>
-<p><code>当时用诸如动态加载脚本的方式，怎么处理这些加载脚本的代码，也就是行内脚本</code></p>
-<ul>
-<li>script.onload是最好的方式</li>
-<li>不能把操作dom的脚本放到文档底部</li>
-</ul>
-<p>就如平时我写的所有脚本，都是要么是工具函数，要么就是写在onload里的，所以都可以放到页面底部了，再好一些，就可以在页面底部用无阻塞加载脚本。</p>
-<p>摘录：部分观点参考《高性能网站建设进阶篇》</p>
+        <span itemprop="articleBody"><p><img src="/images/javascripttype.png" alt=""></p>
 </span>
       
     </div>
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/javascript/" rel="tag">#javascript</a>
+          
+        </div>
+      
 
       
         <div class="post-nav">
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2015/09/17/js-typecheck/" rel="prev"></a>
+              <a href="/2014/04/13/javascript-eventloop/" rel="prev">自己对javascript异步IO和事件循环的理解</a>
             
           </div>
 
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2015/05/23/kibana_modules/" rel="next">kibana的模块依赖机制</a>
+              <a href="/2013/12/13/jsxingneng/" rel="next">关于js加载性能问题：无阻塞式加载和顺序加载</a>
             
           </div>
         </div>
@@ -290,10 +266,10 @@ var _hmt = _hmt || [];
 
     <div class="post-spread">
       
-        <div class="ds-share flat" data-thread-key="2015/09/17/jsxingneng/"
-     data-title=""
+        <div class="ds-share flat" data-thread-key="2014/01/03/js-typecheck/"
+     data-title="javascript检测类型方法汇总"
      data-content=""
-     data-url="http://lwd426.com/2015/09/17/jsxingneng/">
+     data-url="http://lwd426.com/2014/01/03/js-typecheck/">
   <div class="ds-share-inline">
     <ul  class="ds-share-icons-16">
 
@@ -319,8 +295,8 @@ var _hmt = _hmt || [];
         
           <div class="comments" id="comments">
             
-              <div class="ds-thread" data-thread-key="2015/09/17/jsxingneng/"
-                   data-title="" data-url="http://lwd426.com/2015/09/17/jsxingneng/">
+              <div class="ds-thread" data-thread-key="2014/01/03/js-typecheck/"
+                   data-title="javascript检测类型方法汇总" data-url="http://lwd426.com/2014/01/03/js-typecheck/">
               </div>
             
           </div>
@@ -374,7 +350,7 @@ var _hmt = _hmt || [];
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">6</span>
+              <span class="site-state-item-count">8</span>
               <span class="site-state-item-name">标签</span>
               </a>
           </div>
@@ -667,6 +643,10 @@ var _hmt = _hmt || [];
 
   
   
+
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"slide":{"type":"slide","bdImg":"3","bdPos":"left","bdTop":"250"}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+
 
   
   <script type="text/javascript" src="/js/lazyload.js"></script>
