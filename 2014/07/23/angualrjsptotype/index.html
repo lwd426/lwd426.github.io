@@ -40,14 +40,14 @@
   <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.1" />
 
 
-<meta name="description" content="##一、遇到的问题问题发生在使用 AngularJS 嵌套 Controller 的时候。因为每个 Controller 都有它对应的 Scope（相当于作用域、控制范围），所以 Controller 的嵌套，也就意味着 Scope 的嵌套。这个时候如果两个 Scope 内都有同名的 Model 会发生什么呢？从子 Scope 怎样更新父 Scope 里的 Model 呢？
-这个问题很典型，比方说">
+<meta name="description" content="一、遇到的问题问题发生在使用 AngularJS 嵌套 Controller 的时候。因为每个 Controller 都有它对应的 Scope（相当于作用域、控制范围），所以 Controller 的嵌套，也就意味着 Scope 的嵌套。这个时候如果两个 Scope 内都有同名的 Model 会发生什么呢？从子 Scope 怎样更新父 Scope 里的 Model 呢？
+这个问题很典型，比方说当前">
 <meta property="og:type" content="article">
 <meta property="og:title" content="javascript原型集成到angularJS继承">
 <meta property="og:url" content="http://lwd426.com/2014/07/23/angualrjsptotype/index.html">
 <meta property="og:site_name" content="大盗贼的后院">
-<meta property="og:description" content="##一、遇到的问题问题发生在使用 AngularJS 嵌套 Controller 的时候。因为每个 Controller 都有它对应的 Scope（相当于作用域、控制范围），所以 Controller 的嵌套，也就意味着 Scope 的嵌套。这个时候如果两个 Scope 内都有同名的 Model 会发生什么呢？从子 Scope 怎样更新父 Scope 里的 Model 呢？
-这个问题很典型，比方说">
+<meta property="og:description" content="一、遇到的问题问题发生在使用 AngularJS 嵌套 Controller 的时候。因为每个 Controller 都有它对应的 Scope（相当于作用域、控制范围），所以 Controller 的嵌套，也就意味着 Scope 的嵌套。这个时候如果两个 Scope 内都有同名的 Model 会发生什么呢？从子 Scope 怎样更新父 Scope 里的 Model 呢？
+这个问题很典型，比方说当前">
 <meta property="og:image" content="http://lwd426.com/images/angularjs/angularjs1.png">
 <meta property="og:image" content="http://lwd426.com/images/angularjs/angularjs2.png">
 <meta property="og:image" content="http://lwd426.com/images/angularjs/angularjs3.png">
@@ -57,11 +57,11 @@
 <meta property="og:image" content="http://lwd426.com/images/angularjs/angularjs7.png">
 <meta property="og:image" content="http://lwd426.com/images/angularjs/angularjs8.png">
 <meta property="og:image" content="http://lwd426.com/images/angularjs/angularjs9.png">
-<meta property="og:updated_time" content="2015-09-17T02:03:02.000Z">
+<meta property="og:updated_time" content="2015-09-18T15:51:07.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="javascript原型集成到angularJS继承">
-<meta name="twitter:description" content="##一、遇到的问题问题发生在使用 AngularJS 嵌套 Controller 的时候。因为每个 Controller 都有它对应的 Scope（相当于作用域、控制范围），所以 Controller 的嵌套，也就意味着 Scope 的嵌套。这个时候如果两个 Scope 内都有同名的 Model 会发生什么呢？从子 Scope 怎样更新父 Scope 里的 Model 呢？
-这个问题很典型，比方说">
+<meta name="twitter:description" content="一、遇到的问题问题发生在使用 AngularJS 嵌套 Controller 的时候。因为每个 Controller 都有它对应的 Scope（相当于作用域、控制范围），所以 Controller 的嵌套，也就意味着 Scope 的嵌套。这个时候如果两个 Scope 内都有同名的 Model 会发生什么呢？从子 Scope 怎样更新父 Scope 里的 Model 呢？
+这个问题很典型，比方说当前">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -246,7 +246,7 @@ var _hmt = _hmt || [];
       
 
       
-        <span itemprop="articleBody"><p>##一、遇到的问题<br>问题发生在使用 AngularJS 嵌套 Controller 的时候。因为每个 Controller 都有它对应的 Scope（相当于作用域、控制范围），所以 Controller 的嵌套，也就意味着 Scope 的嵌套。这个时候如果两个 Scope 内都有同名的 Model 会发生什么呢？从子 Scope 怎样更新父 Scope 里的 Model 呢？</p>
+        <span itemprop="articleBody"><h3 id="一、遇到的问题">一、遇到的问题</h3><p>问题发生在使用 AngularJS 嵌套 Controller 的时候。因为每个 Controller 都有它对应的 Scope（相当于作用域、控制范围），所以 Controller 的嵌套，也就意味着 Scope 的嵌套。这个时候如果两个 Scope 内都有同名的 Model 会发生什么呢？从子 Scope 怎样更新父 Scope 里的 Model 呢？</p>
 <p>这个问题很典型，比方说当前页面是一个产品列表，那么就需要定义一个 ProductListController</p>
 <a id="more"></a>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">ProductListController</span>(<span class="params">$scope, $http</span>) </span>&#123;</span><br><span class="line">    $http.get(<span class="string">'/api/products.json'</span>)</span><br><span class="line">        .success(<span class="function"><span class="keyword">function</span>(<span class="params">data</span>)</span>&#123;</span><br><span class="line">            $scope.productList = data;</span><br><span class="line">        &#125;);</span><br><span class="line">    $scope.selectedProduct = &#123;&#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -254,7 +254,7 @@ var _hmt = _hmt || [];
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">ProductDetailController</span>(<span class="params">$scope, $http, $routeParams</span>) </span>&#123;</span><br><span class="line">    $http.get(<span class="string">'/api/products/'</span>+$routeParams.productId+<span class="string">'.json'</span>)</span><br><span class="line">        .success(<span class="function"><span class="keyword">function</span>(<span class="params">data</span>)</span>&#123;</span><br><span class="line">            $scope.selectedProduct = data;</span><br><span class="line">        &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>有趣的事情发生了，在这里也有一个 selectedProduct ，它会怎样影响 ProductListController 中的 selectedProduct 呢？</p>
 <p>答案是没有影响。在 AnuglarJS 里子 Scope 确实会继承父 Scope 中的对象，但当你试下对基本数据类型（string, number, boolean）的 双向数据绑定 时，就会发现一些奇怪的行为，继承并不像你想象的那样工作。子 Scope 的属性隐藏（覆盖）了父 Scope 中的同名属性，对子 Scope 属性（表单元素）的更改并不更新父 Scope 属性的值。这个行为实际上不是 AngularJS 特有的，JavaScript 本身的原型链就是这样工作的。开发者通常都没有意识到 ng-repeat, ng-switch, ng-view 和 ng-include 统统都创建了他们新的子 scopes，所以在用到这些 directive 时也经常出问题。</p>
-<p>##二、解决的办法<br>解决的办法就是不使用基本数据类型，而在 Model 里永远多加一个点.</p>
+<h3 id="二、解决的办法">二、解决的办法</h3><p>解决的办法就是不使用基本数据类型，而在 Model 里永远多加一个点.</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">使用</span><br><span class="line">&lt;input type=<span class="string">"text"</span> ng-model=<span class="string">"someObj.prop1"</span>&gt;</span><br><span class="line">来替代</span><br><span class="line">&lt;input type=<span class="string">"text"</span> ng-model=<span class="string">"prop1"</span>&gt;</span><br></pre></td></tr></table></figure>
 <p>是不是很坑爹？下面这个例子很明确地表达了我所想表达的奇葩现象</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">app.controller(<span class="string">'ParentController'</span>,<span class="function"><span class="keyword">function</span>(<span class="params">$scope</span>)</span>&#123;</span><br><span class="line">    $scope.parentPrimitive = <span class="string">"some primitive"</span></span><br><span class="line">    $scope.parentObj = &#123;&#125;;</span><br><span class="line">    $scope.parentObj.parentProperty = <span class="string">"some value"</span>;</span><br><span class="line">&#125;);</span><br><span class="line">app.controller(<span class="string">'ChildController'</span>,<span class="function"><span class="keyword">function</span>(<span class="params">$scope</span>)</span>&#123;</span><br><span class="line">    $scope.parentPrimitive = <span class="string">"this will NOT modify the parent"</span></span><br><span class="line">    $scope.parentObj.parentProperty = <span class="string">"this WILL modify the parent"</span>;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
@@ -263,7 +263,7 @@ var _hmt = _hmt || [];
 <li>在子 Scope 中使用 $parent.parentPrimitive。 这将阻止子 Scope 创建它自己的属性。</li>
 <li>在父 Scope 中定义一个函数，让子 Scope 调用，传递原始数据类型的参数给父亲，从而更新父 Scope 中的属性。（并不总是可行）</li>
 </ul>
-<p>##三、JavaScript 的原型链继承<br>吐槽完毕，我们来深入了解一下 JavaScript 的原型链。这很重要，特别是当你从服务器端开发转到前端，你应该会很熟悉经典的 Class 类继承，我们来回顾一下。</p>
+<h3 id="三、JavaScript_的原型链继承">三、JavaScript 的原型链继承</h3><p>吐槽完毕，我们来深入了解一下 JavaScript 的原型链。这很重要，特别是当你从服务器端开发转到前端，你应该会很熟悉经典的 Class 类继承，我们来回顾一下。</p>
 <p>假设父类 parentScope 有如下成员属性 aString, aNumber, anArray, anObject, 以及 aFunction。子类 childScope 原型继承父类 parentScope，于是我们有：</p>
 <p><img src="/images/angularjs/angularjs1.png" alt=""></p>
 <p>如果子 Scope 尝试去访问 parentScope 中定义的属性，JavaScript 会先在子 Scope 中查找，如果没有该属性，则找它继承的 scope 去获取属性，如果继承的原型对象 parentScope 中都没有该属性，那么继续在它的原型中寻找，从原型链一直往上直到到达 rootScope。所以，下面的表达式结果都是 ture：</p>
@@ -302,7 +302,7 @@ var _hmt = _hmt || [];
 <p>对于所有的 scope （原型继承的或者非继承的），Angular 总是会通过 Scope 的 $parent, $$childHead 和 $$childTail 属性记录父-子关系（也就是继承关系），图中为简化而未画出这些属性。</p>
 <p>在没有表单元素的情况下，另一种方法是在父 Scope 中定义一个函数来修改基本数据类型。因为有原型继承，子 Scope 确保能够调用这个函数。例如，</p>
 <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">// &#29238; Scope &#20013;$scope.setMyPrimitive = function(value) &#123;&#10;    $scope.myPrimitive = value;&#125;</span><br></pre></td></tr></table></figure>
-<p>###总结<br>一共有四种 Scope：</p>
+<h4 id="总结">总结</h4><p>一共有四种 Scope：</p>
 <ul>
 <li>普通进行原型继承的 Scope —— ng-include, ng-switch, ng-controller, directive with scope: true</li>
 <li>普通原型继承的 Scope 但拷贝赋值 —— ng-repeat。 每个 ng-repeat 的循环都创建新的子 Scope，并且子 Scope 总是获得新的属性。</li>
@@ -460,7 +460,7 @@ var _hmt = _hmt || [];
           <div class="post-toc">
             
             
-              <p class="post-toc-empty">此文章未包含目录</p>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#一、遇到的问题"><span class="nav-number">1.</span> <span class="nav-text">一、遇到的问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二、解决的办法"><span class="nav-number">2.</span> <span class="nav-text">二、解决的办法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三、JavaScript_的原型链继承"><span class="nav-number">3.</span> <span class="nav-text">三、JavaScript 的原型链继承</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#总结"><span class="nav-number">3.1.</span> <span class="nav-text">总结</span></a></li></ol></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>

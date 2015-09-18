@@ -40,24 +40,27 @@
   <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.1" />
 
 
-<meta name="description" content="最近在了解javascript的异步IO和事件循环机制。最近有幸浏览了阮一峰老师的JavaScript 运行机制详解：再谈Event Loop，感觉阮老师把一直困扰我的这个问题弄明白了，所以非常感谢阮老师。以下是我自己对javascript异步io和事件循环的一些理解和笔记。
+<meta name="description" content="题记
+最近在了解javascript的异步IO和事件循环机制。最近有幸浏览了阮一峰老师的JavaScript 运行机制详解：再谈Event Loop，感觉阮老师把一直困扰我的这个问题弄明白了，所以非常感谢阮老师。以下是我自己对javascript异步io和事件循环的一些理解和笔记。
 
-相信我们在一开始接触javascript的时候都被各种贴子填鸭般的教导说“javascript是单线程的”。这没有错，j">
+相信我们在一开始接触javascript的时候都被各种贴子填鸭般的教导说“javascript是单线程的”。这没有">
 <meta property="og:type" content="article">
 <meta property="og:title" content="自己对javascript异步IO和事件循环的理解">
 <meta property="og:url" content="http://lwd426.com/2014/04/13/javascript-eventloop/index.html">
 <meta property="og:site_name" content="大盗贼的后院">
-<meta property="og:description" content="最近在了解javascript的异步IO和事件循环机制。最近有幸浏览了阮一峰老师的JavaScript 运行机制详解：再谈Event Loop，感觉阮老师把一直困扰我的这个问题弄明白了，所以非常感谢阮老师。以下是我自己对javascript异步io和事件循环的一些理解和笔记。
+<meta property="og:description" content="题记
+最近在了解javascript的异步IO和事件循环机制。最近有幸浏览了阮一峰老师的JavaScript 运行机制详解：再谈Event Loop，感觉阮老师把一直困扰我的这个问题弄明白了，所以非常感谢阮老师。以下是我自己对javascript异步io和事件循环的一些理解和笔记。
 
-相信我们在一开始接触javascript的时候都被各种贴子填鸭般的教导说“javascript是单线程的”。这没有错，j">
+相信我们在一开始接触javascript的时候都被各种贴子填鸭般的教导说“javascript是单线程的”。这没有">
 <meta property="og:image" content="http://lwd426.com/images/javascript-eventloop1.png">
 <meta property="og:image" content="http://lwd426.com/images/javascript-eventloop2.png">
-<meta property="og:updated_time" content="2015-09-16T14:14:56.000Z">
+<meta property="og:updated_time" content="2015-09-18T15:54:21.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="自己对javascript异步IO和事件循环的理解">
-<meta name="twitter:description" content="最近在了解javascript的异步IO和事件循环机制。最近有幸浏览了阮一峰老师的JavaScript 运行机制详解：再谈Event Loop，感觉阮老师把一直困扰我的这个问题弄明白了，所以非常感谢阮老师。以下是我自己对javascript异步io和事件循环的一些理解和笔记。
+<meta name="twitter:description" content="题记
+最近在了解javascript的异步IO和事件循环机制。最近有幸浏览了阮一峰老师的JavaScript 运行机制详解：再谈Event Loop，感觉阮老师把一直困扰我的这个问题弄明白了，所以非常感谢阮老师。以下是我自己对javascript异步io和事件循环的一些理解和笔记。
 
-相信我们在一开始接触javascript的时候都被各种贴子填鸭般的教导说“javascript是单线程的”。这没有错，j">
+相信我们在一开始接触javascript的时候都被各种贴子填鸭般的教导说“javascript是单线程的”。这没有">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -242,10 +245,11 @@ var _hmt = _hmt || [];
       
 
       
-        <span itemprop="articleBody"><blockquote>
+        <span itemprop="articleBody"><h3 id="题记">题记</h3><blockquote>
 <p>最近在了解javascript的异步IO和事件循环机制。最近有幸浏览了阮一峰老师的<a href="http://www.ruanyifeng.com/blog/2014/10/event-loop.html" target="_blank" rel="external">JavaScript 运行机制详解：再谈Event Loop</a>，感觉阮老师把一直困扰我的这个问题弄明白了，所以非常感谢阮老师。以下是我自己对javascript异步io和事件循环的一些理解和笔记。</p>
 </blockquote>
-<p>相信我们在一开始接触javascript的时候都被各种贴子填鸭般的教导说“javascript是单线程的”。这没有错，javascript也只能是单线程，因为当初javascript被设计出来主要是为了操作DOM，设计成单线程，也就巧妙的避开了很多状态同步问题。有关状态的最近很火的一个库，大家可以看下<code>react</code>是怎么操作状态的，很巧妙。额，扯得有点远了，那么单线程的javascript是怎么做到<code>异步IO和并发</code>的呢？这多亏了<code>javascript的事件循环机制</code>。<br><a id="more"></a><br>以下用代码的方式大概的说明下：</p>
+<p>相信我们在一开始接触javascript的时候都被各种贴子填鸭般的教导说“javascript是单线程的”。这没有错，javascript也只能是单线程，因为当初javascript被设计出来主要是为了操作DOM，设计成单线程，也就巧妙的避开了很多状态同步问题。有关状态的最近很火的一个库，大家可以看下<code>react</code>是怎么操作状态的，很巧妙。额，扯得有点远了，那么单线程的javascript是怎么做到<code>异步IO和并发</code>的呢？这多亏了<code>javascript的事件循环机制</code>。<br><a id="more"></a></p>
+<h3 id="实例代码">实例代码</h3><p>以下用代码的方式大概的说明下：</p>
 <pre><code>&lt;html&gt;
 &lt;head&gt;
 &lt;javascript src=<span class="string">"jquery.1.7.0.min.js"</span>&gt;&lt;/javascript&gt;
@@ -274,7 +278,7 @@ $(<span class="function"><span class="keyword">function</span><span class="param
      &lt;button id=<span class="string">"submit"</span>&gt;&lt;/button&gt;
 &lt;/body&gt;
 &lt;/html&gt; 
-</code></pre><p>下面这张图是我对事件循环的了解。<br><img src="/images/javascript-eventloop1.png" alt=""></p>
+</code></pre><h3 id="来张图吧">来张图吧</h3><p>下面这张图是我对事件循环的了解。<br><img src="/images/javascript-eventloop1.png" alt=""></p>
 <ol>
 <li>所有任务都在主线程上执行，形成一个<code>执行栈</code>。换句话说，我们写的所有js代码（函数声明、变量声明/赋值、注册监听等）都是一个个的代码块，跑在主线程上。</li>
 <li>除了主线程，还有一个<code>任务队列</code>。系统通过调用各种接口完成了注册监听（给DOM元素，比如onclick、onload）、注册事件、调用ajax、设置定时任务、操作IO等）<code>把这些异步任务放到任务队列，执行栈继续向下执行后面的任务</code>。</li>
@@ -282,9 +286,10 @@ $(<span class="function"><span class="keyword">function</span><span class="param
 <li>一旦”执行栈”中的所有任务执行完毕，事件循环就会读取”任务队列”。如果这个时候，异步任务已经<code>结束了等待状态</code>，就会从”任务队列”<code>进入执行栈，恢复执行</code>。</li>
 <li>主线程不断重复上面的第三步。</li>
 </ol>
-<p>以上是我个人的一个理解，是给各个小白看的。对这个过程描述的而更为透彻是下图（转引自Philip Roberts的演讲《Help, I’m stuck in an event-loop》）</p>
+<h3 id="大神画的图">大神画的图</h3><p>以上是我个人的一个理解，是给各个小白看的。对这个过程描述的而更为透彻是下图（转引自Philip Roberts的演讲《Help, I’m stuck in an event-loop》）</p>
 <p><img src="/images/javascript-eventloop2.png" alt=""></p>
-<p>上图中，主线程运行的时候，产生堆（heap）和栈（stack），栈中的代码调用各种外部API，它们在”任务队列”中加入各种事件（click，load，done）。只要栈中的代码执行完毕，主线程就会去读取”任务队列”，依次执行那些事件所对应的回调函数。<br>这是我对javascript的异步IO和事件循环的理解。接下来我还会了解下nodeJS的异步IO机制。</p>
+<p>上图中，主线程运行的时候，产生堆（heap）和栈（stack），栈中的代码调用各种外部API，它们在”任务队列”中加入各种事件（click，load，done）。只要栈中的代码执行完毕，主线程就会去读取”任务队列”，依次执行那些事件所对应的回调函数。</p>
+<h3 id="结尾了">结尾了</h3><p>这是我对javascript的异步IO和事件循环的理解。接下来我还会了解下nodeJS的异步IO机制。</p>
 </span>
       
     </div>
@@ -437,7 +442,7 @@ $(<span class="function"><span class="keyword">function</span><span class="param
           <div class="post-toc">
             
             
-              <p class="post-toc-empty">此文章未包含目录</p>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#题记"><span class="nav-number">1.</span> <span class="nav-text">题记</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实例代码"><span class="nav-number">2.</span> <span class="nav-text">实例代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#来张图吧"><span class="nav-number">3.</span> <span class="nav-text">来张图吧</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#大神画的图"><span class="nav-number">4.</span> <span class="nav-text">大神画的图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#结尾了"><span class="nav-number">5.</span> <span class="nav-text">结尾了</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>

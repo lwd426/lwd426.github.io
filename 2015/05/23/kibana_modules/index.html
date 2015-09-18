@@ -40,7 +40,8 @@
   <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.1" />
 
 
-<meta name="description" content="必须先把模块使用require(‘模块路径’);
+<meta name="description" content="经验
+必须先把模块使用require(‘模块路径’);
 进来后，才能使用require(‘module’).get(‘新模块名称’,[模块1，模块2…])进行定义模块依赖,
 才能在新模块中把服务、指令、常量、视图注入到代码里。
 在模块定义的工程中，也要通过require(‘辅助模块’)；来把所有的依赖模块代码加载进门户文件.">
@@ -48,14 +49,16 @@
 <meta property="og:title" content="kibana的模块依赖机制">
 <meta property="og:url" content="http://lwd426.com/2015/05/23/kibana_modules/index.html">
 <meta property="og:site_name" content="大盗贼的后院">
-<meta property="og:description" content="必须先把模块使用require(‘模块路径’);
+<meta property="og:description" content="经验
+必须先把模块使用require(‘模块路径’);
 进来后，才能使用require(‘module’).get(‘新模块名称’,[模块1，模块2…])进行定义模块依赖,
 才能在新模块中把服务、指令、常量、视图注入到代码里。
 在模块定义的工程中，也要通过require(‘辅助模块’)；来把所有的依赖模块代码加载进门户文件.">
-<meta property="og:updated_time" content="2015-09-17T02:10:10.000Z">
+<meta property="og:updated_time" content="2015-09-18T15:52:03.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="kibana的模块依赖机制">
-<meta name="twitter:description" content="必须先把模块使用require(‘模块路径’);
+<meta name="twitter:description" content="经验
+必须先把模块使用require(‘模块路径’);
 进来后，才能使用require(‘module’).get(‘新模块名称’,[模块1，模块2…])进行定义模块依赖,
 才能在新模块中把服务、指令、常量、视图注入到代码里。
 在模块定义的工程中，也要通过require(‘辅助模块’)；来把所有的依赖模块代码加载进门户文件.">
@@ -243,14 +246,14 @@ var _hmt = _hmt || [];
       
 
       
-        <span itemprop="articleBody"><ul>
+        <span itemprop="articleBody"><h3 id="经验">经验</h3><ul>
 <li>必须先把模块使用require(‘模块路径’);</li>
 <li>进来后，<br>才能使用require(‘module’).get(‘新模块名称’,[模块1，模块2…])进行定义模块依赖,</li>
 <li>才能在新模块中把服务、指令、常量、视图注入到代码里。</li>
 <li>在模块定义的工程中，也要通过require(‘辅助模块’)；来把所有的依赖模块代码加载进门户文件.</li>
 </ul>
 <a id="more"></a>
-<p>比如：kibana的discover.js文件中</p>
+<h3 id="实际代码">实际代码</h3><p>比如：kibana的discover.js文件中</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">define(<span class="function"><span class="keyword">function</span> (<span class="params">require</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> _ = <span class="built_in">require</span>(<span class="string">'lodash'</span>);</span><br><span class="line">  <span class="keyword">var</span> angular = <span class="built_in">require</span>(<span class="string">'angular'</span>);</span><br><span class="line">  <span class="keyword">var</span> moment = <span class="built_in">require</span>(<span class="string">'moment'</span>);</span><br><span class="line">  <span class="keyword">var</span> ConfigTemplate = <span class="built_in">require</span>(<span class="string">'utils/config_template'</span>);</span><br><span class="line">  <span class="keyword">var</span> onlyDisabled = <span class="built_in">require</span>(<span class="string">'components/filter_bar/lib/onlyDisabled'</span>);</span><br><span class="line">  <span class="keyword">var</span> filterManager = <span class="built_in">require</span>(<span class="string">'components/filter_manager/filter_manager'</span>);</span><br><span class="line">  <span class="keyword">var</span> getSort = <span class="built_in">require</span>(<span class="string">'components/doc_table/lib/get_sort'</span>);</span><br><span class="line">  <span class="keyword">var</span> rison = <span class="built_in">require</span>(<span class="string">'utils/rison'</span>);</span><br><span class="line">  <span class="keyword">var</span> datemath = <span class="built_in">require</span>(<span class="string">'utils/datemath'</span>);</span><br><span class="line"></span><br><span class="line">  <span class="built_in">require</span>(<span class="string">'components/notify/notify'</span>);</span><br><span class="line">  <span class="built_in">require</span>(<span class="string">'components/timepicker/timepicker'</span>);</span><br><span class="line">  <span class="built_in">require</span>(<span class="string">'directives/fixed_scroll'</span>);</span><br><span class="line">  <span class="built_in">require</span>(<span class="string">'directives/validate_json'</span>);</span><br><span class="line">  <span class="built_in">require</span>(<span class="string">'components/validate_query/validate_query'</span>);</span><br><span class="line">  <span class="built_in">require</span>(<span class="string">'filters/moment'</span>);</span><br><span class="line">  <span class="built_in">require</span>(<span class="string">'components/courier/courier'</span>);</span><br><span class="line">  <span class="built_in">require</span>(<span class="string">'components/index_patterns/index_patterns'</span>);</span><br><span class="line">  <span class="built_in">require</span>(<span class="string">'components/state_management/app_state'</span>);</span><br><span class="line">  <span class="built_in">require</span>(<span class="string">'services/timefilter'</span>);</span><br><span class="line">  <span class="built_in">require</span>(<span class="string">'components/highlight/highlight_tags'</span>);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">var</span> app = <span class="built_in">require</span>(<span class="string">'modules'</span>).get(<span class="string">'apps/discover'</span>, [</span><br><span class="line">    <span class="string">'kibana/notify'</span>,<span class="comment">//只有上方加载了require('components/notify/notify');模块才能在这里声明依赖，才能在app模块内注入Notifier服务</span></span><br><span class="line">    <span class="string">'kibana/courier'</span>,</span><br><span class="line">    <span class="string">'kibana/index_patterns'</span></span><br><span class="line">  ]);</span><br><span class="line">  app.controller(<span class="string">'discover'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">$scope, config, courier, $route, $window, Notifier,</span><br><span class="line">    AppState, timefilter, Promise, Private, kbnUrl, highlightTags, $location, $anchorScroll, $modal, $modalStack, $log</span>) </span>&#123;</span><br></pre></td></tr></table></figure></span>
       
     </div>
@@ -403,7 +406,7 @@ var _hmt = _hmt || [];
           <div class="post-toc">
             
             
-              <p class="post-toc-empty">此文章未包含目录</p>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#经验"><span class="nav-number">1.</span> <span class="nav-text">经验</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实际代码"><span class="nav-number">2.</span> <span class="nav-text">实际代码</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>
