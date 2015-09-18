@@ -41,21 +41,27 @@
 
 
 <meta name="description" content="题记：分享一下自己之前做的一个产品，这个产品有个特点：所有前端工作，包括页面及交互设计、css、所有js代码包括后端部分node接口都是我一个人搞的。现在想想，好像当年很强大的样子T_T
+
 ps:由于本文只是用来讲解页面构成和组件划分。为了避免侵权行为，特意把所有文字都p掉了，影响了美观，请谅解。
+
 下面是实际页面图：">
 <meta property="og:type" content="article">
 <meta property="og:title" content="做过的一个angular+node产品实录">
 <meta property="og:url" content="http://lwd426.com/2014/11/20/product/index.html">
 <meta property="og:site_name" content="大盗贼的后院">
 <meta property="og:description" content="题记：分享一下自己之前做的一个产品，这个产品有个特点：所有前端工作，包括页面及交互设计、css、所有js代码包括后端部分node接口都是我一个人搞的。现在想想，好像当年很强大的样子T_T
+
 ps:由于本文只是用来讲解页面构成和组件划分。为了避免侵权行为，特意把所有文字都p掉了，影响了美观，请谅解。
+
 下面是实际页面图：">
 <meta property="og:image" content="http://lwd426.com/images/map.png">
-<meta property="og:updated_time" content="2015-09-18T15:42:40.000Z">
+<meta property="og:updated_time" content="2015-09-18T15:44:53.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="做过的一个angular+node产品实录">
 <meta name="twitter:description" content="题记：分享一下自己之前做的一个产品，这个产品有个特点：所有前端工作，包括页面及交互设计、css、所有js代码包括后端部分node接口都是我一个人搞的。现在想想，好像当年很强大的样子T_T
+
 ps:由于本文只是用来讲解页面构成和组件划分。为了避免侵权行为，特意把所有文字都p掉了，影响了美观，请谅解。
+
 下面是实际页面图：">
 
 
@@ -242,13 +248,17 @@ var _hmt = _hmt || [];
 
       
         <span itemprop="articleBody"><h3 id="题记：">题记：</h3><p>分享一下自己之前做的一个产品，这个产品有个特点：<code>所有前端工作，包括页面及交互设计、css、所有js代码包括后端部分node接口都是我一个人搞的。现在想想，好像当年很强大的样子T_T</code></p>
-<pre><code><span class="label">ps:</span>由于本文只是用来讲解页面构成和组件划分。为了避免侵权行为，特意把所有文字都p掉了，影响了美观，请谅解。
-</code></pre><h3 id="下面是实际页面图：">下面是实际页面图：</h3><a id="more"></a>
+<blockquote>
+<p>ps:由于本文只是用来讲解页面构成和组件划分。为了避免侵权行为，特意把所有文字都p掉了，影响了美观，请谅解。</p>
+</blockquote>
+<h3 id="下面是实际页面图：">下面是实际页面图：</h3><a id="more"></a>
 <p><img src="/images/map.png" alt=""></p>
 <p>图上已经进行了模块划分。模块基本是以功能组件为单位划分的，分别是header(当然还有footer组件balabala,不赘述)、selector、regioner和maper。</p>
 <h3 id="架构说明">架构说明</h3><p>产品前端整体架构是angularJS+jquery的组合。</p>
-<pre><code><span class="function_or_atom">ps</span>: 课本上不是说<span class="function_or_atom">angularJS</span>和<span class="function_or_atom">jquery</span>最好不要一起用么<span class="exclamation_mark">!</span><span class="exclamation_mark">!</span><span class="exclamation_mark">!</span>这里特殊说明下，请注意<span class="function_or_atom">maper</span>组件，这个组件是封装了百度地图<span class="function_or_atom">api</span>，很多东西都要用<span class="function_or_atom">jquery</span>比较方便，而且把<span class="function_or_atom">angularJS</span>的<span class="function_or_atom">jQlite</span>换成<span class="function_or_atom">jQuery</span>也不是难事，所以我就毅然的加上了<span class="function_or_atom">jQuery</span>。
-</code></pre><h4 id="目录结构基本如下：">目录结构基本如下：</h4><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mapcenter&#10;- node_moudles&#10;- src&#10;- -server&#10;- - - utils&#10;- - - interceptor&#10;- - - config&#10;- - - libs&#10;- - - routes&#10;- - - app.js&#10;- - - index.js&#10;- - fontor&#10;- - - styles&#10;- - - fonts&#10;- - - images&#10;- - - filters&#10;- - - services&#10;- - - factories&#10;- - - components&#10;- - - plugins&#10;- - - index.js</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>ps: 课本上不是说angularJS和jquery最好不要一起用么!!!这里特殊说明下，请注意maper组件，这个组件是封装了百度地图api，很多东西都要用jquery比较方便，而且把angularJS的jQlite换成jQuery也不是难事，所以我就毅然的加上了jQuery。</p>
+</blockquote>
+<h4 id="目录结构基本如下：">目录结构基本如下：</h4><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mapcenter&#10;- node_moudles&#10;- src&#10;- -server&#10;- - - utils&#10;- - - interceptor&#10;- - - config&#10;- - - libs&#10;- - - routes&#10;- - - app.js&#10;- - - index.js&#10;- - fontor&#10;- - - styles&#10;- - - fonts&#10;- - - images&#10;- - - filters&#10;- - - services&#10;- - - factories&#10;- - - components&#10;- - - plugins&#10;- - - index.js</span><br></pre></td></tr></table></figure>
 <h4 id="实现细节">实现细节</h4><ul>
 <li>单页面应用</li>
 <li>采用<code>组件分治</code>的原则，做到组件可拔插，想用就用，想卸载就卸载</li>

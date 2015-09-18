@@ -42,34 +42,40 @@
 
 <meta name="description" content="所以总结来说：
 
+
 session和cookie的选择要看场景。cookie的时效比session要长，session的使用场景更广泛更多一些。（使用session的情况下，都要依赖浏览器使用cookie，反之不是）。
 二者的使用过程中，响应头都要有SetCookie（因为上一条依赖）。
 session存储在服务器端，cookie存储在浏览器端。
 
-Session是什么Session一般译作会话。不">
+
+Session是什么Session一般译作会话">
 <meta property="og:type" content="article">
 <meta property="og:title" content="session和cookie">
 <meta property="og:url" content="http://lwd426.com/2013/02/20/session/index.html">
 <meta property="og:site_name" content="大盗贼的后院">
 <meta property="og:description" content="所以总结来说：
 
+
 session和cookie的选择要看场景。cookie的时效比session要长，session的使用场景更广泛更多一些。（使用session的情况下，都要依赖浏览器使用cookie，反之不是）。
 二者的使用过程中，响应头都要有SetCookie（因为上一条依赖）。
 session存储在服务器端，cookie存储在浏览器端。
 
-Session是什么Session一般译作会话。不">
+
+Session是什么Session一般译作会话">
 <meta property="og:image" content="http://lwd426.com/images/session1.png">
 <meta property="og:image" content="http://lwd426.com/images/session2.png">
-<meta property="og:updated_time" content="2015-09-18T14:15:15.000Z">
+<meta property="og:updated_time" content="2015-09-18T15:45:44.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="session和cookie">
 <meta name="twitter:description" content="所以总结来说：
 
+
 session和cookie的选择要看场景。cookie的时效比session要长，session的使用场景更广泛更多一些。（使用session的情况下，都要依赖浏览器使用cookie，反之不是）。
 二者的使用过程中，响应头都要有SetCookie（因为上一条依赖）。
 session存储在服务器端，cookie存储在浏览器端。
 
-Session是什么Session一般译作会话。不">
+
+Session是什么Session一般译作会话">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -255,11 +261,13 @@ var _hmt = _hmt || [];
 
       
         <span itemprop="articleBody"><p>所以总结来说：</p>
+<blockquote>
 <ol>
 <li><code>session和cookie的选择要看场景</code>。cookie的时效比session要长，session的使用场景更广泛更多一些。（使用session的情况下，都要<code>依赖浏览器使用cookie</code>，反之不是）。</li>
 <li>二者的使用过程中，响应头都要有SetCookie（因为上一条依赖）。</li>
 <li>session存储在服务器端，cookie存储在浏览器端。</li>
 </ol>
+</blockquote>
 <h4 id="Session是什么">Session是什么</h4><p>Session一般译作会话。不过，从不同的角度来看session会有不同的答案。比如：<br><a id="more"></a></p>
 <ul>
 <li>在web应用的用户看来，他打开浏览器访问一个电子商务网站，登录、并完成购物直到关闭浏览器，这是一个会话。</li>
@@ -325,12 +333,6 @@ var _hmt = _hmt || [];
 </li>
 <li>时效性<br>Cookie可以通过设置有效期使其较长时间内存在于客户端，而session一般只有比较短的有效期（用户主动销毁session或关闭浏览器后引发超时）；</li>
 <li>其他<br>Cookie的处理在开发中没有session方便。而且cookie在客户端是有数量和大小的限制的，而session的大小却只以硬件为限制，能存储的数据无疑大了太多。</li>
-</ol>
-<p>所以总结来说：</p>
-<ol>
-<li><code>session和cookie的选择要看场景</code>。cookie的时效比session要长，session的使用场景更广泛更多一些。（使用session的情况下，都要<code>依赖浏览器使用cookie</code>，反之不是）。</li>
-<li>二者的使用过程中，响应头都要有SetCookie（因为上一条依赖）。</li>
-<li>session存储在服务器端，cookie存储在浏览器端。</li>
 </ol>
 <p>(以上经自己整理过。内容和观点来自<a href="http://www.cnblogs.com/shoru/archive/2010/02/19/1669395.html" target="_blank" rel="external">大话session</a>)</p>
 </span>
