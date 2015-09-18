@@ -31,7 +31,7 @@
 
 
 
-  <meta name="keywords" content="前端,全栈" />
+  <meta name="keywords" content="nodejs,session," />
 
 
 
@@ -40,37 +40,22 @@
   <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.1" />
 
 
-<meta name="description" content="title: express框架的session应用date: 2013-10-11 9:15:49tags: 
+<meta name="description" content="题记很常用的一个场景：我们做用户权限验证的时候，势必要用到session。在node下，最好用的应该就是express-session了。以下记录下它的使用方法。
 
-nodejs
-sessioncategories: nodeJS
-
-题记很常用的一个场景：我们做用户权限验证的时候，势必要用到session。在node下，最好用的应该就是express-session了。以下记录下它的使用方法。
-
-express-session 是基于expres">
+express-session 是基于express框专门用于处理session的中间件。这里不谈express-session怎么安装，只给出相应的实例代码。另外，session的认证机制离不开cookie（原因见我的另一篇sess">
 <meta property="og:type" content="article">
-<meta property="og:title" content="大盗贼的后院">
-<meta property="og:url" content="http://lwd426.com/2015/09/19/node_session/index.html">
+<meta property="og:title" content="express框架的session应用">
+<meta property="og:url" content="http://lwd426.com/2013/09/10/node_session/index.html">
 <meta property="og:site_name" content="大盗贼的后院">
-<meta property="og:description" content="title: express框架的session应用date: 2013-10-11 9:15:49tags: 
+<meta property="og:description" content="题记很常用的一个场景：我们做用户权限验证的时候，势必要用到session。在node下，最好用的应该就是express-session了。以下记录下它的使用方法。
 
-nodejs
-sessioncategories: nodeJS
-
-题记很常用的一个场景：我们做用户权限验证的时候，势必要用到session。在node下，最好用的应该就是express-session了。以下记录下它的使用方法。
-
-express-session 是基于expres">
-<meta property="og:updated_time" content="2015-09-18T16:34:40.000Z">
+express-session 是基于express框专门用于处理session的中间件。这里不谈express-session怎么安装，只给出相应的实例代码。另外，session的认证机制离不开cookie（原因见我的另一篇sess">
+<meta property="og:updated_time" content="2015-09-18T16:39:16.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="大盗贼的后院">
-<meta name="twitter:description" content="title: express框架的session应用date: 2013-10-11 9:15:49tags: 
+<meta name="twitter:title" content="express框架的session应用">
+<meta name="twitter:description" content="题记很常用的一个场景：我们做用户权限验证的时候，势必要用到session。在node下，最好用的应该就是express-session了。以下记录下它的使用方法。
 
-nodejs
-sessioncategories: nodeJS
-
-题记很常用的一个场景：我们做用户权限验证的时候，势必要用到session。在node下，最好用的应该就是express-session了。以下记录下它的使用方法。
-
-express-session 是基于expres">
+express-session 是基于express框专门用于处理session的中间件。这里不谈express-session怎么安装，只给出相应的实例代码。另外，session的认证机制离不开cookie（原因见我的另一篇sess">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -87,7 +72,7 @@ var _hmt = _hmt || [];
 })();
 </script>
 
-  <title>  | 大盗贼的后院 </title>
+  <title> express框架的session应用 | 大盗贼的后院 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -205,7 +190,7 @@ var _hmt = _hmt || [];
           
           
             
-              
+              express框架的session应用
             
           
         </h1>
@@ -214,19 +199,34 @@ var _hmt = _hmt || [];
       <div class="post-meta">
         <span class="post-time">
           发表于
-          <time itemprop="dateCreated" datetime="2015-08-19T00:34:40+08:00" content="2015-08-19">
-            2015-08-19
+          <time itemprop="dateCreated" datetime="2013-08-10T01:15:49+08:00" content="2013-08-10">
+            2013-08-10
           </time>
         </span>
 
+        
+          <span class="post-category" >
+            &nbsp; | &nbsp; 分类于
+            
+              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                <a href="/categories/nodeJS/" itemprop="url" rel="index">
+                  <span itemprop="name">nodeJS</span>
+                </a>
+              </span>
+
+              
+              
+
+            
+          </span>
         
 
         
           
             <span class="post-comments-count">
               &nbsp; | &nbsp;
-              <a href="/2015/09/19/node_session/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2015/09/19/node_session/" itemprop="commentsCount"></span>
+              <a href="/2013/09/10/node_session/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2013/09/10/node_session/" itemprop="commentsCount"></span>
               </a>
             </span>
           
@@ -240,16 +240,11 @@ var _hmt = _hmt || [];
       
 
       
-        <span itemprop="articleBody"><p>title: express框架的session应用<br>date: 2013-10-11 9:15:49<br>tags: </p>
-<ul>
-<li>nodejs</li>
-<li>session<br>categories: nodeJS</li>
-</ul>
-<h3 id="题记">题记</h3><p>很常用的一个场景：我们做用户权限验证的时候，势必要用到session。在node下，最好用的应该就是express-session了。以下记录下它的使用方法。</p>
+        <span itemprop="articleBody"><h3 id="题记">题记</h3><p>很常用的一个场景：我们做用户权限验证的时候，势必要用到session。在node下，最好用的应该就是express-session了。以下记录下它的使用方法。</p>
 <blockquote>
-<p>express-session 是基于express框专门用于处理session的中间件。这里不谈express-session怎么安装，只给出相应的实例代码。另外，<code>session的认证机制离不开cookie</code>（原因见我的另一篇<a href="http://lwd426.com/2013/02/20/session/">session和cookie</a>），需要同时使用cookieParser 中间件，有关的介绍可以专门参考<a href="https://github.com/expressjs/session/blob/master/README.md，或者参考http://blog.modulus.io/nodejs-and-express-sessions，这个博客上讲的比较清楚。" target="_blank" rel="external">https://github.com/expressjs/session/blob/master/README.md，或者参考http://blog.modulus.io/nodejs-and-express-sessions，这个博客上讲的比较清楚。</a></p>
-</blockquote>
-<h3 id="简单实例">简单实例</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> express = <span class="built_in">require</span>(<span class="string">'express'</span>);</span><br><span class="line"><span class="keyword">var</span> session = <span class="built_in">require</span>(<span class="string">'express-session'</span>);</span><br><span class="line"><span class="keyword">var</span> cookieParser = <span class="built_in">require</span>(<span class="string">'cookie-parser'</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> app = express();</span><br><span class="line"></span><br><span class="line">app.use(cookieParser());</span><br><span class="line">app.use(session(&#123;</span><br><span class="line">    secret: <span class="string">'12345'</span>,</span><br><span class="line">    name: <span class="string">'testapp'</span>,   <span class="comment">//这里的name值得是cookie的name，默认cookie的name是：connect.sid</span></span><br><span class="line">    cookie: &#123;maxAge: <span class="number">80000</span> &#125;,  <span class="comment">//设置maxAge是80000ms，即80s后session和相应的cookie失效过期</span></span><br><span class="line">    resave: <span class="literal">false</span>,</span><br><span class="line">    saveUninitialized: <span class="literal">true</span>,</span><br><span class="line">&#125;));</span><br><span class="line">.....</span><br></pre></td></tr></table></figure>
+<p>express-session 是基于express框专门用于处理session的中间件。这里不谈express-session怎么安装，只给出相应的实例代码。另外，<code>session的认证机制离不开cookie</code>（原因见我的另一篇<a href="http://lwd426.com/2013/02/20/session/">session和cookie</a>），需要同时使用cookieParser 中间件，有关的介绍可以专门参考<a href="https://github.com/expressjs/session/blob/master/README.md，或者参考http://blog.modulus.io/nodejs-and-express-sessions，这个博客上讲的比较清楚。" target="_blank" rel="external">https://github.com/expressjs/session/blob/master/README.md，或者参考http://blog.modulus.io/nodejs-and-express-sessions，这个博客上讲的比较清楚。</a><br><a id="more"></a></p>
+<h3 id="简单实例">简单实例</h3></blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> express = <span class="built_in">require</span>(<span class="string">'express'</span>);</span><br><span class="line"><span class="keyword">var</span> session = <span class="built_in">require</span>(<span class="string">'express-session'</span>);</span><br><span class="line"><span class="keyword">var</span> cookieParser = <span class="built_in">require</span>(<span class="string">'cookie-parser'</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> app = express();</span><br><span class="line"></span><br><span class="line">app.use(cookieParser());</span><br><span class="line">app.use(session(&#123;</span><br><span class="line">    secret: <span class="string">'12345'</span>,</span><br><span class="line">    name: <span class="string">'testapp'</span>,   <span class="comment">//这里的name值得是cookie的name，默认cookie的name是：connect.sid</span></span><br><span class="line">    cookie: &#123;maxAge: <span class="number">80000</span> &#125;,  <span class="comment">//设置maxAge是80000ms，即80s后session和相应的cookie失效过期</span></span><br><span class="line">    resave: <span class="literal">false</span>,</span><br><span class="line">    saveUninitialized: <span class="literal">true</span>,</span><br><span class="line">&#125;));</span><br><span class="line">.....</span><br></pre></td></tr></table></figure>
 <h3 id="express-session中间件的使用：">express-session中间件的使用：</h3><ul>
 <li>只需要用express app的use方法将session挂载在‘/’路径即可，这样<code>所有的路由都可以访问到session</code>，框架会对所有路由进行预处理，从http请求头中解析出session并塞到req.session中。</li>
 <li>可以给要挂载的session传递不同的option参数，来控制session的不同特性。具体可以参见官网：<a href="https://github.com/expressjs/session/blob/master/README.md。" target="_blank" rel="external">https://github.com/expressjs/session/blob/master/README.md。</a></li>
@@ -274,16 +269,26 @@ var _hmt = _hmt || [];
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/nodejs/" rel="tag">#nodejs</a>
+          
+            <a href="/tags/session/" rel="tag">#session</a>
+          
+        </div>
+      
 
       
         <div class="post-nav">
           <div class="post-nav-prev post-nav-item">
             
+              <a href="/2013/12/13/jsxingneng/" rel="prev">关于js加载性能问题：无阻塞式加载和顺序加载</a>
+            
           </div>
 
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2015/07/24/node_markdown/" rel="next">解决方案：node解析markdown</a>
+              <a href="/2013/04/03/this_example/" rel="next">笔记：构造函数中的this</a>
             
           </div>
         </div>
@@ -298,10 +303,10 @@ var _hmt = _hmt || [];
 
     <div class="post-spread">
       
-        <div class="ds-share flat" data-thread-key="2015/09/19/node_session/"
-     data-title=""
+        <div class="ds-share flat" data-thread-key="2013/09/10/node_session/"
+     data-title="express框架的session应用"
      data-content=""
-     data-url="http://lwd426.com/2015/09/19/node_session/">
+     data-url="http://lwd426.com/2013/09/10/node_session/">
   <div class="ds-share-inline">
     <ul  class="ds-share-icons-16">
 
@@ -327,8 +332,8 @@ var _hmt = _hmt || [];
         
           <div class="comments" id="comments">
             
-              <div class="ds-thread" data-thread-key="2015/09/19/node_session/"
-                   data-title="" data-url="http://lwd426.com/2015/09/19/node_session/">
+              <div class="ds-thread" data-thread-key="2013/09/10/node_session/"
+                   data-title="express框架的session应用" data-url="http://lwd426.com/2013/09/10/node_session/">
               </div>
             
           </div>
@@ -382,7 +387,7 @@ var _hmt = _hmt || [];
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">9</span>
+              <span class="site-state-item-count">10</span>
               <span class="site-state-item-name">标签</span>
               </a>
           </div>
@@ -675,6 +680,10 @@ var _hmt = _hmt || [];
 
   
   
+
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"slide":{"type":"slide","bdImg":"3","bdPos":"left","bdTop":"250"}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+
 
   
   <script type="text/javascript" src="/js/lazyload.js"></script>
