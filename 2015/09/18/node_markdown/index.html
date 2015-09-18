@@ -31,7 +31,7 @@
 
 
 
-  <meta name="keywords" content="事件驱动,异步," />
+  <meta name="keywords" content="前端,全栈" />
 
 
 
@@ -40,24 +40,37 @@
   <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.1" />
 
 
-<meta name="description" content="最近在了解javascript的异步IO和事件循环机制。最近有幸浏览了阮一峰老师的JavaScript 运行机制详解：再谈Event Loop，感觉阮老师把一直困扰我的这个问题弄明白了，所以非常感谢阮老师。以下是我自己对javascript异步io和事件循环的一些理解和笔记。
+<meta name="description" content="title: nodejs解析markdown为静态资源date: 2015-08-20 10:15:49tags: 
 
-相信我们在一开始接触javascript的时候都被各种贴子填鸭般的教导说“javascript是单线程的”。这没有错，j">
+node
+markdowncategories: node
+
+
+目前，越来越多的博客开始采用markdown来撰写。它的轻量、书写方便、易读易写的特点让我着迷。真的很简便。所以我们打算用markdown来写产品的使用说明。
+问题产生我们的产品采用angularJS做前端MVVM">
 <meta property="og:type" content="article">
-<meta property="og:title" content="自己对javascript异步IO和事件循环的理解">
-<meta property="og:url" content="http://lwd426.com/2014/04/13/javascript-eventloop/index.html">
+<meta property="og:title" content="大盗贼的后院">
+<meta property="og:url" content="http://lwd426.com/2015/09/18/node_markdown/index.html">
 <meta property="og:site_name" content="大盗贼的后院">
-<meta property="og:description" content="最近在了解javascript的异步IO和事件循环机制。最近有幸浏览了阮一峰老师的JavaScript 运行机制详解：再谈Event Loop，感觉阮老师把一直困扰我的这个问题弄明白了，所以非常感谢阮老师。以下是我自己对javascript异步io和事件循环的一些理解和笔记。
+<meta property="og:description" content="title: nodejs解析markdown为静态资源date: 2015-08-20 10:15:49tags: 
 
-相信我们在一开始接触javascript的时候都被各种贴子填鸭般的教导说“javascript是单线程的”。这没有错，j">
-<meta property="og:image" content="http://lwd426.com/images/javascript-eventloop1.png">
-<meta property="og:image" content="http://lwd426.com/images/javascript-eventloop2.png">
-<meta property="og:updated_time" content="2015-09-16T14:14:56.000Z">
+node
+markdowncategories: node
+
+
+目前，越来越多的博客开始采用markdown来撰写。它的轻量、书写方便、易读易写的特点让我着迷。真的很简便。所以我们打算用markdown来写产品的使用说明。
+问题产生我们的产品采用angularJS做前端MVVM">
+<meta property="og:updated_time" content="2015-09-18T14:33:01.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="自己对javascript异步IO和事件循环的理解">
-<meta name="twitter:description" content="最近在了解javascript的异步IO和事件循环机制。最近有幸浏览了阮一峰老师的JavaScript 运行机制详解：再谈Event Loop，感觉阮老师把一直困扰我的这个问题弄明白了，所以非常感谢阮老师。以下是我自己对javascript异步io和事件循环的一些理解和笔记。
+<meta name="twitter:title" content="大盗贼的后院">
+<meta name="twitter:description" content="title: nodejs解析markdown为静态资源date: 2015-08-20 10:15:49tags: 
 
-相信我们在一开始接触javascript的时候都被各种贴子填鸭般的教导说“javascript是单线程的”。这没有错，j">
+node
+markdowncategories: node
+
+
+目前，越来越多的博客开始采用markdown来撰写。它的轻量、书写方便、易读易写的特点让我着迷。真的很简便。所以我们打算用markdown来写产品的使用说明。
+问题产生我们的产品采用angularJS做前端MVVM">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -74,7 +87,7 @@ var _hmt = _hmt || [];
 })();
 </script>
 
-  <title> 自己对javascript异步IO和事件循环的理解 | 大盗贼的后院 </title>
+  <title>  | 大盗贼的后院 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -192,7 +205,7 @@ var _hmt = _hmt || [];
           
           
             
-              自己对javascript异步IO和事件循环的理解
+              
             
           
         </h1>
@@ -201,34 +214,19 @@ var _hmt = _hmt || [];
       <div class="post-meta">
         <span class="post-time">
           发表于
-          <time itemprop="dateCreated" datetime="2014-03-13T09:15:49+08:00" content="2014-03-13">
-            2014-03-13
+          <time itemprop="dateCreated" datetime="2015-08-18T22:34:01+08:00" content="2015-08-18">
+            2015-08-18
           </time>
         </span>
 
-        
-          <span class="post-category" >
-            &nbsp; | &nbsp; 分类于
-            
-              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                <a href="/categories/javascript/" itemprop="url" rel="index">
-                  <span itemprop="name">javascript</span>
-                </a>
-              </span>
-
-              
-              
-
-            
-          </span>
         
 
         
           
             <span class="post-comments-count">
               &nbsp; | &nbsp;
-              <a href="/2014/04/13/javascript-eventloop/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2014/04/13/javascript-eventloop/" itemprop="commentsCount"></span>
+              <a href="/2015/09/18/node_markdown/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2015/09/18/node_markdown/" itemprop="commentsCount"></span>
               </a>
             </span>
           
@@ -242,75 +240,49 @@ var _hmt = _hmt || [];
       
 
       
-        <span itemprop="articleBody"><blockquote>
-<p>最近在了解javascript的异步IO和事件循环机制。最近有幸浏览了阮一峰老师的<a href="http://www.ruanyifeng.com/blog/2014/10/event-loop.html" target="_blank" rel="external">JavaScript 运行机制详解：再谈Event Loop</a>，感觉阮老师把一直困扰我的这个问题弄明白了，所以非常感谢阮老师。以下是我自己对javascript异步io和事件循环的一些理解和笔记。</p>
-</blockquote>
-<p>相信我们在一开始接触javascript的时候都被各种贴子填鸭般的教导说“javascript是单线程的”。这没有错，javascript也只能是单线程，因为当初javascript被设计出来主要是为了操作DOM，设计成单线程，也就巧妙的避开了很多状态同步问题。有关状态的最近很火的一个库，大家可以看下<code>react</code>是怎么操作状态的，很巧妙。额，扯得有点远了，那么单线程的javascript是怎么做到<code>异步IO和并发</code>的呢？这多亏了<code>javascript的事件循环机制</code>。<br><a id="more"></a><br>以下用代码的方式大概的说明下：</p>
-<pre><code>&lt;html&gt;
-&lt;head&gt;
-&lt;javascript src=<span class="string">"jquery.1.7.0.min.js"</span>&gt;&lt;/javascript&gt;
-&lt;javascript&gt;
- <span class="comment">//1.ajax异步任务</span>
-<span class="function"><span class="keyword">function</span> <span class="title">getUserList</span><span class="params">()</span></span>{
-    $.<span class="keyword">get</span>(<span class="string">"/getusersinfo"</span>,{},<span class="function"><span class="keyword">function</span><span class="params">(error,response)</span></span>{
-        ......
-    });
-}
-
-$(<span class="function"><span class="keyword">function</span><span class="params">()</span></span>{
-    <span class="comment">//2.定时任务</span>
-     setTimout(test(),<span class="number">200</span>); 
-     <span class="function"><span class="keyword">function</span> <span class="title">test</span><span class="params">()</span> </span>{ 
-         alert(<span class="number">1</span>); 
-     } 
-     <span class="comment">//3.DOM注册click事件        </span>
-     $(<span class="string">"#submit"</span>).click(<span class="function"><span class="keyword">function</span><span class="params">()</span></span>{
-        getUserList();
-    });
-});
-&lt;/javascript&gt;
-&lt;/head&gt;
-&lt;body&gt;
-     &lt;button id=<span class="string">"submit"</span>&gt;&lt;/button&gt;
-&lt;/body&gt;
-&lt;/html&gt; 
-</code></pre><p>下面这张图是我对事件循环的了解。<br><img src="/images/javascript-eventloop1.png" alt=""></p>
-<ol>
-<li>所有任务都在主线程上执行，形成一个<code>执行栈</code>。换句话说，我们写的所有js代码（函数声明、变量声明/赋值、注册监听等）都是一个个的代码块，跑在主线程上。</li>
-<li>除了主线程，还有一个<code>任务队列</code>。系统通过调用各种接口完成了注册监听（给DOM元素，比如onclick、onload）、注册事件、调用ajax、设置定时任务、操作IO等）<code>把这些异步任务放到任务队列，执行栈继续向下执行后面的任务</code>。</li>
-<li>在主线程执行栈和任务队列中间有一个很牛的东西叫“<code>事件循环</code>”。</li>
-<li>一旦”执行栈”中的所有任务执行完毕，事件循环就会读取”任务队列”。如果这个时候，异步任务已经<code>结束了等待状态</code>，就会从”任务队列”<code>进入执行栈，恢复执行</code>。</li>
-<li>主线程不断重复上面的第三步。</li>
-</ol>
-<p>以上是我个人的一个理解，是给各个小白看的。对这个过程描述的而更为透彻是下图（转引自Philip Roberts的演讲《Help, I’m stuck in an event-loop》）</p>
-<p><img src="/images/javascript-eventloop2.png" alt=""></p>
-<p>上图中，主线程运行的时候，产生堆（heap）和栈（stack），栈中的代码调用各种外部API，它们在”任务队列”中加入各种事件（click，load，done）。只要栈中的代码执行完毕，主线程就会去读取”任务队列”，依次执行那些事件所对应的回调函数。<br>这是我对javascript的异步IO和事件循环的理解。接下来我还会了解下nodeJS的异步IO机制。</p>
+        <span itemprop="articleBody"><p>title: nodejs解析markdown为静态资源<br>date: 2015-08-20 10:15:49<br>tags: </p>
+<ul>
+<li>node</li>
+<li>markdown<br>categories: node</li>
+</ul>
+<hr>
+<p>目前，越来越多的博客开始采用markdown来撰写。它的轻量、书写方便、易读易写的特点让我着迷。真的很简便。所以我们打算用markdown来写产品的使用说明。</p>
+<h3 id="问题产生">问题产生</h3><pre><code>我们的产品采用angularJS做前端MVVM框架，后端采用Nodejs。
+</code></pre><p>目前markdown浏览器还不能解析markdown,最终也要转换成html才能被浏览器解析。所以采用markdown来做文档说明，那就要解决以下两个问题：<br><a id="more"></a></p>
+<ul>
+<li>前端解析markdown，还是放到后端用node做？</li>
+<li>采用什么解析markdown?有没有工具去做？</li>
+</ul>
+<h3 id="解决方案">解决方案</h3><p>以下就来一个一个的解决：</p>
+<p><code>软件开发中没有银弹。</code><br>任何技术或者解决方案都有自己使用的情境，因为markdown文件也可以任务是一种静态资源，所以为了提高性能，最好是采用服务端启动解析成html文件放到静态资源目录里。或者是直接推给angularJS。所以针对第一个问题的答案：</p>
+<p><code>放到node端做解析</code></p>
+<p>经过技术选型，我们筛选出了marked来在node端做markdown文档的解析，在npm上有很高的使用率。具体使用方法请看<a href="https://www.npmjs.com/package/marked" target="_blank" rel="external">marked</a>。所以第二个问题的答案就是：</p>
+<p><code>使用较为成熟的marked.js</code></p>
+<h3 id="解决步骤">解决步骤</h3><p>具体的在node端安装marked.js模块的方法就不赘述了，可以去api上查阅。着重说下我们是怎么做的。</p>
+<p>有两种使用方式来解析markdown文档：</p>
+<ul>
+<li>直接使用marked命令行：这种做法太笨拙，需要手动去搞，所以没有用</li>
+<li>在node代码里使用marked的api：<code>bingo!</code></li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> marked = <span class="built_in">require</span>(<span class="string">'marked'</span>)</span><br><span class="line">    ,fs = <span class="built_in">require</span>(<span class="string">"fs"</span>)</span><br><span class="line">    ,http = <span class="built_in">require</span>(<span class="string">'http'</span>);</span><br><span class="line"></span><br><span class="line">marked.setOptions(&#123;</span><br><span class="line">    renderer: <span class="keyword">new</span> marked.Renderer(),</span><br><span class="line">    gfm: <span class="literal">true</span>,</span><br><span class="line">    tables: <span class="literal">true</span>,</span><br><span class="line">    breaks: <span class="literal">true</span>,</span><br><span class="line">    pedantic: <span class="literal">false</span>,</span><br><span class="line">    sanitize: <span class="literal">true</span>,</span><br><span class="line">    smartLists: <span class="literal">true</span>,</span><br><span class="line">    smartypants: <span class="literal">false</span></span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">fs.readFile(<span class="string">'m1.md'</span>, <span class="string">'utf-8'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">err, data</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (err) <span class="keyword">throw</span> err;</span><br><span class="line">    write2static(marked(data));</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">write2static</span>(<span class="params">data</span>)</span>&#123;</span><br><span class="line">	fs.writeFile(staticPath+<span class="string">'m.md'</span>, data, <span class="function"><span class="keyword">function</span> 	(<span class="params">err</span>) </span>&#123;</span><br><span class="line"> 	 <span class="keyword">if</span> (err) <span class="keyword">throw</span> err;</span><br><span class="line"> 	 <span class="built_in">console</span>.log(<span class="string">'It\'s saved!'</span>);</span><br><span class="line">	&#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>以上代码仅是示意，如果考虑到效率需要优化方案。</p>
+<p>注意：此过程当然可以在build的过层中做，但是在node启动的时候解析markdown并生成到静态资源目录有一个好处：<code>可以直接修改markdown.md文档后，重启node立即就解析输出了，再配合pm2守护进程，世界一下就变得简单而又美好了。有没有。。</code></p>
 </span>
       
     </div>
 
     <footer class="post-footer">
       
-        <div class="post-tags">
-          
-            <a href="/tags/事件驱动/" rel="tag">#事件驱动</a>
-          
-            <a href="/tags/异步/" rel="tag">#异步</a>
-          
-        </div>
-      
 
       
         <div class="post-nav">
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2014/06/20/nodeasync/" rel="prev">自己对node异步编程方案的理解</a>
-            
           </div>
 
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2014/01/03/js-typecheck/" rel="next">javascript检测类型方法汇总</a>
+              <a href="/2015/05/23/kibana_modules/" rel="next">kibana的模块依赖机制</a>
             
           </div>
         </div>
@@ -325,10 +297,10 @@ $(<span class="function"><span class="keyword">function</span><span class="param
 
     <div class="post-spread">
       
-        <div class="ds-share flat" data-thread-key="2014/04/13/javascript-eventloop/"
-     data-title="自己对javascript异步IO和事件循环的理解"
+        <div class="ds-share flat" data-thread-key="2015/09/18/node_markdown/"
+     data-title=""
      data-content=""
-     data-url="http://lwd426.com/2014/04/13/javascript-eventloop/">
+     data-url="http://lwd426.com/2015/09/18/node_markdown/">
   <div class="ds-share-inline">
     <ul  class="ds-share-icons-16">
 
@@ -354,8 +326,8 @@ $(<span class="function"><span class="keyword">function</span><span class="param
         
           <div class="comments" id="comments">
             
-              <div class="ds-thread" data-thread-key="2014/04/13/javascript-eventloop/"
-                   data-title="自己对javascript异步IO和事件循环的理解" data-url="http://lwd426.com/2014/04/13/javascript-eventloop/">
+              <div class="ds-thread" data-thread-key="2015/09/18/node_markdown/"
+                   data-title="" data-url="http://lwd426.com/2015/09/18/node_markdown/">
               </div>
             
           </div>
@@ -437,7 +409,7 @@ $(<span class="function"><span class="keyword">function</span><span class="param
           <div class="post-toc">
             
             
-              <p class="post-toc-empty">此文章未包含目录</p>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#问题产生"><span class="nav-number">1.</span> <span class="nav-text">问题产生</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解决方案"><span class="nav-number">2.</span> <span class="nav-text">解决方案</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解决步骤"><span class="nav-number">3.</span> <span class="nav-text">解决步骤</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>
@@ -702,10 +674,6 @@ $(<span class="function"><span class="keyword">function</span><span class="param
 
   
   
-
-<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"slide":{"type":"slide","bdImg":"3","bdPos":"left","bdTop":"250"}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
-
-
 
   
   <script type="text/javascript" src="/js/lazyload.js"></script>
