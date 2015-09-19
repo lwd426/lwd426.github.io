@@ -31,7 +31,7 @@
 
 
 
-  <meta name="keywords" content="前端,全栈" />
+  <meta name="keywords" content="杂," />
 
 
 
@@ -40,16 +40,40 @@
   <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.1" />
 
 
-<meta name="description" content="总是搞不清this的用法，自己简单记录了下笔记:">
+<meta name="description" content="Nicholas C. Zakas 是全世界最著名的 JavaScript 程序员之一。两年前，他写了一篇长文，回顾自己的职业生涯，提到七个对他来说最重要的建议。我读完很受启发，决定做一点摘录。你可以先读下面的精简版，再去读全文。
+
+
+不要别人点什么，就做什么
+不要傻干，懂得让别人知道自己做了什么
+协同工作-带领他人协同工作
+“工作上的事”
+自己要知道自己要做什么，而不是让人告诉你
+在回忆中要找到">
 <meta property="og:type" content="article">
-<meta property="og:title" content="笔记：构造函数中的this">
-<meta property="og:url" content="http://lwd426.com/2013/04/03/this_example/index.html">
+<meta property="og:title" content="大盗贼的后院">
+<meta property="og:url" content="http://lwd426.com/2015/09/10/sevensths/index.html">
 <meta property="og:site_name" content="大盗贼的后院">
-<meta property="og:description" content="总是搞不清this的用法，自己简单记录了下笔记:">
-<meta property="og:updated_time" content="2015-09-17T01:36:13.000Z">
+<meta property="og:description" content="Nicholas C. Zakas 是全世界最著名的 JavaScript 程序员之一。两年前，他写了一篇长文，回顾自己的职业生涯，提到七个对他来说最重要的建议。我读完很受启发，决定做一点摘录。你可以先读下面的精简版，再去读全文。
+
+
+不要别人点什么，就做什么
+不要傻干，懂得让别人知道自己做了什么
+协同工作-带领他人协同工作
+“工作上的事”
+自己要知道自己要做什么，而不是让人告诉你
+在回忆中要找到">
+<meta property="og:updated_time" content="2015-09-19T06:51:26.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="笔记：构造函数中的this">
-<meta name="twitter:description" content="总是搞不清this的用法，自己简单记录了下笔记:">
+<meta name="twitter:title" content="大盗贼的后院">
+<meta name="twitter:description" content="Nicholas C. Zakas 是全世界最著名的 JavaScript 程序员之一。两年前，他写了一篇长文，回顾自己的职业生涯，提到七个对他来说最重要的建议。我读完很受启发，决定做一点摘录。你可以先读下面的精简版，再去读全文。
+
+
+不要别人点什么，就做什么
+不要傻干，懂得让别人知道自己做了什么
+协同工作-带领他人协同工作
+“工作上的事”
+自己要知道自己要做什么，而不是让人告诉你
+在回忆中要找到">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -66,7 +90,7 @@ var _hmt = _hmt || [];
 })();
 </script>
 
-  <title> 笔记：构造函数中的this | 大盗贼的后院 </title>
+  <title>  | 大盗贼的后院 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -184,7 +208,7 @@ var _hmt = _hmt || [];
           
           
             
-              笔记：构造函数中的this
+              
             
           
         </h1>
@@ -193,8 +217,8 @@ var _hmt = _hmt || [];
       <div class="post-meta">
         <span class="post-time">
           发表于
-          <time itemprop="dateCreated" datetime="2013-03-03T10:15:49+08:00" content="2013-03-03">
-            2013-03-03
+          <time itemprop="dateCreated" datetime="2015-08-10T10:45:49+08:00" content="2015-08-10">
+            2015-08-10
           </time>
         </span>
 
@@ -203,8 +227,8 @@ var _hmt = _hmt || [];
             &nbsp; | &nbsp; 分类于
             
               <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                <a href="/categories/javascript/" itemprop="url" rel="index">
-                  <span itemprop="name">javascript</span>
+                <a href="/categories/想法es/" itemprop="url" rel="index">
+                  <span itemprop="name">想法es</span>
                 </a>
               </span>
 
@@ -219,8 +243,8 @@ var _hmt = _hmt || [];
           
             <span class="post-comments-count">
               &nbsp; | &nbsp;
-              <a href="/2013/04/03/this_example/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2013/04/03/this_example/" itemprop="commentsCount"></span>
+              <a href="/2015/09/10/sevensths/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2015/09/10/sevensths/" itemprop="commentsCount"></span>
               </a>
             </span>
           
@@ -234,30 +258,59 @@ var _hmt = _hmt || [];
       
 
       
-        <span itemprop="articleBody"><p>总是搞不清this的用法，自己简单记录了下笔记:</p>
+        <span itemprop="articleBody"><blockquote>
+<p>Nicholas C. Zakas 是全世界最著名的 JavaScript 程序员之一。两年前，他写了一篇长文，回顾自己的职业生涯，提到七个对他来说最重要的建议。我读完很受启发，决定做一点摘录。你可以先读下面的精简版，再去读全文。</p>
+</blockquote>
+<ol>
+<li>不要别人点什么，就做什么</li>
+<li>不要傻干，懂得让别人知道自己做了什么</li>
+<li>协同工作-带领他人协同工作</li>
+<li>“工作上的事”</li>
+<li>自己要知道自己要做什么，而不是让人告诉你</li>
+<li>在回忆中要找到参与感，否则就别去</li>
+<li>近朱者赤</li>
+</ol>
 <a id="more"></a>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">myConstructor</span>(<span class="params">message</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.message = message; <span class="comment">//实例属性</span></span><br><span class="line">    <span class="keyword">var</span> sepatator = <span class="string">'_'</span>; <span class="comment">// 私有属性</span></span><br><span class="line">    <span class="keyword">var</span> myOwmer = <span class="keyword">this</span>;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">alertmessage</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        alert(myOwmer .message);</span><br><span class="line">    &#125;</span><br><span class="line">   <span class="comment">//特权方法：可访问私有成员，并且可以被实例调用</span></span><br><span class="line">    <span class="keyword">this</span>.myfunc = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">           alert(sepatator+<span class="keyword">this</span>.message);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//共有方法</span></span><br><span class="line">myConstructor.prototype.publicfunc = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>这是一个<code>构造函数</code>，可以用new运算符创建一个实例</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> obj = <span class="keyword">new</span> myConstructor(<span class="string">'dddd'</span>);</span><br><span class="line">alert(obj.message); <span class="comment">//'dddd'</span></span><br><span class="line">alert(obj.separator); <span class="comment">// undefined 因为是myConstructor的对象私有属性，实例是没有的</span></span><br></pre></td></tr></table></figure>
-<p>进一步说明，myConstructor里的私有方法 alertmessage方法体中的this指向的是 myContructor对象，而不是他的实例，所以，为了有意义，要把指向实例的this复制给间接变量myOwner.<br>this指向构造函数的实例。</p>
+<h4 id="不要别人点什么，就做什么">不要别人点什么，就做什么</h4><p>我的第一份工作，只干了8个月，那家公司就倒闭了。我问经理，接下来我该怎么办，他说：<br>“小伙子，千万不要当一个被人点菜的厨师，别人点什么，你就烧什么。不要接受那样一份工作，别人下命令你该干什么，以及怎么干。<code>你要去一个地方，那里的人肯定你对产品的想法，相信你的能力，放手让你去做。</code>“</p>
+<p>我从此明白，单单实现一个产品是不够的，你还必须参与决定怎么实现。好的工程师并不仅仅服从命令，而且还<code>给出反馈</code>，帮助产品的拥有者改进它。</p>
+<h4 id="推销自己">推销自己</h4><p>我进入雅虎公司以后，经理有一天跟我谈话，他觉得我还做得不够。<br>“你工作得很好，代码看上去不错，很少出Bug。但是，问题是别人都没看到这一点。为了让其他人相信你，你必须首先让别人知道你做了什么。你<code>需要推销自己，引起别人的注意</code>。”</p>
+<p>我这才意识到，即使做出了很好的工作，别人都不知道，也没用。做一个角落里静静编码的工程师，并不可取。你的主管会支持你，但是他没法替你宣传。公司的其他人需要明白你的价值，最好的办法就是告诉别人你做了什么。一封简单的Email：”嗨，我完成了XXX，欢迎将你的想法告诉我”，就很管用。</p>
+<h4 id="学会带领团队">学会带领团队</h4><p>工作几年后，已经没人怀疑我的技术能力了，大家知道我能写出高质量的可靠代码。有一次，我问主管，怎么才能得到提升，他说：<br>“当你的技术能力过关以后，就要考验你与他人相处的能力了。”</p>
+<p>于是，我看到了，自己缺乏的是领导能力，<code>如何带领一个团队，有效地与其他人协同工作</code>，取到更大的成果。</p>
+<h4 id="生活才是最重要的">生活才是最重要的</h4><p>有一段时间，我在雅虎公司很有挫折感，对公司的一些做法不认同，经常会对别人发火。我问一个同事，他怎么能对这种事情保持平静，他回答：<br>“你要想通，这一切并不重要。有人提交了烂代码，网站下线了，又怎么样？工作并不是你的整个生活。它们不是真正的问题，只是工作上的问题。真正重要的事情都发生在工作以外。<code>我回到家，家里人正在等我，这才重要啊</code>。”</p>
+<p>从此，我就把工作和生活分开了，只把它当作”<code>工作问题</code>“看待。这样一来，我对工作就总能心平气和，与人交流也更顺利了。</p>
+<h4 id="自己找到道路">自己找到道路</h4><p>我被提升为主管以后，不知道该怎么做。我请教了上级，他回答：<br>“以前都是我们告诉你做什么，从现在开始，<code>你必须自己回答这个问题了</code>，我期待你来告诉我，什么事情需要做。”</p>
+<p>很多工程师都没有完成这个转变，如果能够做到，可能就说明你成熟了，学会了取舍。你不可能把时间花在所有事情上面，必须找到一个重点。</p>
+<h4 id="把自己当成主人">把自己当成主人</h4><p>我每天要开很多会，有些会议我根本无话可说。我对一个朋友说，我不知道自己为什么要参加这个会，也没有什么可以贡献，他说：<br>“不要再去开这样的会了。你参加一个会，那是因为你参与了某件事。如果不确定自己为什么要在场，就停下来问。如果这件事不需要你，就离开。不要从头到尾都静静地参加一个会，要把自己当成负责人，大家会相信你的。”</p>
+<p>从那时起，我从没有一声不发地参加会议。我确保只参加那些需要我参加的会议。</p>
+<h4 id="找到水平更高的人">找到水平更高的人</h4><p>最后，让我从自己的经历出发，给我的读者一个建议。</p>
+<p>“<code>找到那些比你水平更高、更聪明的人</code>，尽量和他们在一起，吃饭或者喝咖啡，向他们讨教，了解他们拥有的知识。你的职业，甚至你的生活，都会因此变得更好。”<br>（完）</p>
+<p>附注：</p>
+<blockquote>
+<p>作者：Nicholas C. Zakas<br>译者：阮一峰<br>原文网址：<a href="https://www.nczonline.net/blog/2013/10/15/the-best-career-advice-ive-received/" target="_blank" rel="external">https://www.nczonline.net/blog/2013/10/15/the-best-career-advice-ive-received/</a></p>
+</blockquote>
 </span>
       
     </div>
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/杂/" rel="tag">#杂</a>
+          
+        </div>
+      
 
       
         <div class="post-nav">
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2013/09/10/node_session/" rel="prev">express框架的session应用</a>
-            
           </div>
 
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2013/03/04/javascript_function/" rel="next">自己对“闭包”的理解</a>
+              <a href="/2015/07/24/node_markdown/" rel="next">解决方案：node解析markdown</a>
             
           </div>
         </div>
@@ -272,10 +325,10 @@ var _hmt = _hmt || [];
 
     <div class="post-spread">
       
-        <div class="ds-share flat" data-thread-key="2013/04/03/this_example/"
-     data-title="笔记：构造函数中的this"
+        <div class="ds-share flat" data-thread-key="2015/09/10/sevensths/"
+     data-title=""
      data-content=""
-     data-url="http://lwd426.com/2013/04/03/this_example/">
+     data-url="http://lwd426.com/2015/09/10/sevensths/">
   <div class="ds-share-inline">
     <ul  class="ds-share-icons-16">
 
@@ -301,8 +354,8 @@ var _hmt = _hmt || [];
         
           <div class="comments" id="comments">
             
-              <div class="ds-thread" data-thread-key="2013/04/03/this_example/"
-                   data-title="笔记：构造函数中的this" data-url="http://lwd426.com/2013/04/03/this_example/">
+              <div class="ds-thread" data-thread-key="2015/09/10/sevensths/"
+                   data-title="" data-url="http://lwd426.com/2015/09/10/sevensths/">
               </div>
             
           </div>
@@ -384,7 +437,7 @@ var _hmt = _hmt || [];
           <div class="post-toc">
             
             
-              <p class="post-toc-empty">此文章未包含目录</p>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#不要别人点什么，就做什么"><span class="nav-number">1.</span> <span class="nav-text">不要别人点什么，就做什么</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#推销自己"><span class="nav-number">2.</span> <span class="nav-text">推销自己</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#学会带领团队"><span class="nav-number">3.</span> <span class="nav-text">学会带领团队</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#生活才是最重要的"><span class="nav-number">4.</span> <span class="nav-text">生活才是最重要的</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#自己找到道路"><span class="nav-number">5.</span> <span class="nav-text">自己找到道路</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#把自己当成主人"><span class="nav-number">6.</span> <span class="nav-text">把自己当成主人</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#找到水平更高的人"><span class="nav-number">7.</span> <span class="nav-text">找到水平更高的人</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>
@@ -649,10 +702,6 @@ var _hmt = _hmt || [];
 
   
   
-
-<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"slide":{"type":"slide","bdImg":"3","bdPos":"left","bdTop":"250"}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
-
-
 
   
   <script type="text/javascript" src="/js/lazyload.js"></script>
