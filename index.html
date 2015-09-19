@@ -469,6 +469,107 @@ var _hmt = _hmt || [];
           
           
             
+              <a class="post-title-link" href="/2015/04/24/javascript_this2/" itemprop="url">
+                对this新的认识--更深刻
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2015-03-24T10:25:00+08:00" content="2015-03-24">
+            2015-03-24
+          </time>
+        </span>
+
+        
+          <span class="post-category" >
+            &nbsp; | &nbsp; 分类于
+            
+              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                <a href="/categories/基础/" itemprop="url" rel="index">
+                  <span itemprop="name">基础</span>
+                </a>
+              </span>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+            <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2015/04/24/javascript_this2/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2015/04/24/javascript_this2/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <blockquote>
+<p>今天，在cnode上看到一篇真的是很不错的文章<a href="https://cnodejs.org/topic/5599521293cb46f578f0a57e">《图解Javascript上下文与作用域》</a>，已经被设置为精华帖了。</p>
+</blockquote>
+<h3 id="自己之前的理解：">自己之前的理解：</h3><p>改变了我之前对js的基础概念的以下简单的看法：</p>
+<ul>
+<li>执行上下文: 就是函数的执行环境，比如<code>a.func();</code>里，func函数执行时的上下文就是对象a。</li>
+<li>this: 就是在新建对象时，把新建的对象的引用赋给了this变量；</li>
+<li>作用域链: 这个理解是对的，简单的说就是<code>函数的作用域链就是函数以及他上面一直到global的所有定义的变量对象串成的链</code>。</li>
+<li>闭包: 就是在返回值是函数的情况下，返回函数里拥有外层函数的作用域链。</li>
+</ul>
+<h3 id="引文重要观点摘录">引文重要观点摘录</h3><ol>
+<li>每一个上下文都会绑定一个变量对象（variable object），它就像一个容器，用来存<code>当前上下文中所有已定义或可获取的变量、函数等</code></li>
+<li>Js解释器总是在上下文堆栈的顶上下文中执行</li>
+<li>在生成新的上下文时，首先会:
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2015/04/24/javascript_this2/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
               <a class="post-title-link" href="/2014/11/20/product/" itemprop="url">
                 做过的一个angular+node产品实录
               </a>
@@ -988,97 +1089,6 @@ var _hmt = _hmt || [];
 
 
     
-      
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
-            
-              <a class="post-title-link" href="/2014/04/13/javascript-eventloop/" itemprop="url">
-                自己对javascript异步IO和事件循环的理解
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2014-03-13T09:15:49+08:00" content="2014-03-13">
-            2014-03-13
-          </time>
-        </span>
-
-        
-          <span class="post-category" >
-            &nbsp; | &nbsp; 分类于
-            
-              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                <a href="/categories/javascript/" itemprop="url" rel="index">
-                  <span itemprop="name">javascript</span>
-                </a>
-              </span>
-
-              
-              
-
-            
-          </span>
-        
-
-        
-          
-            <span class="post-comments-count">
-              &nbsp; | &nbsp;
-              <a href="/2014/04/13/javascript-eventloop/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2014/04/13/javascript-eventloop/" itemprop="commentsCount"></span>
-              </a>
-            </span>
-          
-        
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <h3 id="题记">题记</h3><blockquote>
-<p>最近在了解javascript的异步IO和事件循环机制。最近有幸浏览了阮一峰老师的<a href="http://www.ruanyifeng.com/blog/2014/10/event-loop.html">JavaScript 运行机制详解：再谈Event Loop</a>，感觉阮老师把一直困扰我的这个问题弄明白了，所以非常感谢阮老师。以下是我自己对javascript异步io和事件循环的一些理解和笔记。</p>
-</blockquote>
-<p>相信我们在一开始接触javascript的时候都被各种贴子填鸭般的教导说“javascript是单线程的”。这没有错，javascript也只能是单线程，因为当初javascript被设计出来主要是为了操作DOM，设计成单线程，也就巧妙的避开了很多状态同步问题。有关状态的最近很火的一个库，大家可以看下<code>react</code>是怎么操作状态的，很巧妙。额，扯得有点远了，那么单线程的javascript是怎么做到<code>异步IO和并发</code>的呢？这多亏了<code>javascript的事件循环机制</code>。<br>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2014/04/13/javascript-eventloop/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1117,7 +1127,7 @@ var _hmt = _hmt || [];
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">17</span>
+              <span class="site-state-item-count">18</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
