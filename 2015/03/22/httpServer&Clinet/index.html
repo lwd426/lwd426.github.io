@@ -48,7 +48,7 @@
 <meta property="og:site_name" content="大盗贼的后院">
 <meta property="og:description" content="题记
 一直对node的服务器和客户端稀里糊涂的，只是会用，知道可以用createServer(function( req, res){....}).listen(3000);的方式来建立一个服务器程序，监听客户端连接过来、数据（req）发送过来然后处理数据、然后通过res把数据返回给客户端。再者就是可以使用诸如connect或者express的这种对http封装过的框架，采用中间件的方式在服务器程">
-<meta property="og:updated_time" content="2015-09-29T05:13:09.000Z">
+<meta property="og:updated_time" content="2015-09-29T05:23:00.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="HTTP服务的那些事---node对http模块的基础实现">
 <meta name="twitter:description" content="题记
@@ -270,6 +270,7 @@ var _hmt = _hmt || [];
 <li>除此之外还有checkContinue、upgrade、clientError事件，通常我们不需要关心，只有实现复杂的HTTP服务器的时候才会用到。</li>
 </ol>
 <p>在这些事件中，最常用的就是request了，因此http提供了一个捷径：<br><code>http.createServer([requestListener])</code>，功能是创建一个HTTP服务器并将requestListener作为request事件的监听函数，这也是上面例子中的实现方式。</p>
+<p><em>注意:无论服务器端在处理业务逻辑时是否发生异常，务必在结束时调用res.end()结束请求，否则客户端将一直处于等待状态。当然，也可以通过延迟res.end()的方式实现客户端与服务端之间的长连接，但结束时务必关闭连接。</em></p>
 <p>下面是显式方式注册request事件：</p>
 <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">//httpserver.js</span><br><span class="line">var http =require(‘http’);</span><br><span class="line">var server = http.Server();</span><br><span class="line">sever.on(‘request’,function(req,res)&#123;</span><br><span class="line">   res.writeHead(200,&#123;‘Content-Type’:’text/html’&#125;);</span><br><span class="line">   res.write(‘&lt;h1&gt;Node.js&lt;/h1&gt;’);</span><br><span class="line">  res.end(‘&lt;p&gt;Hello World&lt;/p&gt;’);</span><br><span class="line">&#125;);</span><br><span class="line">sever.listen(3000);</span><br><span class="line">console.log(“HTTPserver is listening at port 3000.”);</span><br></pre></td></tr></table></figure>
 <blockquote>
