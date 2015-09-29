@@ -570,6 +570,103 @@ var _hmt = _hmt || [];
           
           
             
+              <a class="post-title-link" href="/2015/03/22/httpServer&Clinet/" itemprop="url">
+                HTTP服务的那些事---node对http模块的基础实现
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2015-02-22T10:09:10+08:00" content="2015-02-22">
+            2015-02-22
+          </time>
+        </span>
+
+        
+          <span class="post-category" >
+            &nbsp; | &nbsp; 分类于
+            
+              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                <a href="/categories/nodeJS/" itemprop="url" rel="index">
+                  <span itemprop="name">nodeJS</span>
+                </a>
+              </span>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+            <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2015/03/22/httpServer&Clinet/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2015/03/22/httpServer&Clinet/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <h2 id="题记">题记</h2><blockquote>
+<p>一直对node的服务器和客户端稀里糊涂的，只是会用，知道可以用<code>createServer(function( req, res){....}).listen(3000);</code><br>的方式来建立一个服务器程序，监听客户端连接过来、数据（req）发送过来然后处理数据、然后通过res把数据返回给客户端。再者就是可以使用诸如connect或者express的这种对http封装过的框架，采用中间件的方式在服务器程序处理请求之前、之后对数据进行操作。就这么多了，再深入就不知道怎么回事了。</p>
+</blockquote>
+<h2 id="待解决问题">待解决问题</h2><p>所以，这次特意来搞明白：</p>
+<ol>
+<li>http的服务器和客户端到底张什么玩意？</li>
+<li>connect对http模块进行了哪些封装？</li>
+<li>express又对http模块进行了哪些封装？</li>
+</ol>
+<p>今天就先来搞明白读一个问题！~<br>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2015/03/22/httpServer&Clinet/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
               <a class="post-title-link" href="/2014/11/20/product/" itemprop="url">
                 做过的一个angular+node产品实录
               </a>
@@ -1015,80 +1112,6 @@ var _hmt = _hmt || [];
 
 
     
-      
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
-            
-              <a class="post-title-link" href="/2014/06/20/nodeasync/" itemprop="url">
-                自己对node异步编程方案的理解
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2014-05-20T09:15:49+08:00" content="2014-05-20">
-            2014-05-20
-          </time>
-        </span>
-
-        
-
-        
-          
-            <span class="post-comments-count">
-              &nbsp; | &nbsp;
-              <a href="/2014/06/20/nodeasync/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2014/06/20/nodeasync/" itemprop="commentsCount"></span>
-              </a>
-            </span>
-          
-        
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <h3 id="题记">题记</h3><p>因为node是单线程，所以要用异步来提升性能。但编程一牵扯到“异步”两个字，那么什么时候调用回调函数就不是我们自己说了算的了。当我们进行顺序性特别强的多异步任务协作时，一切就会显得“不那么美好”了。所以我们要想办法更好更方便的进行异步编程。</p>
-<h3 id="三种异步编程方案">三种异步编程方案</h3>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2014/06/20/nodeasync/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1127,7 +1150,7 @@ var _hmt = _hmt || [];
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">18</span>
+              <span class="site-state-item-count">19</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -1141,7 +1164,7 @@ var _hmt = _hmt || [];
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">11</span>
+              <span class="site-state-item-count">12</span>
               <span class="site-state-item-name">标签</span>
               </a>
           </div>
