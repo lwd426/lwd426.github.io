@@ -31,7 +31,7 @@
 
 
 
-  <meta name="keywords" content="javascript," />
+  <meta name="keywords" content="思绪万千," />
 
 
 
@@ -40,22 +40,25 @@
   <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.1" />
 
 
-<meta name="description" content="JSON和字符串的互转在javascript中是极为常用的，尤其是在使用java做数据接口，使用json作为主要的数据传输格式的时候。这次就总结下吧~
-比如我有两个变量，我要将a转换成字符串，将b转换成JSON对象：
-12var a=&amp;#123;&quot;name&quot;:&quot;tom&quot;,&quot;sex&quot;:&quot;男&quot;,&quot;age&quot;:&quot;24&quot;&amp;#125;;var b=&apos;&amp;#123;&quot;name&quot;:&quot;Mike&quot;,&quot;sex&quot;:&quot;女&quot;,">
+<meta name="description" content="我必须承认：放松的状态会激发人的所有感官，让人的存在感更强，更真实生动的感受到周围的一切，包括思想。所以，更有助于灵感迸现和绅审视自我。
+明天就要离开了。大家今天都以各种自己喜欢的方式让这一天变得更加难忘美丽。
+斌哥选择了独自一人带着少量水、一本书和一些人民币去karon海滩上放松放纵了一整个下午。 @刘斌 欣和岳哥选择最后一次去jungceylen大采购，然后打包两个大纸箱子抱回酒店。 @系统-">
 <meta property="og:type" content="article">
-<meta property="og:title" content="JSON对象和字符串之间的相互转换">
-<meta property="og:url" content="http://lwd426.com/2013/03/01/JSON2String/index.html">
+<meta property="og:title" content="大盗贼的后院">
+<meta property="og:url" content="http://lwd426.com/2015/09/25/puket/index.html">
 <meta property="og:site_name" content="大盗贼的后院">
-<meta property="og:description" content="JSON和字符串的互转在javascript中是极为常用的，尤其是在使用java做数据接口，使用json作为主要的数据传输格式的时候。这次就总结下吧~
-比如我有两个变量，我要将a转换成字符串，将b转换成JSON对象：
-12var a=&amp;#123;&quot;name&quot;:&quot;tom&quot;,&quot;sex&quot;:&quot;男&quot;,&quot;age&quot;:&quot;24&quot;&amp;#125;;var b=&apos;&amp;#123;&quot;name&quot;:&quot;Mike&quot;,&quot;sex&quot;:&quot;女&quot;,">
-<meta property="og:updated_time" content="2015-09-30T02:20:57.000Z">
+<meta property="og:description" content="我必须承认：放松的状态会激发人的所有感官，让人的存在感更强，更真实生动的感受到周围的一切，包括思想。所以，更有助于灵感迸现和绅审视自我。
+明天就要离开了。大家今天都以各种自己喜欢的方式让这一天变得更加难忘美丽。
+斌哥选择了独自一人带着少量水、一本书和一些人民币去karon海滩上放松放纵了一整个下午。 @刘斌 欣和岳哥选择最后一次去jungceylen大采购，然后打包两个大纸箱子抱回酒店。 @系统-">
+<meta property="og:image" content="http://lwd426.com/images/puket3.jpeg">
+<meta property="og:image" content="http://lwd426.com/images/puket1.jpeg">
+<meta property="og:image" content="http://lwd426.com/images/puket2.jpeg">
+<meta property="og:updated_time" content="2015-10-01T09:57:03.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="JSON对象和字符串之间的相互转换">
-<meta name="twitter:description" content="JSON和字符串的互转在javascript中是极为常用的，尤其是在使用java做数据接口，使用json作为主要的数据传输格式的时候。这次就总结下吧~
-比如我有两个变量，我要将a转换成字符串，将b转换成JSON对象：
-12var a=&amp;#123;&quot;name&quot;:&quot;tom&quot;,&quot;sex&quot;:&quot;男&quot;,&quot;age&quot;:&quot;24&quot;&amp;#125;;var b=&apos;&amp;#123;&quot;name&quot;:&quot;Mike&quot;,&quot;sex&quot;:&quot;女&quot;,">
+<meta name="twitter:title" content="大盗贼的后院">
+<meta name="twitter:description" content="我必须承认：放松的状态会激发人的所有感官，让人的存在感更强，更真实生动的感受到周围的一切，包括思想。所以，更有助于灵感迸现和绅审视自我。
+明天就要离开了。大家今天都以各种自己喜欢的方式让这一天变得更加难忘美丽。
+斌哥选择了独自一人带着少量水、一本书和一些人民币去karon海滩上放松放纵了一整个下午。 @刘斌 欣和岳哥选择最后一次去jungceylen大采购，然后打包两个大纸箱子抱回酒店。 @系统-">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -72,7 +75,7 @@ var _hmt = _hmt || [];
 })();
 </script>
 
-  <title> JSON对象和字符串之间的相互转换 | 大盗贼的后院 </title>
+  <title>  | 大盗贼的后院 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -190,7 +193,7 @@ var _hmt = _hmt || [];
           
           
             
-              JSON对象和字符串之间的相互转换
+              
             
           
         </h1>
@@ -199,8 +202,8 @@ var _hmt = _hmt || [];
       <div class="post-meta">
         <span class="post-time">
           发表于
-          <time itemprop="dateCreated" datetime="2013-02-01T10:09:09+08:00" content="2013-02-01">
-            2013-02-01
+          <time itemprop="dateCreated" datetime="2015-08-25T10:20:10+08:00" content="2015-08-25">
+            2015-08-25
           </time>
         </span>
 
@@ -209,8 +212,8 @@ var _hmt = _hmt || [];
             &nbsp; | &nbsp; 分类于
             
               <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                <a href="/categories/基础/" itemprop="url" rel="index">
-                  <span itemprop="name">基础</span>
+                <a href="/categories/思绪万千/" itemprop="url" rel="index">
+                  <span itemprop="name">思绪万千</span>
                 </a>
               </span>
 
@@ -225,8 +228,8 @@ var _hmt = _hmt || [];
           
             <span class="post-comments-count">
               &nbsp; | &nbsp;
-              <a href="/2013/03/01/JSON2String/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2013/03/01/JSON2String/" itemprop="commentsCount"></span>
+              <a href="/2015/09/25/puket/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2015/09/25/puket/" itemprop="commentsCount"></span>
               </a>
             </span>
           
@@ -240,25 +243,19 @@ var _hmt = _hmt || [];
       
 
       
-        <span itemprop="articleBody"><p>JSON和字符串的互转在javascript中是极为常用的，尤其是在使用java做数据接口，使用json作为主要的数据传输格式的时候。这次就总结下吧~</p>
-<p>比如我有两个变量，我要将a转换成字符串，将b转换成JSON对象：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a=&#123;<span class="string">"name"</span>:<span class="string">"tom"</span>,<span class="string">"sex"</span>:<span class="string">"男"</span>,<span class="string">"age"</span>:<span class="string">"24"</span>&#125;;</span><br><span class="line"><span class="keyword">var</span> b=<span class="string">'&#123;"name":"Mike","sex":"女","age":"29"&#125;'</span>;</span><br></pre></td></tr></table></figure>
-<h3 id="常用方法">常用方法</h3><p>在Firefox，chrome，opera，safari，ie9，ie8等高级浏览器直接可以用JSON对象的stringify()和parse()方法。<br><a id="more"></a></p>
-<ul>
-<li>JSON.stringify(obj)将JSON转为字符串。</li>
-<li>JSON.parse(string)将字符串转为JSON格式；</li>
-</ul>
-<p>上面的转换可以这么写：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a=&#123;<span class="string">"name"</span>:<span class="string">"tom"</span>,<span class="string">"sex"</span>:<span class="string">"男"</span>,<span class="string">"age"</span>:<span class="string">"24"</span>&#125;;</span><br><span class="line"><span class="keyword">var</span> b=<span class="string">'&#123;"name":"Mike","sex":"女","age":"29"&#125;'</span>;</span><br><span class="line"><span class="keyword">var</span> aToStr=<span class="built_in">JSON</span>.stringify(a);</span><br><span class="line"><span class="keyword">var</span> bToObj=<span class="built_in">JSON</span>.parse(b);</span><br><span class="line">alert(<span class="keyword">typeof</span>(aToStr));  <span class="comment">//string</span></span><br><span class="line">alert(<span class="keyword">typeof</span>(bToObj));<span class="comment">//object</span></span><br></pre></td></tr></table></figure>
-<h3 id="IE8|IE7|IE6">IE8|IE7|IE6</h3><ol>
-<li><p>ie8(兼容模式),ie7和ie6没有JSON对象，不过<a href="http://www.json.org/" target="_blank" rel="external">http://www.json.org/</a>提供了一个json.js,这样ie8(兼容模式),ie7和ie6就可以支持JSON对象以及其stringify()和parse()方法；你可以在<a href="https://github.com/douglascrockford/JSON-js上获取到这个js，一般现在用`json2.js`。" target="_blank" rel="external">https://github.com/douglascrockford/JSON-js上获取到这个js，一般现在用`json2.js`。</a></p>
-</li>
-<li><p>ie8(兼容模式),ie7和ie6可以使用eval()将字符串转为JSON对象，</p>
-</li>
-</ol>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> c=<span class="string">'&#123;"name":"Mike","sex":"女","age":"29"&#125;'</span>;</span><br><span class="line"><span class="keyword">var</span> cToObj=<span class="built_in">eval</span>(<span class="string">"("</span>+c+<span class="string">")"</span>);</span><br><span class="line">alert(<span class="keyword">typeof</span>(cToObj));</span><br></pre></td></tr></table></figure>
-<h3 id="jQuery中也有将字符串转为JSON格式的方法">jQuery中也有将字符串转为JSON格式的方法</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">jQuery.parseJSON( json )</span><br></pre></td></tr></table></figure>
-<p>接受一个标准格式的 JSON 字符串，并返回解析后的 JavaScript （JSON）对象。当然如果有兴趣可以自己封装一个jQuery扩展，jQuery.stringifyJSON(obj)将JSON转为字符串。</p>
+        <span itemprop="articleBody"><p><em>我必须承认：放松的状态会激发人的所有感官，让人的存在感更强，更真实生动的感受到周围的一切，包括思想。所以，更有助于灵感迸现和绅审视自我。</em></p>
+<p>明天就要离开了。大家今天都以各种自己喜欢的方式让这一天变得更加难忘美丽。</p>
+<p>斌哥选择了独自一人带着少量水、一本书和一些人民币去karon海滩上放松放纵了一整个下午。 @刘斌 欣和岳哥选择最后一次去jungceylen大采购，然后打包两个大纸箱子抱回酒店。 @系统-钊欣 瑞哥选择吹着海风沐浴着晌午温暖的阳光在酒店的阳台上做梦。</p>
+<p><img src="images/puket3.jpeg" alt=""></p>
+<p>63和男友选择做一次专业的massage，被大妈压扁并享受着。 @刘珊 </p>
+<p>鹏选择自己一个人走路到酒店附近的店里寄明信片（记得他第一天就问导游哪里可以寄），结果因为没有邮票没有成功，买了个雪糕，自己吹着海风晒着太阳回来了。 @陈鹏 </p>
+<p><img src="images/puket1.jpeg" alt=""></p>
+<p>我跟婷儿选择去她一直想去的悬崖餐厅体验故事里的晚餐。结果一切美得像画，最后，我向侍者询问能否把花瓶里的玫瑰送给我，然后我送给我老婆，她用泰式最温和的笑容回答我说”of course”。 @丫头 </p>
+<p><img src="images/puket2.jpeg" alt=""></p>
+<p>一切就这么如乳白色上翠绿的浪花温柔而自然的发生了，天空也作美，给了我们一个挂着千姿百态云彩的蓝色天空，阳光倾斜着在温和的海面上撒出碎银子般的光，海风轻轻吹拂在我们的面庞，一股暖流从心间流淌。</p>
+<p>生活，本应该如此如此。</p>
+<p>Good night,everybody.</p>
+<p>请相信，生活永远有美好等待着我们去体验。</p>
 </span>
       
     </div>
@@ -267,7 +264,7 @@ var _hmt = _hmt || [];
       
         <div class="post-tags">
           
-            <a href="/tags/javascript/" rel="tag">#javascript</a>
+            <a href="/tags/思绪万千/" rel="tag">#思绪万千</a>
           
         </div>
       
@@ -276,13 +273,13 @@ var _hmt = _hmt || [];
         <div class="post-nav">
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2013/03/04/javascript_function/" rel="prev">自己对“闭包”的理解</a>
+              <a href="/2015/10/19/sevensths/" rel="prev">七个对我最好的职业建议(来自阮一峰老师翻译)</a>
             
           </div>
 
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2013/02/20/session/" rel="next">session和cookie</a>
+              <a href="/2015/07/24/node_markdown/" rel="next">解决方案：node解析markdown</a>
             
           </div>
         </div>
@@ -297,10 +294,10 @@ var _hmt = _hmt || [];
 
     <div class="post-spread">
       
-        <div class="ds-share flat" data-thread-key="2013/03/01/JSON2String/"
-     data-title="JSON对象和字符串之间的相互转换"
+        <div class="ds-share flat" data-thread-key="2015/09/25/puket/"
+     data-title=""
      data-content=""
-     data-url="http://lwd426.com/2013/03/01/JSON2String/">
+     data-url="http://lwd426.com/2015/09/25/puket/">
   <div class="ds-share-inline">
     <ul  class="ds-share-icons-16">
 
@@ -326,8 +323,8 @@ var _hmt = _hmt || [];
         
           <div class="comments" id="comments">
             
-              <div class="ds-thread" data-thread-key="2013/03/01/JSON2String/"
-                   data-title="JSON对象和字符串之间的相互转换" data-url="http://lwd426.com/2013/03/01/JSON2String/">
+              <div class="ds-thread" data-thread-key="2015/09/25/puket/"
+                   data-title="" data-url="http://lwd426.com/2015/09/25/puket/">
               </div>
             
           </div>
@@ -367,21 +364,21 @@ var _hmt = _hmt || [];
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">20</span>
+              <span class="site-state-item-count">21</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
 
           <div class="site-state-item site-state-categories">
             <a href="/categories">
-              <span class="site-state-item-count">8</span>
+              <span class="site-state-item-count">9</span>
               <span class="site-state-item-name">分类</span>
               </a>
           </div>
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">12</span>
+              <span class="site-state-item-count">13</span>
               <span class="site-state-item-name">标签</span>
               </a>
           </div>
@@ -409,7 +406,7 @@ var _hmt = _hmt || [];
           <div class="post-toc">
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#常用方法"><span class="nav-number">1.</span> <span class="nav-text">常用方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#IE8|IE7|IE6"><span class="nav-number">2.</span> <span class="nav-text">IE8|IE7|IE6</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#jQuery中也有将字符串转为JSON格式的方法"><span class="nav-number">3.</span> <span class="nav-text">jQuery中也有将字符串转为JSON格式的方法</span></a></li></ol></div>
+              <p class="post-toc-empty">此文章未包含目录</p>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>
@@ -674,10 +671,6 @@ var _hmt = _hmt || [];
 
   
   
-
-<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"slide":{"type":"slide","bdImg":"3","bdPos":"left","bdTop":"250"}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
-
-
 
   
   <script type="text/javascript" src="/js/lazyload.js"></script>
