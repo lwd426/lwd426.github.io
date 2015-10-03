@@ -42,24 +42,21 @@
 
 <meta name="description" content="作用域有两种常见的模型，一种叫做词法作用域 Lexical Scope，一种叫做动态作用域Dynamic Scope。其中词法作用域更常见，被大多数语言采用，包括javascript。
 
-###词法作用域
-词法分析过程Lex-time，是指系统讲源码字符串解读成有含义的token的过程。词法作用域就是说在词法分析过程(即代码解析时)中指派的作用域，词法作用域在词法解析过程中就已经定死了。">
+词法作用域词法分析过程Lex-time，是指系统讲源码字符串解读成有含义的token的过程。词法作用域就是说在词法分析过程(即代码解析时)中指派的作用域，词法作用域在词法解析过程中就已经定死了。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="词法作用域和动态作用域的详解">
 <meta property="og:url" content="http://lwd426.com/2012/10/11/javascript_scope/index.html">
 <meta property="og:site_name" content="大盗贼的后院">
 <meta property="og:description" content="作用域有两种常见的模型，一种叫做词法作用域 Lexical Scope，一种叫做动态作用域Dynamic Scope。其中词法作用域更常见，被大多数语言采用，包括javascript。
 
-###词法作用域
-词法分析过程Lex-time，是指系统讲源码字符串解读成有含义的token的过程。词法作用域就是说在词法分析过程(即代码解析时)中指派的作用域，词法作用域在词法解析过程中就已经定死了。">
+词法作用域词法分析过程Lex-time，是指系统讲源码字符串解读成有含义的token的过程。词法作用域就是说在词法分析过程(即代码解析时)中指派的作用域，词法作用域在词法解析过程中就已经定死了。">
 <meta property="og:image" content="http://lwd426.com/images/javascript_scope.jpg">
-<meta property="og:updated_time" content="2015-10-03T14:18:59.000Z">
+<meta property="og:updated_time" content="2015-10-03T14:21:23.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="词法作用域和动态作用域的详解">
 <meta name="twitter:description" content="作用域有两种常见的模型，一种叫做词法作用域 Lexical Scope，一种叫做动态作用域Dynamic Scope。其中词法作用域更常见，被大多数语言采用，包括javascript。
 
-###词法作用域
-词法分析过程Lex-time，是指系统讲源码字符串解读成有含义的token的过程。词法作用域就是说在词法分析过程(即代码解析时)中指派的作用域，词法作用域在词法解析过程中就已经定死了。">
+词法作用域词法分析过程Lex-time，是指系统讲源码字符串解读成有含义的token的过程。词法作用域就是说在词法分析过程(即代码解析时)中指派的作用域，词法作用域在词法解析过程中就已经定死了。">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -247,8 +244,7 @@ var _hmt = _hmt || [];
         <span itemprop="articleBody"><blockquote>
 <p>作用域有两种常见的模型，一种叫做<code>词法作用域</code> Lexical Scope，一种叫做<code>动态作用域</code>Dynamic Scope。其中词法作用域更常见，被大多数语言采用，包括javascript。</p>
 </blockquote>
-<p>###词法作用域</p>
-<p>词法分析过程Lex-time，是指系统讲源码字符串解读成有含义的token的过程。<em>词法作用域就是说在词法<code>分析过程(即代码解析时)</code>中指派的作用域，词法作用域在词法解析过程中就已经定死了。</em><br><a id="more"></a><br>依然有一些手段能在词法解析之后改变词法作用域，但这些做法并不推荐。使用关键词eval, with,会产生性能问题。可以参考<a href="http://www.ituring.com.cn/tupubarticle/3482" target="_blank" rel="external">《你不知道的javascript》- 词法作用域</a></p>
+<h3 id="词法作用域">词法作用域</h3><p>词法分析过程Lex-time，是指系统讲源码字符串解读成有含义的token的过程。<em>词法作用域就是说在词法<code>分析过程(即代码解析时)</code>中指派的作用域，词法作用域在词法解析过程中就已经定死了。</em><br><a id="more"></a><br>依然有一些手段能在词法解析之后改变词法作用域，但这些做法并不推荐。使用关键词eval, with,会产生性能问题。可以参考<a href="http://www.ituring.com.cn/tupubarticle/3482" target="_blank" rel="external">《你不知道的javascript》- 词法作用域</a></p>
 <p>考虑如下代码：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params">a</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> b = a * <span class="number">2</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">bar</span>(<span class="params">c</span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log( a, b, c );</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    bar( b * <span class="number">3</span> );</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">foo( <span class="number">2</span> ); <span class="comment">// 2, 4, 12</span></span><br></pre></td></tr></table></figure>
 <p>在这个例子中有三个逐级嵌套的作用域。为了帮助理解，可以将它们想象成几个逐级包含的气泡。</p>
@@ -272,6 +268,7 @@ var _hmt = _hmt || [];
 <li>词法作用域关心的是函数在哪里声明的</li>
 <li>动态作用域的概念和js中的this相同，this也关心函数在哪里调用的。</li>
 </ul>
+<p>转自 <a href="http://segmentfault.com/a/1190000002532217" target="_blank" rel="external">http://segmentfault.com/a/1190000002532217</a> （作者是部分引自《你不知道的javascript》这本书）</p>
 </span>
       
     </div>
@@ -422,7 +419,7 @@ var _hmt = _hmt || [];
           <div class="post-toc">
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#动态作用域"><span class="nav-number">1.</span> <span class="nav-text">动态作用域</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#词法作用域"><span class="nav-number">1.</span> <span class="nav-text">词法作用域</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#动态作用域"><span class="nav-number">2.</span> <span class="nav-text">动态作用域</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>
