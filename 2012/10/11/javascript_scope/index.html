@@ -31,7 +31,7 @@
 
 
 
-  <meta name="keywords" content="javascript," />
+  <meta name="keywords" content="javascript,基础," />
 
 
 
@@ -40,17 +40,29 @@
   <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.1" />
 
 
-<meta name="description">
+<meta name="description" content="作用域有两种常见的模型，一种叫做词法作用域 Lexical Scope，一种叫做动态作用域Dynamic Scope。其中词法作用域更常见，被大多数语言采用，包括javascript。
+
+###词法作用域
+词法分析过程Lex-time，是指系统讲源码字符串解读成有含义的token的过程。词法作用域就是说在词法分析过程(即代码解析时)中指派的作用域，词法作用域在词法解析过程中就已经定死了。
+依然有一">
 <meta property="og:type" content="article">
-<meta property="og:title" content="javascript检测类型方法汇总">
-<meta property="og:url" content="http://lwd426.com/2014/01/03/js-typecheck/index.html">
+<meta property="og:title" content="词法作用域和动态作用域的详解">
+<meta property="og:url" content="http://lwd426.com/2012/10/11/javascript_scope/index.html">
 <meta property="og:site_name" content="大盗贼的后院">
-<meta property="og:description">
-<meta property="og:image" content="http://lwd426.com/images/javascripttype.png">
-<meta property="og:updated_time" content="2015-09-17T02:14:31.000Z">
+<meta property="og:description" content="作用域有两种常见的模型，一种叫做词法作用域 Lexical Scope，一种叫做动态作用域Dynamic Scope。其中词法作用域更常见，被大多数语言采用，包括javascript。
+
+###词法作用域
+词法分析过程Lex-time，是指系统讲源码字符串解读成有含义的token的过程。词法作用域就是说在词法分析过程(即代码解析时)中指派的作用域，词法作用域在词法解析过程中就已经定死了。
+依然有一">
+<meta property="og:image" content="http://lwd426.com/images/javascript_scope.jpg">
+<meta property="og:updated_time" content="2015-10-03T14:16:19.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="javascript检测类型方法汇总">
-<meta name="twitter:description">
+<meta name="twitter:title" content="词法作用域和动态作用域的详解">
+<meta name="twitter:description" content="作用域有两种常见的模型，一种叫做词法作用域 Lexical Scope，一种叫做动态作用域Dynamic Scope。其中词法作用域更常见，被大多数语言采用，包括javascript。
+
+###词法作用域
+词法分析过程Lex-time，是指系统讲源码字符串解读成有含义的token的过程。词法作用域就是说在词法分析过程(即代码解析时)中指派的作用域，词法作用域在词法解析过程中就已经定死了。
+依然有一">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -67,7 +79,7 @@ var _hmt = _hmt || [];
 })();
 </script>
 
-  <title> javascript检测类型方法汇总 | 大盗贼的后院 </title>
+  <title> 词法作用域和动态作用域的详解 | 大盗贼的后院 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -185,7 +197,7 @@ var _hmt = _hmt || [];
           
           
             
-              javascript检测类型方法汇总
+              词法作用域和动态作用域的详解
             
           
         </h1>
@@ -194,8 +206,8 @@ var _hmt = _hmt || [];
       <div class="post-meta">
         <span class="post-time">
           发表于
-          <time itemprop="dateCreated" datetime="2013-12-03T10:15:49+08:00" content="2013-12-03">
-            2013-12-03
+          <time itemprop="dateCreated" datetime="2012-09-11T10:40:09+08:00" content="2012-09-11">
+            2012-09-11
           </time>
         </span>
 
@@ -220,8 +232,8 @@ var _hmt = _hmt || [];
           
             <span class="post-comments-count">
               &nbsp; | &nbsp;
-              <a href="/2014/01/03/js-typecheck/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2014/01/03/js-typecheck/" itemprop="commentsCount"></span>
+              <a href="/2012/10/11/javascript_scope/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2012/10/11/javascript_scope/" itemprop="commentsCount"></span>
               </a>
             </span>
           
@@ -235,7 +247,35 @@ var _hmt = _hmt || [];
       
 
       
-        <span itemprop="articleBody"><p><img src="/images/javascripttype.png" alt=""></p>
+        <span itemprop="articleBody"><blockquote>
+<p>作用域有两种常见的模型，一种叫做<code>词法作用域</code> Lexical Scope，一种叫做<code>动态作用域</code>Dynamic Scope。其中词法作用域更常见，被大多数语言采用，包括javascript。</p>
+</blockquote>
+<p>###词法作用域</p>
+<p>词法分析过程Lex-time，是指系统讲源码字符串解读成有含义的token的过程。<em>词法作用域就是说在词法<code>分析过程(即代码解析时)</code>中指派的作用域，词法作用域在词法解析过程中就已经定死了。</em></p>
+<p>依然有一些手段能在词法解析之后改变词法作用域，但这些做法并不推荐。使用关键词eval, with,会产生性能问题。可以参考<a href="http://www.ituring.com.cn/tupubarticle/3482" target="_blank" rel="external">《你不知道的javascript》- 词法作用域</a></p>
+<p>考虑如下代码：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params">a</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> b = a * <span class="number">2</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">bar</span>(<span class="params">c</span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log( a, b, c );</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    bar( b * <span class="number">3</span> );</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">foo( <span class="number">2</span> ); <span class="comment">// 2, 4, 12</span></span><br></pre></td></tr></table></figure>
+<p>在这个例子中有三个逐级嵌套的作用域。为了帮助理解，可以将它们想象成几个逐级包含的气泡。</p>
+<p><img src="/images/javascript_scope.jpg" alt=""></p>
+<ul>
+<li>气泡（作用域） 1 ：即全局作用域，包含变量<code>foo</code></li>
+<li>气泡（作用域） 2 ：foo的作用域，包含变量<code>a</code>,<code>bar</code>,<code>b</code></li>
+<li>气泡（作用域） 3 ：bar的作用域，包含变量<code>c</code></li>
+</ul>
+<p><code>bar</code> 作用域里完整的包含了<code>foo</code> 的作用域, 因为bar 是在foo中定义的，产生嵌套作用域。值得注意的是，一个函数作用域只有可能存在于一个父级作用域中，不会同时存在两个父级作用域。</p>
+<p>过程：</p>
+<p>语句console.log寻找变量a,b,c 其中c在自己的作用域中找到，a，b在自己的作用域中找不到，于是向上级作用域中查找，在foo的作用域中找到，并且调用。作用域向上查找的过程中，匹配<code>第一次查找到的变量</code>，也就是说如果foo的作用域中也定义了c，但bar函数只调用自己作用域里的c。</p>
+<p>作用域的查找一直会找到全局作用域的全局对象，比如浏览器中的window，你可以定义window.a来确保变量a可以被获取。</p>
+<p>词法作用域向上查找<code>只查找第一级变量</code>，比如变量foo.bar.baz, 查找的是对象foo,查找到了再从对象里获取bar以及baz，查找本身与bar，baz无关。</p>
+<h3 id="动态作用域">动态作用域</h3><p>动态作用域，javascript并无采用，但是与js的 this机制非常相似，看如下代码：<br>动态作用域是在代码运行时定义的，而非代码解析时。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log( a ); </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">bar</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> a = <span class="number">3</span>;</span><br><span class="line">    foo();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> a = <span class="number">2</span>;</span><br><span class="line"></span><br><span class="line">bar();</span><br></pre></td></tr></table></figure>
+<p>bar调用，bar里面foo被调用，foo函数需要查找变量a，由于javascript采用词法作用域，foo被解析的时候是在全局作用域，所以a是全局作用域中的2，而非bar里面的a。假设js采用的是动态作用域，foo是在bar中被调用的，所以a查找到了bar作用域里的3。</p>
+<p>作为对照，动态作用域不关心它本身是怎样在哪里声明的，只关心它在哪里调用的，动态作用域的域链基于调用栈，而不是代码中的嵌套关系。</p>
+<p>相反:</p>
+<ul>
+<li>词法作用域关心的是函数在哪里声明的</li>
+<li>动态作用域的概念和js中的this相同，this也关心函数在哪里调用的。</li>
+</ul>
 </span>
       
     </div>
@@ -246,6 +286,8 @@ var _hmt = _hmt || [];
           
             <a href="/tags/javascript/" rel="tag">#javascript</a>
           
+            <a href="/tags/基础/" rel="tag">#基础</a>
+          
         </div>
       
 
@@ -253,13 +295,11 @@ var _hmt = _hmt || [];
         <div class="post-nav">
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2014/04/13/javascript-eventloop/" rel="prev">自己对javascript异步IO和事件循环的理解</a>
+              <a href="/2013/02/20/session/" rel="prev">session和cookie</a>
             
           </div>
 
           <div class="post-nav-next post-nav-item">
-            
-              <a href="/2013/12/13/jsxingneng/" rel="next">关于js加载性能问题：无阻塞式加载和顺序加载</a>
             
           </div>
         </div>
@@ -274,10 +314,10 @@ var _hmt = _hmt || [];
 
     <div class="post-spread">
       
-        <div class="ds-share flat" data-thread-key="2014/01/03/js-typecheck/"
-     data-title="javascript检测类型方法汇总"
+        <div class="ds-share flat" data-thread-key="2012/10/11/javascript_scope/"
+     data-title="词法作用域和动态作用域的详解"
      data-content=""
-     data-url="http://lwd426.com/2014/01/03/js-typecheck/">
+     data-url="http://lwd426.com/2012/10/11/javascript_scope/">
   <div class="ds-share-inline">
     <ul  class="ds-share-icons-16">
 
@@ -303,8 +343,8 @@ var _hmt = _hmt || [];
         
           <div class="comments" id="comments">
             
-              <div class="ds-thread" data-thread-key="2014/01/03/js-typecheck/"
-                   data-title="javascript检测类型方法汇总" data-url="http://lwd426.com/2014/01/03/js-typecheck/">
+              <div class="ds-thread" data-thread-key="2012/10/11/javascript_scope/"
+                   data-title="词法作用域和动态作用域的详解" data-url="http://lwd426.com/2012/10/11/javascript_scope/">
               </div>
             
           </div>
@@ -386,7 +426,7 @@ var _hmt = _hmt || [];
           <div class="post-toc">
             
             
-              <p class="post-toc-empty">此文章未包含目录</p>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#动态作用域"><span class="nav-number">1.</span> <span class="nav-text">动态作用域</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>
