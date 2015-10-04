@@ -42,23 +42,20 @@
 
 <meta name="description" content="多核编程的重要性无需多说， 我们直奔主题，目前nodejs 的网络服务器有以下几种支持多进程的方式：
 
-开启多个进程，每个进程绑定不同的端口开启多个进程，每个进程绑定不同的端口，用反向代理服务器如 Nginx 做负载均衡，好处是我们可以借助强大的 Nginx 做一些过滤检查之类的操作，同时能够实现比较好的均衡策略，但坏处也是显而易见 —我们引入了一个间接层。
-多进程绑定在同一个端口侦听在nodej">
+开启多个进程，每个进程绑定不同的端口开启多个进程，每个进程绑定不同的端口，用反向代理服务器如 Nginx 做负载均衡，好处是我们可以借助强大的 Nginx 做一些过滤检查之类的操作，同时能够实现比较好的均衡策略，但坏处也是显而易见 —我们引入了一个间接层。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="思考：转-NodeJs 多核多进程并行框架实作">
 <meta property="og:url" content="http://lwd426.com/2015/04/05/node_mulit_2/index.html">
 <meta property="og:site_name" content="大盗贼的后院">
 <meta property="og:description" content="多核编程的重要性无需多说， 我们直奔主题，目前nodejs 的网络服务器有以下几种支持多进程的方式：
 
-开启多个进程，每个进程绑定不同的端口开启多个进程，每个进程绑定不同的端口，用反向代理服务器如 Nginx 做负载均衡，好处是我们可以借助强大的 Nginx 做一些过滤检查之类的操作，同时能够实现比较好的均衡策略，但坏处也是显而易见 —我们引入了一个间接层。
-多进程绑定在同一个端口侦听在nodej">
-<meta property="og:updated_time" content="2015-10-04T06:42:16.000Z">
+开启多个进程，每个进程绑定不同的端口开启多个进程，每个进程绑定不同的端口，用反向代理服务器如 Nginx 做负载均衡，好处是我们可以借助强大的 Nginx 做一些过滤检查之类的操作，同时能够实现比较好的均衡策略，但坏处也是显而易见 —我们引入了一个间接层。">
+<meta property="og:updated_time" content="2015-10-04T06:45:23.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="思考：转-NodeJs 多核多进程并行框架实作">
 <meta name="twitter:description" content="多核编程的重要性无需多说， 我们直奔主题，目前nodejs 的网络服务器有以下几种支持多进程的方式：
 
-开启多个进程，每个进程绑定不同的端口开启多个进程，每个进程绑定不同的端口，用反向代理服务器如 Nginx 做负载均衡，好处是我们可以借助强大的 Nginx 做一些过滤检查之类的操作，同时能够实现比较好的均衡策略，但坏处也是显而易见 —我们引入了一个间接层。
-多进程绑定在同一个端口侦听在nodej">
+开启多个进程，每个进程绑定不同的端口开启多个进程，每个进程绑定不同的端口，用反向代理服务器如 Nginx 做负载均衡，好处是我们可以借助强大的 Nginx 做一些过滤检查之类的操作，同时能够实现比较好的均衡策略，但坏处也是显而易见 —我们引入了一个间接层。">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -247,6 +244,7 @@ var _hmt = _hmt || [];
 <p>多核编程的重要性无需多说， 我们直奔主题，目前nodejs 的网络服务器有以下几种支持多进程的方式：</p>
 </blockquote>
 <h3 id="开启多个进程，每个进程绑定不同的端口">开启多个进程，每个进程绑定不同的端口</h3><p>开启多个进程，每个进程绑定不同的端口，用反向代理服务器如 Nginx 做负载均衡，好处是我们可以借助强大的 Nginx 做一些过滤检查之类的操作，同时能够实现比较好的均衡策略，但坏处也是显而易见 —我们引入了一个间接层。</p>
+<a id="more"></a>
 <h3 id="多进程绑定在同一个端口侦听">多进程绑定在同一个端口侦听</h3><p>在nodejs 中，提供了进程间发送“文件句柄” 的功能，这个功能实在是太有用了（貌似是yahoo 的工程师提交的一个patch）</p>
 <p>不明真相的群众可以看这里： <a href="http://www.lst.de/~okir/blackhats/node121.html" target="_blank" rel="external">http://www.lst.de/~okir/blackhats/node121.html</a></p>
 <p>在 node 中我们可以通过以下函数达到效果：</p>
