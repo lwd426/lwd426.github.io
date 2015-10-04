@@ -31,7 +31,7 @@
 
 
 
-  <meta name="keywords" content="javascript," />
+  <meta name="keywords" content="nodejs," />
 
 
 
@@ -40,40 +40,22 @@
   <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.1" />
 
 
-<meta name="description" content="当我不在把javascipt仅仅当成玩具去完成前端页面的特效时，那么就是时候来真正了解闭包是什么了。
+<meta name="description" content="events是Node.js最重要的模块，没有“之一”，原因是Node.js本身架构就是事件式的，而它提供唯一 的接口，所以堪称Node.js事件编程的基石。events模块不仅用于用户代码与Node.js下层事件循环的交互，还几乎被所有的模块依赖。
 
-基础概念首先要知道以下几个概念：
-
-上下文环境
-全局变量和局部变量
-javascript的参数和返回值都可以是函数
-函数内部的方法可以访问到函数的局部变量和全局变量
-函数内部的方法访问的变量是不会随着外部函数的销毁而销毁的，知道内部函数也销毁了">
+事件发射events模块只提供一个对象：events.EventEmitter。EventEmitter的核心就是事件发射与事件监听器功能的封装。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="自己对“闭包”的理解">
-<meta property="og:url" content="http://lwd426.com/2013/03/04/javascript_function/index.html">
+<meta property="og:title" content="Node.js核心模块-events">
+<meta property="og:url" content="http://lwd426.com/2014/11/03/node_events/index.html">
 <meta property="og:site_name" content="大盗贼的后院">
-<meta property="og:description" content="当我不在把javascipt仅仅当成玩具去完成前端页面的特效时，那么就是时候来真正了解闭包是什么了。
+<meta property="og:description" content="events是Node.js最重要的模块，没有“之一”，原因是Node.js本身架构就是事件式的，而它提供唯一 的接口，所以堪称Node.js事件编程的基石。events模块不仅用于用户代码与Node.js下层事件循环的交互，还几乎被所有的模块依赖。
 
-基础概念首先要知道以下几个概念：
-
-上下文环境
-全局变量和局部变量
-javascript的参数和返回值都可以是函数
-函数内部的方法可以访问到函数的局部变量和全局变量
-函数内部的方法访问的变量是不会随着外部函数的销毁而销毁的，知道内部函数也销毁了">
-<meta property="og:updated_time" content="2015-09-19T07:21:23.000Z">
+事件发射events模块只提供一个对象：events.EventEmitter。EventEmitter的核心就是事件发射与事件监听器功能的封装。">
+<meta property="og:updated_time" content="2015-10-04T15:13:32.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="自己对“闭包”的理解">
-<meta name="twitter:description" content="当我不在把javascipt仅仅当成玩具去完成前端页面的特效时，那么就是时候来真正了解闭包是什么了。
+<meta name="twitter:title" content="Node.js核心模块-events">
+<meta name="twitter:description" content="events是Node.js最重要的模块，没有“之一”，原因是Node.js本身架构就是事件式的，而它提供唯一 的接口，所以堪称Node.js事件编程的基石。events模块不仅用于用户代码与Node.js下层事件循环的交互，还几乎被所有的模块依赖。
 
-基础概念首先要知道以下几个概念：
-
-上下文环境
-全局变量和局部变量
-javascript的参数和返回值都可以是函数
-函数内部的方法可以访问到函数的局部变量和全局变量
-函数内部的方法访问的变量是不会随着外部函数的销毁而销毁的，知道内部函数也销毁了">
+事件发射events模块只提供一个对象：events.EventEmitter。EventEmitter的核心就是事件发射与事件监听器功能的封装。">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -90,7 +72,7 @@ var _hmt = _hmt || [];
 })();
 </script>
 
-  <title> 自己对“闭包”的理解 | 大盗贼的后院 </title>
+  <title> Node.js核心模块-events | 大盗贼的后院 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -208,7 +190,7 @@ var _hmt = _hmt || [];
           
           
             
-              自己对“闭包”的理解
+              Node.js核心模块-events
             
           
         </h1>
@@ -217,8 +199,8 @@ var _hmt = _hmt || [];
       <div class="post-meta">
         <span class="post-time">
           发表于
-          <time itemprop="dateCreated" datetime="2013-02-04T08:45:20+08:00" content="2013-02-04">
-            2013-02-04
+          <time itemprop="dateCreated" datetime="2014-10-03T14:34:00+08:00" content="2014-10-03">
+            2014-10-03
           </time>
         </span>
 
@@ -227,8 +209,8 @@ var _hmt = _hmt || [];
             &nbsp; | &nbsp; 分类于
             
               <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                <a href="/categories/基础/" itemprop="url" rel="index">
-                  <span itemprop="name">基础</span>
+                <a href="/categories/nodejs/" itemprop="url" rel="index">
+                  <span itemprop="name">nodejs</span>
                 </a>
               </span>
 
@@ -243,8 +225,8 @@ var _hmt = _hmt || [];
           
             <span class="post-comments-count">
               &nbsp; | &nbsp;
-              <a href="/2013/03/04/javascript_function/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2013/03/04/javascript_function/" itemprop="commentsCount"></span>
+              <a href="/2014/11/03/node_events/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2014/11/03/node_events/" itemprop="commentsCount"></span>
               </a>
             </span>
           
@@ -259,44 +241,21 @@ var _hmt = _hmt || [];
 
       
         <span itemprop="articleBody"><blockquote>
-<p>当我不在把javascipt仅仅当成玩具去完成前端页面的特效时，那么就是时候来真正了解闭包是什么了。</p>
+<p>events是Node.js最重要的模块，没有“之一”，原因是Node.js本身架构就是事件式的，而它提供唯一 的接口，所以堪称Node.js事件编程的基石。events模块不仅用于用户代码与Node.js下层事件循环的交互，还几乎被所有的模块依赖。</p>
 </blockquote>
-<h3 id="基础概念">基础概念</h3><p>首先要知道以下几个概念：</p>
-<ul>
-<li>上下文环境</li>
-<li>全局变量和局部变量</li>
-<li>javascript的参数和返回值都可以是函数</li>
-<li>函数内部的方法可以访问到函数的局部变量和全局变量</li>
-<li>函数内部的方法访问的变量是不会随着外部函数的销毁而销毁的，知道内部函数也销毁了<a id="more"></a>
-知道以上几个基本概念以后，就可以清楚的知道什么是闭包了。</li>
+<h3 id="事件发射">事件发射</h3><p>events模块只提供一个对象：events.EventEmitter。EventEmitter的核心就是事件发射与事件监听器功能的封装。EventEmitter的每个事件由一个事件名和若干参数组成，事件名是一个字符串，通常表达一定的语义。对于每个事件，EventEmitter支持若干个事件监听器。当事件发射时，注册到这个事件的事件监听器被依次调用，事件参数作为回调函数参数传递。<br><a id="more"></a><br>让我们以下面的例子解释这个过程：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> events =<span class="built_in">require</span>(‘events’);</span><br><span class="line"><span class="keyword">var</span> emitter = newevents.EventEmitter();</span><br><span class="line">emmitter.on(“someEvent”,<span class="function"><span class="keyword">function</span>(<span class="params">arg1,arg2</span>)</span>&#123;</span><br><span class="line">     <span class="built_in">console</span>.log(“listener1”,arg1,arg2);</span><br><span class="line">&#125;);</span><br><span class="line">emmitter.on(“someEvent”,<span class="function"><span class="keyword">function</span>(<span class="params">arg1,arg2</span>)</span>&#123;</span><br><span class="line">     <span class="built_in">console</span>.log(“listener2”,arg1,arg2);</span><br><span class="line">&#125;);</span><br><span class="line"> </span><br><span class="line">emmiter.emit(“someEvent”,’byVoid’,<span class="number">1991</span>);</span><br><span class="line"><span class="comment">//运行的结果是：</span></span><br><span class="line">listener1 byVoid1991</span><br><span class="line">listener2 byVoid1991</span><br></pre></td></tr></table></figure>
+<p>emitter为事件someEvent注册了两个事件监听器，然后发射了someEvent事件，运行结果中可以看到两个事件监听回调函数被先后调用。</p>
+<h3 id="EventEmitter的简单API">EventEmitter的简单API</h3><ul>
+<li><code>EventEmitter.on(event,listener)</code> :接受一个字符串和一个回调函数listener回调函数</li>
+<li><code>EventEmitter.emit(evnet,[arg1],[…])</code>发射event事件，传递若干可选参数到事件监听的参数表</li>
+<li><code>EventEmitter.once(event,listener);</code>指定事件注册一个单次监听器，即监听器最多只会触发一次，触发后立即解除该监听器。</li>
+<li><code>EventEmitter.removeListener(event,listener);</code>移除指定事件的某个监听器，listener必须是该事件已经注册过的监听器</li>
+<li><code>EventEmitter.removeAllListeners([evnet]);</code>移除所有事件的所有监听器。</li>
+<li>API:<a href="http://nodejs.org/api/events.html" target="_blank" rel="external">http://nodejs.org/api/events.html</a></li>
 </ul>
-<h3 id="闭包的定义">闭包的定义</h3><blockquote>
-<p>引用阮一峰老师一篇日志：</p>
-<p>各种专业文献上的”闭包”（closure）定义非常抽象，很难看懂。我的理解是，<code>闭包就是能够读取其他函数内部变量的函数</code>。<br>由于在Javascript语言中，只有函数内部的子函数才能读取局部变量，因此可以把闭包简单理解成<code>&quot;定义在一个函数内部的函数&quot;</code>。<br>所以，在本质上，闭包就是将函数内部和函数外部连接起来的一座桥梁。</p>
-</blockquote>
-<p>综上所述，闭包最终定义为：<br><code>闭包就是定义在一个函数内部、能够读取其他函数内部变量的函数</code></p>
-<h3 id="实例讲解">实例讲解</h3><blockquote>
-<p>ps: 由于阮一峰老师的例子真的很有代表性，而且很清晰，就直接引用了。</p>
-</blockquote>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">f1</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">　　　　<span class="keyword">var</span> n=<span class="number">999</span>;</span><br><span class="line">　　　　nAdd=<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;n+=<span class="number">1</span>&#125;</span><br><span class="line">　　　　<span class="function"><span class="keyword">function</span> <span class="title">f2</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">　　　　　　alert(n);</span><br><span class="line">　　　　&#125;</span><br><span class="line">　　　　<span class="keyword">return</span> f2;</span><br><span class="line">　　&#125;</span><br><span class="line">　　<span class="keyword">var</span> result=f1();</span><br><span class="line">　　result(); <span class="comment">// 999</span></span><br><span class="line">　　nAdd();</span><br><span class="line">　　result(); <span class="comment">// 1000</span></span><br></pre></td></tr></table></figure>
-<p>在这段代码中，result实际上就是闭包f2函数。它一共运行了两次，第一次的值是999，第二次的值是1000。这证明了，函数f1中的局部变量n一直保存在内存中，并没有在f1调用后被自动清除。</p>
-<p>为什么会这样呢？原因就在于f1是f2的父函数，而f2被赋给了一个全局变量，这导致f2始终在内存中，而f2的存在依赖于f1，因此f1也始终在内存中，不会在调用结束后，被垃圾回收机制（garbage collection）回收。</p>
-<p>这段代码中另一个值得注意的地方，就是”nAdd=function(){n+=1}”这一行，首先在nAdd前面没有使用var关键字，因此nAdd是一个全局变量，而不是局部变量。其次，nAdd的值是一个匿名函数（anonymous function），而这个匿名函数本身也是一个闭包，所以nAdd相当于是一个setter，可以在函数外部对函数内部的局部变量进行操作。</p>
-<h3 id="闭包的用途">闭包的用途</h3><p>闭包可以用在许多地方。它的最大用处有以下几个：</p>
-<ol>
-<li>前面提到的可以读取函数内部的变量</li>
-<li>让这些变量的值始终保持在内存中</li>
-<li><p>用途2的更高级用途就是高阶函数中的偏函数的使用：</p>
-<blockquote>
-<p>偏函数：指创建一个调用另外一个部分—参数或变量已经预知的函数—的函数的用法.直白说就是： 通过闭包来创建预先填写好的某些参数的函数.” 可以通过这个来创建动态名称的函数，看起来应该很牛B，代码可读性也更好”</p>
-</blockquote>
- <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">suffix</span>(<span class="params">a</span>)</span>&#123;</span><br><span class="line">   <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params">b</span>)</span>&#123;</span><br><span class="line">      <span class="keyword">return</span> [b, a].join(<span class="string">' '</span>);</span><br><span class="line">   &#125;</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"> <span class="keyword">var</span> hello = suffix(<span class="string">"world"</span>);</span><br><span class="line">　<span class="comment">/*  等同于</span><br><span class="line">　　　function hello (b)&#123;</span><br><span class="line">　　　　　return [b,"world"].join();</span><br><span class="line">　　　&#125;</span><br><span class="line">　* */</span></span><br><span class="line"></span><br><span class="line"> <span class="built_in">console</span>.log(hello(<span class="string">"hello"</span>)); <span class="comment">// hello world</span></span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<h3 id="使用时的注意事项">使用时的注意事项</h3><ol>
-<li><code>在退出函数之前，将不使用的局部变量全部删除</code>：由于闭包会使得函数中的变量都被保存在内存中，内存消耗很大，所以不能滥用闭包，否则会造成网页的性能问题，在IE中可能导致内存泄露。。</li>
-<li><code>闭包尽量不要改变外部函数的私有变量</code>：闭包会在父函数外部，改变父函数内部变量的值。所以，如果你把父函数当作对象（object）使用，把闭包当作它的公用方法（Public Method），把内部变量当作它的私有属性（private value），这时一定要小心，不要随便改变父函数内部变量的值。</li>
-</ol>
+<h3 id="error事件">error事件</h3><p>我们在遇到异常的时候通常会发射error事件。当error被发射时，EventEmitter规定如果没有响应的监听器，Node.js会把它当作异常，退出程序并打印调用栈。<strong>我们一般要为会发射error事件的对象设备监听器，避免遇到错误后整个程序崩溃</strong>：<br>var events =require(“events”);<br>var emitter = newevent.EventEmitter();<br>emitter.emit(“error”);</p>
+<p>运行时会显示以下错误：<br>node.js:201<br>         throw e; //process.nextTick error, or ‘error’event on first tick<br>Error:Uncaught,unspecified‘error’ event.<br>        at EventEmitter.emit(events.js 50:15);<br>         …</p>
 </span>
       
     </div>
@@ -305,7 +264,7 @@ var _hmt = _hmt || [];
       
         <div class="post-tags">
           
-            <a href="/tags/javascript/" rel="tag">#javascript</a>
+            <a href="/tags/nodejs/" rel="tag">#nodejs</a>
           
         </div>
       
@@ -314,13 +273,13 @@ var _hmt = _hmt || [];
         <div class="post-nav">
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2013/03/24/javascript_highfunc/" rel="prev">自己对“高阶函数”的理解</a>
+              <a href="/2014/11/20/product/" rel="prev">做过的一个angular+node产品实录</a>
             
           </div>
 
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2013/02/20/session/" rel="next">session和cookie</a>
+              <a href="/2014/07/23/angualrjsptotype/" rel="next">javascript原型集成到angularJS继承</a>
             
           </div>
         </div>
@@ -335,10 +294,10 @@ var _hmt = _hmt || [];
 
     <div class="post-spread">
       
-        <div class="ds-share flat" data-thread-key="2013/03/04/javascript_function/"
-     data-title="自己对“闭包”的理解"
+        <div class="ds-share flat" data-thread-key="2014/11/03/node_events/"
+     data-title="Node.js核心模块-events"
      data-content=""
-     data-url="http://lwd426.com/2013/03/04/javascript_function/">
+     data-url="http://lwd426.com/2014/11/03/node_events/">
   <div class="ds-share-inline">
     <ul  class="ds-share-icons-16">
 
@@ -364,8 +323,8 @@ var _hmt = _hmt || [];
         
           <div class="comments" id="comments">
             
-              <div class="ds-thread" data-thread-key="2013/03/04/javascript_function/"
-                   data-title="自己对“闭包”的理解" data-url="http://lwd426.com/2013/03/04/javascript_function/">
+              <div class="ds-thread" data-thread-key="2014/11/03/node_events/"
+                   data-title="Node.js核心模块-events" data-url="http://lwd426.com/2014/11/03/node_events/">
               </div>
             
           </div>
@@ -447,7 +406,7 @@ var _hmt = _hmt || [];
           <div class="post-toc">
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#基础概念"><span class="nav-number">1.</span> <span class="nav-text">基础概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#闭包的定义"><span class="nav-number">2.</span> <span class="nav-text">闭包的定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实例讲解"><span class="nav-number">3.</span> <span class="nav-text">实例讲解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#闭包的用途"><span class="nav-number">4.</span> <span class="nav-text">闭包的用途</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用时的注意事项"><span class="nav-number">5.</span> <span class="nav-text">使用时的注意事项</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#事件发射"><span class="nav-number">1.</span> <span class="nav-text">事件发射</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#EventEmitter的简单API"><span class="nav-number">2.</span> <span class="nav-text">EventEmitter的简单API</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#error事件"><span class="nav-number">3.</span> <span class="nav-text">error事件</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>
