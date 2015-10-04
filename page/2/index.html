@@ -185,6 +185,101 @@ var _hmt = _hmt || [];
           
           
             
+              <a class="post-title-link" href="/2014/07/20/node-WebSocket/" itemprop="url">
+                自己对WebSocket+nodeJS的理解
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2014-06-20T19:15:49+08:00" content="2014-06-20">
+            2014-06-20
+          </time>
+        </span>
+
+        
+          <span class="post-category" >
+            &nbsp; | &nbsp; 分类于
+            
+              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                <a href="/categories/nodeJS/" itemprop="url" rel="index">
+                  <span itemprop="name">nodeJS</span>
+                </a>
+              </span>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+            <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2014/07/20/node-WebSocket/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2014/07/20/node-WebSocket/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <h3 id="题记">题记</h3><blockquote>
+<p>WebSocket最初是作为html5的一个重要特性出现的，但最终在w3c和IETF的推动下，形成了标准，目前，大部分浏览器都得以支持。</p>
+</blockquote>
+<h3 id="WebSocket的优势">WebSocket的优势</h3><ul>
+<li>服务端和客户端只要建立一次TCP连接就可以完成双向通信，可以使用<code>更少的连接</code>。</li>
+<li>WebSocket服务端可以<code>推送数据</code>到客户端，不需要传统的长连接或者轮循的方式。这也比HTTP的请求/响应模式更加灵活、更加高效。</li>
+<li>协议头更轻量，<code>减少数据传送量</code>。</li>
+</ul>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2014/07/20/node-WebSocket/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
               <a class="post-title-link" href="/2014/07/10/nodejsio/" itemprop="url">
                 自己对nodeJS的异步I/O模型的理解
               </a>
@@ -963,104 +1058,6 @@ var _hmt = _hmt || [];
 
 
     
-      
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
-            
-              <a class="post-title-link" href="/2013/03/24/javascript_highfunc/" itemprop="url">
-                自己对“高阶函数”的理解
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2013-02-24T08:45:20+08:00" content="2013-02-24">
-            2013-02-24
-          </time>
-        </span>
-
-        
-          <span class="post-category" >
-            &nbsp; | &nbsp; 分类于
-            
-              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                <a href="/categories/基础/" itemprop="url" rel="index">
-                  <span itemprop="name">基础</span>
-                </a>
-              </span>
-
-              
-              
-
-            
-          </span>
-        
-
-        
-          
-            <span class="post-comments-count">
-              &nbsp; | &nbsp;
-              <a href="/2013/03/24/javascript_highfunc/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2013/03/24/javascript_highfunc/" itemprop="commentsCount"></span>
-              </a>
-            </span>
-          
-        
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <blockquote>
-<p>之前一篇文章<a href="http://lwd426.com/2013/03/04/javascript_function/">自己对“闭包”的理解</a>中提到了，要理解这些稍微高级点的概念，必须知道一些概念，这里在复述一遍：</p>
-</blockquote>
-<ul>
-<li>上下文环境</li>
-<li>全局变量和局部变量</li>
-<li>javascript的参数和返回值都可以是函数</li>
-<li>函数内部的方法可以访问到函数的局部变量和全局变量</li>
-<li>函数内部的方法访问的变量是不会随着外部函数的销毁而销毁的，知道内部函数也销毁了 </li>
-</ul>
-<p>现在要理解高阶函数。所谓的高阶函数就是<code>传入参数为函数或者返回值为函数的函数</code>。<br>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2013/03/24/javascript_highfunc/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1099,7 +1096,7 @@ var _hmt = _hmt || [];
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">23</span>
+              <span class="site-state-item-count">24</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
