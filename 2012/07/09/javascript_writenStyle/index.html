@@ -40,40 +40,25 @@
   <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.1" />
 
 
-<meta name="description" content="当我不在把javascipt仅仅当成玩具去完成前端页面的特效时，那么就是时候来真正了解闭包是什么了。
+<meta name="description" content="写代码一直都是‘随心而写’，并没有什么风格和过多的思考，这也导致后来阅读代码和修改bug的过程变得十分困难，所以，还是尽早的注意下编码风格这些东西吧。这里借鉴《javascript语言精粹》的第9章，和自己平时的经验，总结一下：
 
-基础概念首先要知道以下几个概念：
-
-上下文环境
-全局变量和局部变量
-javascript的参数和返回值都可以是函数
-函数内部的方法可以访问到函数的局部变量和全局变量
-函数内部的方法访问的变量是不会随着外部函数的销毁而销毁的，知道内部函数也销毁了">
+要在逗号，和冒号：左右都加一个空格，这样有较好的阅读便利；
+ 12345obj = &amp;#123;	name : &apos;lwd426&apos;&amp;#125;obj.say( &apos;hell">
 <meta property="og:type" content="article">
-<meta property="og:title" content="自己对“闭包”的理解">
-<meta property="og:url" content="http://lwd426.com/2013/03/04/javascript_function/index.html">
+<meta property="og:title" content="JavaScript应该使用的编码风格">
+<meta property="og:url" content="http://lwd426.com/2012/07/09/javascript_writenStyle/index.html">
 <meta property="og:site_name" content="大盗贼的后院">
-<meta property="og:description" content="当我不在把javascipt仅仅当成玩具去完成前端页面的特效时，那么就是时候来真正了解闭包是什么了。
+<meta property="og:description" content="写代码一直都是‘随心而写’，并没有什么风格和过多的思考，这也导致后来阅读代码和修改bug的过程变得十分困难，所以，还是尽早的注意下编码风格这些东西吧。这里借鉴《javascript语言精粹》的第9章，和自己平时的经验，总结一下：
 
-基础概念首先要知道以下几个概念：
-
-上下文环境
-全局变量和局部变量
-javascript的参数和返回值都可以是函数
-函数内部的方法可以访问到函数的局部变量和全局变量
-函数内部的方法访问的变量是不会随着外部函数的销毁而销毁的，知道内部函数也销毁了">
-<meta property="og:updated_time" content="2015-09-19T07:21:23.000Z">
+要在逗号，和冒号：左右都加一个空格，这样有较好的阅读便利；
+ 12345obj = &amp;#123;	name : &apos;lwd426&apos;&amp;#125;obj.say( &apos;hell">
+<meta property="og:updated_time" content="2015-10-09T01:29:46.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="自己对“闭包”的理解">
-<meta name="twitter:description" content="当我不在把javascipt仅仅当成玩具去完成前端页面的特效时，那么就是时候来真正了解闭包是什么了。
+<meta name="twitter:title" content="JavaScript应该使用的编码风格">
+<meta name="twitter:description" content="写代码一直都是‘随心而写’，并没有什么风格和过多的思考，这也导致后来阅读代码和修改bug的过程变得十分困难，所以，还是尽早的注意下编码风格这些东西吧。这里借鉴《javascript语言精粹》的第9章，和自己平时的经验，总结一下：
 
-基础概念首先要知道以下几个概念：
-
-上下文环境
-全局变量和局部变量
-javascript的参数和返回值都可以是函数
-函数内部的方法可以访问到函数的局部变量和全局变量
-函数内部的方法访问的变量是不会随着外部函数的销毁而销毁的，知道内部函数也销毁了">
+要在逗号，和冒号：左右都加一个空格，这样有较好的阅读便利；
+ 12345obj = &amp;#123;	name : &apos;lwd426&apos;&amp;#125;obj.say( &apos;hell">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -90,7 +75,7 @@ var _hmt = _hmt || [];
 })();
 </script>
 
-  <title> 自己对“闭包”的理解 | 大盗贼的后院 </title>
+  <title> JavaScript应该使用的编码风格 | 大盗贼的后院 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -208,7 +193,7 @@ var _hmt = _hmt || [];
           
           
             
-              自己对“闭包”的理解
+              JavaScript应该使用的编码风格
             
           
         </h1>
@@ -217,8 +202,8 @@ var _hmt = _hmt || [];
       <div class="post-meta">
         <span class="post-time">
           发表于
-          <time itemprop="dateCreated" datetime="2013-02-04T08:45:20+08:00" content="2013-02-04">
-            2013-02-04
+          <time itemprop="dateCreated" datetime="2012-06-09T12:10:09+08:00" content="2012-06-09">
+            2012-06-09
           </time>
         </span>
 
@@ -243,8 +228,8 @@ var _hmt = _hmt || [];
           
             <span class="post-comments-count">
               &nbsp; | &nbsp;
-              <a href="/2013/03/04/javascript_function/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2013/03/04/javascript_function/" itemprop="commentsCount"></span>
+              <a href="/2012/07/09/javascript_writenStyle/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2012/07/09/javascript_writenStyle/" itemprop="commentsCount"></span>
               </a>
             </span>
           
@@ -258,45 +243,42 @@ var _hmt = _hmt || [];
       
 
       
-        <span itemprop="articleBody"><blockquote>
-<p>当我不在把javascipt仅仅当成玩具去完成前端页面的特效时，那么就是时候来真正了解闭包是什么了。</p>
-</blockquote>
-<h3 id="基础概念">基础概念</h3><p>首先要知道以下几个概念：</p>
-<ul>
-<li>上下文环境</li>
-<li>全局变量和局部变量</li>
-<li>javascript的参数和返回值都可以是函数</li>
-<li>函数内部的方法可以访问到函数的局部变量和全局变量</li>
-<li>函数内部的方法访问的变量是不会随着外部函数的销毁而销毁的，知道内部函数也销毁了<a id="more"></a>
-知道以上几个基本概念以后，就可以清楚的知道什么是闭包了。</li>
-</ul>
-<h3 id="闭包的定义">闭包的定义</h3><blockquote>
-<p>引用阮一峰老师一篇日志：</p>
-<p>各种专业文献上的”闭包”（closure）定义非常抽象，很难看懂。我的理解是，<code>闭包就是能够读取其他函数内部变量的函数</code>。<br>由于在Javascript语言中，只有函数内部的子函数才能读取局部变量，因此可以把闭包简单理解成<code>&quot;定义在一个函数内部的函数&quot;</code>。<br>所以，在本质上，闭包就是将函数内部和函数外部连接起来的一座桥梁。</p>
-</blockquote>
-<p>综上所述，闭包最终定义为：<br><code>闭包就是定义在一个函数内部、能够读取其他函数内部变量的函数</code></p>
-<h3 id="实例讲解">实例讲解</h3><blockquote>
-<p>ps: 由于阮一峰老师的例子真的很有代表性，而且很清晰，就直接引用了。</p>
-</blockquote>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">f1</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">　　　　<span class="keyword">var</span> n=<span class="number">999</span>;</span><br><span class="line">　　　　nAdd=<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;n+=<span class="number">1</span>&#125;</span><br><span class="line">　　　　<span class="function"><span class="keyword">function</span> <span class="title">f2</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">　　　　　　alert(n);</span><br><span class="line">　　　　&#125;</span><br><span class="line">　　　　<span class="keyword">return</span> f2;</span><br><span class="line">　　&#125;</span><br><span class="line">　　<span class="keyword">var</span> result=f1();</span><br><span class="line">　　result(); <span class="comment">// 999</span></span><br><span class="line">　　nAdd();</span><br><span class="line">　　result(); <span class="comment">// 1000</span></span><br></pre></td></tr></table></figure>
-<p>在这段代码中，result实际上就是闭包f2函数。它一共运行了两次，第一次的值是999，第二次的值是1000。这证明了，函数f1中的局部变量n一直保存在内存中，并没有在f1调用后被自动清除。</p>
-<p>为什么会这样呢？原因就在于f1是f2的父函数，而f2被赋给了一个全局变量，这导致f2始终在内存中，而f2的存在依赖于f1，因此f1也始终在内存中，不会在调用结束后，被垃圾回收机制（garbage collection）回收。</p>
-<p>这段代码中另一个值得注意的地方，就是”nAdd=function(){n+=1}”这一行，首先在nAdd前面没有使用var关键字，因此nAdd是一个全局变量，而不是局部变量。其次，nAdd的值是一个匿名函数（anonymous function），而这个匿名函数本身也是一个闭包，所以nAdd相当于是一个setter，可以在函数外部对函数内部的局部变量进行操作。</p>
-<h3 id="闭包的用途">闭包的用途</h3><p>闭包可以用在许多地方。它的最大用处有以下几个：</p>
+        <span itemprop="articleBody"><p>写代码一直都是‘随心而写’，并没有什么风格和过多的思考，这也导致后来阅读代码和修改bug的过程变得十分困难，所以，还是尽早的注意下编码风格这些东西吧。这里借鉴《javascript语言精粹》的第9章，和自己平时的经验，总结一下：</p>
 <ol>
-<li>前面提到的可以读取函数内部的变量</li>
-<li>让这些变量的值始终保持在内存中</li>
-<li><p>用途2的更高级用途就是高阶函数中的偏函数的使用：</p>
-<blockquote>
-<p>偏函数：指创建一个调用另外一个部分—参数或变量已经预知的函数—的函数的用法.直白说就是： 通过闭包来创建预先填写好的某些参数的函数.” 可以通过这个来创建动态名称的函数，看起来应该很牛B，代码可读性也更好”</p>
-</blockquote>
- <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">suffix</span>(<span class="params">a</span>)</span>&#123;</span><br><span class="line">   <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params">b</span>)</span>&#123;</span><br><span class="line">      <span class="keyword">return</span> [b, a].join(<span class="string">' '</span>);</span><br><span class="line">   &#125;</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"> <span class="keyword">var</span> hello = suffix(<span class="string">"world"</span>);</span><br><span class="line">　<span class="comment">/*  等同于</span><br><span class="line">　　　function hello (b)&#123;</span><br><span class="line">　　　　　return [b,"world"].join();</span><br><span class="line">　　　&#125;</span><br><span class="line">　* */</span></span><br><span class="line"></span><br><span class="line"> <span class="built_in">console</span>.log(hello(<span class="string">"hello"</span>)); <span class="comment">// hello world</span></span><br></pre></td></tr></table></figure>
+<li><p>要在逗号，和冒号：左右都加一个空格，这样有较好的阅读便利；</p>
+ <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">obj = &#123;</span><br><span class="line">	name : <span class="string">'lwd426'</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">obj.say( <span class="string">'hello'</span>, <span class="string">'nacy'</span>);</span><br></pre></td></tr></table></figure>
 </li>
 </ol>
-<h3 id="使用时的注意事项">使用时的注意事项</h3><ol>
-<li><code>在退出函数之前，将不使用的局部变量全部删除</code>：由于闭包会使得函数中的变量都被保存在内存中，内存消耗很大，所以不能滥用闭包，否则会造成网页的性能问题，在IE中可能导致内存泄露。。</li>
-<li><code>闭包尽量不要改变外部函数的私有变量</code>：闭包会在父函数外部，改变父函数内部变量的值。所以，如果你把父函数当作对象（object）使用，把闭包当作它的公用方法（Public Method），把内部变量当作它的私有属性（private value），这时一定要小心，不要随便改变父函数内部变量的值。</li>
+<a id="more"></a>
+<ol>
+<li>在if和(之间也加一个空格，这能告诉我们‘这不是个调用语句’</li>
+<li>只有在调用的时候才紧密连接，比如obj.saysth();和array[0];</li>
+<li><p>在if语句中，无论有多少条语句（即便是一条）也要用{}框住;</p>
+ <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (valid) &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>使用K&amp;R风格，把{放到一行的结尾，而不是下一行的开头，这能避免js的return语句中的一个可怕的设计错误；</p>
+</li>
+<li>代码一定要有注释，并保持其是最新的。</li>
+<li><p>不要用无谓的初始化代码。比如</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> i = <span class="number">0</span>;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在函数最起始部分声明所有的变量；</p>
+</li>
+<li><p>不在if的条件语句中使用赋值表达式，因为会于比较表达式弄混：</p>
+ <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (a = b) &#123; ... &#125;</span><br><span class="line">可能的本意是：</span><br><span class="line"><span class="keyword">if</span> (a === b) &#123; ... &#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在switch case语句中，每个case都用break，不要穿越；</p>
+</li>
+<li>最多只用一个全局变量，像很多库一样（jQuery）;</li>
+<li>使用闭包来隐藏信息，增强模块的健壮性；</li>
+<li><p>简单的if语句可以用三项表达式表示：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> c = <span class="literal">false</span>;</span><br><span class="line"><span class="keyword">if</span> (a &gt; <span class="number">0</span>) &#123;</span><br><span class="line">	c = <span class="literal">true</span>;</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">	c = <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br><span class="line">可以等价于</span><br><span class="line"><span class="keyword">var</span> c = a &gt; <span class="number">0</span> ? <span class="literal">true</span> : <span class="literal">false</span>;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>用 || 来确保变量有默认值：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = b || <span class="number">0</span>;</span><br></pre></td></tr></table></figure>
+</li>
 </ol>
+<p>继续完善….</p>
 </span>
       
     </div>
@@ -314,13 +296,13 @@ var _hmt = _hmt || [];
         <div class="post-nav">
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2013/03/24/javascript_highfunc/" rel="prev">自己对“高阶函数”的理解</a>
+              <a href="/2012/08/04/javascript_object/" rel="prev">JavaScript的对象和继承者们</a>
             
           </div>
 
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2013/02/20/session/" rel="next">session和cookie</a>
+              <a href="/2012/06/10/no_user/" rel="next">12种不宜使用的Javascript语法</a>
             
           </div>
         </div>
@@ -335,10 +317,10 @@ var _hmt = _hmt || [];
 
     <div class="post-spread">
       
-        <div class="ds-share flat" data-thread-key="2013/03/04/javascript_function/"
-     data-title="自己对“闭包”的理解"
+        <div class="ds-share flat" data-thread-key="2012/07/09/javascript_writenStyle/"
+     data-title="JavaScript应该使用的编码风格"
      data-content=""
-     data-url="http://lwd426.com/2013/03/04/javascript_function/">
+     data-url="http://lwd426.com/2012/07/09/javascript_writenStyle/">
   <div class="ds-share-inline">
     <ul  class="ds-share-icons-16">
 
@@ -364,8 +346,8 @@ var _hmt = _hmt || [];
         
           <div class="comments" id="comments">
             
-              <div class="ds-thread" data-thread-key="2013/03/04/javascript_function/"
-                   data-title="自己对“闭包”的理解" data-url="http://lwd426.com/2013/03/04/javascript_function/">
+              <div class="ds-thread" data-thread-key="2012/07/09/javascript_writenStyle/"
+                   data-title="JavaScript应该使用的编码风格" data-url="http://lwd426.com/2012/07/09/javascript_writenStyle/">
               </div>
             
           </div>
@@ -447,7 +429,7 @@ var _hmt = _hmt || [];
           <div class="post-toc">
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#基础概念"><span class="nav-number">1.</span> <span class="nav-text">基础概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#闭包的定义"><span class="nav-number">2.</span> <span class="nav-text">闭包的定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实例讲解"><span class="nav-number">3.</span> <span class="nav-text">实例讲解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#闭包的用途"><span class="nav-number">4.</span> <span class="nav-text">闭包的用途</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用时的注意事项"><span class="nav-number">5.</span> <span class="nav-text">使用时的注意事项</span></a></li></ol></div>
+              <p class="post-toc-empty">此文章未包含目录</p>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>
