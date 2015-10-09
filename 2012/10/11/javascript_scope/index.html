@@ -43,8 +43,7 @@
 <meta name="description" content="作用域有三种常见的模型，一种叫做词法作用域 Lexical Scope，一种叫做动态作用域Dynamic Scope，最后一种叫块级作用域。其中词法作用域更常见，被大多数语言采用，包括javascript。
 
 javascript在设计的时候采用了块语法，但是却没有提供块级作用域。这让很多人困惑。它采用了词法作用域（也可理解为函数作用域）。所以来先说说块级作用域。
-块级作用域
-任何一对花括号（｛和">
+但这种词法作用域给JavaScr">
 <meta property="og:type" content="article">
 <meta property="og:title" content="词法作用域、动态作用域和块级作用域">
 <meta property="og:url" content="http://lwd426.com/2012/10/11/javascript_scope/index.html">
@@ -52,17 +51,15 @@ javascript在设计的时候采用了块语法，但是却没有提供块级作�
 <meta property="og:description" content="作用域有三种常见的模型，一种叫做词法作用域 Lexical Scope，一种叫做动态作用域Dynamic Scope，最后一种叫块级作用域。其中词法作用域更常见，被大多数语言采用，包括javascript。
 
 javascript在设计的时候采用了块语法，但是却没有提供块级作用域。这让很多人困惑。它采用了词法作用域（也可理解为函数作用域）。所以来先说说块级作用域。
-块级作用域
-任何一对花括号（｛和">
+但这种词法作用域给JavaScr">
 <meta property="og:image" content="http://lwd426.com/images/javascript_scope.jpg">
-<meta property="og:updated_time" content="2015-10-09T02:11:27.000Z">
+<meta property="og:updated_time" content="2015-10-09T02:14:53.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="词法作用域、动态作用域和块级作用域">
 <meta name="twitter:description" content="作用域有三种常见的模型，一种叫做词法作用域 Lexical Scope，一种叫做动态作用域Dynamic Scope，最后一种叫块级作用域。其中词法作用域更常见，被大多数语言采用，包括javascript。
 
 javascript在设计的时候采用了块语法，但是却没有提供块级作用域。这让很多人困惑。它采用了词法作用域（也可理解为函数作用域）。所以来先说说块级作用域。
-块级作用域
-任何一对花括号（｛和">
+但这种词法作用域给JavaScr">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -251,6 +248,7 @@ var _hmt = _hmt || [];
 <p>作用域有三种常见的模型，一种叫做<code>词法作用域</code> Lexical Scope，一种叫做<code>动态作用域</code>Dynamic Scope，最后一种叫块级作用域。其中词法作用域更常见，被大多数语言采用，包括javascript。</p>
 </blockquote>
 <p>javascript在设计的时候采用了块语法，但是却没有提供块级作用域。这让很多人困惑。它采用了词法作用域（也可理解为函数作用域）。所以来先说说块级作用域。</p>
+<p>但这种词法作用域给JavaScript带来的好处也是很明显的：让它有了作用域链，<code>可以让内层函数访问到外层函数的变量</code>，产生了闭包。剩下的你懂了吧，各种高级应用。。。</p>
 <h3 id="块级作用域">块级作用域</h3><blockquote>
 <p>任何一对花括号（｛和｝）中的语句集都属于一个块，在这之中定义的所有变量在代码块外都是不可见的，我们称之为<code>块级作用域</code>。<br>如以下例子：</p>
 </blockquote>
