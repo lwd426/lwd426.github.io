@@ -52,7 +52,7 @@
 
 要在逗号，和冒号：左右都加一个空格，这样有较好的阅读便利；
  12345obj = &amp;#123;	name : &apos;lwd426&apos;&amp;#125;obj.say( &apos;hell">
-<meta property="og:updated_time" content="2015-10-09T01:29:46.000Z">
+<meta property="og:updated_time" content="2015-10-09T02:18:15.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JavaScript应该使用的编码风格">
 <meta name="twitter:description" content="写代码一直都是‘随心而写’，并没有什么风格和过多的思考，这也导致后来阅读代码和修改bug的过程变得十分困难，所以，还是尽早的注意下编码风格这些东西吧。这里借鉴《javascript语言精粹》的第9章，和自己平时的经验，总结一下：
@@ -256,8 +256,14 @@ var _hmt = _hmt || [];
 <li><p>在if语句中，无论有多少条语句（即便是一条）也要用{}框住;</p>
  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (valid) &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>使用K&amp;R风格，把{放到一行的结尾，而不是下一行的开头，这能避免js的return语句中的一个可怕的设计错误；</p>
+<li><p>使用K&amp;R风格，把{放到一行的结尾，而不是下一行的开头，这能避免js的return语句中的一个可怕的设计错误：</p>
+<blockquote>
+<p>因为js会自动为行尾插入分号，所以如下代码就会让人好难过啊：</p>
+</blockquote>
 </li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span>(<span class="params">name</span>) </span>&#123;</span><br><span class="line">	<span class="keyword">return</span> </span><br><span class="line">	&#123;</span><br><span class="line">		name : name</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">到<span class="keyword">return</span>就直接返回了<span class="literal">undefined</span>,一直是<span class="literal">undefined</span>.</span><br></pre></td></tr></table></figure>
+<ol>
 <li>代码一定要有注释，并保持其是最新的。</li>
 <li><p>不要用无谓的初始化代码。比如</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> i = <span class="number">0</span>;</span><br></pre></td></tr></table></figure>
