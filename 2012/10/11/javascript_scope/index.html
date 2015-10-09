@@ -40,23 +40,29 @@
   <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.1" />
 
 
-<meta name="description" content="作用域有两种常见的模型，一种叫做词法作用域 Lexical Scope，一种叫做动态作用域Dynamic Scope。其中词法作用域更常见，被大多数语言采用，包括javascript。
+<meta name="description" content="作用域有三种常见的模型，一种叫做词法作用域 Lexical Scope，一种叫做动态作用域Dynamic Scope，最后一种叫块级作用域。其中词法作用域更常见，被大多数语言采用，包括javascript。
 
-词法作用域词法分析过程Lex-time，是指系统讲源码字符串解读成有含义的token的过程。词法作用域就是说在词法分析过程(即代码解析时)中指派的作用域，词法作用域在词法解析过程中就已经定死了。">
+javascript在设计的时候采用了块语法，但是却没有提供块级作用域。这让很多人困惑。它采用了词法作用域（也可理解为函数作用域）。所以来先说说块级作用域。
+块级作用域
+任何一对花括号（｛和">
 <meta property="og:type" content="article">
-<meta property="og:title" content="词法作用域和动态作用域的详解">
+<meta property="og:title" content="词法作用域、动态作用域和块级作用域">
 <meta property="og:url" content="http://lwd426.com/2012/10/11/javascript_scope/index.html">
 <meta property="og:site_name" content="大盗贼的后院">
-<meta property="og:description" content="作用域有两种常见的模型，一种叫做词法作用域 Lexical Scope，一种叫做动态作用域Dynamic Scope。其中词法作用域更常见，被大多数语言采用，包括javascript。
+<meta property="og:description" content="作用域有三种常见的模型，一种叫做词法作用域 Lexical Scope，一种叫做动态作用域Dynamic Scope，最后一种叫块级作用域。其中词法作用域更常见，被大多数语言采用，包括javascript。
 
-词法作用域词法分析过程Lex-time，是指系统讲源码字符串解读成有含义的token的过程。词法作用域就是说在词法分析过程(即代码解析时)中指派的作用域，词法作用域在词法解析过程中就已经定死了。">
+javascript在设计的时候采用了块语法，但是却没有提供块级作用域。这让很多人困惑。它采用了词法作用域（也可理解为函数作用域）。所以来先说说块级作用域。
+块级作用域
+任何一对花括号（｛和">
 <meta property="og:image" content="http://lwd426.com/images/javascript_scope.jpg">
-<meta property="og:updated_time" content="2015-10-03T14:21:23.000Z">
+<meta property="og:updated_time" content="2015-10-09T02:11:27.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="词法作用域和动态作用域的详解">
-<meta name="twitter:description" content="作用域有两种常见的模型，一种叫做词法作用域 Lexical Scope，一种叫做动态作用域Dynamic Scope。其中词法作用域更常见，被大多数语言采用，包括javascript。
+<meta name="twitter:title" content="词法作用域、动态作用域和块级作用域">
+<meta name="twitter:description" content="作用域有三种常见的模型，一种叫做词法作用域 Lexical Scope，一种叫做动态作用域Dynamic Scope，最后一种叫块级作用域。其中词法作用域更常见，被大多数语言采用，包括javascript。
 
-词法作用域词法分析过程Lex-time，是指系统讲源码字符串解读成有含义的token的过程。词法作用域就是说在词法分析过程(即代码解析时)中指派的作用域，词法作用域在词法解析过程中就已经定死了。">
+javascript在设计的时候采用了块语法，但是却没有提供块级作用域。这让很多人困惑。它采用了词法作用域（也可理解为函数作用域）。所以来先说说块级作用域。
+块级作用域
+任何一对花括号（｛和">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -73,7 +79,7 @@ var _hmt = _hmt || [];
 })();
 </script>
 
-  <title> 词法作用域和动态作用域的详解 | 大盗贼的后院 </title>
+  <title> 词法作用域、动态作用域和块级作用域 | 大盗贼的后院 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -191,7 +197,7 @@ var _hmt = _hmt || [];
           
           
             
-              词法作用域和动态作用域的详解
+              词法作用域、动态作用域和块级作用域
             
           
         </h1>
@@ -242,7 +248,16 @@ var _hmt = _hmt || [];
 
       
         <span itemprop="articleBody"><blockquote>
-<p>作用域有两种常见的模型，一种叫做<code>词法作用域</code> Lexical Scope，一种叫做<code>动态作用域</code>Dynamic Scope。其中词法作用域更常见，被大多数语言采用，包括javascript。</p>
+<p>作用域有三种常见的模型，一种叫做<code>词法作用域</code> Lexical Scope，一种叫做<code>动态作用域</code>Dynamic Scope，最后一种叫块级作用域。其中词法作用域更常见，被大多数语言采用，包括javascript。</p>
+</blockquote>
+<p>javascript在设计的时候采用了块语法，但是却没有提供块级作用域。这让很多人困惑。它采用了词法作用域（也可理解为函数作用域）。所以来先说说块级作用域。</p>
+<h3 id="块级作用域">块级作用域</h3><blockquote>
+<p>任何一对花括号（｛和｝）中的语句集都属于一个块，在这之中定义的所有变量在代码块外都是不可见的，我们称之为<code>块级作用域</code>。<br>如以下例子：</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">int a = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">for</span> (int i = <span class="number">0</span>;i &lt; <span class="number">10</span>;i++) &#123;</span><br><span class="line">	int b = i;</span><br><span class="line">	b++;</span><br><span class="line">	a += b;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这对花括号在C++语法中就组成了一个块,变量b是在这个块内定义的.那么它就具有块作用域,当程序的控制流离开了这个循环,就是for循环结束时,这个变量b就被销毁了,不存在了,你在for循环的外部再引用变量b的话,程序就会报错:”变量b未定义”。</p>
+<blockquote>
+<p>函数作用域就好理解了(<em>^__^</em>) ，定义在函数中的参数和变量在函数外部是不可见的。</p>
 </blockquote>
 <h3 id="词法作用域">词法作用域</h3><p>词法分析过程Lex-time，是指系统讲源码字符串解读成有含义的token的过程。<em>词法作用域就是说在词法<code>分析过程(即代码解析时)</code>中指派的作用域，词法作用域在词法解析过程中就已经定死了。</em><br><a id="more"></a><br>依然有一些手段能在词法解析之后改变词法作用域，但这些做法并不推荐。使用关键词eval, with,会产生性能问题。可以参考<a href="http://www.ituring.com.cn/tupubarticle/3482" target="_blank" rel="external">《你不知道的javascript》- 词法作用域</a></p>
 <p>考虑如下代码：</p>
@@ -310,7 +325,7 @@ var _hmt = _hmt || [];
     <div class="post-spread">
       
         <div class="ds-share flat" data-thread-key="2012/10/11/javascript_scope/"
-     data-title="词法作用域和动态作用域的详解"
+     data-title="词法作用域、动态作用域和块级作用域"
      data-content=""
      data-url="http://lwd426.com/2012/10/11/javascript_scope/">
   <div class="ds-share-inline">
@@ -339,7 +354,7 @@ var _hmt = _hmt || [];
           <div class="comments" id="comments">
             
               <div class="ds-thread" data-thread-key="2012/10/11/javascript_scope/"
-                   data-title="词法作用域和动态作用域的详解" data-url="http://lwd426.com/2012/10/11/javascript_scope/">
+                   data-title="词法作用域、动态作用域和块级作用域" data-url="http://lwd426.com/2012/10/11/javascript_scope/">
               </div>
             
           </div>
@@ -421,7 +436,7 @@ var _hmt = _hmt || [];
           <div class="post-toc">
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#词法作用域"><span class="nav-number">1.</span> <span class="nav-text">词法作用域</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#动态作用域"><span class="nav-number">2.</span> <span class="nav-text">动态作用域</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#块级作用域"><span class="nav-number">1.</span> <span class="nav-text">块级作用域</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#词法作用域"><span class="nav-number">2.</span> <span class="nav-text">词法作用域</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#动态作用域"><span class="nav-number">3.</span> <span class="nav-text">动态作用域</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>
