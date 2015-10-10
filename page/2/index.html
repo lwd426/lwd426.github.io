@@ -804,6 +804,96 @@ var _hmt = _hmt || [];
           
           
             
+              <a class="post-title-link" href="/2014/03/28/RESTful/" itemprop="url">
+                理解RESTful架构（转）
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2014-02-28T12:30:08+08:00" content="2014-02-28">
+            2014-02-28
+          </time>
+        </span>
+
+        
+          <span class="post-category" >
+            &nbsp; | &nbsp; 分类于
+            
+              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                <a href="/categories/RESTful/" itemprop="url" rel="index">
+                  <span itemprop="name">RESTful</span>
+                </a>
+              </span>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+            <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2014/03/28/RESTful/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2014/03/28/RESTful/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <p>之前一直对REST是个什么东东搞得不太明白，直到看到阮一峰老师的这篇帖子，觉得有了些认识了。特此记录下来。原文如下：</p>
+<p>越来越多的人开始意识到，网站即软件，而且是一种新型的软件。<br>这种”互联网软件”采用客户端/服务器模式，建立在分布式体系上，通过互联网通信，具有高延时（high latency）、高并发等特点。<br>网站开发，完全可以采用软件开发的模式。但是传统上，软件和网络是两个不同的领域，很少有交集；软件开发主要针对单机环境，网络则主要研究系统之间的通信。互联网的兴起，使得这两个领域开始融合，现在我们必须考虑，如何开发在互联网环境中使用的软件。</p>
+<p>RESTful架构，就是目前最流行的一种互联网软件架构。它结构清晰、符合标准、易于理解、扩展方便，所以正得到越来越多网站的采用。<br>但是，到底什么是RESTful架构，并不是一个容易说清楚的问题。下面，我就谈谈我理解的RESTful架构。<br>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2014/03/28/RESTful/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
               <a class="post-title-link" href="/2014/01/03/js-typecheck/" itemprop="url">
                 javascript检测类型方法汇总
               </a>
@@ -968,96 +1058,6 @@ var _hmt = _hmt || [];
 
 
     
-      
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
-            
-              <a class="post-title-link" href="/2013/09/10/node_session/" itemprop="url">
-                express框架的session应用
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2013-08-10T01:15:49+08:00" content="2013-08-10">
-            2013-08-10
-          </time>
-        </span>
-
-        
-          <span class="post-category" >
-            &nbsp; | &nbsp; 分类于
-            
-              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                <a href="/categories/后端框架/" itemprop="url" rel="index">
-                  <span itemprop="name">后端框架</span>
-                </a>
-              </span>
-
-              
-              
-
-            
-          </span>
-        
-
-        
-          
-            <span class="post-comments-count">
-              &nbsp; | &nbsp;
-              <a href="/2013/09/10/node_session/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2013/09/10/node_session/" itemprop="commentsCount"></span>
-              </a>
-            </span>
-          
-        
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <h3 id="题记">题记</h3><p>很常用的一个场景：我们做用户权限验证的时候，势必要用到session。在node下，最好用的应该就是express-session了。以下记录下它的使用方法。</p>
-<blockquote>
-<p>express-session 是基于express框专门用于处理session的中间件。这里不谈express-session怎么安装，只给出相应的实例代码。另外，<code>session的认证机制离不开cookie</code>（原因见我的另一篇<a href="http://lwd426.com/2013/02/20/session/">session和cookie</a>），需要同时使用cookieParser 中间件，有关的介绍可以专门参考<a href="https://github.com/expressjs/session/blob/master/README.md，或者参考http://blog.modulus.io/nodejs-and-express-sessions，这个博客上讲的比较清楚。">https://github.com/expressjs/session/blob/master/README.md，或者参考http://blog.modulus.io/nodejs-and-express-sessions，这个博客上讲的比较清楚。</a><br>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2013/09/10/node_session/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1096,7 +1096,7 @@ var _hmt = _hmt || [];
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">29</span>
+              <span class="site-state-item-count">30</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
