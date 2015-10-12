@@ -52,7 +52,7 @@
 
 要在逗号，和冒号：左右都加一个空格，这样有较好的阅读便利；
  12345obj = &amp;#123;	name : &apos;lwd426&apos;&amp;#125;obj.say( &apos;hell">
-<meta property="og:updated_time" content="2015-10-10T09:00:08.000Z">
+<meta property="og:updated_time" content="2015-10-12T00:55:26.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JavaScript应该使用的编码风格">
 <meta name="twitter:description" content="写代码一直都是‘随心而写’，并没有什么风格和过多的思考，这也导致后来阅读代码和修改bug的过程变得十分困难，所以，还是尽早的注意下编码风格这些东西吧。这里借鉴《javascript语言精粹》的第9章，和自己平时的经验，总结一下：
@@ -268,8 +268,9 @@ var _hmt = _hmt || [];
 <li><p>不要用无谓的初始化代码。比如</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> i = <span class="number">0</span>;</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>在函数最起始部分声明所有的变量；</p>
-</li>
+</ol>
+<ol>
+<li>在函数最起始部分声明所有的变量；</li>
 <li><p>不在if的条件语句中使用赋值表达式，因为会于比较表达式弄混：</p>
  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (a = b) &#123; ... &#125;</span><br><span class="line">可能的本意是：</span><br><span class="line"><span class="keyword">if</span> (a === b) &#123; ... &#125;</span><br></pre></td></tr></table></figure>
 </li>
