@@ -40,25 +40,16 @@
   <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.1" />
 
 
-<meta name="description" content="写代码一直都是‘随心而写’，并没有什么风格和过多的思考，这也导致后来阅读代码和修改bug的过程变得十分困难，所以，还是尽早的注意下编码风格这些东西吧。这里借鉴《javascript语言精粹》的第9章，和自己平时的经验，总结一下：
-
-要在逗号，和冒号：左右都加一个空格，这样有较好的阅读便利；
- 12345obj = &amp;#123;	name : &apos;lwd426&apos;&amp;#125;obj.say( &apos;hell">
+<meta name="description" content="写代码一直都是‘随心而写’，并没有什么风格和过多的思考，这也导致后来阅读代码和修改bug的过程变得十分困难，所以，还是尽早的注意下编码风格这些东西吧。这里借鉴《javascript语言精粹》的第9章，和自己平时的经验，总结一下：">
 <meta property="og:type" content="article">
 <meta property="og:title" content="JavaScript应该使用的编码风格">
 <meta property="og:url" content="http://lwd426.com/2012/07/09/javascript_writenStyle/index.html">
 <meta property="og:site_name" content="大盗贼的后院">
-<meta property="og:description" content="写代码一直都是‘随心而写’，并没有什么风格和过多的思考，这也导致后来阅读代码和修改bug的过程变得十分困难，所以，还是尽早的注意下编码风格这些东西吧。这里借鉴《javascript语言精粹》的第9章，和自己平时的经验，总结一下：
-
-要在逗号，和冒号：左右都加一个空格，这样有较好的阅读便利；
- 12345obj = &amp;#123;	name : &apos;lwd426&apos;&amp;#125;obj.say( &apos;hell">
-<meta property="og:updated_time" content="2015-10-12T00:55:26.000Z">
+<meta property="og:description" content="写代码一直都是‘随心而写’，并没有什么风格和过多的思考，这也导致后来阅读代码和修改bug的过程变得十分困难，所以，还是尽早的注意下编码风格这些东西吧。这里借鉴《javascript语言精粹》的第9章，和自己平时的经验，总结一下：">
+<meta property="og:updated_time" content="2015-10-12T00:58:12.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JavaScript应该使用的编码风格">
-<meta name="twitter:description" content="写代码一直都是‘随心而写’，并没有什么风格和过多的思考，这也导致后来阅读代码和修改bug的过程变得十分困难，所以，还是尽早的注意下编码风格这些东西吧。这里借鉴《javascript语言精粹》的第9章，和自己平时的经验，总结一下：
-
-要在逗号，和冒号：左右都加一个空格，这样有较好的阅读便利；
- 12345obj = &amp;#123;	name : &apos;lwd426&apos;&amp;#125;obj.say( &apos;hell">
+<meta name="twitter:description" content="写代码一直都是‘随心而写’，并没有什么风格和过多的思考，这也导致后来阅读代码和修改bug的过程变得十分困难，所以，还是尽早的注意下编码风格这些东西吧。这里借鉴《javascript语言精粹》的第9章，和自己平时的经验，总结一下：">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -243,15 +234,13 @@ var _hmt = _hmt || [];
       
 
       
-        <span itemprop="articleBody"><p>写代码一直都是‘随心而写’，并没有什么风格和过多的思考，这也导致后来阅读代码和修改bug的过程变得十分困难，所以，还是尽早的注意下编码风格这些东西吧。这里借鉴《javascript语言精粹》的第9章，和自己平时的经验，总结一下：</p>
+        <span itemprop="articleBody"><p>写代码一直都是‘随心而写’，并没有什么风格和过多的思考，这也导致后来阅读代码和修改bug的过程变得十分困难，所以，还是尽早的注意下编码风格这些东西吧。这里借鉴《javascript语言精粹》的第9章，和自己平时的经验，总结一下：<br><a id="more"></a></p>
 <ol>
 <li><p>要在逗号，和冒号：左右都加一个空格，这样有较好的阅读便利；</p>
  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">obj = &#123;</span><br><span class="line">	name : <span class="string">'lwd426'</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">obj.say( <span class="string">'hello'</span>, <span class="string">'nacy'</span>);</span><br></pre></td></tr></table></figure>
 </li>
-</ol>
-<a id="more"></a>
-<ol>
-<li>在if和(之间也加一个空格，这能告诉我们‘这不是个调用语句’</li>
+<li><p>在if和(之间也加一个空格，这能告诉我们‘这不是个调用语句’</p>
+</li>
 <li>只有在调用的时候才紧密连接，比如obj.saysth();和array[0];</li>
 <li><p>在if语句中，无论有多少条语句（即便是一条）也要用{}框住;</p>
  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (valid) &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -289,13 +278,11 @@ var _hmt = _hmt || [];
 <li><p>当遇到非数字就停止解析，所以:</p>
   <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">parseInt</span>(<span class="string">'16'</span>) === <span class="built_in">parseInt</span>(<span class="string">'16 tons'</span>)。</span><br></pre></td></tr></table></figure>
 </li>
+<li><p>当第一个字符是0，那么它会用八进制解析。所以一定要带上此函数的第二个参数—基数参数。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">parseInt</span>(<span class="string">'08'</span>, <span class="number">10</span>) === <span class="number">8</span> <span class="comment">//true</span></span><br></pre></td></tr></table></figure>
+</li>
 </ul>
 </li>
-</ol>
-<pre><code>* 当第一个字符是0，那么它会用八进制解析。所以一定要带上此函数的第二个参数---基数参数。
-
-  <span class="comment"><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">parseInt</span>(<span class="string">'08'</span>, <span class="number">10</span>) === <span class="number">8</span> <span class="comment">//true</span></span><br></pre></td></tr></table></figure></span>
-</code></pre><ol>
 <li><p><strong>把所有的变量声明都放到函数体的顶端。</strong></p>
 <p> js执行环境分为声明阶段和执行阶段:</p>
 <ul>
