@@ -40,24 +40,24 @@
   <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.1" />
 
 
-<meta name="description" content="一直在研究闭包，是它让JavaScript变得强大，也是它让我们对JavaScript感到很困惑。真所谓是”成也萧何败萧何”（PS:此句表达不是很准确）。
+<meta name="description" content="题记–前言一直在研究闭包，是它让JavaScript变得强大，也是它让我们对JavaScript感到很困惑。真所谓是”成也萧何败萧何”（PS:此句表达不是很准确）。
 大多数JS书籍和博客都无非是告诉我以下几点：
 
 闭包是外层函数返回值为内层函数
 闭包是能访问外层函数作用域内参数和变量的函数（除了this和arguments）
 闭包可以访问它被创建时的上下文环境
-闭包可以把传进来的参数保存在作用域链，这常用于">
+闭包可以把传进来的参数保存在作用域链">
 <meta property="og:type" content="article">
 <meta property="og:title" content="对"闭包"最深刻的剖析">
 <meta property="og:url" content="http://lwd426.com/2015/10/10/js_closepackage/index.html">
 <meta property="og:site_name" content="大盗贼的后院">
-<meta property="og:description" content="一直在研究闭包，是它让JavaScript变得强大，也是它让我们对JavaScript感到很困惑。真所谓是”成也萧何败萧何”（PS:此句表达不是很准确）。
+<meta property="og:description" content="题记–前言一直在研究闭包，是它让JavaScript变得强大，也是它让我们对JavaScript感到很困惑。真所谓是”成也萧何败萧何”（PS:此句表达不是很准确）。
 大多数JS书籍和博客都无非是告诉我以下几点：
 
 闭包是外层函数返回值为内层函数
 闭包是能访问外层函数作用域内参数和变量的函数（除了this和arguments）
 闭包可以访问它被创建时的上下文环境
-闭包可以把传进来的参数保存在作用域链，这常用于">
+闭包可以把传进来的参数保存在作用域链">
 <meta property="og:image" content="http://lwd426.com/images/js_closure_1.png">
 <meta property="og:image" content="http://lwd426.com/images/js_closure_2.png">
 <meta property="og:image" content="http://lwd426.com/images/js_closure_3.png">
@@ -66,16 +66,16 @@
 <meta property="og:image" content="http://lwd426.com/images/js_closure_6.png">
 <meta property="og:image" content="http://lwd426.com/images/js_closure_7.png">
 <meta property="og:image" content="http://lwd426.com/images/js_closure_8.png">
-<meta property="og:updated_time" content="2015-10-12T02:22:14.000Z">
+<meta property="og:updated_time" content="2015-10-12T02:31:40.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="对"闭包"最深刻的剖析">
-<meta name="twitter:description" content="一直在研究闭包，是它让JavaScript变得强大，也是它让我们对JavaScript感到很困惑。真所谓是”成也萧何败萧何”（PS:此句表达不是很准确）。
+<meta name="twitter:description" content="题记–前言一直在研究闭包，是它让JavaScript变得强大，也是它让我们对JavaScript感到很困惑。真所谓是”成也萧何败萧何”（PS:此句表达不是很准确）。
 大多数JS书籍和博客都无非是告诉我以下几点：
 
 闭包是外层函数返回值为内层函数
 闭包是能访问外层函数作用域内参数和变量的函数（除了this和arguments）
 闭包可以访问它被创建时的上下文环境
-闭包可以把传进来的参数保存在作用域链，这常用于">
+闭包可以把传进来的参数保存在作用域链">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -260,13 +260,14 @@ var _hmt = _hmt || [];
       
 
       
-        <span itemprop="articleBody"><p>一直在研究闭包，是它让JavaScript变得强大，也是它让我们对JavaScript感到很困惑。真所谓是”成也萧何败萧何”（PS:此句表达不是很准确）。</p>
+        <span itemprop="articleBody"><h3 id="题记–前言">题记–前言</h3><p>一直在研究闭包，是它让JavaScript变得强大，也是它让我们对JavaScript感到很困惑。真所谓是”成也萧何败萧何”（PS:此句表达不是很准确）。</p>
 <p>大多数JS书籍和博客都无非是告诉我以下几点：</p>
 <ul>
 <li>闭包是外层函数返回值为内层函数</li>
 <li>闭包是能访问外层函数作用域内参数和变量的函数（除了this和arguments）</li>
 <li>闭包可以访问它被创建时的上下文环境</li>
 <li>闭包可以把传进来的参数保存在作用域链，这常用于偏函数和柯里化函数</li>
+<li>只有当闭包不在引用所有外层作用域对象的变量和参数，外层作用域对象才会被销毁</li>
 <li>闭包是JS做模块化开发的基础</li>
 <li>闭包常用来做数据访问的控制（特权方法）</li>
 <li>闭包让JS变得十分灵活，是它让函数在JS中成了”first-class object”<a id="more"></a>
@@ -515,7 +516,7 @@ var _hmt = _hmt || [];
           <div class="post-toc">
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#作用域链（Scope_Chain）"><span class="nav-number">1.</span> <span class="nav-text">作用域链（Scope Chain）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#全局环境中运行的代码"><span class="nav-number">2.</span> <span class="nav-text">全局环境中运行的代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#没有被嵌套的函数（Non-nested_functions）"><span class="nav-number">3.</span> <span class="nav-text">没有被嵌套的函数（Non-nested functions）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#嵌套的函数（Nested_functions）"><span class="nav-number">4.</span> <span class="nav-text">嵌套的函数（Nested functions）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#“看起来一样的”函数，不一样的作用域对象"><span class="nav-number">5.</span> <span class="nav-text">“看起来一样的”函数，不一样的作用域对象</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#作用域链和this"><span class="nav-number">6.</span> <span class="nav-text">作用域链和this</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">7.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#著作权声明"><span class="nav-number">8.</span> <span class="nav-text">著作权声明</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#题记–前言"><span class="nav-number">1.</span> <span class="nav-text">题记–前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#作用域链（Scope_Chain）"><span class="nav-number">2.</span> <span class="nav-text">作用域链（Scope Chain）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#全局环境中运行的代码"><span class="nav-number">3.</span> <span class="nav-text">全局环境中运行的代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#没有被嵌套的函数（Non-nested_functions）"><span class="nav-number">4.</span> <span class="nav-text">没有被嵌套的函数（Non-nested functions）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#嵌套的函数（Nested_functions）"><span class="nav-number">5.</span> <span class="nav-text">嵌套的函数（Nested functions）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#“看起来一样的”函数，不一样的作用域对象"><span class="nav-number">6.</span> <span class="nav-text">“看起来一样的”函数，不一样的作用域对象</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#作用域链和this"><span class="nav-number">7.</span> <span class="nav-text">作用域链和this</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">8.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#著作权声明"><span class="nav-number">9.</span> <span class="nav-text">著作权声明</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>
