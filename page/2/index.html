@@ -985,8 +985,8 @@ var _hmt = _hmt || [];
           
           
             
-              <a class="post-title-link" href="/2014/01/03/js-typecheck/" itemprop="url">
-                javascript检测类型方法汇总
+              <a class="post-title-link" href="/2014/01/15/hessian/" itemprop="url">
+                hessian 的简单介绍
               </a>
             
           
@@ -996,8 +996,8 @@ var _hmt = _hmt || [];
       <div class="post-meta">
         <span class="post-time">
           发表于
-          <time itemprop="dateCreated" datetime="2013-12-03T10:15:49+08:00" content="2013-12-03">
-            2013-12-03
+          <time itemprop="dateCreated" datetime="2013-12-15T10:11:09+08:00" content="2013-12-15">
+            2013-12-15
           </time>
         </span>
 
@@ -1006,8 +1006,8 @@ var _hmt = _hmt || [];
             &nbsp; | &nbsp; 分类于
             
               <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                <a href="/categories/javascript/" itemprop="url" rel="index">
-                  <span itemprop="name">javascript</span>
+                <a href="/categories/基础/" itemprop="url" rel="index">
+                  <span itemprop="name">基础</span>
                 </a>
               </span>
 
@@ -1022,8 +1022,8 @@ var _hmt = _hmt || [];
           
             <span class="post-comments-count">
               &nbsp; | &nbsp;
-              <a href="/2014/01/03/js-typecheck/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2014/01/03/js-typecheck/" itemprop="commentsCount"></span>
+              <a href="/2014/01/15/hessian/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2014/01/15/hessian/" itemprop="commentsCount"></span>
               </a>
             </span>
           
@@ -1038,8 +1038,23 @@ var _hmt = _hmt || [];
 
       
         
-          <span itemprop="articleBody"><p><img src="/images/javascripttype.png" alt=""></p>
-</span>
+          <h3 id="一、什么是Hessian">一、什么是Hessian</h3><blockquote>
+<p>Hessian 是一个基于 binary-RPC 实现的远程通讯 library。使用二进制传输数据。Hessian通常通过Web应用来提供服务，通过接口暴露。Servlet和Spring的DispatcherServlet都可以把请求转发给Hessian服务。由以下两种方式提供，分别为：com.caucho.hessian.server.HessianServlet、org.springframework.web.servlet.DispatcherServlet。</p>
+</blockquote>
+<p>关于hessian的7个问题：</p>
+<ol>
+<li><p>是基于什么协议实现的？</p>
+<p> 基于Binary-RPC协议实现。</p>
+</li>
+<li><p>怎么发起请求？</p>
+<p> 需通过Hessian本身提供的API来发起请求。</p>
+</li>
+<li><p>怎么 将请求转化为符合协议的格式的？</p>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2014/01/15/hessian/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
         
       
     </div>
@@ -1096,7 +1111,7 @@ var _hmt = _hmt || [];
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">31</span>
+              <span class="site-state-item-count">32</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -1110,7 +1125,7 @@ var _hmt = _hmt || [];
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">17</span>
+              <span class="site-state-item-count">18</span>
               <span class="site-state-item-name">标签</span>
               </a>
           </div>

@@ -31,7 +31,7 @@
 
 
 
-  <meta name="keywords" content="," />
+  <meta name="keywords" content="协议," />
 
 
 
@@ -42,9 +42,9 @@
 
 <meta name="description" content="一、什么是Hessian
 Hessian 是一个基于 binary-RPC 实现的远程通讯 library。使用二进制传输数据。Hessian通常通过Web应用来提供服务，通过接口暴露。Servlet和Spring的DispatcherServlet都可以把请求转发给Hessian服务。由以下两种方式提供，分别为：com.caucho.hessian.server.HessianServlet、o">
-<meta property="og:type" content="website">
+<meta property="og:type" content="article">
 <meta property="og:title" content="hessian 的简单介绍">
-<meta property="og:url" content="http://lwd426.com/hessian.html">
+<meta property="og:url" content="http://lwd426.com/2014/01/15/hessian/index.html">
 <meta property="og:site_name" content="大盗贼的后院">
 <meta property="og:description" content="一、什么是Hessian
 Hessian 是一个基于 binary-RPC 实现的远程通讯 library。使用二进制传输数据。Hessian通常通过Web应用来提供服务，通过接口暴露。Servlet和Spring的DispatcherServlet都可以把请求转发给Hessian服务。由以下两种方式提供，分别为：com.caucho.hessian.server.HessianServlet、o">
@@ -69,13 +69,7 @@ var _hmt = _hmt || [];
 })();
 </script>
 
-  <title>
-  
-
-  
-    hessian 的简单介绍 | 大盗贼的后院
-  
-</title>
+  <title> hessian 的简单介绍 | 大盗贼的后院 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -103,7 +97,7 @@ var _hmt = _hmt || [];
 
 
 
-  <div class="container one-column ">
+  <div class="container one-column page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -183,8 +177,67 @@ var _hmt = _hmt || [];
 
   <div id="posts" class="posts-expand">
     
-    
-      <h3 id="一、什么是Hessian">一、什么是Hessian</h3><blockquote>
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
+              hessian 的简单介绍
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2013-12-15T10:11:09+08:00" content="2013-12-15">
+            2013-12-15
+          </time>
+        </span>
+
+        
+          <span class="post-category" >
+            &nbsp; | &nbsp; 分类于
+            
+              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                <a href="/categories/基础/" itemprop="url" rel="index">
+                  <span itemprop="name">基础</span>
+                </a>
+              </span>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+            <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2014/01/15/hessian/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2014/01/15/hessian/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        <span itemprop="articleBody"><h3 id="一、什么是Hessian">一、什么是Hessian</h3><blockquote>
 <p>Hessian 是一个基于 binary-RPC 实现的远程通讯 library。使用二进制传输数据。Hessian通常通过Web应用来提供服务，通过接口暴露。Servlet和Spring的DispatcherServlet都可以把请求转发给Hessian服务。由以下两种方式提供，分别为：com.caucho.hessian.server.HessianServlet、org.springframework.web.servlet.DispatcherServlet。</p>
 </blockquote>
 <p>关于hessian的7个问题：</p>
@@ -254,8 +307,64 @@ var _hmt = _hmt || [];
 <li>Burlap：<br>Burlap是将网络传输的对象转换为XML文本格式通过Http进行传递，支持的对象与Hessian相比更少。XML一般比二进制流占 用空间大，在网络上传递所需要的时间比二进制流长，XML的解析过程也会耗用更多的内存。Burlap可以穿透防火墙，而且由于传输的格式是XML文本， 可以与其他系统(比如.NET)集成，从某种程度来讲，Burlap是一种不标准的WebService。</li>
 <li>HttpInvoker：<br>HttpInvoker将参数和返回值通过Java的序列化机制进行编组和反编组，它具有RMI的支持所有可序列化对象的优点。 Http Invoker是使用Http协议传输二进制流的，而同时又具有Hessian、Burlap的优点。</li>
 </ol>
+</span>
+      
+    </div>
 
-    
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/协议/" rel="tag">#协议</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2014/03/28/RESTful/" rel="prev">理解RESTful架构（转）</a>
+            
+          </div>
+
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2014/01/03/js-typecheck/" rel="next">javascript检测类型方法汇总</a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <div class="ds-share flat" data-thread-key="2014/01/15/hessian/"
+     data-title="hessian 的简单介绍"
+     data-content=""
+     data-url="http://lwd426.com/2014/01/15/hessian/">
+  <div class="ds-share-inline">
+    <ul  class="ds-share-icons-16">
+
+      <li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+      <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+      <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+      <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+      <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+
+    </ul>
+    <div class="ds-share-icons-more">
+    </div>
+  </div>
+</div>
+      
+    </div>
   </div>
 
  </div>
@@ -265,8 +374,8 @@ var _hmt = _hmt || [];
         
           <div class="comments" id="comments">
             
-              <div class="ds-thread" data-thread-key="hessian.html"
-                   data-title="hessian 的简单介绍" data-url="http://lwd426.com/hessian.html">
+              <div class="ds-thread" data-thread-key="2014/01/15/hessian/"
+                   data-title="hessian 的简单介绍" data-url="http://lwd426.com/2014/01/15/hessian/">
               </div>
             
           </div>
@@ -287,6 +396,15 @@ var _hmt = _hmt || [];
     <div class="sidebar-inner">
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
       <section class="site-overview">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -297,7 +415,7 @@ var _hmt = _hmt || [];
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">31</span>
+              <span class="site-state-item-count">32</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -311,7 +429,7 @@ var _hmt = _hmt || [];
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">17</span>
+              <span class="site-state-item-count">18</span>
               <span class="site-state-item-name">标签</span>
               </a>
           </div>
@@ -333,6 +451,17 @@ var _hmt = _hmt || [];
 
       </section>
 
+      
+        <section class="post-toc-wrap sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator"></div>
+          <div class="post-toc">
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#一、什么是Hessian"><span class="nav-number">1.</span> <span class="nav-text">一、什么是Hessian</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二、hessian的优缺点"><span class="nav-number">2.</span> <span class="nav-text">二、hessian的优缺点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三、各个通讯协议对比："><span class="nav-number">3.</span> <span class="nav-text">三、各个通讯协议对比：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#四、基本应用流程"><span class="nav-number">4.</span> <span class="nav-text">四、基本应用流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#五、几种Remoting实现的比较"><span class="nav-number">5.</span> <span class="nav-text">五、几种Remoting实现的比较</span></a></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator"></div>
+        </section>
       
 
     </div>
@@ -418,6 +547,165 @@ var _hmt = _hmt || [];
   <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
 
   
+  
+<script type="text/javascript" src="/js/bootstrap.scrollspy.js?v=0.4.5.1" id="bootstrap.scrollspy.custom"></script>
+
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      var $indicator = $(indicator);
+      var opacity = action === 'show' ? 0.4 : 0;
+      $indicator.velocity ?
+        $indicator.velocity('stop').velocity({
+          opacity: opacity
+        }, { duration: 100 }) :
+        $indicator.stop().animate({
+          opacity: opacity
+        }, 100);
+    }
+
+  });
+</script>
+
+<script type="text/javascript" id="sidebar.nav">
+  $(document).ready(function () {
+    var html = $('html');
+    var TAB_ANIMATE_DURATION = 200;
+    var hasVelocity = $.isFunction(html.velocity);
+
+    $('.sidebar-nav li').on('click', function () {
+      var item = $(this);
+      var activeTabClassName = 'sidebar-nav-active';
+      var activePanelClassName = 'sidebar-panel-active';
+      if (item.hasClass(activeTabClassName)) {
+        return;
+      }
+
+      var currentTarget = $('.' + activePanelClassName);
+      var target = $('.' + item.data('target'));
+
+      hasVelocity ?
+        currentTarget.velocity('transition.slideUpOut', TAB_ANIMATE_DURATION, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', TAB_ANIMATE_DURATION)
+            .addClass(activePanelClassName);
+        }) :
+        currentTarget.animate({ opacity: 0 }, TAB_ANIMATE_DURATION, function () {
+          currentTarget.hide();
+          target
+            .stop()
+            .css({'opacity': 0, 'display': 'block'})
+            .animate({ opacity: 1 }, TAB_ANIMATE_DURATION, function () {
+              currentTarget.removeClass(activePanelClassName);
+              target.addClass(activePanelClassName);
+            });
+        });
+
+      item.siblings().removeClass(activeTabClassName);
+      item.addClass(activeTabClassName);
+    });
+
+    $('.post-toc a').on('click', function (e) {
+      e.preventDefault();
+      var targetSelector = escapeSelector(this.getAttribute('href'));
+      var offset = $(targetSelector).offset().top;
+      hasVelocity ?
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        }) :
+        $('html, body').stop().animate({
+          scrollTop: offset
+        }, 500);
+    });
+
+    // Expand sidebar on post detail page by default, when post has a toc.
+    var $tocContent = $('.post-toc-content');
+    if (isDesktop() && CONFIG.sidebar === 'post') {
+      if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+        displaySidebar();
+      }
+    }
+  });
+</script>
+
+
 
   <script type="text/javascript">
     $(document).ready(function () {
