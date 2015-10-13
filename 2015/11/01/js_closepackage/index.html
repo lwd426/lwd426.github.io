@@ -46,7 +46,7 @@
 闭包是外层函数返回值为内层函数
 闭包是能访问外层函数作用域内参数和变量的函数（除了this和arguments）
 闭包可以访问它被创建时的上下文环境
-闭包可以把传进来的参数保存在作用域链">
+封装性：外界要访问（读取或修改）闭包">
 <meta property="og:type" content="article">
 <meta property="og:title" content="对"闭包"最深刻的剖析">
 <meta property="og:url" content="http://lwd426.com/2015/11/01/js_closepackage/index.html">
@@ -57,7 +57,7 @@
 闭包是外层函数返回值为内层函数
 闭包是能访问外层函数作用域内参数和变量的函数（除了this和arguments）
 闭包可以访问它被创建时的上下文环境
-闭包可以把传进来的参数保存在作用域链">
+封装性：外界要访问（读取或修改）闭包">
 <meta property="og:image" content="http://lwd426.com/images/js_closure_1.png">
 <meta property="og:image" content="http://lwd426.com/images/js_closure_2.png">
 <meta property="og:image" content="http://lwd426.com/images/js_closure_3.png">
@@ -66,7 +66,7 @@
 <meta property="og:image" content="http://lwd426.com/images/js_closure_6.png">
 <meta property="og:image" content="http://lwd426.com/images/js_closure_7.png">
 <meta property="og:image" content="http://lwd426.com/images/js_closure_8.png">
-<meta property="og:updated_time" content="2015-10-12T03:06:15.000Z">
+<meta property="og:updated_time" content="2015-10-13T03:00:48.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="对"闭包"最深刻的剖析">
 <meta name="twitter:description" content="题记–前言一直在研究闭包，是它让JavaScript变得强大，也是它让我们对JavaScript感到很困惑。真所谓是”成也萧何败萧何”（PS:此句表达不是很准确）。
@@ -75,7 +75,7 @@
 闭包是外层函数返回值为内层函数
 闭包是能访问外层函数作用域内参数和变量的函数（除了this和arguments）
 闭包可以访问它被创建时的上下文环境
-闭包可以把传进来的参数保存在作用域链">
+封装性：外界要访问（读取或修改）闭包">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -266,6 +266,7 @@ var _hmt = _hmt || [];
 <li>闭包是外层函数返回值为内层函数</li>
 <li>闭包是能访问外层函数作用域内参数和变量的函数（除了this和arguments）</li>
 <li>闭包可以访问它被创建时的上下文环境</li>
+<li>封装性：外界要访问（读取或修改）闭包内的私有变量，唯一的办法就是通过–特权方法。</li>
 <li>闭包可以把传进来的参数保存在作用域链，这常用于偏函数和柯里化函数</li>
 <li>只有当闭包不在引用所有外层作用域对象的变量和参数，外层作用域对象才会被销毁</li>
 <li>闭包是JS做模块化开发的基础</li>
