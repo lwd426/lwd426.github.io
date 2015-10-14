@@ -31,7 +31,7 @@
 
 
 
-  <meta name="keywords" content="前端,全栈" />
+  <meta name="keywords" content="javascript,优雅代码," />
 
 
 
@@ -40,15 +40,31 @@
   <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.1" />
 
 
-<meta name="description" content="前端杂文">
-<meta property="og:type" content="website">
-<meta property="og:title" content="大盗贼的后院">
-<meta property="og:url" content="http://lwd426.com/index.html">
+<meta name="description" content="一直来，知道apply和call的用法，但当我看到这篇帖子时，有种很舒服的感觉。就此记录下来。我特意把优雅代码部分提上最上面来：
+【优雅代码】为了巩固加深记忆，下面列举一些常用用法：
+
+数组之间追加
+
+1234var array1 = [12 , &quot;foo&quot; , &amp;#123;name &quot;Joe&quot;&amp;#125; , -2458]; var array2 = [&quot;Doe&quot; , 555 , 100]; A">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【优雅代码】巧用Javascript中apply、call、bind">
+<meta property="og:url" content="http://lwd426.com/2015/10/29/beautifulStyles_applycallbind/index.html">
 <meta property="og:site_name" content="大盗贼的后院">
-<meta property="og:description" content="前端杂文">
+<meta property="og:description" content="一直来，知道apply和call的用法，但当我看到这篇帖子时，有种很舒服的感觉。就此记录下来。我特意把优雅代码部分提上最上面来：
+【优雅代码】为了巩固加深记忆，下面列举一些常用用法：
+
+数组之间追加
+
+1234var array1 = [12 , &quot;foo&quot; , &amp;#123;name &quot;Joe&quot;&amp;#125; , -2458]; var array2 = [&quot;Doe&quot; , 555 , 100]; A">
+<meta property="og:updated_time" content="2015-10-14T01:32:26.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="大盗贼的后院">
-<meta name="twitter:description" content="前端杂文">
+<meta name="twitter:title" content="【优雅代码】巧用Javascript中apply、call、bind">
+<meta name="twitter:description" content="一直来，知道apply和call的用法，但当我看到这篇帖子时，有种很舒服的感觉。就此记录下来。我特意把优雅代码部分提上最上面来：
+【优雅代码】为了巩固加深记忆，下面列举一些常用用法：
+
+数组之间追加
+
+1234var array1 = [12 , &quot;foo&quot; , &amp;#123;name &quot;Joe&quot;&amp;#125; , -2458]; var array2 = [&quot;Doe&quot; , 555 , 100]; A">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -65,7 +81,7 @@ var _hmt = _hmt || [];
 })();
 </script>
 
-  <title> 大盗贼的后院 </title>
+  <title> 【优雅代码】巧用Javascript中apply、call、bind | 大盗贼的后院 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -93,9 +109,7 @@ var _hmt = _hmt || [];
 
 
 
-  <div class="container one-column 
-   page-home 
-">
+  <div class="container one-column page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -172,9 +186,9 @@ var _hmt = _hmt || [];
     <main id="main" class="main">
       <div class="main-inner">
         <div id="content" class="content"> 
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <header class="post-header">
@@ -185,108 +199,7 @@ var _hmt = _hmt || [];
           
           
             
-              <a class="post-title-link" href="/2015/11/01/js_closepackage/" itemprop="url">
-                对"闭包"最深刻的剖析
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2015-10-01T10:08:34+08:00" content="2015-10-01">
-            2015-10-01
-          </time>
-        </span>
-
-        
-          <span class="post-category" >
-            &nbsp; | &nbsp; 分类于
-            
-              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                <a href="/categories/基础/" itemprop="url" rel="index">
-                  <span itemprop="name">基础</span>
-                </a>
-              </span>
-
-              
-              
-
-            
-          </span>
-        
-
-        
-          
-            <span class="post-comments-count">
-              &nbsp; | &nbsp;
-              <a href="/2015/11/01/js_closepackage/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2015/11/01/js_closepackage/" itemprop="commentsCount"></span>
-              </a>
-            </span>
-          
-        
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <h3 id="题记–前言">题记–前言</h3><p>一直在研究闭包，是它让JavaScript变得强大，也是它让我们对JavaScript感到很困惑。真所谓是”成也萧何败萧何”（PS:此句表达不是很准确）。</p>
-<p>大多数JS书籍和博客都无非是告诉我以下几点：</p>
-<ul>
-<li>闭包是外层函数返回值为内层函数</li>
-<li>闭包是能访问外层函数作用域内参数和变量的函数（除了this和arguments）</li>
-<li>闭包可以访问它被创建时的上下文环境</li>
-<li>封装性：外界要访问（读取或修改）闭包内的私有变量，唯一的办法就是通过–特权方法。</li>
-<li>闭包可以把传进来的参数保存在作用域链，这常用于偏函数和柯里化函数</li>
-<li>只有当闭包不在引用所有外层作用域对象的变量和参数，外层作用域对象才会被销毁</li>
-<li>闭包是JS做模块化开发的基础</li>
-<li>闭包常用来做数据访问的控制（特权方法）</li>
-<li>闭包让JS变得十分灵活，是它让函数在JS中成了”first-class object”
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2015/11/01/js_closepackage/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
-            
-              <a class="post-title-link" href="/2015/10/29/beautifulStyles_applycallbind/" itemprop="url">
-                【优雅代码】巧用Javascript中apply、call、bind
-              </a>
+              【优雅代码】巧用Javascript中apply、call、bind
             
           
         </h1>
@@ -336,8 +249,7 @@ var _hmt = _hmt || [];
       
 
       
-        
-          <span itemprop="articleBody"><p>一直来，知道apply和call的用法，但当我看到这篇帖子时，有种很舒服的感觉。就此记录下来。我特意把优雅代码部分提上最上面来：</p>
+        <span itemprop="articleBody"><p>一直来，知道apply和call的用法，但当我看到这篇帖子时，有种很舒服的感觉。就此记录下来。我特意把优雅代码部分提上最上面来：</p>
 <h3 id="【优雅代码】">【优雅代码】</h3><p>为了巩固加深记忆，下面列举一些常用用法：</p>
 <ol>
 <li>数组之间追加</li>
@@ -403,792 +315,79 @@ var _hmt = _hmt || [];
 </ul>
 <p>来自：<a href="http://www.cnblogs.com/coco1s/p/4833199.html" target="_blank" rel="external">【优雅代码】深入浅出 妙用Javascript中apply、call、bind</a></p>
 </span>
-        
       
     </div>
 
     <footer class="post-footer">
       
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      
-      
-        <h1 class="post-title" itemprop="name headline">
+        <div class="post-tags">
           
+            <a href="/tags/javascript/" rel="tag">#javascript</a>
           
+            <a href="/tags/优雅代码/" rel="tag">#优雅代码</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-prev post-nav-item">
             
-              <a class="post-title-link" href="/2015/10/25/puket/" itemprop="url">
-                Our Puket
-              </a>
+              <a href="/2015/11/01/js_closepackage/" rel="prev">对"闭包"最深刻的剖析</a>
             
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2015-09-25T10:20:10+08:00" content="2015-09-25">
-            2015-09-25
-          </time>
-        </span>
-
-        
-          <span class="post-category" >
-            &nbsp; | &nbsp; 分类于
-            
-              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                <a href="/categories/思绪万千/" itemprop="url" rel="index">
-                  <span itemprop="name">思绪万千</span>
-                </a>
-              </span>
-
-              
-              
-
-            
-          </span>
-        
-
-        
-          
-            <span class="post-comments-count">
-              &nbsp; | &nbsp;
-              <a href="/2015/10/25/puket/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2015/10/25/puket/" itemprop="commentsCount"></span>
-              </a>
-            </span>
-          
-        
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <p><em>我必须承认：放松的状态会激发人的所有感官，让人的存在感更强，更真实生动的感受到周围的一切，包括思想。所以，更有助于灵感迸现和绅审视自我。</em></p>
-<p>明天就要离开了。大家今天都以各种自己喜欢的方式让这一天变得更加难忘美丽。<br>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2015/10/25/puket/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
           </div>
-        
-      
-    </div>
 
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
+          <div class="post-nav-next post-nav-item">
             
-              <a class="post-title-link" href="/2015/10/19/sevensths/" itemprop="url">
-                七个对我最好的职业建议(来自阮一峰老师翻译)
-              </a>
+              <a href="/2015/10/25/puket/" rel="next">Our Puket</a>
             
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2015-09-19T10:45:49+08:00" content="2015-09-19">
-            2015-09-19
-          </time>
-        </span>
-
-        
-          <span class="post-category" >
-            &nbsp; | &nbsp; 分类于
-            
-              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                <a href="/categories/想法es/" itemprop="url" rel="index">
-                  <span itemprop="name">想法es</span>
-                </a>
-              </span>
-
-              
-              
-
-            
-          </span>
-        
-
-        
-          
-            <span class="post-comments-count">
-              &nbsp; | &nbsp;
-              <a href="/2015/10/19/sevensths/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2015/10/19/sevensths/" itemprop="commentsCount"></span>
-              </a>
-            </span>
-          
-        
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <blockquote>
-<p>Nicholas C. Zakas 是全世界最著名的 JavaScript 程序员之一。两年前，他写了一篇长文，回顾自己的职业生涯，提到七个对他来说最重要的建议。我读完很受启发，决定做一点摘录。你可以先读下面的精简版，再去读全文。</p>
-</blockquote>
-<ol>
-<li>不要别人点什么，就做什么</li>
-<li>不要傻干，懂得让别人知道自己做了什么</li>
-<li>协同工作-带领他人协同工作</li>
-<li>“工作上的事”</li>
-<li>自己要知道自己要做什么，而不是让人告诉你</li>
-<li>在回忆中要找到参与感，否则就别去</li>
-<li>近朱者赤</li>
-</ol>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2015/10/19/sevensths/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
           </div>
-        
-      
-    </div>
-
-    <footer class="post-footer">
+        </div>
       
 
       
-
-      
-      
-        <div class="post-eof"></div>
       
     </footer>
   </article>
 
 
-    
+
+    <div class="post-spread">
       
+        <div class="ds-share flat" data-thread-key="2015/10/29/beautifulStyles_applycallbind/"
+     data-title="【优雅代码】巧用Javascript中apply、call、bind"
+     data-content=""
+     data-url="http://lwd426.com/2015/10/29/beautifulStyles_applycallbind/">
+  <div class="ds-share-inline">
+    <ul  class="ds-share-icons-16">
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+      <li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+      <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+      <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+      <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+      <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
 
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
-            
-              <a class="post-title-link" href="/2015/07/24/node_markdown/" itemprop="url">
-                解决方案：node解析markdown
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2015-06-24T15:15:49+08:00" content="2015-06-24">
-            2015-06-24
-          </time>
-        </span>
-
-        
-          <span class="post-category" >
-            &nbsp; | &nbsp; 分类于
-            
-              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                <a href="/categories/nodeJS/" itemprop="url" rel="index">
-                  <span itemprop="name">nodeJS</span>
-                </a>
-              </span>
-
-              
-              
-
-            
-          </span>
-        
-
-        
-          
-            <span class="post-comments-count">
-              &nbsp; | &nbsp;
-              <a href="/2015/07/24/node_markdown/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2015/07/24/node_markdown/" itemprop="commentsCount"></span>
-              </a>
-            </span>
-          
-        
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <blockquote>
-<p>目前，越来越多的博客开始采用markdown来撰写。它的轻量、书写方便、易读易写的特点让我着迷。真的很简便。所以我们打算用markdown来写产品的使用说明。</p>
-</blockquote>
-<h3 id="问题产生">问题产生</h3><pre><code>我们的产品采用angularJS做前端MVVM框架，后端采用Nodejs。
-</code></pre><p>目前markdown浏览器还不能解析markdown,最终也要转换成html才能被浏览器解析。所以采用markdown来做文档说明，那就要解决以下两个问题：</p>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2015/07/24/node_markdown/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
+    </ul>
+    <div class="ds-share-icons-more">
+    </div>
+  </div>
+</div>
       
     </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
-            
-              <a class="post-title-link" href="/2015/05/23/kibana_modules/" itemprop="url">
-                kibana的模块依赖机制
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2015-04-23T10:15:49+08:00" content="2015-04-23">
-            2015-04-23
-          </time>
-        </span>
-
-        
-          <span class="post-category" >
-            &nbsp; | &nbsp; 分类于
-            
-              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                <a href="/categories/AngularJS/" itemprop="url" rel="index">
-                  <span itemprop="name">AngularJS</span>
-                </a>
-              </span>
-
-              
-              
-
-            
-          </span>
-        
-
-        
-          
-            <span class="post-comments-count">
-              &nbsp; | &nbsp;
-              <a href="/2015/05/23/kibana_modules/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2015/05/23/kibana_modules/" itemprop="commentsCount"></span>
-              </a>
-            </span>
-          
-        
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <h3 id="经验">经验</h3><ul>
-<li>必须先把模块使用require(‘模块路径’);</li>
-<li>进来后，<br>才能使用require(‘module’).get(‘新模块名称’,[模块1，模块2…])进行定义模块依赖,</li>
-<li>才能在新模块中把服务、指令、常量、视图注入到代码里。</li>
-<li>在模块定义的工程中，也要通过require(‘辅助模块’)；来把所有的依赖模块代码加载进门户文件.</li>
-</ul>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2015/05/23/kibana_modules/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
-            
-              <a class="post-title-link" href="/2015/04/24/javascript_this2/" itemprop="url">
-                对this新的认识--更深刻
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2015-03-24T10:25:00+08:00" content="2015-03-24">
-            2015-03-24
-          </time>
-        </span>
-
-        
-          <span class="post-category" >
-            &nbsp; | &nbsp; 分类于
-            
-              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                <a href="/categories/基础/" itemprop="url" rel="index">
-                  <span itemprop="name">基础</span>
-                </a>
-              </span>
-
-              
-              
-
-            
-          </span>
-        
-
-        
-          
-            <span class="post-comments-count">
-              &nbsp; | &nbsp;
-              <a href="/2015/04/24/javascript_this2/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2015/04/24/javascript_this2/" itemprop="commentsCount"></span>
-              </a>
-            </span>
-          
-        
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <blockquote>
-<p>今天，在cnode上看到一篇真的是很不错的文章<a href="https://cnodejs.org/topic/5599521293cb46f578f0a57e">《图解Javascript上下文与作用域》</a>，已经被设置为精华帖了。</p>
-</blockquote>
-<h3 id="自己之前的理解：">自己之前的理解：</h3><p>改变了我之前对js的基础概念的以下简单的看法：</p>
-<ul>
-<li>执行上下文: 就是函数的执行环境，比如<code>a.func();</code>里，func函数执行时的上下文就是对象a。</li>
-<li>this: 就是在新建对象时，把新建的对象的引用赋给了this变量；</li>
-<li>作用域链: 这个理解是对的，简单的说就是<code>函数的作用域链就是函数以及他上面一直到global的所有定义的变量对象串成的链</code>。</li>
-<li>闭包: 就是在返回值是函数的情况下，返回函数里拥有外层函数的作用域链。</li>
-</ul>
-<h3 id="引文重要观点摘录">引文重要观点摘录</h3><ol>
-<li>每一个上下文都会绑定一个变量对象（variable object），它就像一个容器，用来存<code>当前上下文中所有已定义或可获取的变量、函数等</code></li>
-<li>Js解释器总是在上下文堆栈的顶上下文中执行</li>
-<li>在生成新的上下文时，首先会:
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2015/04/24/javascript_this2/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
-            
-              <a class="post-title-link" href="/2015/04/05/node_mulit_2/" itemprop="url">
-                思考：转-NodeJs 多核多进程并行框架实作
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2015-03-05T10:24:00+08:00" content="2015-03-05">
-            2015-03-05
-          </time>
-        </span>
-
-        
-          <span class="post-category" >
-            &nbsp; | &nbsp; 分类于
-            
-              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                <a href="/categories/nodejs/" itemprop="url" rel="index">
-                  <span itemprop="name">nodejs</span>
-                </a>
-              </span>
-
-              
-              
-
-            
-          </span>
-        
-
-        
-          
-            <span class="post-comments-count">
-              &nbsp; | &nbsp;
-              <a href="/2015/04/05/node_mulit_2/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2015/04/05/node_mulit_2/" itemprop="commentsCount"></span>
-              </a>
-            </span>
-          
-        
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <blockquote>
-<p>多核编程的重要性无需多说， 我们直奔主题，目前nodejs 的网络服务器有以下几种支持多进程的方式：</p>
-</blockquote>
-<h3 id="开启多个进程，每个进程绑定不同的端口">开启多个进程，每个进程绑定不同的端口</h3><p>开启多个进程，每个进程绑定不同的端口，用反向代理服务器如 Nginx 做负载均衡，好处是我们可以借助强大的 Nginx 做一些过滤检查之类的操作，同时能够实现比较好的均衡策略，但坏处也是显而易见 —我们引入了一个间接层。</p>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2015/04/05/node_mulit_2/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
-            
-              <a class="post-title-link" href="/2015/04/03/node_mlti/" itemprop="url">
-                玩转nodejs多进程
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2015-03-03T14:34:00+08:00" content="2015-03-03">
-            2015-03-03
-          </time>
-        </span>
-
-        
-          <span class="post-category" >
-            &nbsp; | &nbsp; 分类于
-            
-              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                <a href="/categories/nodejs/" itemprop="url" rel="index">
-                  <span itemprop="name">nodejs</span>
-                </a>
-              </span>
-
-              
-              
-
-            
-          </span>
-        
-
-        
-          
-            <span class="post-comments-count">
-              &nbsp; | &nbsp;
-              <a href="/2015/04/03/node_mlti/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2015/04/03/node_mlti/" itemprop="commentsCount"></span>
-              </a>
-            </span>
-          
-        
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <blockquote>
-<p>nodejs的单线程单进程的模型避免了线程之间的状态同步或者状态锁之类的问题，但是这也使node饱受诟病，比如一个node进程只能利用一个核，不能利用现在越来越普遍的多核CPU；单进程一旦有异常没有被捕获则会让整个应用死掉，稳定性十分差。所以引用《nodejs深入浅出》问题抛出：</p>
-<ul>
-<li>如何充分利用多核cpu服务器？</li>
-<li>如何保证进程的健壮性和稳定性？</li>
-</ul>
-</blockquote>
-<p>以下是自己总结的《nodejs深入浅出》第9章-玩转进程的阅读笔记：<br>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2015/04/03/node_mlti/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
-            
-              <a class="post-title-link" href="/2015/03/22/httpServer&Clinet/" itemprop="url">
-                HTTP服务的那些事---node对http模块的基础实现
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2015-02-22T10:09:10+08:00" content="2015-02-22">
-            2015-02-22
-          </time>
-        </span>
-
-        
-          <span class="post-category" >
-            &nbsp; | &nbsp; 分类于
-            
-              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                <a href="/categories/nodeJS/" itemprop="url" rel="index">
-                  <span itemprop="name">nodeJS</span>
-                </a>
-              </span>
-
-              
-              
-
-            
-          </span>
-        
-
-        
-          
-            <span class="post-comments-count">
-              &nbsp; | &nbsp;
-              <a href="/2015/03/22/httpServer&Clinet/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2015/03/22/httpServer&Clinet/" itemprop="commentsCount"></span>
-              </a>
-            </span>
-          
-        
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <h2 id="题记">题记</h2><blockquote>
-<p>一直对node的服务器和客户端稀里糊涂的，只是会用，知道可以用<code>createServer(function( req, res){....}).listen(3000);</code><br>的方式来建立一个服务器程序，监听客户端连接过来、数据（req）发送过来然后处理数据、然后通过res把数据返回给客户端。再者就是可以使用诸如connect或者express的这种对http封装过的框架，采用中间件的方式在服务器程序处理请求之前、之后对数据进行操作。就这么多了，再深入就不知道怎么回事了。</p>
-</blockquote>
-<h2 id="待解决问题">待解决问题</h2><p>所以，这次特意来搞明白：</p>
-<ol>
-<li>http的服务器和客户端到底张什么玩意？</li>
-<li>connect对http模块进行了哪些封装？</li>
-<li>express又对http模块进行了哪些封装？</li>
-</ol>
-<p>今天就先来搞明白读一个问题！~<br>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2015/03/22/httpServer&Clinet/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-  </section>
-
-  
-  <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/2/">&raquo;</a>
-  </nav>
+  </div>
 
  </div>
 
         
 
+        
+          <div class="comments" id="comments">
+            
+              <div class="ds-thread" data-thread-key="2015/10/29/beautifulStyles_applycallbind/"
+                   data-title="【优雅代码】巧用Javascript中apply、call、bind" data-url="http://lwd426.com/2015/10/29/beautifulStyles_applycallbind/">
+              </div>
+            
+          </div>
         
       </div>
 
@@ -1205,6 +404,15 @@ var _hmt = _hmt || [];
   <aside id="sidebar" class="sidebar sidebar-active">
     <div class="sidebar-inner">
 
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
       
 
       <section class="site-overview">
@@ -1252,6 +460,17 @@ var _hmt = _hmt || [];
 
       </section>
 
+      
+        <section class="post-toc-wrap sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator"></div>
+          <div class="post-toc">
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#【优雅代码】"><span class="nav-number">1.</span> <span class="nav-text">【优雅代码】</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#题记"><span class="nav-number">2.</span> <span class="nav-text">题记</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#apply、call"><span class="nav-number">3.</span> <span class="nav-text">apply、call</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#apply、call_的区别"><span class="nav-number">4.</span> <span class="nav-text">apply、call 的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#深入理解运用apply、call"><span class="nav-number">5.</span> <span class="nav-text">深入理解运用apply、call</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#apply、call、bind比较"><span class="nav-number">6.</span> <span class="nav-text">apply、call、bind比较</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#再总结一下："><span class="nav-number">7.</span> <span class="nav-text">再总结一下：</span></a></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator"></div>
+        </section>
       
 
     </div>
@@ -1337,6 +556,165 @@ var _hmt = _hmt || [];
   <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
 
   
+  
+<script type="text/javascript" src="/js/bootstrap.scrollspy.js?v=0.4.5.1" id="bootstrap.scrollspy.custom"></script>
+
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      var $indicator = $(indicator);
+      var opacity = action === 'show' ? 0.4 : 0;
+      $indicator.velocity ?
+        $indicator.velocity('stop').velocity({
+          opacity: opacity
+        }, { duration: 100 }) :
+        $indicator.stop().animate({
+          opacity: opacity
+        }, 100);
+    }
+
+  });
+</script>
+
+<script type="text/javascript" id="sidebar.nav">
+  $(document).ready(function () {
+    var html = $('html');
+    var TAB_ANIMATE_DURATION = 200;
+    var hasVelocity = $.isFunction(html.velocity);
+
+    $('.sidebar-nav li').on('click', function () {
+      var item = $(this);
+      var activeTabClassName = 'sidebar-nav-active';
+      var activePanelClassName = 'sidebar-panel-active';
+      if (item.hasClass(activeTabClassName)) {
+        return;
+      }
+
+      var currentTarget = $('.' + activePanelClassName);
+      var target = $('.' + item.data('target'));
+
+      hasVelocity ?
+        currentTarget.velocity('transition.slideUpOut', TAB_ANIMATE_DURATION, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', TAB_ANIMATE_DURATION)
+            .addClass(activePanelClassName);
+        }) :
+        currentTarget.animate({ opacity: 0 }, TAB_ANIMATE_DURATION, function () {
+          currentTarget.hide();
+          target
+            .stop()
+            .css({'opacity': 0, 'display': 'block'})
+            .animate({ opacity: 1 }, TAB_ANIMATE_DURATION, function () {
+              currentTarget.removeClass(activePanelClassName);
+              target.addClass(activePanelClassName);
+            });
+        });
+
+      item.siblings().removeClass(activeTabClassName);
+      item.addClass(activeTabClassName);
+    });
+
+    $('.post-toc a').on('click', function (e) {
+      e.preventDefault();
+      var targetSelector = escapeSelector(this.getAttribute('href'));
+      var offset = $(targetSelector).offset().top;
+      hasVelocity ?
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        }) :
+        $('html, body').stop().animate({
+          scrollTop: offset
+        }, 500);
+    });
+
+    // Expand sidebar on post detail page by default, when post has a toc.
+    var $tocContent = $('.post-toc-content');
+    if (isDesktop() && CONFIG.sidebar === 'post') {
+      if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+        displaySidebar();
+      }
+    }
+  });
+</script>
+
+
 
   <script type="text/javascript">
     $(document).ready(function () {
@@ -1353,6 +731,10 @@ var _hmt = _hmt || [];
 
   
   
+
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"slide":{"type":"slide","bdImg":"3","bdPos":"left","bdTop":"250"}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+
 
   
   <script type="text/javascript" src="/js/lazyload.js"></script>
