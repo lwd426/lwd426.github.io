@@ -46,7 +46,7 @@
 <meta property="og:url" content="http://lwd426.com/2012/07/09/javascript_writenStyle/index.html">
 <meta property="og:site_name" content="大盗贼的后院">
 <meta property="og:description" content="写代码一直都是‘随心而写’，并没有什么风格和过多的思考，这也导致后来阅读代码和修改bug的过程变得十分困难，所以，还是尽早的注意下编码风格这些东西吧。这里借鉴《javascript语言精粹》的第9章，和自己平时的经验，总结一下：">
-<meta property="og:updated_time" content="2015-10-13T08:46:58.000Z">
+<meta property="og:updated_time" content="2015-10-14T00:55:58.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JavaScript应该使用的编码风格">
 <meta name="twitter:description" content="写代码一直都是‘随心而写’，并没有什么风格和过多的思考，这也导致后来阅读代码和修改bug的过程变得十分困难，所以，还是尽早的注意下编码风格这些东西吧。这里借鉴《javascript语言精粹》的第9章，和自己平时的经验，总结一下：">
@@ -298,6 +298,9 @@ var _hmt = _hmt || [];
 <li>已存在的DOM元素理应被清理掉，这样做利于解除相关事件监听器的引用，使内存得到回收</li>
 <li>这是一项比html()方法更稳妥的一种清理方法。html()方法在富客户端js应用中使用，可能会导致一些极为怪异的bug</li>
 </ul>
+</li>
+<li><p>优化switch的臃肿结构的通常做法是采用对象的键值对的方式,这样代码嵌套变浅了，而且代码看起来更清爽：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">switch</span>(name)&#123;</span><br><span class="line">	<span class="keyword">case</span> <span class="string">'A'</span> : <span class="comment">//todo1 break;</span></span><br><span class="line">	<span class="keyword">case</span> <span class="string">'B'</span> : <span class="comment">//todo2 break;</span></span><br><span class="line">	<span class="keyword">case</span> <span class="string">'C'</span> : <span class="comment">//todo3 break;</span></span><br><span class="line">	<span class="keyword">case</span> <span class="string">'D'</span> : <span class="comment">//todo4 break;	</span></span><br><span class="line">	<span class="keyword">default</span>: <span class="comment">//todo</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//优化</span></span><br><span class="line"><span class="keyword">var</span> nameList = &#123;</span><br><span class="line">	<span class="string">'A'</span> : <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123; <span class="comment">//todo1 &#125;,</span></span><br><span class="line">	<span class="string">'B'</span> : <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123; <span class="comment">//todo2 &#125;,</span></span><br><span class="line">	<span class="string">'C'</span> : <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123; <span class="comment">//todo3 &#125;,</span></span><br><span class="line">	<span class="string">'D'</span> : <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123; <span class="comment">//todo4 &#125;,</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">nameList[name];</span><br></pre></td></tr></table></figure>
 </li>
 </ol>
 <p>继续完善….</p>
