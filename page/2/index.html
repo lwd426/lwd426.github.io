@@ -185,6 +185,106 @@ var _hmt = _hmt || [];
           
           
             
+              <a class="post-title-link" href="/2015/04/02/React1/" itemprop="url">
+                学习笔记--对reactjs的初感
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2015-03-02T09:30:09+08:00" content="2015-03-02">
+            2015-03-02
+          </time>
+        </span>
+
+        
+          <span class="post-category" >
+            &nbsp; | &nbsp; 分类于
+            
+              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                <a href="/categories/React/" itemprop="url" rel="index">
+                  <span itemprop="name">React</span>
+                </a>
+              </span>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+            <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2015/04/02/React1/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2015/04/02/React1/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody"><p>PS:这是之前纯用手机打的啊~~~特此发出来，记录下。</p>
+<h3 id="题记">题记</h3><p>刚把react的官网的新手指南，做了一个小组件的demo应用。感觉react确实是把dom的逻辑放到了js里，把二者混在一起。<strong>思想就是组件的思想，只不过每个大小组件都用react自己的库函数React.createClass搞成个对象，然后通过一层层父子组件的拼装，最后用ReactDOM.render(组件，要注入的dom节点)完成所有的渲染。</strong></p>
+<h3 id="概念理解">概念理解</h3><p>为了更好的理解概念，注意的几点：</p>
+<ol>
+<li>在发送请求前就提前改变对应组件的state状态，使应用感觉更快</li>
+<li>父子组件之间通过props传递数据，pros是不可变的：它们从父组件传递过来，“属于”父组件。比如方法或者data之类的</li>
+<li>为了交互，每个组件都有自己的状态state，这是组件私有的</li>
+<li>组件的状态用过在组件里this.setState()方法改变，注意，一旦组件的状态改变，react就会调用该组件的render方法进行重新渲染。</li>
+<li>render方法依赖输入（this.state和this.pros），框架会确保渲染出来的ui界面总是与<strong>输入幂等</strong>的。</li>
+<li><p>在父组件里通过ref属性来读取子组件，ref相当于子组件的id一样。比如：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;input type=<span class="string">"text"</span> ref=<span class="string">"myname"</span>&gt;</span><br><span class="line"><span class="comment">//父组件就可以通过this.ref.myname的方式访问到该节点。</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>用回调函数作为pros可以从子组件传数据到父组件：我们在父组件的render方法体内会这样做，传递一个新的回调函数到子组件，绑定它到子组件的某个属性事件上。</p>
+</li>
+<li>getInitialState()在组件的生命周期中仅执行一次，用于设置组件的初始化状态。</li>
+<li>componentDidMount()是一个组件渲染的时候被react自动调用的方法。这个方法是在组件渲染前最后一次改变组件状态的地方。可以在这里用轮训或websocket技术从后台读取数据保持状态最新。</li>
+</ol>
+</span>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
               <a class="post-title-link" href="/2015/03/22/httpServer&Clinet/" itemprop="url">
                 HTTP服务的那些事---node对http模块的基础实现
               </a>
@@ -983,96 +1083,6 @@ var _hmt = _hmt || [];
 
 
     
-      
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
-            
-              <a class="post-title-link" href="/2014/04/05/10rulesOfRESTful/" itemprop="url">
-                10个有关RESTful API良好设计的最佳实践（转）
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2014-03-05T10:09:03+08:00" content="2014-03-05">
-            2014-03-05
-          </time>
-        </span>
-
-        
-          <span class="post-category" >
-            &nbsp; | &nbsp; 分类于
-            
-              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                <a href="/categories/RESTful/" itemprop="url" rel="index">
-                  <span itemprop="name">RESTful</span>
-                </a>
-              </span>
-
-              
-              
-
-            
-          </span>
-        
-
-        
-          
-            <span class="post-comments-count">
-              &nbsp; | &nbsp;
-              <a href="/2014/04/05/10rulesOfRESTful/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2014/04/05/10rulesOfRESTful/" itemprop="commentsCount"></span>
-              </a>
-            </span>
-          
-        
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <p>Web API已经在最近几年变成重要的话题，一个干净的API设计对于后端系统是非常重要的。</p>
-<p>通常我们为Web API使用RESTful设计，<code>REST概念分离了API结构和逻辑资源，通过Http方法GET, DELETE, POST 和 PUT来操作资源。</code></p>
-<p>下面是进行RESTful Web API十个最佳实践，能为你提供一个良好的API设计风格。<br>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2014/04/05/10rulesOfRESTful/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1111,7 +1121,7 @@ var _hmt = _hmt || [];
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">34</span>
+              <span class="site-state-item-count">35</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -1125,7 +1135,7 @@ var _hmt = _hmt || [];
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">20</span>
+              <span class="site-state-item-count">21</span>
               <span class="site-state-item-name">标签</span>
               </a>
           </div>

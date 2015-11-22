@@ -31,7 +31,7 @@
 
 
 
-  <meta name="keywords" content="javascript," />
+  <meta name="keywords" content="React,自己的笔记," />
 
 
 
@@ -40,22 +40,19 @@
   <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.1" />
 
 
-<meta name="description" content="JSON和字符串的互转在javascript中是极为常用的，尤其是在使用java做数据接口，使用json作为主要的数据传输格式的时候。这次就总结下吧~
-比如我有两个变量，我要将a转换成字符串，将b转换成JSON对象：
-12var a=&amp;#123;&quot;name&quot;:&quot;tom&quot;,&quot;sex&quot;:&quot;男&quot;,&quot;age&quot;:&quot;24&quot;&amp;#125;;var b=&apos;&amp;#123;&quot;name&quot;:&quot;Mike&quot;,&quot;sex&quot;:&quot;女&quot;,">
+<meta name="description" content="PS:这是之前纯用手机打的啊~~~特此发出来，记录下。
+题记刚把react的官网的新手指南，做了一个小组件的demo应用。感觉react确实是把dom的逻辑放到了js里，把二者混在一起。思想就是组件的思想，只不过每个大小组件都用react自己的库函数React.createClass搞成个对象，然后通过一层层父子组件的拼装，最后用ReactDOM.render(组件，要注入的dom节点)完成所有的">
 <meta property="og:type" content="article">
-<meta property="og:title" content="JSON对象和字符串之间的相互转换">
-<meta property="og:url" content="http://lwd426.com/2013/09/01/JSON2String/index.html">
+<meta property="og:title" content="学习笔记--对reactjs的初感">
+<meta property="og:url" content="http://lwd426.com/2015/04/02/React1/index.html">
 <meta property="og:site_name" content="大盗贼的后院">
-<meta property="og:description" content="JSON和字符串的互转在javascript中是极为常用的，尤其是在使用java做数据接口，使用json作为主要的数据传输格式的时候。这次就总结下吧~
-比如我有两个变量，我要将a转换成字符串，将b转换成JSON对象：
-12var a=&amp;#123;&quot;name&quot;:&quot;tom&quot;,&quot;sex&quot;:&quot;男&quot;,&quot;age&quot;:&quot;24&quot;&amp;#125;;var b=&apos;&amp;#123;&quot;name&quot;:&quot;Mike&quot;,&quot;sex&quot;:&quot;女&quot;,">
-<meta property="og:updated_time" content="2015-09-30T02:24:32.000Z">
+<meta property="og:description" content="PS:这是之前纯用手机打的啊~~~特此发出来，记录下。
+题记刚把react的官网的新手指南，做了一个小组件的demo应用。感觉react确实是把dom的逻辑放到了js里，把二者混在一起。思想就是组件的思想，只不过每个大小组件都用react自己的库函数React.createClass搞成个对象，然后通过一层层父子组件的拼装，最后用ReactDOM.render(组件，要注入的dom节点)完成所有的">
+<meta property="og:updated_time" content="2015-11-22T04:54:27.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="JSON对象和字符串之间的相互转换">
-<meta name="twitter:description" content="JSON和字符串的互转在javascript中是极为常用的，尤其是在使用java做数据接口，使用json作为主要的数据传输格式的时候。这次就总结下吧~
-比如我有两个变量，我要将a转换成字符串，将b转换成JSON对象：
-12var a=&amp;#123;&quot;name&quot;:&quot;tom&quot;,&quot;sex&quot;:&quot;男&quot;,&quot;age&quot;:&quot;24&quot;&amp;#125;;var b=&apos;&amp;#123;&quot;name&quot;:&quot;Mike&quot;,&quot;sex&quot;:&quot;女&quot;,">
+<meta name="twitter:title" content="学习笔记--对reactjs的初感">
+<meta name="twitter:description" content="PS:这是之前纯用手机打的啊~~~特此发出来，记录下。
+题记刚把react的官网的新手指南，做了一个小组件的demo应用。感觉react确实是把dom的逻辑放到了js里，把二者混在一起。思想就是组件的思想，只不过每个大小组件都用react自己的库函数React.createClass搞成个对象，然后通过一层层父子组件的拼装，最后用ReactDOM.render(组件，要注入的dom节点)完成所有的">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -72,7 +69,7 @@ var _hmt = _hmt || [];
 })();
 </script>
 
-  <title> JSON对象和字符串之间的相互转换 | 大盗贼的后院 </title>
+  <title> 学习笔记--对reactjs的初感 | 大盗贼的后院 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -190,7 +187,7 @@ var _hmt = _hmt || [];
           
           
             
-              JSON对象和字符串之间的相互转换
+              学习笔记--对reactjs的初感
             
           
         </h1>
@@ -199,8 +196,8 @@ var _hmt = _hmt || [];
       <div class="post-meta">
         <span class="post-time">
           发表于
-          <time itemprop="dateCreated" datetime="2013-08-01T10:09:09+08:00" content="2013-08-01">
-            2013-08-01
+          <time itemprop="dateCreated" datetime="2015-03-02T09:30:09+08:00" content="2015-03-02">
+            2015-03-02
           </time>
         </span>
 
@@ -209,8 +206,8 @@ var _hmt = _hmt || [];
             &nbsp; | &nbsp; 分类于
             
               <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                <a href="/categories/基础/" itemprop="url" rel="index">
-                  <span itemprop="name">基础</span>
+                <a href="/categories/React/" itemprop="url" rel="index">
+                  <span itemprop="name">React</span>
                 </a>
               </span>
 
@@ -225,8 +222,8 @@ var _hmt = _hmt || [];
           
             <span class="post-comments-count">
               &nbsp; | &nbsp;
-              <a href="/2013/09/01/JSON2String/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2013/09/01/JSON2String/" itemprop="commentsCount"></span>
+              <a href="/2015/04/02/React1/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2015/04/02/React1/" itemprop="commentsCount"></span>
               </a>
             </span>
           
@@ -240,25 +237,23 @@ var _hmt = _hmt || [];
       
 
       
-        <span itemprop="articleBody"><p>JSON和字符串的互转在javascript中是极为常用的，尤其是在使用java做数据接口，使用json作为主要的数据传输格式的时候。这次就总结下吧~</p>
-<p>比如我有两个变量，我要将a转换成字符串，将b转换成JSON对象：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a=&#123;<span class="string">"name"</span>:<span class="string">"tom"</span>,<span class="string">"sex"</span>:<span class="string">"男"</span>,<span class="string">"age"</span>:<span class="string">"24"</span>&#125;;</span><br><span class="line"><span class="keyword">var</span> b=<span class="string">'&#123;"name":"Mike","sex":"女","age":"29"&#125;'</span>;</span><br></pre></td></tr></table></figure>
-<h3 id="常用方法">常用方法</h3><p>在Firefox，chrome，opera，safari，ie9，ie8等高级浏览器直接可以用JSON对象的stringify()和parse()方法。<br><a id="more"></a></p>
-<ul>
-<li>JSON.stringify(obj)将JSON转为字符串。</li>
-<li>JSON.parse(string)将字符串转为JSON格式；</li>
-</ul>
-<p>上面的转换可以这么写：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a=&#123;<span class="string">"name"</span>:<span class="string">"tom"</span>,<span class="string">"sex"</span>:<span class="string">"男"</span>,<span class="string">"age"</span>:<span class="string">"24"</span>&#125;;</span><br><span class="line"><span class="keyword">var</span> b=<span class="string">'&#123;"name":"Mike","sex":"女","age":"29"&#125;'</span>;</span><br><span class="line"><span class="keyword">var</span> aToStr=<span class="built_in">JSON</span>.stringify(a);</span><br><span class="line"><span class="keyword">var</span> bToObj=<span class="built_in">JSON</span>.parse(b);</span><br><span class="line">alert(<span class="keyword">typeof</span>(aToStr));  <span class="comment">//string</span></span><br><span class="line">alert(<span class="keyword">typeof</span>(bToObj));<span class="comment">//object</span></span><br></pre></td></tr></table></figure>
-<h3 id="IE8|IE7|IE6">IE8|IE7|IE6</h3><ol>
-<li><p>ie8(兼容模式),ie7和ie6没有JSON对象，不过<a href="http://www.json.org/" target="_blank" rel="external">http://www.json.org/</a>提供了一个json.js,这样ie8(兼容模式),ie7和ie6就可以支持JSON对象以及其stringify()和parse()方法；你可以在<a href="https://github.com/douglascrockford/JSON-js上获取到这个js，一般现在用`json2.js`。" target="_blank" rel="external">https://github.com/douglascrockford/JSON-js上获取到这个js，一般现在用`json2.js`。</a></p>
+        <span itemprop="articleBody"><p>PS:这是之前纯用手机打的啊~~~特此发出来，记录下。</p>
+<h3 id="题记">题记</h3><p>刚把react的官网的新手指南，做了一个小组件的demo应用。感觉react确实是把dom的逻辑放到了js里，把二者混在一起。<strong>思想就是组件的思想，只不过每个大小组件都用react自己的库函数React.createClass搞成个对象，然后通过一层层父子组件的拼装，最后用ReactDOM.render(组件，要注入的dom节点)完成所有的渲染。</strong></p>
+<h3 id="概念理解">概念理解</h3><p>为了更好的理解概念，注意的几点：</p>
+<ol>
+<li>在发送请求前就提前改变对应组件的state状态，使应用感觉更快</li>
+<li>父子组件之间通过props传递数据，pros是不可变的：它们从父组件传递过来，“属于”父组件。比如方法或者data之类的</li>
+<li>为了交互，每个组件都有自己的状态state，这是组件私有的</li>
+<li>组件的状态用过在组件里this.setState()方法改变，注意，一旦组件的状态改变，react就会调用该组件的render方法进行重新渲染。</li>
+<li>render方法依赖输入（this.state和this.pros），框架会确保渲染出来的ui界面总是与<strong>输入幂等</strong>的。</li>
+<li><p>在父组件里通过ref属性来读取子组件，ref相当于子组件的id一样。比如：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;input type=<span class="string">"text"</span> ref=<span class="string">"myname"</span>&gt;</span><br><span class="line"><span class="comment">//父组件就可以通过this.ref.myname的方式访问到该节点。</span></span><br></pre></td></tr></table></figure>
 </li>
-<li><p>ie8(兼容模式),ie7和ie6可以使用eval()将字符串转为JSON对象，</p>
+<li><p>用回调函数作为pros可以从子组件传数据到父组件：我们在父组件的render方法体内会这样做，传递一个新的回调函数到子组件，绑定它到子组件的某个属性事件上。</p>
 </li>
+<li>getInitialState()在组件的生命周期中仅执行一次，用于设置组件的初始化状态。</li>
+<li>componentDidMount()是一个组件渲染的时候被react自动调用的方法。这个方法是在组件渲染前最后一次改变组件状态的地方。可以在这里用轮训或websocket技术从后台读取数据保持状态最新。</li>
 </ol>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> c=<span class="string">'&#123;"name":"Mike","sex":"女","age":"29"&#125;'</span>;</span><br><span class="line"><span class="keyword">var</span> cToObj=<span class="built_in">eval</span>(<span class="string">"("</span>+c+<span class="string">")"</span>);</span><br><span class="line">alert(<span class="keyword">typeof</span>(cToObj));</span><br></pre></td></tr></table></figure>
-<h3 id="jQuery中也有将字符串转为JSON格式的方法">jQuery中也有将字符串转为JSON格式的方法</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">jQuery.parseJSON( json )</span><br></pre></td></tr></table></figure>
-<p>接受一个标准格式的 JSON 字符串，并返回解析后的 JavaScript （JSON）对象。当然如果有兴趣可以自己封装一个jQuery扩展，jQuery.stringifyJSON(obj)将JSON转为字符串。</p>
 </span>
       
     </div>
@@ -267,7 +262,9 @@ var _hmt = _hmt || [];
       
         <div class="post-tags">
           
-            <a href="/tags/javascript/" rel="tag">#javascript</a>
+            <a href="/tags/React/" rel="tag">#React</a>
+          
+            <a href="/tags/自己的笔记/" rel="tag">#自己的笔记</a>
           
         </div>
       
@@ -276,13 +273,13 @@ var _hmt = _hmt || [];
         <div class="post-nav">
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2013/09/10/node_session/" rel="prev">express框架的session应用</a>
+              <a href="/2015/04/03/node_mlti/" rel="prev">玩转nodejs多进程</a>
             
           </div>
 
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2013/04/03/this_example/" rel="next">笔记：构造函数中的this</a>
+              <a href="/2015/03/22/httpServer&Clinet/" rel="next">HTTP服务的那些事---node对http模块的基础实现</a>
             
           </div>
         </div>
@@ -297,10 +294,10 @@ var _hmt = _hmt || [];
 
     <div class="post-spread">
       
-        <div class="ds-share flat" data-thread-key="2013/09/01/JSON2String/"
-     data-title="JSON对象和字符串之间的相互转换"
+        <div class="ds-share flat" data-thread-key="2015/04/02/React1/"
+     data-title="学习笔记--对reactjs的初感"
      data-content=""
-     data-url="http://lwd426.com/2013/09/01/JSON2String/">
+     data-url="http://lwd426.com/2015/04/02/React1/">
   <div class="ds-share-inline">
     <ul  class="ds-share-icons-16">
 
@@ -326,8 +323,8 @@ var _hmt = _hmt || [];
         
           <div class="comments" id="comments">
             
-              <div class="ds-thread" data-thread-key="2013/09/01/JSON2String/"
-                   data-title="JSON对象和字符串之间的相互转换" data-url="http://lwd426.com/2013/09/01/JSON2String/">
+              <div class="ds-thread" data-thread-key="2015/04/02/React1/"
+                   data-title="学习笔记--对reactjs的初感" data-url="http://lwd426.com/2015/04/02/React1/">
               </div>
             
           </div>
@@ -409,7 +406,7 @@ var _hmt = _hmt || [];
           <div class="post-toc">
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#常用方法"><span class="nav-number">1.</span> <span class="nav-text">常用方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#IE8|IE7|IE6"><span class="nav-number">2.</span> <span class="nav-text">IE8|IE7|IE6</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#jQuery中也有将字符串转为JSON格式的方法"><span class="nav-number">3.</span> <span class="nav-text">jQuery中也有将字符串转为JSON格式的方法</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#题记"><span class="nav-number">1.</span> <span class="nav-text">题记</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#概念理解"><span class="nav-number">2.</span> <span class="nav-text">概念理解</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>
