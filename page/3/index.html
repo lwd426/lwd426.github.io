@@ -185,6 +185,96 @@ var _hmt = _hmt || [];
           
           
             
+              <a class="post-title-link" href="/2014/03/28/RESTful/" itemprop="url">
+                理解RESTful架构（转）
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2014-02-28T12:30:08+08:00" content="2014-02-28">
+            2014-02-28
+          </time>
+        </span>
+
+        
+          <span class="post-category" >
+            &nbsp; | &nbsp; 分类于
+            
+              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                <a href="/categories/RESTful/" itemprop="url" rel="index">
+                  <span itemprop="name">RESTful</span>
+                </a>
+              </span>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+            <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2014/03/28/RESTful/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2014/03/28/RESTful/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <p>之前一直对REST是个什么东东搞得不太明白，直到看到阮一峰老师的这篇帖子，觉得有了些认识了。特此记录下来。原文如下：</p>
+<p>越来越多的人开始意识到，网站即软件，而且是一种新型的软件。<br>这种”互联网软件”采用客户端/服务器模式，建立在分布式体系上，通过互联网通信，具有高延时（high latency）、高并发等特点。<br>网站开发，完全可以采用软件开发的模式。但是传统上，软件和网络是两个不同的领域，很少有交集；软件开发主要针对单机环境，网络则主要研究系统之间的通信。互联网的兴起，使得这两个领域开始融合，现在我们必须考虑，如何开发在互联网环境中使用的软件。</p>
+<p>RESTful架构，就是目前最流行的一种互联网软件架构。它结构清晰、符合标准、易于理解、扩展方便，所以正得到越来越多网站的采用。<br>但是，到底什么是RESTful架构，并不是一个容易说清楚的问题。下面，我就谈谈我理解的RESTful架构。<br>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2014/03/28/RESTful/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
               <a class="post-title-link" href="/2014/01/15/hessian/" itemprop="url">
                 hessian 的简单介绍
               </a>
@@ -1008,107 +1098,6 @@ var _hmt = _hmt || [];
 
 
     
-      
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
-            
-              <a class="post-title-link" href="/2012/10/11/javascript_scope/" itemprop="url">
-                词法作用域、动态作用域和块级作用域
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2012-09-11T10:40:09+08:00" content="2012-09-11">
-            2012-09-11
-          </time>
-        </span>
-
-        
-          <span class="post-category" >
-            &nbsp; | &nbsp; 分类于
-            
-              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                <a href="/categories/javascript/" itemprop="url" rel="index">
-                  <span itemprop="name">javascript</span>
-                </a>
-              </span>
-
-              
-              
-
-            
-          </span>
-        
-
-        
-          
-            <span class="post-comments-count">
-              &nbsp; | &nbsp;
-              <a href="/2012/10/11/javascript_scope/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2012/10/11/javascript_scope/" itemprop="commentsCount"></span>
-              </a>
-            </span>
-          
-        
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <blockquote>
-<p>作用域有三种常见的模型，一种叫做<code>词法作用域</code> Lexical Scope，一种叫做<code>动态作用域</code>Dynamic Scope，最后一种叫块级作用域。其中词法作用域更常见，被大多数语言采用，包括javascript。</p>
-</blockquote>
-<p>javascript在设计的时候采用了块语法，但是却没有提供块级作用域。这让很多人困惑。它采用了词法作用域（也可理解为函数作用域）。所以来先说说块级作用域。</p>
-<p>但这种词法作用域给JavaScript带来的好处也是很明显的：让它有了作用域链，<code>可以让内层函数访问到外层函数的变量</code>，产生了闭包。剩下的你懂了吧，各种高级应用。。。</p>
-<h3 id="块级作用域">块级作用域</h3><blockquote>
-<p>任何一对花括号（｛和｝）中的语句集都属于一个块，在这之中定义的所有变量在代码块外都是不可见的，我们称之为<code>块级作用域</code>。<br>如以下例子：</p>
-</blockquote>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">int a = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">for</span> (int i = <span class="number">0</span>;i &lt; <span class="number">10</span>;i++) &#123;</span><br><span class="line">	int b = i;</span><br><span class="line">	b++;</span><br><span class="line">	a += b;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>这对花括号在C++语法中就组成了一个块,变量b是在这个块内定义的.那么它就具有块作用域,当程序的控制流离开了这个循环,就是for循环结束时,这个变量b就被销毁了,不存在了,你在for循环的外部再引用变量b的话,程序就会报错:”变量b未定义”。</p>
-<blockquote>
-<p>函数作用域就好理解了(<em>^__^</em>) ，定义在函数中的参数和变量在函数外部是不可见的。</p>
-</blockquote>
-<h3 id="词法作用域">词法作用域</h3><p>词法分析过程Lex-time，是指系统讲源码字符串解读成有含义的token的过程。<em>词法作用域就是说在词法<code>分析过程(即代码解析时)</code>中指派的作用域，词法作用域在词法解析过程中就已经定死了。</em><br>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2012/10/11/javascript_scope/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1147,21 +1136,21 @@ var _hmt = _hmt || [];
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">33</span>
+              <span class="site-state-item-count">34</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
 
           <div class="site-state-item site-state-categories">
             <a href="/categories">
-              <span class="site-state-item-count">10</span>
+              <span class="site-state-item-count">11</span>
               <span class="site-state-item-name">分类</span>
               </a>
           </div>
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">19</span>
+              <span class="site-state-item-count">20</span>
               <span class="site-state-item-name">标签</span>
               </a>
           </div>

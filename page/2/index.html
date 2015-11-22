@@ -185,6 +185,103 @@ var _hmt = _hmt || [];
           
           
             
+              <a class="post-title-link" href="/2015/03/22/httpServer&Clinet/" itemprop="url">
+                HTTP服务的那些事---node对http模块的基础实现
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2015-02-22T10:09:10+08:00" content="2015-02-22">
+            2015-02-22
+          </time>
+        </span>
+
+        
+          <span class="post-category" >
+            &nbsp; | &nbsp; 分类于
+            
+              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                <a href="/categories/nodeJS/" itemprop="url" rel="index">
+                  <span itemprop="name">nodeJS</span>
+                </a>
+              </span>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+            <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2015/03/22/httpServer&Clinet/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2015/03/22/httpServer&Clinet/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <h2 id="题记">题记</h2><blockquote>
+<p>一直对node的服务器和客户端稀里糊涂的，只是会用，知道可以用<code>createServer(function( req, res){....}).listen(3000);</code><br>的方式来建立一个服务器程序，监听客户端连接过来、数据（req）发送过来然后处理数据、然后通过res把数据返回给客户端。再者就是可以使用诸如connect或者express的这种对http封装过的框架，采用中间件的方式在服务器程序处理请求之前、之后对数据进行操作。就这么多了，再深入就不知道怎么回事了。</p>
+</blockquote>
+<h2 id="待解决问题">待解决问题</h2><p>所以，这次特意来搞明白：</p>
+<ol>
+<li>http的服务器和客户端到底张什么玩意？</li>
+<li>connect对http模块进行了哪些封装？</li>
+<li>express又对http模块进行了哪些封装？</li>
+</ol>
+<p>今天就先来搞明白读一个问题！~<br>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2015/03/22/httpServer&Clinet/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
               <a class="post-title-link" href="/2014/11/20/product/" itemprop="url">
                 做过的一个angular+node产品实录
               </a>
@@ -976,96 +1073,6 @@ var _hmt = _hmt || [];
 
 
     
-      
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
-            
-              <a class="post-title-link" href="/2014/03/28/RESTful/" itemprop="url">
-                理解RESTful架构（转）
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2014-02-28T12:30:08+08:00" content="2014-02-28">
-            2014-02-28
-          </time>
-        </span>
-
-        
-          <span class="post-category" >
-            &nbsp; | &nbsp; 分类于
-            
-              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                <a href="/categories/RESTful/" itemprop="url" rel="index">
-                  <span itemprop="name">RESTful</span>
-                </a>
-              </span>
-
-              
-              
-
-            
-          </span>
-        
-
-        
-          
-            <span class="post-comments-count">
-              &nbsp; | &nbsp;
-              <a href="/2014/03/28/RESTful/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2014/03/28/RESTful/" itemprop="commentsCount"></span>
-              </a>
-            </span>
-          
-        
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <p>之前一直对REST是个什么东东搞得不太明白，直到看到阮一峰老师的这篇帖子，觉得有了些认识了。特此记录下来。原文如下：</p>
-<p>越来越多的人开始意识到，网站即软件，而且是一种新型的软件。<br>这种”互联网软件”采用客户端/服务器模式，建立在分布式体系上，通过互联网通信，具有高延时（high latency）、高并发等特点。<br>网站开发，完全可以采用软件开发的模式。但是传统上，软件和网络是两个不同的领域，很少有交集；软件开发主要针对单机环境，网络则主要研究系统之间的通信。互联网的兴起，使得这两个领域开始融合，现在我们必须考虑，如何开发在互联网环境中使用的软件。</p>
-<p>RESTful架构，就是目前最流行的一种互联网软件架构。它结构清晰、符合标准、易于理解、扩展方便，所以正得到越来越多网站的采用。<br>但是，到底什么是RESTful架构，并不是一个容易说清楚的问题。下面，我就谈谈我理解的RESTful架构。<br>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2014/03/28/RESTful/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1104,21 +1111,21 @@ var _hmt = _hmt || [];
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">33</span>
+              <span class="site-state-item-count">34</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
 
           <div class="site-state-item site-state-categories">
             <a href="/categories">
-              <span class="site-state-item-count">10</span>
+              <span class="site-state-item-count">11</span>
               <span class="site-state-item-name">分类</span>
               </a>
           </div>
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">19</span>
+              <span class="site-state-item-count">20</span>
               <span class="site-state-item-name">标签</span>
               </a>
           </div>

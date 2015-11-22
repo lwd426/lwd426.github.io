@@ -185,6 +185,102 @@ var _hmt = _hmt || [];
           
           
             
+              <a class="post-title-link" href="/2015/11/22/React2/" itemprop="url">
+                学习笔记--React定义组件的原则和注意点
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2015-10-22T12:45:41+08:00" content="2015-10-22">
+            2015-10-22
+          </time>
+        </span>
+
+        
+          <span class="post-category" >
+            &nbsp; | &nbsp; 分类于
+            
+              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                <a href="/categories/React/" itemprop="url" rel="index">
+                  <span itemprop="name">React</span>
+                </a>
+              </span>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+            <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2015/11/22/React2/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2015/11/22/React2/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <p>React最近很火，它让人重新思考前端构建应用的思维方式，它的名字“Re act”（重新 行动）就是这个意思吧。所以，想好好的研究下，为了以后的职业生涯积累下，自己看了React官方文档，特此做个笔记：</p>
+<h3 id="定义一个react组件的步骤基本可以按照以下流程：">定义一个react组件的步骤基本可以按照以下流程：</h3><ol>
+<li>拆分用户界面为一个组件树</li>
+<li>利用React,创建应用的一个静态版本(pros)</li>
+<li>识别出能代表一个UI的最小（但完整）的state(用户交互)</li>
+<li>state单向数据流（父→子）</li>
+<li>为state设置反向数据流（利用父组件上设置pros响应函数）</li>
+<li>That’s all!</li>
+</ol>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2015/11/22/React2/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
               <a class="post-title-link" href="/2015/11/01/js_closepackage/" itemprop="url">
                 对"闭包"最深刻的剖析
               </a>
@@ -1026,103 +1122,6 @@ var _hmt = _hmt || [];
 
 
     
-      
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
-            
-              <a class="post-title-link" href="/2015/03/22/httpServer&Clinet/" itemprop="url">
-                HTTP服务的那些事---node对http模块的基础实现
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2015-02-22T10:09:10+08:00" content="2015-02-22">
-            2015-02-22
-          </time>
-        </span>
-
-        
-          <span class="post-category" >
-            &nbsp; | &nbsp; 分类于
-            
-              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                <a href="/categories/nodeJS/" itemprop="url" rel="index">
-                  <span itemprop="name">nodeJS</span>
-                </a>
-              </span>
-
-              
-              
-
-            
-          </span>
-        
-
-        
-          
-            <span class="post-comments-count">
-              &nbsp; | &nbsp;
-              <a href="/2015/03/22/httpServer&Clinet/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2015/03/22/httpServer&Clinet/" itemprop="commentsCount"></span>
-              </a>
-            </span>
-          
-        
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <h2 id="题记">题记</h2><blockquote>
-<p>一直对node的服务器和客户端稀里糊涂的，只是会用，知道可以用<code>createServer(function( req, res){....}).listen(3000);</code><br>的方式来建立一个服务器程序，监听客户端连接过来、数据（req）发送过来然后处理数据、然后通过res把数据返回给客户端。再者就是可以使用诸如connect或者express的这种对http封装过的框架，采用中间件的方式在服务器程序处理请求之前、之后对数据进行操作。就这么多了，再深入就不知道怎么回事了。</p>
-</blockquote>
-<h2 id="待解决问题">待解决问题</h2><p>所以，这次特意来搞明白：</p>
-<ol>
-<li>http的服务器和客户端到底张什么玩意？</li>
-<li>connect对http模块进行了哪些封装？</li>
-<li>express又对http模块进行了哪些封装？</li>
-</ol>
-<p>今天就先来搞明白读一个问题！~<br>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2015/03/22/httpServer&Clinet/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1161,21 +1160,21 @@ var _hmt = _hmt || [];
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">33</span>
+              <span class="site-state-item-count">34</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
 
           <div class="site-state-item site-state-categories">
             <a href="/categories">
-              <span class="site-state-item-count">10</span>
+              <span class="site-state-item-count">11</span>
               <span class="site-state-item-name">分类</span>
               </a>
           </div>
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">19</span>
+              <span class="site-state-item-count">20</span>
               <span class="site-state-item-name">标签</span>
               </a>
           </div>
