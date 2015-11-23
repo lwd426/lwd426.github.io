@@ -54,7 +54,7 @@
 后端模块化—npm后端模块化使用的最多的当属npm(node 模块管理器)了，它采用的是CommonJS规范定义和加载模块：
 
 定义模块：你只需要在定义模块的js文件里require()来加载其他模块（npm会为你找到">
-<meta property="og:updated_time" content="2015-11-23T07:40:12.000Z">
+<meta property="og:updated_time" content="2015-11-23T07:41:32.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="学习笔记--RequireJS的一些使用理解（结合kibana源码）">
 <meta name="twitter:description" content="题记–js模块化js的模块化一直在用，用的就是RequireJS。但是很多牛逼的用法，确是在不经意间使用的，特此查明白为什么。
@@ -253,6 +253,7 @@ var _hmt = _hmt || [];
 <li>定义模块：你只需要在定义模块的js文件里require()来加载其他模块（npm会为你找到对应的模块），然后使用module.exports导出自身供其他模块使用。</li>
 <li>只是使用模块：不需要导出，只是使用就好了</li>
 </ol>
+<a id="more"></a>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>.js</span><br><span class="line"><span class="keyword">var</span> _ = <span class="built_in">require</span>(<span class="string">'lodash'</span>);<span class="comment">//引入第三方模块</span></span><br><span class="line"><span class="keyword">var</span> myself = <span class="built_in">require</span>(__dirname+<span class="string">'/myself/index'</span>);<span class="comment">//引入自定义模块</span></span><br><span class="line"></span><br><span class="line">.....使用加载的模块....</span><br><span class="line"></span><br><span class="line">（如果<span class="built_in">module</span>.js也是一个自定义的模块，那么就要<span class="built_in">module</span>.exports = &#123;&#125;来导出自己，供其他模块引入）</span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">	func = func();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h4 id="前端模块化—requireJS">前端模块化—requireJS</h4><p>前端模块化使用的最多的就是requireJS这个库了。它采用的是AMD(异步加载模块)规范来异步加载模块。特点如下：</p>
 <ol>
