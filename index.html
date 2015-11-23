@@ -565,6 +565,120 @@ var _hmt = _hmt || [];
           
           
             
+              <a class="post-title-link" href="/2015/10/02/requireJS/" itemprop="url">
+                学习笔记--RequireJS的一些使用理解（结合kibana源码）
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2015-09-02T09:10:09+08:00" content="2015-09-02">
+            2015-09-02
+          </time>
+        </span>
+
+        
+          <span class="post-category" >
+            &nbsp; | &nbsp; 分类于
+            
+              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                <a href="/categories/模块化/" itemprop="url" rel="index">
+                  <span itemprop="name">模块化</span>
+                </a>
+              </span>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+            <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2015/10/02/requireJS/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2015/10/02/requireJS/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody"><h3 id="题记–js模块化">题记–js模块化</h3><p>js的模块化一直在用，用的就是RequireJS。但是很多牛逼的用法，确是在不经意间使用的，特此查明白为什么。</p>
+<h3 id="模块化：前端和后端">模块化：前端和后端</h3><p>模块化分为前端模块化和后端模块化。</p>
+<h4 id="后端模块化—npm">后端模块化—npm</h4><p>后端模块化使用的最多的当属npm(node 模块管理器)了，它采用的是CommonJS规范定义和加载模块：</p>
+<ol>
+<li>定义模块：你只需要在定义模块的js文件里require()来加载其他模块（npm会为你找到对应的模块），然后使用module.exports导出自身供其他模块使用。</li>
+<li>只是使用模块：不需要导出，只是使用就好了</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>.js</span><br><span class="line"><span class="keyword">var</span> _ = <span class="built_in">require</span>(<span class="string">'lodash'</span>);<span class="comment">//引入第三方模块</span></span><br><span class="line"><span class="keyword">var</span> myself = <span class="built_in">require</span>(__dirname+<span class="string">'/myself/index'</span>);<span class="comment">//引入自定义模块</span></span><br><span class="line"></span><br><span class="line">.....使用加载的模块....</span><br><span class="line"></span><br><span class="line">（如果<span class="built_in">module</span>.js也是一个自定义的模块，那么就要<span class="built_in">module</span>.exports = &#123;&#125;来导出自己，供其他模块引入）</span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">	func = func();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="前端模块化—requireJS">前端模块化—requireJS</h4><p>前端模块化使用的最多的就是requireJS这个库了。它采用的是AMD(异步加载模块)规范来异步加载模块。特点如下：</p>
+<ol>
+<li>requireJS使用的模块必须符合AMD规范，所以当你使用不符合此规范的第三方库时，你就要使用require.config(配置对象);一般此配置都单独放到一个文件里(require.config.js)。配置对象有两个参数对象：paths和shim。</li>
+<li>paths: 为了方便管理，把所有的模块可以在此处做一个路径映射，这样，在定义和使用模块的时候，只需要引入对应的模块key值就行了。</li>
+<li>shim: <strong>为那些没有使用define()来声明依赖关系、设置模块的”浏览器全局变量注入”型脚本做依赖和导出配置。</strong></li>
+<li>加载require.js:要在视图里引入require.js和require.config.js。</li>
+<li>每个模块定义在一个js文件中</li>
+<li>定义模块：defind([‘a’,’b’,’c’],function(a, b ,c){ … return {}}); (还有一种懒加载的方式引入模块，见下文)</li>
+<li>使用模块：require([‘a’,’b’,’c’],function(a,b,b){…});(还有一种懒加载的方式引入模块，见下文)</li>
+<li>加载完毕基础文件后，不需要加载模块文件，只需要加载主模块文件，有以下两种方式：<ul>
+<li>直接在require.js引入引入标签里，定义一个data-main属性，值为主模块（入口模块）的路径</li>
+<li>直接在加载完require.config.js后，用require([‘主模块’]，function(){});</li>
+</ul>
+</li>
+</ol>
+<p>以下举例说明这些要点。</p>
+<h3 id="RequireJS的基本用法–demo">RequireJS的基本用法–demo</h3><p>这块不用啰嗦，直接上段demo，然后指出几点就ok了。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//定义模块:使用define()方法（基础方法）  main.js</span></span><br><span class="line">define([<span class="string">'jquery'</span>, <span class="string">'underscore'</span>, <span class="string">'angular'</span>, <span class="string">'first'</span>, <span class="string">'app'</span>,<span class="string">'ctrl'</span>], <span class="function"><span class="keyword">function</span>(<span class="params">$, _ , angular, f, app, ctrl</span>)</span>&#123;</span><br><span class="line">		<span class="keyword">var</span> kibana = &#123;&#125;;</span><br><span class="line">		kibana.init = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">		 	$(<span class="built_in">document</span>).ready(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">		 		angular.bootstrap(<span class="built_in">document</span>, [<span class="string">"appccc"</span>]);</span><br><span class="line">		 	&#125;);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> kibana;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//定义映射文件：使用require.config(&#123;&#125;);</span></span><br><span class="line"><span class="built_in">require</span>.config(&#123;</span><br><span class="line">	paths: &#123;</span><br><span class="line">		<span class="string">"jquery"</span>: <span class="string">"/bower_components/jquery/dist/jquery.min"</span>,</span><br><span class="line">		<span class="string">"underscore"</span>: <span class="string">"/bower_components/underscore/underscore-min"</span>,</span><br><span class="line">		<span class="string">"angular"</span>: <span class="string">"/bower_components/angular/angular.min"</span>,</span><br><span class="line">		<span class="string">"angular-route"</span>: <span class="string">"/bower_components/angular-route/angular-route.min"</span>,</span><br><span class="line">		<span class="string">"first"</span>: <span class="string">"amd_modules/first"</span>,</span><br><span class="line">		<span class="string">"app"</span>: <span class="string">"amd_modules/app"</span>,</span><br><span class="line">		<span class="string">"ctrl"</span>: <span class="string">"amd_modules/ctrl"</span>,</span><br><span class="line">		<span class="string">"lwd426"</span>: <span class="string">"main"</span></span><br><span class="line">	&#125;,</span><br><span class="line">	shim: &#123;</span><br><span class="line">		<span class="string">"angular"</span>:&#123;</span><br><span class="line">			exports: <span class="string">"angular"</span></span><br><span class="line">		&#125;,</span><br><span class="line">		<span class="string">"angular-route"</span>: &#123;</span><br><span class="line">			deps: [<span class="string">"angular"</span>],</span><br><span class="line">			exports: <span class="string">"angular-route"</span></span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//加载require.js、配置文件和引用模块</span></span><br><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="title">html</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">title</span>&gt;</span>这是我的测试<span class="tag">&lt;/<span class="title">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">link</span> <span class="attribute">rel</span>=<span class="value">'stylesheet'</span> <span class="attribute">href</span>=<span class="value">'/stylesheets/style.css'</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">link</span> <span class="attribute">rel</span>=<span class="value">'stylesheet'</span> <span class="attribute">href</span>=<span class="value">'/bower_components/bootstrap/dist/css/bootstrap.min.css'</span> /&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="title">head</span>&gt;</span> </span><br><span class="line">  <span class="tag">&lt;<span class="title">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"container"</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="title">div</span> <span class="attribute">ng-controller</span>=<span class="value">"hahaControler"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">h1</span> <span class="attribute">ng-bind</span>=<span class="value">"text.message"</span>&gt;</span><span class="tag">&lt;/<span class="title">h1</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- 这是一种加载入口模块的方法 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">script</span> <span class="attribute">src</span>=<span class="value">"bower_components/requirejs/require.js"</span> <span class="attribute">data-main</span>=<span class="value">'xxx/main'</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">script</span> <span class="attribute">type</span>=<span class="value">"text/javascript"</span> <span class="attribute">src</span>=<span class="value">"require.config.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">script</span> <span class="attribute">type</span>=<span class="value">"text/javascript"</span>&gt;</span><span class="javascript"></span><br><span class="line">    	<span class="comment">//这是另一种加载入口模块的方法</span></span><br><span class="line">    	<span class="built_in">require</span>([<span class="string">'lwd426'</span>],<span class="function"><span class="keyword">function</span>(<span class="params">app</span>)</span>&#123;</span><br><span class="line">    		app.init();</span><br><span class="line">    	&#125;);</span><br><span class="line">    </span><span class="tag">&lt;/<span class="title">script</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="title">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">html</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
+<h3 id="灵活加载模块的方式">灵活加载模块的方式</h3><p>为了让代码更灵活，可以采用commonJS加载模块的方式。下面，使用这种方式来重写定义模块的代码：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">define(<span class="function"><span class="keyword">function</span>(<span class="params">require</span>)</span>&#123;</span><br><span class="line">		<span class="keyword">var</span> $ = <span class="built_in">require</span>(<span class="string">'jquery'</span>);</span><br><span class="line">		<span class="keyword">var</span> _ = <span class="built_in">require</span>(<span class="string">'underscore'</span>);</span><br><span class="line">		<span class="keyword">var</span> angular = <span class="built_in">require</span>(<span class="string">'angular'</span>);</span><br><span class="line">		<span class="keyword">var</span> f = <span class="built_in">require</span>(<span class="string">'first'</span>);</span><br><span class="line">		<span class="keyword">var</span> app = <span class="built_in">require</span>(<span class="string">'app'</span>);</span><br><span class="line">		<span class="keyword">var</span> ctrl = <span class="built_in">require</span>(<span class="string">'ctrl'</span>);</span><br><span class="line">		<span class="keyword">var</span> kibana = &#123;&#125;;</span><br><span class="line">		 <span class="comment">//var app = angular.module("app", []);</span></span><br><span class="line">		 kibana.init = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">		 	$(<span class="built_in">document</span>).ready(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">		 		angular.bootstrap(<span class="built_in">document</span>, [<span class="string">"appccc"</span>]);</span><br><span class="line">		 	&#125;);</span><br><span class="line">		 &#125;</span><br><span class="line">		 <span class="keyword">return</span> kibana;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h4 id="懒加载模块">懒加载模块</h4><p>在模块使用时才加载模块能够提高性能，以下写个小demo:<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">define(<span class="function"><span class="keyword">function</span>(<span class="params">require</span>)</span>&#123;</span><br><span class="line">	<span class="keyword">var</span> _ = <span class="built_in">require</span>(<span class="string">'lodash'</span>);</span><br><span class="line">	<span class="comment">//以下为伪代码，释义即可</span></span><br><span class="line">	xxx.onclick = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">		<span class="built_in">require</span>(<span class="string">'click_uitls'</span>).click(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">			...</span><br><span class="line">		&#125;);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+</span>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
               <a class="post-title-link" href="/2015/07/24/node_markdown/" itemprop="url">
                 解决方案：node解析markdown
               </a>
@@ -1027,101 +1141,6 @@ var _hmt = _hmt || [];
 
 
     
-      
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
-            
-              <a class="post-title-link" href="/2015/04/03/node_mlti/" itemprop="url">
-                玩转nodejs多进程
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2015-03-03T14:34:00+08:00" content="2015-03-03">
-            2015-03-03
-          </time>
-        </span>
-
-        
-          <span class="post-category" >
-            &nbsp; | &nbsp; 分类于
-            
-              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                <a href="/categories/nodejs/" itemprop="url" rel="index">
-                  <span itemprop="name">nodejs</span>
-                </a>
-              </span>
-
-              
-              
-
-            
-          </span>
-        
-
-        
-          
-            <span class="post-comments-count">
-              &nbsp; | &nbsp;
-              <a href="/2015/04/03/node_mlti/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2015/04/03/node_mlti/" itemprop="commentsCount"></span>
-              </a>
-            </span>
-          
-        
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <blockquote>
-<p>nodejs的单线程单进程的模型避免了线程之间的状态同步或者状态锁之类的问题，但是这也使node饱受诟病，比如一个node进程只能利用一个核，不能利用现在越来越普遍的多核CPU；单进程一旦有异常没有被捕获则会让整个应用死掉，稳定性十分差。所以引用《nodejs深入浅出》问题抛出：</p>
-<ul>
-<li>如何充分利用多核cpu服务器？</li>
-<li>如何保证进程的健壮性和稳定性？</li>
-</ul>
-</blockquote>
-<p>以下是自己总结的《nodejs深入浅出》第9章-玩转进程的阅读笔记：<br>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2015/04/03/node_mlti/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1160,21 +1179,21 @@ var _hmt = _hmt || [];
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">35</span>
+              <span class="site-state-item-count">36</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
 
           <div class="site-state-item site-state-categories">
             <a href="/categories">
-              <span class="site-state-item-count">11</span>
+              <span class="site-state-item-count">12</span>
               <span class="site-state-item-name">分类</span>
               </a>
           </div>
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">21</span>
+              <span class="site-state-item-count">22</span>
               <span class="site-state-item-name">标签</span>
               </a>
           </div>
