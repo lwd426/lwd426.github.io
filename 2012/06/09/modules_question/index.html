@@ -54,7 +54,7 @@
 如果把js都合并了 也就没有加载顺序的问题了,但是require能够做模块化和异步加载.
 那么我现在有必要使用js合并吗?(或者说部分js合并).
 我还不能理解 grunt 或者gulp 的requirejs 插件能干嘛.使用了grunt的话应该">
-<meta property="og:updated_time" content="2015-11-24T07:19:15.000Z">
+<meta property="og:updated_time" content="2015-11-24T07:21:06.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="学习笔记--模块化开发设计的几个比较重要的概念和AMD模块概述">
 <meta name="twitter:description" content="今天在知乎上看到个有关模块化的提问，底下的一个回答回答的很棒，就由这个提问引出今天的话题的---模块化
@@ -319,6 +319,7 @@ define(<span class="function"><span class="keyword">function</span>(<span class=
 <p>不考虑多了一层函数外，格式和Node.js是一样的：使用require获取依赖模块，使用exports导出API。（可以做懒加载）</p>
 <h4 id="其他">其他</h4><p>除了define外，AMD还保留一个关键字require。require 作为规范保留的全局标识符，可以实现为 module loader，也可以不实现。</p>
 <p>目前，实现AMD的库有RequireJS 、curl 、Dojo 、bdLoad、JSLocalnet 、Nodules 等。<br>也有很多库支持AMD规范，即将自己作为一个模块存在，如MooTools 、jQuery 、qwery 、bonzo  甚至还有 firebug 。</p>
+<p>此部分转自：<a href="http://www.cnblogs.com/snandy/archive/2012/03/12/2390782.html" target="_blank" rel="external">http://www.cnblogs.com/snandy/archive/2012/03/12/2390782.html</a></p>
 </span>
       
     </div>
