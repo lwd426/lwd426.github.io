@@ -40,28 +40,28 @@
   <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.1" />
 
 
-<meta name="description" content="今天在知乎上看到个有关模块化的提问，底下的一个回答回答的很棒，特此记录下来：
+<meta name="description" content="今天在知乎上看到个有关模块化的提问，底下的一个回答回答的很棒，就由这个提问引出今天的话题的---模块化
 提问合并js 和 用requirejs 冲突吗?
 如果把js都合并了 也就没有加载顺序的问题了,但是require能够做模块化和异步加载.
 那么我现在有必要使用js合并吗?(或者说部分js合并).
-我还不能理解 grunt 或者gulp 的requirejs 插件能干嘛.使用了grunt的话应该还是需要加载require">
+我还不能理解 grunt 或者gulp 的requirejs 插件能干嘛.使用了grunt的话应该">
 <meta property="og:type" content="article">
 <meta property="og:title" content="学习笔记--模块化开发设计的几个比较重要的概念">
 <meta property="og:url" content="http://lwd426.com/2012/06/09/modules_question/index.html">
 <meta property="og:site_name" content="大盗贼的后院">
-<meta property="og:description" content="今天在知乎上看到个有关模块化的提问，底下的一个回答回答的很棒，特此记录下来：
+<meta property="og:description" content="今天在知乎上看到个有关模块化的提问，底下的一个回答回答的很棒，就由这个提问引出今天的话题的---模块化
 提问合并js 和 用requirejs 冲突吗?
 如果把js都合并了 也就没有加载顺序的问题了,但是require能够做模块化和异步加载.
 那么我现在有必要使用js合并吗?(或者说部分js合并).
-我还不能理解 grunt 或者gulp 的requirejs 插件能干嘛.使用了grunt的话应该还是需要加载require">
-<meta property="og:updated_time" content="2015-11-24T06:53:27.000Z">
+我还不能理解 grunt 或者gulp 的requirejs 插件能干嘛.使用了grunt的话应该">
+<meta property="og:updated_time" content="2015-11-24T07:18:26.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="学习笔记--模块化开发设计的几个比较重要的概念">
-<meta name="twitter:description" content="今天在知乎上看到个有关模块化的提问，底下的一个回答回答的很棒，特此记录下来：
+<meta name="twitter:description" content="今天在知乎上看到个有关模块化的提问，底下的一个回答回答的很棒，就由这个提问引出今天的话题的---模块化
 提问合并js 和 用requirejs 冲突吗?
 如果把js都合并了 也就没有加载顺序的问题了,但是require能够做模块化和异步加载.
 那么我现在有必要使用js合并吗?(或者说部分js合并).
-我还不能理解 grunt 或者gulp 的requirejs 插件能干嘛.使用了grunt的话应该还是需要加载require">
+我还不能理解 grunt 或者gulp 的requirejs 插件能干嘛.使用了grunt的话应该">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -246,7 +246,7 @@ var _hmt = _hmt || [];
       
 
       
-        <span itemprop="articleBody"><p><code>今天在知乎上看到个有关模块化的提问，底下的一个回答回答的很棒，特此记录下来：</code></p>
+        <span itemprop="articleBody"><p><code>今天在知乎上看到个有关模块化的提问，底下的一个回答回答的很棒，就由这个提问引出今天的话题的---模块化</code></p>
 <h3 id="提问">提问</h3><p>合并js 和 用requirejs 冲突吗?</p>
 <p>如果把js都合并了 也就没有加载顺序的问题了,但是require能够做模块化和异步加载.</p>
 <p>那么我现在有必要使用js合并吗?(或者说部分js合并).</p>
@@ -281,6 +281,45 @@ var _hmt = _hmt || [];
 <li>如果你执行了合并，则把依赖的模块的代码合并到制定的一个文件中；</li>
 </ul>
 <p>来自：<a href="http://www.zhihu.com/question/34007485" target="_blank" rel="external">http://www.zhihu.com/question/34007485</a></p>
+<h3 id="AMD的各种形式的模块定义">AMD的各种形式的模块定义</h3><h4 id="api定义">api定义</h4><p>AMD设计出一个简洁的写模块API：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">define(id?, dependencies?, factory);</span><br></pre></td></tr></table></figure>
+<p>其中：</p>
+<ul>
+<li>id: 模块标识，可以省略。</li>
+<li>dependencies: 所依赖的模块，可以省略。</li>
+<li>factory: 模块的实现，或者一个JavaScript对象。</li>
+<li>id遵循CommonJS Module Identifiers 。dependencies元素的顺序和factory参数一一对应。</li>
+</ul>
+<h4 id="AMD中5种定义模块的方式">AMD中5种定义模块的方式</h4><h4 id="普通方式">普通方式</h4><p>以下是使用AMD模式开发的简单三层结构（基础库/UI层/应用层）：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//base.js</span></span><br><span class="line">define(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">        mix: <span class="function"><span class="keyword">function</span>(<span class="params">source, target</span>) </span>&#123;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;);</span><br><span class="line"><span class="string">``</span><span class="string">` </span><br><span class="line">`</span><span class="string">``</span>javascript</span><br><span class="line"><span class="comment">//ui.js</span></span><br><span class="line">define([<span class="string">'base'</span>], <span class="function"><span class="keyword">function</span>(<span class="params">base</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">        show: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">            <span class="comment">// todo with module base</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//page.js</span></span><br><span class="line">define([<span class="string">'data'</span>, <span class="string">'ui'</span>], <span class="function"><span class="keyword">function</span>(<span class="params">data, ui</span>) </span>&#123;</span><br><span class="line">    <span class="comment">// init here</span></span><br><span class="line">&#125;);</span><br><span class="line"><span class="string">``</span><span class="string">` </span><br><span class="line">`</span><span class="string">``</span>javascript</span><br><span class="line"><span class="comment">//data.js</span></span><br><span class="line">define(&#123;</span><br><span class="line">    users: [],</span><br><span class="line">    members: []</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>以上同时演示了define的三种用法:</p>
+<ul>
+<li>定义无依赖的模块（base.js）</li>
+<li>定义有依赖的模块（ui.js，page.js）</li>
+<li>定义数据对象模块（data.js）</li>
+</ul>
+<h5 id="具名模块">具名模块</h5><p>细心的会发现，还有一种没有出现，即具名模块</p>
+<ul>
+<li>具名模块⭐️</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">define(<span class="string">'index'</span>, [<span class="string">'data'</span>,<span class="string">'base'</span>], <span class="function"><span class="keyword">function</span>(<span class="params">data, base</span>) </span>&#123;</span><br><span class="line"> 	  <span class="comment">// todo</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>具名模块多数时候是不推荐的，<strong>一般由打包工具合并多个模块到一个js文件中时使用。</strong>（与上文呼应）</p>
+<h5 id="包装模块⭐️">包装模块⭐️</h5><p>前面提到dependencies元素的顺序和factory一一对应，其实不太严谨。AMD开始为摆脱CommonJS的束缚，开创性的提出了自己的模块风格。但后来又做了妥协，兼容了 CommonJS Modules/Wrappings 。即又可以这样写</p>
+<ul>
+<li>包装模块</li>
+</ul>
+<pre><code class="javascript"><span class="comment">//此种用法就是kibana使用的方式，也可以用于懒加载</span>
+define(<span class="function"><span class="keyword">function</span>(<span class="params">require, exports, module</span>) </span>{
+    <span class="keyword">var</span> base = <span class="built_in">require</span>(<span class="string">'base'</span>);
+    exports.show = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{
+        <span class="comment">// todo with module base</span>
+    }
+});
+</code></pre>
+<p>不考虑多了一层函数外，格式和Node.js是一样的：使用require获取依赖模块，使用exports导出API。（可以做懒加载）</p>
+<h4 id="其他">其他</h4><p>除了define外，AMD还保留一个关键字require。require 作为规范保留的全局标识符，可以实现为 module loader，也可以不实现。</p>
+<p>目前，实现AMD的库有RequireJS 、curl 、Dojo 、bdLoad、JSLocalnet 、Nodules 等。<br>也有很多库支持AMD规范，即将自己作为一个模块存在，如MooTools 、jQuery 、qwery 、bonzo  甚至还有 firebug 。</p>
 </span>
       
     </div>
@@ -429,7 +468,7 @@ var _hmt = _hmt || [];
           <div class="post-toc">
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#提问"><span class="nav-number">1.</span> <span class="nav-text">提问</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#回答一"><span class="nav-number">2.</span> <span class="nav-text">回答一</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#回答二—很棒"><span class="nav-number">3.</span> <span class="nav-text">回答二—很棒</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#提问"><span class="nav-number">1.</span> <span class="nav-text">提问</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#回答一"><span class="nav-number">2.</span> <span class="nav-text">回答一</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#回答二—很棒"><span class="nav-number">3.</span> <span class="nav-text">回答二—很棒</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#AMD的各种形式的模块定义"><span class="nav-number">4.</span> <span class="nav-text">AMD的各种形式的模块定义</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#api定义"><span class="nav-number">4.1.</span> <span class="nav-text">api定义</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#AMD中5种定义模块的方式"><span class="nav-number">4.2.</span> <span class="nav-text">AMD中5种定义模块的方式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#普通方式"><span class="nav-number">4.3.</span> <span class="nav-text">普通方式</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#具名模块"><span class="nav-number">4.3.1.</span> <span class="nav-text">具名模块</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#包装模块⭐️"><span class="nav-number">4.3.2.</span> <span class="nav-text">包装模块⭐️</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#其他"><span class="nav-number">4.4.</span> <span class="nav-text">其他</span></a></li></ol></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>
