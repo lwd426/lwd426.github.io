@@ -46,7 +46,7 @@
 那么我现在有必要使用js合并吗?(或者说部分js合并).
 我还不能理解 grunt 或者gulp 的requirejs 插件能干嘛.使用了grunt的话应该">
 <meta property="og:type" content="article">
-<meta property="og:title" content="学习笔记--模块化开发设计的几个比较重要的概念">
+<meta property="og:title" content="学习笔记--模块化开发设计的几个比较重要的概念和AMD模块概述">
 <meta property="og:url" content="http://lwd426.com/2012/06/09/modules_question/index.html">
 <meta property="og:site_name" content="大盗贼的后院">
 <meta property="og:description" content="今天在知乎上看到个有关模块化的提问，底下的一个回答回答的很棒，就由这个提问引出今天的话题的---模块化
@@ -54,9 +54,9 @@
 如果把js都合并了 也就没有加载顺序的问题了,但是require能够做模块化和异步加载.
 那么我现在有必要使用js合并吗?(或者说部分js合并).
 我还不能理解 grunt 或者gulp 的requirejs 插件能干嘛.使用了grunt的话应该">
-<meta property="og:updated_time" content="2015-11-24T07:18:26.000Z">
+<meta property="og:updated_time" content="2015-11-24T07:19:15.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="学习笔记--模块化开发设计的几个比较重要的概念">
+<meta name="twitter:title" content="学习笔记--模块化开发设计的几个比较重要的概念和AMD模块概述">
 <meta name="twitter:description" content="今天在知乎上看到个有关模块化的提问，底下的一个回答回答的很棒，就由这个提问引出今天的话题的---模块化
 提问合并js 和 用requirejs 冲突吗?
 如果把js都合并了 也就没有加载顺序的问题了,但是require能够做模块化和异步加载.
@@ -78,7 +78,7 @@ var _hmt = _hmt || [];
 })();
 </script>
 
-  <title> 学习笔记--模块化开发设计的几个比较重要的概念 | 大盗贼的后院 </title>
+  <title> 学习笔记--模块化开发设计的几个比较重要的概念和AMD模块概述 | 大盗贼的后院 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -196,7 +196,7 @@ var _hmt = _hmt || [];
           
           
             
-              学习笔记--模块化开发设计的几个比较重要的概念
+              学习笔记--模块化开发设计的几个比较重要的概念和AMD模块概述
             
           
         </h1>
@@ -252,8 +252,7 @@ var _hmt = _hmt || [];
 <p>那么我现在有必要使用js合并吗?(或者说部分js合并).</p>
 <p>我还不能理解 grunt 或者gulp 的requirejs 插件能干嘛.使用了grunt的话应该还是需要加载requirejs文件的吧?</p>
 <h3 id="回答一">回答一</h3><p>简短一点， <strong>requirejs 做模块化开发主要是方便维护，明确依赖关系。</strong></p>
-<p><strong>define 是生成一个匿名函数，编译但不执行，需要的时候，再去执行，而且只在当前页面执行一次。</strong></p>
-<p>看到define的属性就明白了，压缩和合并没有关系，因为define根本不会执行。。 只是一个匿名函数。</p>
+<p><strong>define 是生成一个匿名函数，编译但不执行，需要的时候，再去执行，而且只在当前页面执行一次。</strong><br><a id="more"></a><br>看到define的属性就明白了，压缩和合并没有关系，因为define根本不会执行。。 只是一个匿名函数。</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123; <span class="keyword">var</span> cc=<span class="number">1</span>; &#125;</span><br></pre></td></tr></table></figure>
 <p>不主动调用a() 是不会执行的。所以可以将所有的define压缩到一起，没有冲突，甚至可以混合压缩到一起。只有在 require的时候，才会执行。 没有冲突。</p>
 <h3 id="回答二—很棒">回答二—很棒</h3><p>这个问题设计到多个概念词汇：</p>
@@ -357,7 +356,7 @@ define(<span class="function"><span class="keyword">function</span>(<span class=
     <div class="post-spread">
       
         <div class="ds-share flat" data-thread-key="2012/06/09/modules_question/"
-     data-title="学习笔记--模块化开发设计的几个比较重要的概念"
+     data-title="学习笔记--模块化开发设计的几个比较重要的概念和AMD模块概述"
      data-content=""
      data-url="http://lwd426.com/2012/06/09/modules_question/">
   <div class="ds-share-inline">
@@ -386,7 +385,7 @@ define(<span class="function"><span class="keyword">function</span>(<span class=
           <div class="comments" id="comments">
             
               <div class="ds-thread" data-thread-key="2012/06/09/modules_question/"
-                   data-title="学习笔记--模块化开发设计的几个比较重要的概念" data-url="http://lwd426.com/2012/06/09/modules_question/">
+                   data-title="学习笔记--模块化开发设计的几个比较重要的概念和AMD模块概述" data-url="http://lwd426.com/2012/06/09/modules_question/">
               </div>
             
           </div>
