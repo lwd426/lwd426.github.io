@@ -185,6 +185,102 @@ var _hmt = _hmt || [];
           
           
             
+              <a class="post-title-link" href="/2015/04/12/React2/" itemprop="url">
+                学习笔记--React定义组件的原则和注意点
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2015-03-12T10:30:09+08:00" content="2015-03-12">
+            2015-03-12
+          </time>
+        </span>
+
+        
+          <span class="post-category" >
+            &nbsp; | &nbsp; 分类于
+            
+              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                <a href="/categories/React/" itemprop="url" rel="index">
+                  <span itemprop="name">React</span>
+                </a>
+              </span>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+            <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2015/04/12/React2/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2015/04/12/React2/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <p>React最近很火，它让人重新思考前端构建应用的思维方式，它的名字“Re act”（重新 行动）就是这个意思吧。所以，想好好的研究下，为了以后的职业生涯积累下，自己看了React官方文档，特此做个笔记：</p>
+<h3 id="定义一个react组件的步骤基本可以按照以下流程：">定义一个react组件的步骤基本可以按照以下流程：</h3><ol>
+<li>拆分用户界面为一个组件树</li>
+<li>利用React,创建应用的一个静态版本(pros)</li>
+<li>识别出能代表一个UI的最小（但完整）的state(用户交互)</li>
+<li>state单向数据流（父→子）</li>
+<li>为state设置反向数据流（利用父组件上设置pros响应函数）</li>
+<li>That’s all!</li>
+</ol>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2015/04/12/React2/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
               <a class="post-title-link" href="/2015/04/05/node_mulit_2/" itemprop="url">
                 思考：转-NodeJs 多核多进程并行框架实作
               </a>
@@ -1013,97 +1109,6 @@ var _hmt = _hmt || [];
 
 
     
-      
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
-            
-              <a class="post-title-link" href="/2014/06/21/nodeevent/" itemprop="url">
-                自己对node事件驱动的理解
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2014-05-21T09:15:49+08:00" content="2014-05-21">
-            2014-05-21
-          </time>
-        </span>
-
-        
-          <span class="post-category" >
-            &nbsp; | &nbsp; 分类于
-            
-              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                <a href="/categories/nodeJS/" itemprop="url" rel="index">
-                  <span itemprop="name">nodeJS</span>
-                </a>
-              </span>
-
-              
-              
-
-            
-          </span>
-        
-
-        
-          
-            <span class="post-comments-count">
-              &nbsp; | &nbsp;
-              <a href="/2014/06/21/nodeevent/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2014/06/21/nodeevent/" itemprop="commentsCount"></span>
-              </a>
-            </span>
-          
-        
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <h3 id="题记">题记</h3><blockquote>
-<p>觉得Node的书里，貌似只有朴灵的《深入浅出NodeJS》一直在讲比较深刻的东西，章节顺序安排的也比较合理（毕竟是从博客转过来的，从另一个角度也放映了老师当年的研究路线），之前也是关注他的博客，所以我的学习路线基本是按照这本书来的。</p>
-</blockquote>
-<p>今天了解了下Node的异步编程。因为NodeJS的单线程、非阻塞（外）、异步执行（内）和事件驱动的特点，最终决定了他的编程方式很大程度采用了事件发布/订阅模式，可以说就是基于事件发布/订阅模式，node才大放光彩。<br>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2014/06/21/nodeevent/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1142,7 +1147,7 @@ var _hmt = _hmt || [];
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">37</span>
+              <span class="site-state-item-count">38</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
