@@ -185,6 +185,107 @@ var _hmt = _hmt || [];
           
           
             
+              <a class="post-title-link" href="/2015/04/24/javascript_this2/" itemprop="url">
+                对this新的认识--更深刻
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2015-03-24T10:25:00+08:00" content="2015-03-24">
+            2015-03-24
+          </time>
+        </span>
+
+        
+          <span class="post-category" >
+            &nbsp; | &nbsp; 分类于
+            
+              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                <a href="/categories/基础/" itemprop="url" rel="index">
+                  <span itemprop="name">基础</span>
+                </a>
+              </span>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+            <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2015/04/24/javascript_this2/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2015/04/24/javascript_this2/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <blockquote>
+<p>今天，在cnode上看到一篇真的是很不错的文章<a href="https://cnodejs.org/topic/5599521293cb46f578f0a57e">《图解Javascript上下文与作用域》</a>，已经被设置为精华帖了。</p>
+</blockquote>
+<h3 id="自己之前的理解：">自己之前的理解：</h3><p>改变了我之前对js的基础概念的以下简单的看法：</p>
+<ul>
+<li>执行上下文: 就是函数的执行环境，比如<code>a.func();</code>里，func函数执行时的上下文就是对象a。</li>
+<li>this: 就是在新建对象时，把新建的对象的引用赋给了this变量；</li>
+<li>作用域链: 这个理解是对的，简单的说就是<code>函数的作用域链就是函数以及他上面一直到global的所有定义的变量对象串成的链</code>。</li>
+<li>闭包: 就是在返回值是函数的情况下，返回函数里拥有外层函数的作用域链。</li>
+</ul>
+<h3 id="引文重要观点摘录">引文重要观点摘录</h3><ol>
+<li>每一个上下文都会绑定一个变量对象（variable object），它就像一个容器，用来存<code>当前上下文中所有已定义或可获取的变量、函数等</code></li>
+<li>Js解释器总是在上下文堆栈的顶上下文中执行</li>
+<li>在生成新的上下文时，首先会:
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2015/04/24/javascript_this2/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
               <a class="post-title-link" href="/2015/04/12/React2/" itemprop="url">
                 学习笔记--React定义组件的原则和注意点
               </a>
@@ -1020,95 +1121,6 @@ var _hmt = _hmt || [];
 
 
     
-      
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
-            
-              <a class="post-title-link" href="/2014/07/10/nodejsio/" itemprop="url">
-                自己对nodeJS的异步I/O模型的理解
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2014-06-10T01:15:49+08:00" content="2014-06-10">
-            2014-06-10
-          </time>
-        </span>
-
-        
-          <span class="post-category" >
-            &nbsp; | &nbsp; 分类于
-            
-              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                <a href="/categories/nodeJS/" itemprop="url" rel="index">
-                  <span itemprop="name">nodeJS</span>
-                </a>
-              </span>
-
-              
-              
-
-            
-          </span>
-        
-
-        
-          
-            <span class="post-comments-count">
-              &nbsp; | &nbsp;
-              <a href="/2014/07/10/nodejsio/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2014/07/10/nodejsio/" itemprop="commentsCount"></span>
-              </a>
-            </span>
-          
-        
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <h3 id="题记">题记</h3><blockquote>
-<p>终于把node的异步IO给搞的稍微明白些了，之前看朴灵老师的《深入浅出NodeJS》还有些吃力，最近终于可以下定决心把它搞明白。以下是我参阅朴灵老师的《深入浅出NodeJS》后，自己对node异步io的理解，画了一张图，记录一下。<br>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2014/07/10/nodejsio/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1147,7 +1159,7 @@ var _hmt = _hmt || [];
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">39</span>
+              <span class="site-state-item-count">40</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
