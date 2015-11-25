@@ -45,7 +45,7 @@
 
 闭包是外层函数返回值为内层函数
 闭包是能访问外层函数作用域内参数和变量的函数（除了this和arguments）
-闭包可以访问它被创建时的上下文环境
+闭包可以访问它被创建时的作用域对象
 封装性：外界要访问（读取或修改）闭包">
 <meta property="og:type" content="article">
 <meta property="og:title" content="对"闭包"最深刻的剖析">
@@ -56,7 +56,7 @@
 
 闭包是外层函数返回值为内层函数
 闭包是能访问外层函数作用域内参数和变量的函数（除了this和arguments）
-闭包可以访问它被创建时的上下文环境
+闭包可以访问它被创建时的作用域对象
 封装性：外界要访问（读取或修改）闭包">
 <meta property="og:image" content="http://lwd426.com/images/js_closure_1.png">
 <meta property="og:image" content="http://lwd426.com/images/js_closure_2.png">
@@ -66,7 +66,7 @@
 <meta property="og:image" content="http://lwd426.com/images/js_closure_6.png">
 <meta property="og:image" content="http://lwd426.com/images/js_closure_7.png">
 <meta property="og:image" content="http://lwd426.com/images/js_closure_8.png">
-<meta property="og:updated_time" content="2015-10-13T03:00:48.000Z">
+<meta property="og:updated_time" content="2015-11-25T02:19:41.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="对"闭包"最深刻的剖析">
 <meta name="twitter:description" content="题记–前言一直在研究闭包，是它让JavaScript变得强大，也是它让我们对JavaScript感到很困惑。真所谓是”成也萧何败萧何”（PS:此句表达不是很准确）。
@@ -74,7 +74,7 @@
 
 闭包是外层函数返回值为内层函数
 闭包是能访问外层函数作用域内参数和变量的函数（除了this和arguments）
-闭包可以访问它被创建时的上下文环境
+闭包可以访问它被创建时的作用域对象
 封装性：外界要访问（读取或修改）闭包">
 
 
@@ -265,7 +265,7 @@ var _hmt = _hmt || [];
 <ul>
 <li>闭包是外层函数返回值为内层函数</li>
 <li>闭包是能访问外层函数作用域内参数和变量的函数（除了this和arguments）</li>
-<li>闭包可以访问它被创建时的上下文环境</li>
+<li>闭包可以访问它被创建时的作用域对象</li>
 <li>封装性：外界要访问（读取或修改）闭包内的私有变量，唯一的办法就是通过–特权方法。</li>
 <li>闭包可以把传进来的参数保存在作用域链，这常用于偏函数和柯里化函数</li>
 <li>只有当闭包不在引用所有外层作用域对象的变量和参数，外层作用域对象才会被销毁</li>
@@ -277,6 +277,14 @@ var _hmt = _hmt || [];
 <p>其他也就没有太多了，无非就是再举一个（下文）我们极为熟悉的给DOM循环设置监听的那个老掉牙而特别具有代表性的例子，但似乎没有几个地方真正讲明白了为什么闭包能解决问题。知道前段时间，我还一直理解为闭包是缓存了这个i值。但读了下面这个文章，才真正明白了，这个问题为什么能被解决：在for循环过程中产生了许多闭包，两种方法的闭包的作用域链不同：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="pi">"use strict"</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> elems = <span class="built_in">document</span>.getElementsByClassName(<span class="string">"myClass"</span>), i;</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; elems.length; i++) &#123;</span><br><span class="line">  elems[i].addEventListener(<span class="string">"click"</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.innerHTML = i;</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//解释问题：如果按照第一种方法，所有的闭包的外层作用域对象都是全局对象，他们访问的是同一个i，而作用域链里的作用域对象的变量（i）是会被改变的。</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//解决方法</span></span><br><span class="line"><span class="pi"></span><br><span class="line">"use strict"</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> elems = <span class="built_in">document</span>.getElementsByClassName(<span class="string">"myClass"</span>), i;</span><br><span class="line"><span class="keyword">var</span> clickhandler = <span class="function"><span class="keyword">function</span> (<span class="params">val</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    		<span class="keyword">this</span>.innerHTML = val;</span><br><span class="line">    	&#125;;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; elems.length; i++) &#123;</span><br><span class="line">  elems[i].addEventListener(<span class="string">"click"</span>, clickhandler);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//解释原理：如果按照第二种方法，所有的闭包都指向了自己专属的外层作用域对象（相当于在全局对象和自己的作用域对象之间加了一个作用域对象），所以他们都有自己的i变量。这样问题就解决了。</span></span><br></pre></td></tr></table></figure>
 <p>以下是John Wu的原文，他是翻译的老外的文章，很值得读一读：</p>
+<p>这篇文章告诉我：</p>
+<ul>
+<li>可以这么说：JavaScript中所有对象都是闭包</li>
+<li>闭包是什么时候创建的：定义一个函数的时候，就创建了一个闭包</li>
+<li>闭包是什么时候被销毁的：当它不被任何其他的对象引用时，就可以被销毁了</li>
+<li>作用域对象的创建时间点：当函数被调用的时候，就创建了一个函数作用域</li>
+<li>this:是函数调用时的上下文环境的引用</li>
+</ul>
 <p>我研究JavaScript闭包（closure）已经有一段时间了。我之前只是学会了如何使用它们，而没有透彻地了解它们具体是如何运作的。那么，究竟什么是闭包？</p>
 <p>Wikipedia给出的解释并没有太大的帮助。闭包是什么时候被创建的，什么时候被销毁的？具体的实现又是怎么样的？</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="pi">"use strict"</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> myClosure = (<span class="function"><span class="keyword">function</span> <span class="title">outerFunction</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">var</span> hidden = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    inc: <span class="function"><span class="keyword">function</span> <span class="title">innerFunction</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">      <span class="keyword">return</span> hidden++;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">&#125;());</span><br><span class="line"></span><br><span class="line">myClosure.inc();  <span class="comment">// 返回 1</span></span><br><span class="line">myClosure.inc();  <span class="comment">// 返回 2</span></span><br><span class="line">myClosure.inc();  <span class="comment">// 返回 3</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 相信对JS熟悉的朋友都能很快理解这段代码</span></span><br><span class="line"><span class="comment">// 那么在这段代码运行的背后究竟发生了怎样的事情呢？</span></span><br></pre></td></tr></table></figure>
