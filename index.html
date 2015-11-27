@@ -742,6 +742,104 @@ var _hmt = _hmt || [];
           
           
             
+              <a class="post-title-link" href="/2015/10/09/AsyncAndPromise/" itemprop="url">
+                JavaScript高级话题—异步流程控制库和回调处理
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2015-09-09T16:24:09+08:00" content="2015-09-09">
+            2015-09-09
+          </time>
+        </span>
+
+        
+          <span class="post-category" >
+            &nbsp; | &nbsp; 分类于
+            
+              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                <a href="/categories/Promise/" itemprop="url" rel="index">
+                  <span itemprop="name">Promise</span>
+                </a>
+              </span>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+            <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2015/10/09/AsyncAndPromise/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2015/10/09/AsyncAndPromise/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <p>虽然一直在用Async和Promise，但因为工作很忙，始终没有对其中的奥秘有个窥探，今天特此捣鼓捣鼓。</p>
+<h3 id="概念">概念</h3><p>首先应该明白两个概念：</p>
+<ul>
+<li><strong>Async是一个JavaScript的异步流程库</strong>：它解决了JS在使用过程中为了进行异步执行从而导致的回调地狱（主要是控制权转义频繁）；同时能够更简单的进行错误处理（只要有错误发生就不往下执行了，进入done函数传出error信息）这个库最常用的方法就是：<ol>
+<li>series: 串行执行，一个函数数组（N个）中的每个函数，每一个函数执行完成之后才能执行下一个函数,最后done中得到的results为N个结果的数组。</li>
+<li>parallel: 并行执行多个函数（N个），每个函数都是立即执行，不需要等待其它函数先执行。传给最终callback的数组中的数据按照tasks中声明的顺序，而不是执行完成的顺序（done中得到的results为N个结果的数组）。</li>
+<li>waterfall: 按顺序依次执行一组函数。每个函数产生的值，都将传给下一个，最后done中只会有一个结果值。</li>
+</ol>
+</li>
+<li><strong>Promise是一个JavaScript用来处理回调的规范</strong>：它更侧重于处理回调函数，对流程控制（异步函数数组是怎么执行的）的处理略显单一，以我现在的理解，可以理解为Promise规范把流程限制于串行执行。</li>
+</ul>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2015/10/09/AsyncAndPromise/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
               <a class="post-title-link" href="/2015/10/02/requireJS/" itemprop="url">
                 学习笔记--RequireJS的一些使用理解（结合kibana源码）
               </a>
@@ -1015,104 +1113,11 @@ var _hmt = _hmt || [];
 
 
     
-      
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
-            
-              <a class="post-title-link" href="/2015/05/23/kibana_modules/" itemprop="url">
-                kibana的模块依赖机制
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2015-04-23T10:15:49+08:00" content="2015-04-23">
-            2015-04-23
-          </time>
-        </span>
-
-        
-          <span class="post-category" >
-            &nbsp; | &nbsp; 分类于
-            
-              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                <a href="/categories/AngularJS/" itemprop="url" rel="index">
-                  <span itemprop="name">AngularJS</span>
-                </a>
-              </span>
-
-              
-              
-
-            
-          </span>
-        
-
-        
-          
-            <span class="post-comments-count">
-              &nbsp; | &nbsp;
-              <a href="/2015/05/23/kibana_modules/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2015/05/23/kibana_modules/" itemprop="commentsCount"></span>
-              </a>
-            </span>
-          
-        
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <h3 id="经验">经验</h3><ul>
-<li>必须先把模块使用require(‘模块路径’);</li>
-<li>进来后，<br>才能使用require(‘module’).get(‘新模块名称’,[模块1，模块2…])进行定义模块依赖,</li>
-<li>才能在新模块中把服务、指令、常量、视图注入到代码里。</li>
-<li>在模块定义的工程中，也要通过require(‘辅助模块’)；来把所有的依赖模块代码加载进门户文件.</li>
-</ul>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2015/05/23/kibana_modules/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/2/">&raquo;</a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/2/">&raquo;</a>
   </nav>
 
  </div>
@@ -1146,21 +1151,21 @@ var _hmt = _hmt || [];
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">40</span>
+              <span class="site-state-item-count">41</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
 
           <div class="site-state-item site-state-categories">
             <a href="/categories">
-              <span class="site-state-item-count">12</span>
+              <span class="site-state-item-count">13</span>
               <span class="site-state-item-name">分类</span>
               </a>
           </div>
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">23</span>
+              <span class="site-state-item-count">25</span>
               <span class="site-state-item-name">标签</span>
               </a>
           </div>
