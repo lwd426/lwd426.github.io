@@ -366,6 +366,110 @@ var _hmt = _hmt || [];
           
           
             
+              <a class="post-title-link" href="/2013/07/09/ObjectAndPrototype/" itemprop="url">
+                学习笔记--自己对构造函数、原型和实例最深刻的理解
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2013-06-09T12:10:09+08:00" content="2013-06-09">
+            2013-06-09
+          </time>
+        </span>
+
+        
+          <span class="post-category" >
+            &nbsp; | &nbsp; 分类于
+            
+              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                <a href="/categories/基础/" itemprop="url" rel="index">
+                  <span itemprop="name">基础</span>
+                </a>
+              </span>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+            <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2013/07/09/ObjectAndPrototype/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2013/07/09/ObjectAndPrototype/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <p>自己总算是把JS中那些错综复杂的各种对象、函数、原型以及基于原型继承的原理搞清楚了。以下是自己做的笔记</p>
+<p>用简单的语言描述下js中构造函数、实例对象和原型的关系：</p>
+<h3 id="实例化的过程就是：">实例化的过程就是：</h3><ol>
+<li>先建立一个空对象</li>
+<li>让这个空对象的<em>proto</em>属性指向构造函数的原型对象，</li>
+<li>然后执行 构造函数.apply(空对象)，</li>
+<li>最后返回这个对象（已经不是空的了，有私有属性了）</li>
+</ol>
+<h3 id="由这个过程可以看出">由这个过程可以看出</h3><ol>
+<li>构造函数可以只是一个函数，它的作用就是实例化一个实例对象。还有就是他有一个原型对象。</li>
+<li>实例：可以这样理解，它<strong>只是一个与原构造函数平行的、与之共有同一个原型对象的函数。</strong></li>
+<li>实例化对象一旦完成实例化，跟构造函数就再无瓜葛了。</li>
+<li>同一个构造函数实例化出的几个对象也都是独立的。它们唯一的联系就是都有一个<em>proto</em>指向同一个原型对象。</li>
+<li>如果想给一个实例对象添加私有属性和方法，直接点加;</li>
+<li>如果想给所有的实例对象添加共有方法或属性，在原型对象（构造函数.prototype）中点加。</li>
+<li>所有的函数都有原型对象O.prototype</li>
+</ol>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2013/07/09/ObjectAndPrototype/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
               <a class="post-title-link" href="/2013/04/03/this_example/" itemprop="url">
                 笔记：构造函数中的this
               </a>
@@ -1016,128 +1120,6 @@ var _hmt = _hmt || [];
 
 
     
-      
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
-            
-              <a class="post-title-link" href="/2012/06/10/no_user/" itemprop="url">
-                12种不宜使用的Javascript语法
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2012-05-10T09:40:08+08:00" content="2012-05-10">
-            2012-05-10
-          </time>
-        </span>
-
-        
-          <span class="post-category" >
-            &nbsp; | &nbsp; 分类于
-            
-              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                <a href="/categories/基础/" itemprop="url" rel="index">
-                  <span itemprop="name">基础</span>
-                </a>
-              </span>
-
-              
-              
-
-            
-          </span>
-        
-
-        
-          
-            <span class="post-comments-count">
-              &nbsp; | &nbsp;
-              <a href="/2012/06/10/no_user/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2012/06/10/no_user/" itemprop="commentsCount"></span>
-              </a>
-            </span>
-          
-        
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <span itemprop="articleBody"><p>这几天，我在读《Javascript语言精粹》。<br>这本书很薄，100多页，正好假日里翻翻。这里引用阮一峰的一篇日志<a href="http://www.ruanyifeng.com/blog/2010/01/12_javascript_syntax_structures_you_should_not_use.html" target="_blank" rel="external">12种不宜使用的Javascript语法</a></p>
-<p>该书的作者是Douglas Crockford，他是目前世界上最精通Javascript的人之一，也是Json格式的创造者。<br>他认为Javascript有很多糟粕。因为1995年Brendan Eich设计这种语言的时候，只用了三个月，很多语言特性没有经过深思熟虑，就推向了市场。结果等到人们意识到这些问题的时候，已经有100万程序员在使用它了，不可能再大幅修改语言本身了。所以，Douglas Crockford决定，他要告诉大家，Javascript中哪些部分是精粹，哪些部分是糟粕和鸡肋。</p>
-<p>这个想法非常好，但是我不得不说，这本书写得不够好，不适合新手阅读。原因如下：1）Douglas Crockford叙述得不清晰，更像与同行讨论问题，而不是由浅入深地讲解问题。这本书的重点不是解释，所以读完后，我觉得Javascript好像变得更复杂了。2）他固执地使用铁路图（railroad diagram）解释每一条语句。全世界似乎只有他一个人使用这种比Javascript更难看懂的图。3）该书基本上是一本简化的Javascript语法手册，缺乏足够的新内容。4）该书举例过少，而且在最难的函数和对象部分，使用的例子都是环环相套、层层递进的例子，导致阅读起来很吃力。</p>
-<p>该书最有价值的内容不是正文，反而是附录。在附录B中，Douglas Crockford列出了12种应该避免使用的Javascript语法，我觉得非常值得推广。</p>
-<h4 id="1-_==">1. ==</h4><p>Javascript有两组相等运算符，一组是==和!=，另一组是===和!==。前者只比较值的相等，后者除了值以外，还比较类型是否相同。<br>请尽量不要使用前一组，永远只使用===和!==。因为==默认会进行类型转换，规则十分难记。如果你不相信的话，请回答下面五个判断式的值是true还是false：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">　　<span class="literal">false</span> == <span class="string">'false'</span></span><br><span class="line">　　<span class="literal">false</span> == <span class="literal">undefined</span></span><br><span class="line">　　<span class="literal">false</span> == <span class="literal">null</span></span><br><span class="line">　　<span class="literal">null</span> == <span class="literal">undefined</span></span><br><span class="line">　　<span class="number">0</span> == <span class="string">''</span></span><br></pre></td></tr></table></figure>
-<p>前三个是false，后两个是true。</p>
-<h4 id="2-_with">2. with</h4><p>with的本意是减少键盘输入。比如</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">　　obj.a = obj.b;</span><br><span class="line">　　obj.c = obj.d;</span><br></pre></td></tr></table></figure>
-<p>可以简写成</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">　　<span class="keyword">with</span>(obj) &#123;</span><br><span class="line">　　　　a = b;</span><br><span class="line">　　　　c = d;</span><br><span class="line">　　&#125;</span><br></pre></td></tr></table></figure>
-<p>但是，在实际运行时，解释器会首先判断obj.b和obj.d是否存在，如果不存在的话，再判断全局变量b和d是否存在。这样就导致了低效率，而且可能会导致意外，因此最好不要使用with语句。</p>
-<h4 id="3-_eval">3. eval</h4><p>eval用来直接执行一个字符串。这条语句也是不应该使用的，因为它有性能和安全性的问题，并且使得代码更难阅读。<br>eval能够做到的事情，不用它也能做到。比如</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">　　<span class="built_in">eval</span>(<span class="string">"myValue = myObject."</span> + myKey + <span class="string">";"</span>);</span><br><span class="line"> </span><br><span class="line">可以直接写成</span><br><span class="line"></span><br><span class="line"> 　　myValue = myObject[myKey];</span><br></pre></td></tr></table></figure>
-<p>至于ajax操作返回的json字符串，可以使用官方网站提供的解析器json_parse.js运行。</p>
-<h4 id="4-_continue">4. continue</h4><p>这条命令的作用是返回到循环的头部，但是循环本来就会返回到头部。所以通过适当的构造，完全可以避免使用这条命令，使得效率得到改善。</p>
-<h4 id="5-_switch_贯穿">5. switch 贯穿</h4><p>switch结构中的case语句，默认是顺序执行，除非遇到break，return和throw。有的程序员喜欢利用这个特点，比如</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">　　<span class="keyword">switch</span>(n) &#123;</span><br><span class="line">　　　　<span class="keyword">case</span> <span class="number">1</span>:</span><br><span class="line">　　　　<span class="keyword">case</span> <span class="number">2</span>:</span><br><span class="line">　　　　　　<span class="keyword">break</span>;</span><br><span class="line">　　&#125;</span><br></pre></td></tr></table></figure>
-<p>这样写容易出错，而且难以发现。因此建议避免switch贯穿，凡是有case的地方，一律加上break。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">　　<span class="keyword">switch</span>(n) &#123;</span><br><span class="line">　　　　<span class="keyword">case</span> <span class="number">1</span>:</span><br><span class="line">　　　　　　<span class="keyword">break</span>;</span><br><span class="line">　　　　<span class="keyword">case</span> <span class="number">2</span>:</span><br><span class="line">　　　　　　<span class="keyword">break</span>;</span><br><span class="line">　　&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="6-_单行的块结构">6. 单行的块结构</h4><p>if、while、do和for，都是块结构语句，但是也可以接受单行命令。比如</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">　　<span class="keyword">if</span> (ok) t = <span class="literal">true</span>;</span><br><span class="line">甚至写成</span><br><span class="line">　　<span class="keyword">if</span> (ok)</span><br><span class="line">　　　　t = <span class="literal">true</span>;</span><br></pre></td></tr></table></figure>
-<p>这样不利于阅读代码，而且将来添加语句时非常容易出错。建议不管是否只有一行命令，都一律加上大括号。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">　　<span class="keyword">if</span> (ok)&#123;</span><br><span class="line">　　　　t = <span class="literal">true</span>;</span><br><span class="line">　　&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="7-_++和–">7. ++和–</h4><p>递增运算符++和递减运算符–，直接来自C语言，表面上可以让代码变得很紧凑，但是实际上会让代码看上去更复杂和更晦涩。因此为了代码的整洁性和易读性，不用为好。</p>
-<h4 id="8-_位运算符">8. 位运算符</h4><p>Javascript完全套用了Java的位运算符，包括按位与&amp;、按位或|、按位异或^、按位非~、左移&lt;&lt;、带符号的右移&gt;&gt;和用0补足的右移&gt;&gt;&gt;。<br>这套运算符针对的是整数，所以对Javascript完全无用，因为Javascript内部，所有数字都保存为双精度浮点数。如果使用它们的话，Javascript不得不将运算数先转为整数，然后再进行运算，这样就降低了速度。而且”按位与运算符”&amp;同”逻辑与运算符”&amp;&amp;，很容易混淆。</p>
-<h4 id="9-_function语句">9. function语句</h4><p>在Javascript中定义一个函数，有两种写法：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">　　<span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>) </span>&#123; &#125;</span><br><span class="line">和</span><br><span class="line">　　<span class="keyword">var</span> foo = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123; &#125;</span><br></pre></td></tr></table></figure>
-<p>两种写法完全等价。但是在解析的时候，前一种写法会被解析器自动提升到代码的头部，因此违背了函数应该先定义后使用的要求，所以建议定义函数时，全部采用后一种写法。</p>
-<h4 id="10-_基本数据类型的包装对象">10. 基本数据类型的包装对象</h4><p>Javascript的基本数据类型包括字符串、数字、布尔值，它们都有对应的包装对象String、Number和Boolean。所以，有人会这样定义相关值：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">　　<span class="keyword">new</span> <span class="built_in">String</span>(<span class="string">"Hello World"</span>);</span><br><span class="line">　　<span class="keyword">new</span> <span class="built_in">Number</span>(<span class="number">2000</span>);</span><br><span class="line">　　<span class="keyword">new</span> <span class="built_in">Boolean</span>(<span class="literal">false</span>);</span><br></pre></td></tr></table></figure>
-<p>这样写完全没有必要，而且非常费解，因此建议不要使用。<br>另外，new Object和new Array也不建议使用，可以用{}和[]代替。</p>
-<h4 id="11-_new语句">11. new语句</h4><p>Javascript是世界上第一个被大量使用的支持Lambda函数的语言，本质上属于与Lisp同类的函数式编程语言。但是当前世界，90%以上的程序员都是使用面向对象编程。为了靠近主流，Javascript做出了妥协，采纳了类的概念，允许根据类生成对象。<br>类是这样定义的：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">　　<span class="keyword">var</span> Cat = <span class="function"><span class="keyword">function</span> (<span class="params">name</span>) </span>&#123;</span><br><span class="line">　　　　<span class="keyword">this</span>.name = name;</span><br><span class="line">　　　　<span class="keyword">this</span>.saying = <span class="string">'meow'</span> ;</span><br><span class="line">　　&#125;</span><br><span class="line">然后，再生成一个对象</span><br><span class="line">　　<span class="keyword">var</span> myCat = <span class="keyword">new</span> Cat(<span class="string">'mimi'</span>);</span><br></pre></td></tr></table></figure>
-<p>这种利用函数生成类、利用new生成对象的语法，其实非常奇怪，一点都不符合直觉。而且，使用的时候，很容易忘记加上new，就会变成执行函数，然后莫名其妙多出几个全局变量。所以，建议不要这样创建对象，而采用一种变通方法。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">Douglas Crockford给出了一个函数：</span><br><span class="line">　　<span class="built_in">Object</span>.beget = <span class="function"><span class="keyword">function</span> (<span class="params">o</span>) </span>&#123;</span><br><span class="line">　　　　<span class="keyword">var</span> F = <span class="function"><span class="keyword">function</span> (<span class="params">o</span>) </span>&#123;&#125;;</span><br><span class="line">　　　　F.prototype = o ;</span><br><span class="line">　　　　<span class="keyword">return</span> <span class="keyword">new</span> F;</span><br><span class="line">　　&#125;;</span><br><span class="line">创建对象时就利用这个函数，对原型对象进行操作：</span><br><span class="line">　　<span class="keyword">var</span> Cat = &#123;</span><br><span class="line">　　　　name:<span class="string">''</span>,</span><br><span class="line">　　　　saying:<span class="string">'meow'</span></span><br><span class="line">　　&#125;;</span><br><span class="line">　　<span class="keyword">var</span> myCat = <span class="built_in">Object</span>.beget(Cat);</span><br><span class="line">对象生成后，可以自行对相关属性进行赋值：</span><br><span class="line">　　myCat.name = <span class="string">'mimi'</span>;</span><br></pre></td></tr></table></figure>
-<h4 id="12-_void">12. void</h4><p>在大多数语言中，void都是一种类型，表示没有值。但是在Javascript中，void是一个运算符，接受一个运算数，并返回undefined。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">　　<span class="keyword">void</span> <span class="number">0</span>; <span class="comment">// undefined</span></span><br></pre></td></tr></table></figure>
-<p>这个命令没什么用，而且很令人困惑，建议避免使用。</p>
-</span>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1176,7 +1158,7 @@ var _hmt = _hmt || [];
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">41</span>
+              <span class="site-state-item-count">42</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
