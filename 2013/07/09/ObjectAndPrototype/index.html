@@ -64,7 +64,8 @@
 
 由这个过程可以看出
 构造函数可以只是一个函数，它的">
-<meta property="og:updated_time" content="2015-11-30T01:37:45.000Z">
+<meta property="og:image" content="http://lwd426.com/images/objectAndPrototype.jpg">
+<meta property="og:updated_time" content="2015-11-30T01:41:10.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="学习笔记--自己对构造函数、原型和实例最深刻的理解">
 <meta name="twitter:description" content="自己总算是把JS中那些错综复杂的各种对象、函数、原型以及基于原型继承的原理搞清楚了。以下是自己做的笔记
@@ -296,7 +297,7 @@ var _hmt = _hmt || [];
 <li><p>方法(Function)<br> 方法这个特殊的对象，除了和其他对象一样有上述<em>proto</em>属性之外，还有自己特有的属性——原型属性（prototype），这个属性是一个指针，指向一个对象，这个对象的用途就是包含所有实例共享的属性和方法（我们把这个对象叫做原型对象）。原型对象也有一个属性，叫做constructor，这个属性包含了一个指针，指回原构造函数。</p>
 </li>
 </ol>
-<p><a href="/images/objectAndPrototype.jpg"></a></p>
+<p><img src="/images/objectAndPrototype.jpg" alt=""></p>
 <p>好啦，知道了这两个基本点，我们来看看上面这副图。</p>
 <ol>
 <li><p>构造函数Foo()<br>构造函数的原型属性Foo.prototype指向了原型对象，在原型对象里有共有的方法，所有构造函数声明的实例（这里是f1，f2）都可以共享这个方法。</p>
