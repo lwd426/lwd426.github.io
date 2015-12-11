@@ -185,6 +185,142 @@ var _hmt = _hmt || [];
           
           
             
+              <a class="post-title-link" href="/2015/12/10/Angular2.0&React/" itemprop="url">
+                有关Angular2.0和React的技术选型
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2015-11-10T10:10:10+08:00" content="2015-11-10">
+            2015-11-10
+          </time>
+        </span>
+
+        
+          <span class="post-category" >
+            &nbsp; | &nbsp; 分类于
+            
+              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                <a href="/categories/react/" itemprop="url" rel="index">
+                  <span itemprop="name">react</span>
+                </a>
+              </span>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+            <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2015/12/10/Angular2.0&React/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2015/12/10/Angular2.0&React/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody"><p>当前，前端领域最热的几个话题中一定有Angular2.0和React这两个。前端时间参加2015开发者大会，前端论坛也基本上是在讨论这两个主题，并极力推广react的使用。</p>
+<p>鉴于明年部门一个产出是“组件化”，而这两个框架（react属于库）都适合于组件化的开发。本文就简单说说针对移动平台部，从基本特征和主要点的设计思路、学习成本、代码分析和相关生态上讲解Angular2.0和React的实用性和各种利弊。</p>
+<h3 id="Angular2-0">Angular2.0</h3><h4 id="一、基本特征和设计思路">一、基本特征和设计思路</h4><p>值得一提的是，Angular2.0是一个MVVM框架，而React是一款专注于构建可复用组件的库。这是二者最显而易见的区别。</p>
+<p>首先，Angular2.0与AngularJS 1.x有极大的不同，可以说从设计思路和架构上就进行了大手术。从名称上也可以看书，Angular2.0不能叫AngularJS2.0（这是Angular还有一个Dart版本）。在AngularJS 1.x中存在的诸如Controller、Service、Factory、指令包括那么重要的Scope都不见了。这么激进的革新，出发点在哪里呢？<strong>除了解决自身的一些问题，更重要的意义在于对未来标准的迎合</strong>，这些标准主要包括：</p>
+<ul>
+<li>module</li>
+<li>Web Components</li>
+<li>class</li>
+<li>observe</li>
+<li>promise</li>
+</ul>
+<p>module的问题很好理解，JavaScript第一次有了语言上的模块机制，而Web Components则是约定了基于泛HTML体系构建组件库的方式，class增强了编程体验，observe提供了数据和展现分离的一种优秀方式，promise则是目前前端最流行的异步编程方式。</p>
+<p>即使你很熟悉Angular 1.x，一下去读Angular2.0的Hello World代码，相信我，你看不懂。那这是为什么呢？我们一点点来说。</p>
+<h5 id="1-1_语法：AtScript和ES6">1.1 语法：AtScript和ES6</h5><p>Angular2.0 开发小组自己开发出一套新的语言AtScript。</p>
+<p>AtScript属于JavaScript的扩展语言，它与JavaScript的关系如下图：</p>
+<p><img src="images/atscript.png" alt=""></p>
+<p>有关AtScript的讲解，可以看下知乎的这个帖子说的比较清晰：<a href="http://www.zhihu.com/question/28310183" target="_blank" rel="external">贴1</a></p>
+<p>从上图也可以看出，Angular2.0也是基于ES6的。自从今年ES6推出，新出来的框架也必定开始面向未来，所以包括React也推荐大家用ES6语法去书写代码。有关ES6的语法可以看下阮一峰老师的ES6入门，当然，能够阅读英文版规范的更好。</p>
+<p>值得一提的是，目前编写任何ES6代码都要在上线前使用编译工具（如gulp或grunt）把代码编译成ES5代码，原因是很多浏览器目前还不支持ES6语法。</p>
+<h5 id="1-2_基于ES6语法">1.2 基于ES6语法</h5><p>ECMAScript 6（以下简称ES6）是JavaScript语言的下一代标准，已经在2015年6月正式发布了。它的目标，是使得JavaScript语言可以用来编写复杂的大型应用程序，成为企业级开发语言。</p>
+<p>现今，越来越多的框架和库都在使用ES6语法来进行代码书写。Angular2.0和React都鼓励用ES6。ES6加入了以下新特性：</p>
+<ul>
+<li>let和const命令</li>
+<li>变量的解构赋值</li>
+<li>字符串、正则、数值、数组、函数和对象进行了扩展</li>
+<li>加入了Set和Mao数据解构</li>
+<li>Iterator和for…of循环</li>
+<li>Generator函数</li>
+<li>Promise对象</li>
+<li>异步操作和Async函数</li>
+<li>引入了class</li>
+<li>引入了module</li>
+</ul>
+<p>这些基本都可以理解为ES5的语法糖。为什么做了这么多新的东西？原因就是近些年来随着库和框架越来越多，加上人们越来越多的使用javascript开发大型应用，就产生出了很多好用的工具、库、框架和思想。比如适用于后端的mvc和模块的概念思路都在前端开发中被使用。JS是异步的，这大家都知道，所以一些基本的异步操作和流程控制函数的出现就变得很自然了。js饱受诟病的一点就是没有类，所以es终于引入了类的概念，让代码编写起来更美观，阅读性更高了。<br>如果想系统的了解这些新特性，可以阅读阮一峰老师的<a href="http://es6.ruanyifeng.com/#docs/intro" target="_blank" rel="external">《ECMAScript6入门》</a>。当然，我们要支持正版，最好是买一本。</p>
+<h5 id="1-3_基于注解">1.3  基于注解</h5><p>有关注解的基本使用在上面的帖子里说的比较清晰了。这里引用一下：<br><strong>注解的意义主要在于为类型添加特定的约束，好比一个类型是一张纸牌，有注解的类型相当于在纸牌背面贴了额外的标签</strong>。如果是正常使用这个类，可以就当注解不存在，只看正面就行了，如果想要拿这个类来作特殊用途，就可以把牌反过来看看，看哪些标签上给了什么额外的信息。比如说，在组件化体系中，某个类被当做组件类的时候，可能需要额外的配置信息，如果没有注解的话，也可以在类上面放静态变量来实现，但不优雅。语言支持注解的话，写到注解上，就比较优雅了，类的实现中只写具体功能的实现。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">@Component(&#123;selector: <span class="string">'foo'</span>&#125;)</span><br><span class="line"><span class="keyword">export</span> <span class="class"><span class="keyword">class</span> <span class="title">MyComponent</span> </span>&#123;</span><br><span class="line">  constructor(server:Server) &#123;</span><br><span class="line">      <span class="keyword">this</span>.server = server;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>看这个例子里面那个@Component的一段，如果以MyComponent类的本身功能来说，有没有这句都不会影响这个类主体功能的实现，但我们可能在特定框架（Angular）中，需要把它与界面上某种DOM元素的选择器关联起来，就可以添加这么一句注解，然后，仅仅在Angular的框架中去读取并使用它即可，其他框架则无视之。此外，注解对代码文档生成的作用应当比注释更大，因为注解格式可以有编译期检查，而注释没有，根据注解，甚至还能在运行时生成文档。</p>
+<p>1.3 组件化</p>
+<p>因为历史原因，Angular 1.x架构设计思路是很乱的，组件基本就是通过指令的定义来做的。自从Web Components规范出来，所有的框架都向之靠拢，Angular2.0开发小组也借鉴了react的一些思想，正式引入了组件的概念。组件基本上是用ES6的Class来定义的。代码如下：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//从angualr2框架中引入基本的组件、核心指令、表单指令和启动命令</span></span><br><span class="line"><span class="keyword">import</span> &#123;</span><br><span class="line">	Component,</span><br><span class="line">	CORE_DIRECTIVES,</span><br><span class="line">    FORM_DIRECTIVES,</span><br><span class="line">	bootstrap</span><br><span class="line">&#125; <span class="keyword">from</span> <span class="string">'angular2/angular2'</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//从services/NameList引入模块作为数据源</span></span><br><span class="line"><span class="keyword">import</span> &#123; NameList &#125; <span class="keyword">from</span> <span class="string">'services/NameList'</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//给SampleApp类加注解</span></span><br><span class="line">@Component(&#123;</span><br><span class="line">    selector: <span class="string">'sample-app'</span>,<span class="comment">//指定sampleApp的选择器</span></span><br><span class="line">    viewProviders: [NameList],<span class="comment">//指定数据源</span></span><br><span class="line">    templateUrl: <span class="string">'./templates/sample-app.html'</span>,<span class="comment">//指定模板</span></span><br><span class="line">    directives: [CORE_DIRECTIVES, FORM_DIRECTIVES]<span class="comment">//指定组件会使用的核心指令</span></span><br><span class="line">&#125;)</span><br><span class="line"><span class="comment">//定义组件类</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SampleApp</span> </span>&#123;</span><br><span class="line">    names: <span class="built_in">Array</span>&lt;string&gt;;<span class="comment">//定义类型为数组的names属性</span></span><br><span class="line">    name: string;<span class="comment">//定义类型为String的name属性</span></span><br><span class="line">    constructor(service:NameList) &#123;<span class="comment">//定义构造函数：属性初始化</span></span><br><span class="line">        <span class="keyword">this</span>.names = service.getList();</span><br><span class="line">        <span class="keyword">this</span>.name = <span class="string">''</span>;</span><br><span class="line"> </span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//定义类函数</span></span><br><span class="line">    addName(name:string) &#123;</span><br><span class="line">        <span class="keyword">this</span>.names.push(name);</span><br><span class="line">        <span class="keyword">this</span>.name = <span class="string">""</span>;</span><br><span class="line">    &#125;</span><br><span class="line">	<span class="comment">//定义类函数</span></span><br><span class="line">    removeName(name:string) &#123;</span><br><span class="line">        <span class="keyword">var</span> index = <span class="keyword">this</span>.names.indexOf(name);</span><br><span class="line">        index !== -<span class="number">1</span> &amp;&amp; <span class="keyword">this</span>.names.splice(index, <span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//导出模块</span></span><br><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">main</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	bootstrap(SampleApp);<span class="comment">//启动组件</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>以上是我找的一段例子代码，这段代码定义了一个sample-app元素组件。这段代码十分有代表性在html里这样使用：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;section <span class="class"><span class="keyword">class</span></span>=<span class="string">"container sample-form-content"</span>&gt;</span><br><span class="line">        <span class="xml"><span class="tag">&lt;<span class="title">sample-form</span>&gt;</span>Loading<span class="tag">&lt;/<span class="title">sample-form</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">section</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
+<p>这段代码很好的讲解了Angular2.0中如何定义组件类、使用注解给组件类作标签以及其他基本用法。当然这是最基本的用法，还有很多深层次的东西都是没有用到，比如路由等等。</p>
+<p>这里只说这些基本用法我想就足够了，在深层次的使用，我们再摸索中前进。更多详细的内容，大家还是移步汇智网的<a href="http://www.hubwiz.com/course/5599d367a164dd0d75929c76/" target="_blank" rel="external">这个课程</a>，我认为挺不错的。</p>
+<h4 id="二、学习成本">二、学习成本</h4><p>要想把Angular2.0用起来，需要了解学习的东西还是比较多的。以下的东要会：</p>
+<ol>
+<li>ES6语法</li>
+<li>AtScript语法</li>
+<li>编译工具gulp或grunt</li>
+</ol>
+<h4 id="三、对移动平台的支持">三、对移动平台的支持</h4><p>AngularJS1.x并没有针对移动平台做特别的优化，但随着近些年来移动设备的普及，让Angular2.0开发团队开始思考让Angular更适合于移动设备，所以在做设计的时候，他们提出“Angular2.0是面向移动设备的。”但很多现在都处于设计阶段，一切尚未盖棺定论。</p>
+<h4 id="四、生态圈">四、生态圈</h4><p>因为现在Angular2.0推出的只是alpha版本，很多优秀的提议和理念也都在计划之中。所以Angular2.0的生态还很薄弱，就国内而言，目前国内大部分的生态还是Angular1.x的。不过倒是出了几个课程，书籍我至今还没看到过。由于Angular2.0的断层式升级，大家更多的是在议论它到底好不好，我们是不是还要做升级等等诸如此类的话题，真正的干活还是比较少的。</p>
+<p>而作为对比，React在这方面就会好的多。以下就来说说React相关的东西。</p>
+<h3 id="React">React</h3><h3 id="一、基本特征和设计思路-1">一、基本特征和设计思路</h3></span>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
               <a class="post-title-link" href="/2015/11/12/js/" itemprop="url">
                 学习笔记--Javascript的知识点（持续更新）
               </a>
@@ -1021,98 +1157,6 @@ var _hmt = _hmt || [];
 
 
     
-      
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
-            
-              <a class="post-title-link" href="/2015/07/24/node_markdown/" itemprop="url">
-                解决方案：node解析markdown
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2015-06-24T15:15:49+08:00" content="2015-06-24">
-            2015-06-24
-          </time>
-        </span>
-
-        
-          <span class="post-category" >
-            &nbsp; | &nbsp; 分类于
-            
-              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                <a href="/categories/nodeJS/" itemprop="url" rel="index">
-                  <span itemprop="name">nodeJS</span>
-                </a>
-              </span>
-
-              
-              
-
-            
-          </span>
-        
-
-        
-          
-            <span class="post-comments-count">
-              &nbsp; | &nbsp;
-              <a href="/2015/07/24/node_markdown/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2015/07/24/node_markdown/" itemprop="commentsCount"></span>
-              </a>
-            </span>
-          
-        
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <blockquote>
-<p>目前，越来越多的博客开始采用markdown来撰写。它的轻量、书写方便、易读易写的特点让我着迷。真的很简便。所以我们打算用markdown来写产品的使用说明。</p>
-</blockquote>
-<h3 id="问题产生">问题产生</h3><pre><code>我们的产品采用angularJS做前端MVVM框架，后端采用Nodejs。
-</code></pre><p>目前markdown浏览器还不能解析markdown,最终也要转换成html才能被浏览器解析。所以采用markdown来做文档说明，那就要解决以下两个问题：</p>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2015/07/24/node_markdown/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1151,21 +1195,21 @@ var _hmt = _hmt || [];
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">43</span>
+              <span class="site-state-item-count">44</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
 
           <div class="site-state-item site-state-categories">
             <a href="/categories">
-              <span class="site-state-item-count">13</span>
+              <span class="site-state-item-count">14</span>
               <span class="site-state-item-name">分类</span>
               </a>
           </div>
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">26</span>
+              <span class="site-state-item-count">27</span>
               <span class="site-state-item-name">标签</span>
               </a>
           </div>
