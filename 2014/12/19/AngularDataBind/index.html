@@ -56,7 +56,7 @@ DOM事件，譬如用户输">
 angular并不存在定时脏检测。
 angular对做了以下封装，ng只有在指定事件出发后，才进入$digest circle进行脏检查，进而更新视图： 在里面触发进入angular的digest流程:
 DOM事件，譬如用户输">
-<meta property="og:updated_time" content="2015-12-30T01:49:35.000Z">
+<meta property="og:updated_time" content="2015-12-30T01:52:57.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="AngularJS 1.x 双向数据绑定是如何做到的？">
 <meta name="twitter:description" content="在知乎上看到一个对AngularJS的双向数据绑定讲解很清楚的一个帖子。特此记录下来。
@@ -264,6 +264,7 @@ var _hmt = _hmt || [];
 <li>在digest流程里面， 会从rootscope开始遍历， 检查所有的watcher。</li>
 <li>Angular的设计，同一时间只允许一个$digest运行，而ng-click这种内置指令已经触发了$digest。如果在其中再次调用，就会报错。</li>
 <li>当调用$digest的时候，只触发当前作用域和它的子作用域上的监控，但是当调用$apply的时候，会触发作用域树上的所有监控。</li>
+<li>传统的JS MVC框架, 数据变更是通过setter去触发事件，然后立即更新UI。而angular则是进入$digest cycle，等待所有model都稳定后，才批量一次性更新UI。这种机制能减少浏览器repaint次数，从而提高性能。</li>
 </ul>
 <a id="more"></a>
 <p>以下是正文：</p>
@@ -308,6 +309,8 @@ var _hmt = _hmt || [];
 <p>同理，在Angular框架里，考虑到这样的场景：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">TestCtrl</span>(<span class="params">$scope</span>) </span>&#123;</span><br><span class="line">    $scope.numOfCheckedItems = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> list = [];</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> i=<span class="number">0</span>; i&lt;<span class="number">10000</span>; i++) &#123;</span><br><span class="line">        list.push(&#123;</span><br><span class="line">            index: i,</span><br><span class="line">            checked: <span class="literal">false</span></span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    $scope.list = list;</span><br><span class="line"></span><br><span class="line">    $scope.toggleChecked = <span class="function"><span class="keyword">function</span>(<span class="params">flag</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">var</span> i=<span class="number">0</span>; i&lt;list.length; i++) &#123;</span><br><span class="line">            list[i].checked = flag;</span><br><span class="line">            $scope.numOfCheckedItems++;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>如果界面上某个文本绑定这个numOfCheckedItems，会怎样？在脏检测的机制下，这个过程毫无压力，一次做完所有数据变更，然后整体应用到界面上。这时候，基于setter的机制就惨了，除非它也是像Angular这样把批量操作延时到一次更新，否则性能会更低。</p>
 <p>所以说，两种不同的监控方式，各有其优缺点，最好的办法是了解各自使用方式的差异，考虑出它们性能的差异所在，在不同的业务场景中，避开最容易造成性能瓶颈的用法。</p>
+<p>原文地址：<a href="https://github.com/xufei/blog/issues/10" target="_blank" rel="external">https://github.com/xufei/blog/issues/10</a></p>
+<p>参考阅读：<a href="https://github.com/atian25/blog/issues/5" target="_blank" rel="external">AngularJS性能优化心得</a></p>
 </span>
       
     </div>

@@ -1109,6 +1109,7 @@ var _hmt = _hmt || [];
 <li>在digest流程里面， 会从rootscope开始遍历， 检查所有的watcher。</li>
 <li>Angular的设计，同一时间只允许一个$digest运行，而ng-click这种内置指令已经触发了$digest。如果在其中再次调用，就会报错。</li>
 <li>当调用$digest的时候，只触发当前作用域和它的子作用域上的监控，但是当调用$apply的时候，会触发作用域树上的所有监控。</li>
+<li>传统的JS MVC框架, 数据变更是通过setter去触发事件，然后立即更新UI。而angular则是进入$digest cycle，等待所有model都稳定后，才批量一次性更新UI。这种机制能减少浏览器repaint次数，从而提高性能。</li>
 </ul>
           <div class="post-more-link text-center">
             <a class="btn" href="/2014/12/19/AngularDataBind/#more" rel="contents">
