@@ -1041,8 +1041,8 @@ var _hmt = _hmt || [];
           
           
             
-              <a class="post-title-link" href="/2014/11/20/product/" itemprop="url">
-                做过的一个angular+node产品实录
+              <a class="post-title-link" href="/2014/12/19/AngularDataBind/" itemprop="url">
+                AngularJS 1.x 双向数据绑定是如何做到的？
               </a>
             
           
@@ -1052,8 +1052,8 @@ var _hmt = _hmt || [];
       <div class="post-meta">
         <span class="post-time">
           发表于
-          <time itemprop="dateCreated" datetime="2014-10-20T10:15:49+08:00" content="2014-10-20">
-            2014-10-20
+          <time itemprop="dateCreated" datetime="2014-11-19T16:24:09+08:00" content="2014-11-19">
+            2014-11-19
           </time>
         </span>
 
@@ -1062,8 +1062,8 @@ var _hmt = _hmt || [];
             &nbsp; | &nbsp; 分类于
             
               <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                <a href="/categories/前端/" itemprop="url" rel="index">
-                  <span itemprop="name">前端</span>
+                <a href="/categories/AngularJS/" itemprop="url" rel="index">
+                  <span itemprop="name">AngularJS</span>
                 </a>
               </span>
 
@@ -1078,8 +1078,8 @@ var _hmt = _hmt || [];
           
             <span class="post-comments-count">
               &nbsp; | &nbsp;
-              <a href="/2014/11/20/product/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2014/11/20/product/" itemprop="commentsCount"></span>
+              <a href="/2014/12/19/AngularDataBind/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2014/12/19/AngularDataBind/" itemprop="commentsCount"></span>
               </a>
             </span>
           
@@ -1094,13 +1094,24 @@ var _hmt = _hmt || [];
 
       
         
-          <h3 id="题记：">题记：</h3><p>分享一下自己之前做的一个产品，这个产品有个特点：<code>所有前端工作，包括页面及交互设计、css、所有js代码包括后端部分node接口都是我一个人搞的。现在想想，好像当年很强大的样子T_T</code></p>
-<blockquote>
-<p>ps:由于本文只是用来讲解页面构成和组件划分。为了避免侵权行为，特意把所有文字都p掉了，影响了美观，请谅解。</p>
-</blockquote>
-<h3 id="下面是实际页面图：">下面是实际页面图：</h3>
+          <p>在知乎上看到一个对AngularJS的双向数据绑定讲解很清楚的一个帖子。特此记录下来。</p>
+<h3 id="归纳总结">归纳总结</h3><ul>
+<li>双向绑定，无非是从界面的操作能实时反映到数据，数据的变更能实时展现到界面。</li>
+<li>angular并不存在定时脏检测。</li>
+<li>angular对做了以下封装，ng只有在指定事件出发后，才进入$digest circle进行脏检查，进而更新视图： 在里面触发进入angular的digest流程:<ol>
+<li>DOM事件，譬如用户输入文本，点击按钮等。(ng-click)</li>
+<li>XHR响应事件 ($http)</li>
+<li>浏览器Location变更事件 ($location)</li>
+<li>Timer事件($timeout, $interval)</li>
+<li>执行$digest()或$apply()    </li>
+</ol>
+</li>
+<li>在digest流程里面， 会从rootscope开始遍历， 检查所有的watcher。</li>
+<li>Angular的设计，同一时间只允许一个$digest运行，而ng-click这种内置指令已经触发了$digest。如果在其中再次调用，就会报错。</li>
+<li>当调用$digest的时候，只触发当前作用域和它的子作用域上的监控，但是当调用$apply的时候，会触发作用域树上的所有监控。</li>
+</ul>
           <div class="post-more-link text-center">
-            <a class="btn" href="/2014/11/20/product/#more" rel="contents">
+            <a class="btn" href="/2014/12/19/AngularDataBind/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1160,7 +1171,7 @@ var _hmt = _hmt || [];
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">45</span>
+              <span class="site-state-item-count">46</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>

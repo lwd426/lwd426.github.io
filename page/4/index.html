@@ -185,6 +185,105 @@ var _hmt = _hmt || [];
           
           
             
+              <a class="post-title-link" href="/2014/01/15/hessian/" itemprop="url">
+                hessian 的简单介绍
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2013-12-15T10:11:09+08:00" content="2013-12-15">
+            2013-12-15
+          </time>
+        </span>
+
+        
+          <span class="post-category" >
+            &nbsp; | &nbsp; 分类于
+            
+              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                <a href="/categories/基础/" itemprop="url" rel="index">
+                  <span itemprop="name">基础</span>
+                </a>
+              </span>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+            <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2014/01/15/hessian/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2014/01/15/hessian/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <h3 id="一、什么是Hessian">一、什么是Hessian</h3><blockquote>
+<p>Hessian 是一个基于 binary-RPC 实现的远程通讯 library。使用二进制传输数据。Hessian通常通过Web应用来提供服务，通过接口暴露。Servlet和Spring的DispatcherServlet都可以把请求转发给Hessian服务。由以下两种方式提供，分别为：com.caucho.hessian.server.HessianServlet、org.springframework.web.servlet.DispatcherServlet。</p>
+</blockquote>
+<p>关于hessian的7个问题：</p>
+<ol>
+<li><p>是基于什么协议实现的？</p>
+<p> 基于Binary-RPC协议实现。</p>
+</li>
+<li><p>怎么发起请求？</p>
+<p> 需通过Hessian本身提供的API来发起请求。</p>
+</li>
+<li><p>怎么 将请求转化为符合协议的格式的？</p>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2014/01/15/hessian/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
               <a class="post-title-link" href="/2014/01/03/js-typecheck/" itemprop="url">
                 javascript检测类型方法汇总
               </a>
@@ -1013,107 +1112,6 @@ var _hmt = _hmt || [];
 
 
     
-      
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
-            
-              <a class="post-title-link" href="/2012/10/11/javascript_scope/" itemprop="url">
-                词法作用域、动态作用域和块级作用域
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2012-09-11T10:40:09+08:00" content="2012-09-11">
-            2012-09-11
-          </time>
-        </span>
-
-        
-          <span class="post-category" >
-            &nbsp; | &nbsp; 分类于
-            
-              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                <a href="/categories/javascript/" itemprop="url" rel="index">
-                  <span itemprop="name">javascript</span>
-                </a>
-              </span>
-
-              
-              
-
-            
-          </span>
-        
-
-        
-          
-            <span class="post-comments-count">
-              &nbsp; | &nbsp;
-              <a href="/2012/10/11/javascript_scope/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2012/10/11/javascript_scope/" itemprop="commentsCount"></span>
-              </a>
-            </span>
-          
-        
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <blockquote>
-<p>作用域有三种常见的模型，一种叫做<code>词法作用域</code> Lexical Scope，一种叫做<code>动态作用域</code>Dynamic Scope，最后一种叫块级作用域。其中词法作用域更常见，被大多数语言采用，包括javascript。</p>
-</blockquote>
-<p>javascript在设计的时候采用了块语法，但是却没有提供块级作用域。这让很多人困惑。它采用了词法作用域（也可理解为函数作用域）。所以来先说说块级作用域。</p>
-<p>但这种词法作用域给JavaScript带来的好处也是很明显的：让它有了作用域链，<code>可以让内层函数访问到外层函数的变量</code>，产生了闭包。剩下的你懂了吧，各种高级应用。。。</p>
-<h3 id="块级作用域">块级作用域</h3><blockquote>
-<p>任何一对花括号（｛和｝）中的语句集都属于一个块，在这之中定义的所有变量在代码块外都是不可见的，我们称之为<code>块级作用域</code>。<br>如以下例子：</p>
-</blockquote>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">int a = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">for</span> (int i = <span class="number">0</span>;i &lt; <span class="number">10</span>;i++) &#123;</span><br><span class="line">	int b = i;</span><br><span class="line">	b++;</span><br><span class="line">	a += b;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>这对花括号在C++语法中就组成了一个块,变量b是在这个块内定义的.那么它就具有块作用域,当程序的控制流离开了这个循环,就是for循环结束时,这个变量b就被销毁了,不存在了,你在for循环的外部再引用变量b的话,程序就会报错:”变量b未定义”。</p>
-<blockquote>
-<p>函数作用域就好理解了(<em>^__^</em>) ，定义在函数中的参数和变量在函数外部是不可见的。</p>
-</blockquote>
-<h3 id="词法作用域">词法作用域</h3><p>词法分析过程Lex-time，是指系统讲源码字符串解读成有含义的token的过程。<em>词法作用域就是说在词法<code>分析过程(即代码解析时)</code>中指派的作用域，词法作用域在词法解析过程中就已经定死了。</em><br>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2012/10/11/javascript_scope/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1152,7 +1150,7 @@ var _hmt = _hmt || [];
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">45</span>
+              <span class="site-state-item-count">46</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>

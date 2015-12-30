@@ -1,0 +1,742 @@
+<!doctype html>
+<html class="theme-next use-motion ">
+<head>
+  
+
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+  <link rel="stylesheet" type="text/css" href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5"/>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+
+
+
+
+<link rel="stylesheet" type="text/css" href="/css/main.css?v=0.4.5.1"/>
+
+
+    <meta name="description" content="前端杂文" />
+
+
+
+  <meta name="keywords" content="AngularJS," />
+
+
+
+
+
+  <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.1" />
+
+
+<meta name="description" content="在知乎上看到一个对AngularJS的双向数据绑定讲解很清楚的一个帖子。特此记录下来。
+归纳总结
+双向绑定，无非是从界面的操作能实时反映到数据，数据的变更能实时展现到界面。
+angular并不存在定时脏检测。
+angular对做了以下封装，ng只有在指定事件出发后，才进入$digest circle进行脏检查，进而更新视图： 在里面触发进入angular的digest流程:
+DOM事件，譬如用户输">
+<meta property="og:type" content="article">
+<meta property="og:title" content="AngularJS 1.x 双向数据绑定是如何做到的？">
+<meta property="og:url" content="http://lwd426.com/2014/12/19/AngularDataBind/index.html">
+<meta property="og:site_name" content="大盗贼的后院">
+<meta property="og:description" content="在知乎上看到一个对AngularJS的双向数据绑定讲解很清楚的一个帖子。特此记录下来。
+归纳总结
+双向绑定，无非是从界面的操作能实时反映到数据，数据的变更能实时展现到界面。
+angular并不存在定时脏检测。
+angular对做了以下封装，ng只有在指定事件出发后，才进入$digest circle进行脏检查，进而更新视图： 在里面触发进入angular的digest流程:
+DOM事件，譬如用户输">
+<meta property="og:updated_time" content="2015-12-30T01:49:35.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="AngularJS 1.x 双向数据绑定是如何做到的？">
+<meta name="twitter:description" content="在知乎上看到一个对AngularJS的双向数据绑定讲解很清楚的一个帖子。特此记录下来。
+归纳总结
+双向绑定，无非是从界面的操作能实时反映到数据，数据的变更能实时展现到界面。
+angular并不存在定时脏检测。
+angular对做了以下封装，ng只有在指定事件出发后，才进入$digest circle进行脏检查，进而更新视图： 在里面触发进入angular的digest流程:
+DOM事件，譬如用户输">
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var CONFIG = {
+    scheme: '',
+    sidebar: 'post'
+  };
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?dfebab011aa209e3aba8c279886c25cd";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+  <title> AngularJS 1.x 双向数据绑定是如何做到的？ | 大盗贼的后院 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  <!--[if lte IE 8]>
+  <div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;margin:0 auto;'>
+    <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
+      <img src="http://7u2nvr.com1.z0.glb.clouddn.com/picouterie.jpg" border="0" height="42" width="820"
+           alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today or use other browser ,like chrome firefox safari."
+           style='margin-left:auto;margin-right:auto;display: block;'/>
+    </a>
+  </div>
+<![endif]-->
+  
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?dfebab011aa209e3aba8c279886c25cd";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+  <div class="container one-column page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><h1 class="site-meta">
+  <span class="logo-line-before"><i></i></span>
+  <a href="/" class="brand" rel="start">
+      <span class="logo">
+       <!-- <i class="icon-next-logo"></i>-->
+       <i class="fa fa-optin-monster fa-2"></i>
+      </span>
+      <span class="site-title">大盗贼的后院</span>
+  </a>
+  <span class="logo-line-after"><i></i></span>
+</h1>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu ">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            <i class="menu-item-icon icon-next-home"></i> <br />
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            <i class="menu-item-icon icon-next-categories"></i> <br />
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            <i class="menu-item-icon icon-next-archives"></i> <br />
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            <i class="menu-item-icon icon-next-tags"></i> <br />
+            标签
+          </a>
+        </li>
+      
+
+      
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div id="content" class="content"> 
+
+  <div id="posts" class="posts-expand">
+    
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
+              AngularJS 1.x 双向数据绑定是如何做到的？
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2014-11-19T16:24:09+08:00" content="2014-11-19">
+            2014-11-19
+          </time>
+        </span>
+
+        
+          <span class="post-category" >
+            &nbsp; | &nbsp; 分类于
+            
+              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                <a href="/categories/AngularJS/" itemprop="url" rel="index">
+                  <span itemprop="name">AngularJS</span>
+                </a>
+              </span>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+            <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2014/12/19/AngularDataBind/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2014/12/19/AngularDataBind/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        <span itemprop="articleBody"><p>在知乎上看到一个对AngularJS的双向数据绑定讲解很清楚的一个帖子。特此记录下来。</p>
+<h3 id="归纳总结">归纳总结</h3><ul>
+<li>双向绑定，无非是从界面的操作能实时反映到数据，数据的变更能实时展现到界面。</li>
+<li>angular并不存在定时脏检测。</li>
+<li>angular对做了以下封装，ng只有在指定事件出发后，才进入$digest circle进行脏检查，进而更新视图： 在里面触发进入angular的digest流程:<ol>
+<li>DOM事件，譬如用户输入文本，点击按钮等。(ng-click)</li>
+<li>XHR响应事件 ($http)</li>
+<li>浏览器Location变更事件 ($location)</li>
+<li>Timer事件($timeout, $interval)</li>
+<li>执行$digest()或$apply()    </li>
+</ol>
+</li>
+<li>在digest流程里面， 会从rootscope开始遍历， 检查所有的watcher。</li>
+<li>Angular的设计，同一时间只允许一个$digest运行，而ng-click这种内置指令已经触发了$digest。如果在其中再次调用，就会报错。</li>
+<li>当调用$digest的时候，只触发当前作用域和它的子作用域上的监控，但是当调用$apply的时候，会触发作用域树上的所有监控。</li>
+</ul>
+<a id="more"></a>
+<p>以下是正文：</p>
+<p>接触AngularJS已经两年多了，时常问自己一些问题，如果是我实现它，会在哪些方面选择跟它相同的道路，哪些方面不同。为此，记录了一些思考，给自己回顾，也供他人参考。</p>
+<p>初步大致有以下几个方面：</p>
+<ol>
+<li>数据双向绑定</li>
+<li>视图模型的继承关系</li>
+<li>模块和依赖注入的设计</li>
+<li>待定</li>
+</ol>
+<h3 id="数据的双向绑定">数据的双向绑定</h3><p>Angular实现了双向绑定机制。所谓的双向绑定，无非是从界面的操作能实时反映到数据，数据的变更能实时展现到界面。</p>
+<p>一个最简单的示例就是这样：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;div ng-controller=<span class="string">"CounterCtrl"</span>&gt;</span><br><span class="line">    <span class="xml"><span class="tag">&lt;<span class="title">span</span> <span class="attribute">ng-bind</span>=<span class="value">"counter"</span>&gt;</span><span class="tag">&lt;/<span class="title">span</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">button</span> <span class="attribute">ng-click</span>=<span class="value">"counter=counter+1"</span>&gt;</span>increase<span class="tag">&lt;/<span class="title">button</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br><span class="line">function CounterCtrl($scope) &#123;</span><br><span class="line">    $scope.counter = 1;</span><br><span class="line">&#125;</span></span><br></pre></td></tr></table></figure>
+<p>这个例子很简单，毫无特别之处，每当点击一次按钮，界面上的数字就增加一。</p>
+<p>绑定数据是怎样生效的</p>
+<p>初学AngularJS的人可能会踩到这样的坑，假设有一个指令：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> app = angular.module(<span class="string">"test"</span>, []);</span><br><span class="line"></span><br><span class="line">app.directive(<span class="string">"myclick"</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params">scope, element, attr</span>) </span>&#123;</span><br><span class="line">        element.on(<span class="string">"click"</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">            scope.counter++;</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">app.controller(<span class="string">"CounterCtrl"</span>, <span class="function"><span class="keyword">function</span>(<span class="params">$scope</span>) </span>&#123;</span><br><span class="line">    $scope.counter = <span class="number">0</span>;</span><br><span class="line">&#125;);</span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="title">body</span> <span class="attribute">ng-app</span>=<span class="value">"test"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">div</span> <span class="attribute">ng-controller</span>=<span class="value">"CounterCtrl"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">button</span> <span class="attribute">myclick</span>&gt;</span>increase<span class="tag">&lt;/<span class="title">button</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">span</span> <span class="attribute">ng-bind</span>=<span class="value">"counter"</span>&gt;</span><span class="tag">&lt;/<span class="title">span</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">body</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
+<p>这个时候，点击按钮，界面上的数字并不会增加。很多人会感到迷惑，因为他查看调试器，发现数据确实已经增加了，Angular不是双向绑定吗，为什么数据变化了，界面没有跟着刷新？</p>
+<p>试试在scope.counter++;这句之后加一句scope.digest();再看看是不是好了？</p>
+<p>为什么要这么做呢，什么情况下要这么做呢？我们发现第一个例子中并没有digest，而且，如果你写了digest，它还会抛出异常，说正在做其他的digest，这是怎么回事？</p>
+<p>我们先想想，假如没有AngularJS，我们想要自己实现这么个功能，应该怎样？</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="title">html</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">head</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">meta</span> <span class="attribute">charset</span>=<span class="value">"utf-8"</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">title</span>&gt;</span>two-way binding<span class="tag">&lt;/<span class="title">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="title">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">body</span> <span class="attribute">onload</span>=<span class="value">"init()"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">button</span> <span class="attribute">ng-click</span>=<span class="value">"inc"</span>&gt;</span></span><br><span class="line">            increase 1</span><br><span class="line">        <span class="tag">&lt;/<span class="title">button</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">button</span> <span class="attribute">ng-click</span>=<span class="value">"inc2"</span>&gt;</span></span><br><span class="line">            increase 2</span><br><span class="line">        <span class="tag">&lt;/<span class="title">button</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">span</span> <span class="attribute">style</span>=<span class="value">"color:red"</span> <span class="attribute">ng-bind</span>=<span class="value">"counter"</span>&gt;</span><span class="tag">&lt;/<span class="title">span</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">span</span> <span class="attribute">style</span>=<span class="value">"color:blue"</span> <span class="attribute">ng-bind</span>=<span class="value">"counter"</span>&gt;</span><span class="tag">&lt;/<span class="title">span</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">span</span> <span class="attribute">style</span>=<span class="value">"color:green"</span> <span class="attribute">ng-bind</span>=<span class="value">"counter"</span>&gt;</span><span class="tag">&lt;/<span class="title">span</span>&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="tag">&lt;<span class="title">script</span> <span class="attribute">type</span>=<span class="value">"text/javascript"</span>&gt;</span><span class="javascript"></span><br><span class="line">            <span class="comment">/* 数据模型区开始 */</span></span><br><span class="line">            <span class="keyword">var</span> counter = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">            <span class="function"><span class="keyword">function</span> <span class="title">inc</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">                counter++;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="function"><span class="keyword">function</span> <span class="title">inc2</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">                counter+=<span class="number">2</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">/* 数据模型区结束 */</span></span><br><span class="line"></span><br><span class="line">            <span class="comment">/* 绑定关系区开始 */</span></span><br><span class="line">            <span class="function"><span class="keyword">function</span> <span class="title">init</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">                bind();</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="function"><span class="keyword">function</span> <span class="title">bind</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">                <span class="keyword">var</span> list = <span class="built_in">document</span>.querySelectorAll(<span class="string">"[ng-click]"</span>);</span><br><span class="line">                <span class="keyword">for</span> (<span class="keyword">var</span> i=<span class="number">0</span>; i&lt;list.length; i++) &#123;</span><br><span class="line">                    list[i].onclick = (<span class="function"><span class="keyword">function</span>(<span class="params">index</span>) </span>&#123;</span><br><span class="line">                        <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">                            <span class="built_in">window</span>[list[index].getAttribute(<span class="string">"ng-click"</span>)]();</span><br><span class="line">                            apply();</span><br><span class="line">                        &#125;;</span><br><span class="line">                    &#125;)(i);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="function"><span class="keyword">function</span> <span class="title">apply</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">                <span class="keyword">var</span> list = <span class="built_in">document</span>.querySelectorAll(<span class="string">"[ng-bind='counter']"</span>);</span><br><span class="line">                <span class="keyword">for</span> (<span class="keyword">var</span> i=<span class="number">0</span>; i&lt;list.length; i++) &#123;</span><br><span class="line">                    list[i].innerHTML = counter;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">/* 绑定关系区结束 */</span></span><br><span class="line">        </span><span class="tag">&lt;/<span class="title">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="title">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">html</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
+<p>可以看到，在这么一个简单的例子中，我们做了一些双向绑定的事情。从两个按钮的点击到数据的变更，这个很好理解，但我们没有直接使用DOM的onclick方法，而是搞了一个ng-click，然后在bind里面把这个ng-click对应的函数拿出来，绑定到onclick的事件处理函数中。为什么要这样呢？因为数据虽然变更了，但是还没有往界面上填充，我们需要在此做一些附加操作。</p>
+<p>从另外一个方面看，当数据变更的时候，需要把这个变更应用到界面上，也就是那三个span里。但由于Angular使用的是脏检测，意味着当改变数据之后，你自己要做一些事情来触发脏检测，然后再应用到这个数据对应的DOM元素上。问题就在于，怎样触发脏检测？什么时候触发？</p>
+<p>我们知道，一些基于setter的框架，它可以在给数据设值的时候，对DOM元素上的绑定变量作重新赋值。脏检测的机制没有这个阶段，它没有任何途径在数据变更之后立即得到通知，所以只能在每个事件入口中手动调用apply()，把数据的变更应用到界面上。在真正的Angular实现中，这里先进行脏检测，确定数据有变化了，然后才对界面设值。</p>
+<p>所以，我们在ng-click里面封装真正的click，最重要的作用是为了在之后追加一次apply()，把数据的变更应用到界面上去。</p>
+<p>那么，为什么在ng-click里面调用$digest的话，会报错呢？因为Angular的设计，同一时间只允许一个$digest运行，而ng-click这种内置指令已经触发了$digest，当前的还没有走完，所以就出错了。</p>
+<h3 id="$digest和$apply">$digest和$apply</h3><p>在Angular中，有$apply和$digest两个函数，我们刚才是通过$digest来让这个数据应用到界面上。但这个时候，也可以不用$digest，而是使用$apply，效果是一样的，那么，它们的差异是什么呢？</p>
+<p>最直接的差异是，$apply可以带参数，它可以接受一个函数，然后在应用数据之后，调用这个函数。所以，一般在集成非Angular框架的代码时，可以把代码写在这个里面调用。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> app = angular.module(<span class="string">"test"</span>, []);</span><br><span class="line"></span><br><span class="line">app.directive(<span class="string">"myclick"</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params">scope, element, attr</span>) </span>&#123;</span><br><span class="line">        element.on(<span class="string">"click"</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">            scope.counter++;</span><br><span class="line">            scope.$apply(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">                scope.counter++;</span><br><span class="line">            &#125;);</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">app.controller(<span class="string">"CounterCtrl"</span>, <span class="function"><span class="keyword">function</span>(<span class="params">$scope</span>) </span>&#123;</span><br><span class="line">    $scope.counter = <span class="number">0</span>;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>除此之外，还有别的区别吗？</p>
+<p>在简单的数据模型中，这两者没有本质差别，但是当有层次结构的时候，就不一样了。考虑到有两层作用域，我们可以在父作用域上调用这两个函数，也可以在子作用域上调用，这个时候就能看到差别了。</p>
+<p>对于$digest来说，在父作用域和子作用域上调用是有差别的，但是，对于$apply来说，这两者一样。我们来构造一个特殊的示例：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> app = angular.module(<span class="string">"test"</span>, []);</span><br><span class="line"></span><br><span class="line">app.directive(<span class="string">"increasea"</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params">scope, element, attr</span>) </span>&#123;</span><br><span class="line">        element.on(<span class="string">"click"</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">            scope.a++;</span><br><span class="line">            scope.$digest();</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">app.directive(<span class="string">"increaseb"</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params">scope, element, attr</span>) </span>&#123;</span><br><span class="line">        element.on(<span class="string">"click"</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">            scope.b++;</span><br><span class="line">            scope.$digest();    <span class="comment">//这个换成$apply即可</span></span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">app.controller(<span class="string">"OuterCtrl"</span>, [<span class="string">"$scope"</span>, <span class="function"><span class="keyword">function</span>(<span class="params">$scope</span>) </span>&#123;</span><br><span class="line">    $scope.a = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">    $scope.$watch(<span class="string">"a"</span>, <span class="function"><span class="keyword">function</span>(<span class="params">newVal</span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">"a:"</span> + newVal);</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    $scope.$on(<span class="string">"test"</span>, <span class="function"><span class="keyword">function</span>(<span class="params">evt</span>) </span>&#123;</span><br><span class="line">        $scope.a++;</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;]);</span><br><span class="line"></span><br><span class="line">app.controller(<span class="string">"InnerCtrl"</span>, [<span class="string">"$scope"</span>, <span class="function"><span class="keyword">function</span>(<span class="params">$scope</span>) </span>&#123;</span><br><span class="line">    $scope.b = <span class="number">2</span>;</span><br><span class="line"></span><br><span class="line">    $scope.$watch(<span class="string">"b"</span>, <span class="function"><span class="keyword">function</span>(<span class="params">newVal</span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">"b:"</span> + newVal);</span><br><span class="line">        $scope.$emit(<span class="string">"test"</span>, newVal);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;]);</span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="title">div</span> <span class="attribute">ng-app</span>=<span class="value">"test"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">div</span> <span class="attribute">ng-controller</span>=<span class="value">"OuterCtrl"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">div</span> <span class="attribute">ng-controller</span>=<span class="value">"InnerCtrl"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="title">button</span> <span class="attribute">increaseb</span>&gt;</span>increase b<span class="tag">&lt;/<span class="title">button</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="title">span</span> <span class="attribute">ng-bind</span>=<span class="value">"b"</span>&gt;</span><span class="tag">&lt;/<span class="title">span</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">button</span> <span class="attribute">increasea</span>&gt;</span>increase a<span class="tag">&lt;/<span class="title">button</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">span</span> <span class="attribute">ng-bind</span>=<span class="value">"a"</span>&gt;</span><span class="tag">&lt;/<span class="title">span</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">div</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
+<p>这时候，我们就能看出差别了，在increase b按钮上点击，这时候，a跟b的值其实都已经变化了，但是界面上的a没有更新，直到点击一次increase a，这时候刚才对a的累加才会一次更新上来。怎么解决这个问题呢？只需在increaseb这个指令的实现中，把$digest换成$apply即可。</p>
+<p><strong>当调用$digest的时候，只触发当前作用域和它的子作用域上的监控，但是当调用$apply的时候，会触发作用域树上的所有监控。</strong></p>
+<p>因此，从性能上讲，如果能确定自己作的这个数据变更所造成的影响范围，应当尽量调用$digest，只有当无法精确知道数据变更造成的影响范围时，才去用$apply，很暴力地遍历整个作用域树，调用其中所有的监控。</p>
+<p>从另外一个角度，我们也可以看到，为什么调用外部框架的时候，是推荐放在$apply中，因为只有这个地方才是对所有数据变更都应用的地方，如果用$digest，有可能临时丢失数据变更。</p>
+<h3 id="脏检测的利弊">脏检测的利弊</h3><p>很多人对Angular的脏检测机制感到不屑，推崇基于setter，getter的观测机制，在我看来，这只是同一个事情的不同实现方式，并没有谁完全胜过谁，两者是各有优劣的。</p>
+<p>大家都知道，在循环中批量添加DOM元素的时候，会推荐使用DocumentFragment，为什么呢，因为如果每次都对DOM产生变更，它都要修改DOM树的结构，性能影响大，如果我们能先在文档碎片中把DOM结构创建好，然后整体添加到主文档中，这个DOM树的变更就会一次完成，性能会提高很多。</p>
+<p>同理，在Angular框架里，考虑到这样的场景：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">TestCtrl</span>(<span class="params">$scope</span>) </span>&#123;</span><br><span class="line">    $scope.numOfCheckedItems = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> list = [];</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> i=<span class="number">0</span>; i&lt;<span class="number">10000</span>; i++) &#123;</span><br><span class="line">        list.push(&#123;</span><br><span class="line">            index: i,</span><br><span class="line">            checked: <span class="literal">false</span></span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    $scope.list = list;</span><br><span class="line"></span><br><span class="line">    $scope.toggleChecked = <span class="function"><span class="keyword">function</span>(<span class="params">flag</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">var</span> i=<span class="number">0</span>; i&lt;list.length; i++) &#123;</span><br><span class="line">            list[i].checked = flag;</span><br><span class="line">            $scope.numOfCheckedItems++;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>如果界面上某个文本绑定这个numOfCheckedItems，会怎样？在脏检测的机制下，这个过程毫无压力，一次做完所有数据变更，然后整体应用到界面上。这时候，基于setter的机制就惨了，除非它也是像Angular这样把批量操作延时到一次更新，否则性能会更低。</p>
+<p>所以说，两种不同的监控方式，各有其优缺点，最好的办法是了解各自使用方式的差异，考虑出它们性能的差异所在，在不同的业务场景中，避开最容易造成性能瓶颈的用法。</p>
+</span>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/AngularJS/" rel="tag">#AngularJS</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2015/01/09/Reading/" rel="prev">读书笔记—《JavaScript设计模式与开发实践》- 深入原型的道理</a>
+            
+          </div>
+
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2014/11/20/product/" rel="next">做过的一个angular+node产品实录</a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <div class="ds-share flat" data-thread-key="2014/12/19/AngularDataBind/"
+     data-title="AngularJS 1.x 双向数据绑定是如何做到的？"
+     data-content=""
+     data-url="http://lwd426.com/2014/12/19/AngularDataBind/">
+  <div class="ds-share-inline">
+    <ul  class="ds-share-icons-16">
+
+      <li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+      <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+      <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+      <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+      <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+
+    </ul>
+    <div class="ds-share-icons-more">
+    </div>
+  </div>
+</div>
+      
+    </div>
+  </div>
+
+ </div>
+
+        
+
+        
+          <div class="comments" id="comments">
+            
+              <div class="ds-thread" data-thread-key="2014/12/19/AngularDataBind/"
+                   data-title="AngularJS 1.x 双向数据绑定是如何做到的？" data-url="http://lwd426.com/2014/12/19/AngularDataBind/">
+              </div>
+            
+          </div>
+        
+      </div>
+
+      
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar sidebar-active">
+    <div class="sidebar-inner">
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" src="/images/logo.png" alt="lwd426" itemprop="image"/>
+          <p class="site-author-name" itemprop="name">lwd426</p>
+        </div>
+        <p class="site-description motion-element" itemprop="description">前端杂文</p>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">46</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          <div class="site-state-item site-state-categories">
+            <a href="/categories">
+              <span class="site-state-item-count">15</span>
+              <span class="site-state-item-name">分类</span>
+              </a>
+          </div>
+
+          <div class="site-state-item site-state-tags">
+            <a href="/tags">
+              <span class="site-state-item-count">29</span>
+              <span class="site-state-item-name">标签</span>
+              </a>
+          </div>
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator"></div>
+          <div class="post-toc">
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#归纳总结"><span class="nav-number">1.</span> <span class="nav-text">归纳总结</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据的双向绑定"><span class="nav-number">2.</span> <span class="nav-text">数据的双向绑定</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#$digest和$apply"><span class="nav-number">3.</span> <span class="nav-text">$digest和$apply</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#脏检测的利弊"><span class="nav-number">4.</span> <span class="nav-text">脏检测的利弊</span></a></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator"></div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner"> <div class="copyright" >
+  
+  &copy; &nbsp; 
+  <span itemprop="copyrightYear">2015</span>
+<span class="author" itemprop="copyrightHolder">猫儿</span>  
+<span class="with-love">
+    <i class="icon-next-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">lwd426</span>
+</div>
+
+<!--<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT
+  </a>
+</div>
+-->
+
+ </div>
+    </footer>
+
+    <div class="back-to-top"></div>
+  </div>
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  
+  
+    
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"lwd426"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+    
+     
+
+    
+  
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/js/fancy-box.js?v=0.4.5.1"></script>
+
+
+  <script type="text/javascript" src="/js/helpers.js?v=0.4.5.1"></script>
+  
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/js/motion_global.js?v=0.4.5.1" id="motion.global"></script>
+
+
+
+
+  <script type="text/javascript" src="/js/nav-toggle.js?v=0.4.5.1"></script>
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  
+<script type="text/javascript" src="/js/bootstrap.scrollspy.js?v=0.4.5.1" id="bootstrap.scrollspy.custom"></script>
+
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      var $indicator = $(indicator);
+      var opacity = action === 'show' ? 0.4 : 0;
+      $indicator.velocity ?
+        $indicator.velocity('stop').velocity({
+          opacity: opacity
+        }, { duration: 100 }) :
+        $indicator.stop().animate({
+          opacity: opacity
+        }, 100);
+    }
+
+  });
+</script>
+
+<script type="text/javascript" id="sidebar.nav">
+  $(document).ready(function () {
+    var html = $('html');
+    var TAB_ANIMATE_DURATION = 200;
+    var hasVelocity = $.isFunction(html.velocity);
+
+    $('.sidebar-nav li').on('click', function () {
+      var item = $(this);
+      var activeTabClassName = 'sidebar-nav-active';
+      var activePanelClassName = 'sidebar-panel-active';
+      if (item.hasClass(activeTabClassName)) {
+        return;
+      }
+
+      var currentTarget = $('.' + activePanelClassName);
+      var target = $('.' + item.data('target'));
+
+      hasVelocity ?
+        currentTarget.velocity('transition.slideUpOut', TAB_ANIMATE_DURATION, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', TAB_ANIMATE_DURATION)
+            .addClass(activePanelClassName);
+        }) :
+        currentTarget.animate({ opacity: 0 }, TAB_ANIMATE_DURATION, function () {
+          currentTarget.hide();
+          target
+            .stop()
+            .css({'opacity': 0, 'display': 'block'})
+            .animate({ opacity: 1 }, TAB_ANIMATE_DURATION, function () {
+              currentTarget.removeClass(activePanelClassName);
+              target.addClass(activePanelClassName);
+            });
+        });
+
+      item.siblings().removeClass(activeTabClassName);
+      item.addClass(activeTabClassName);
+    });
+
+    $('.post-toc a').on('click', function (e) {
+      e.preventDefault();
+      var targetSelector = escapeSelector(this.getAttribute('href'));
+      var offset = $(targetSelector).offset().top;
+      hasVelocity ?
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        }) :
+        $('html, body').stop().animate({
+          scrollTop: offset
+        }, 500);
+    });
+
+    // Expand sidebar on post detail page by default, when post has a toc.
+    var $tocContent = $('.post-toc-content');
+    if (isDesktop() && CONFIG.sidebar === 'post') {
+      if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+        displaySidebar();
+      }
+    }
+  });
+</script>
+
+
+
+  <script type="text/javascript">
+    $(document).ready(function () {
+      if (CONFIG.sidebar === 'always') {
+        displaySidebar();
+      }
+      if (isMobile()) {
+        FastClick.attach(document.body);
+      }
+    });
+  </script>
+
+  
+
+  
+  
+
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"slide":{"type":"slide","bdImg":"3","bdPos":"left","bdTop":"250"}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+
+
+  
+  <script type="text/javascript" src="/js/lazyload.js"></script>
+  <script type="text/javascript">
+    $(function () {
+      $("#posts").find('img').lazyload({
+        placeholder: "/images/loading.gif",
+        effect: "fadeIn"
+      });
+    });
+  </script>
+</body>
+</html>
