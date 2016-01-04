@@ -277,6 +277,111 @@ var _hmt = _hmt || [];
           
           
             
+              <a class="post-title-link" href="/2015/07/02/buildTarget/" itemprop="url">
+                学习笔记--建立自动构建平台的注意点
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2015-06-02T09:30:09+08:00" content="2015-06-02">
+            2015-06-02
+          </time>
+        </span>
+
+        
+          <span class="post-category" >
+            &nbsp; | &nbsp; 分类于
+            
+              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                <a href="/categories/构建/" itemprop="url" rel="index">
+                  <span itemprop="name">构建</span>
+                </a>
+              </span>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+            <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2015/07/02/buildTarget/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2015/07/02/buildTarget/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody"><ol>
+<li>版本控制工具：频繁提交和检出代码</li>
+<li>持续集成工具：通过授权、配置和设置触发周期性自动构建（测试，集成，打印报告等）<strong>设置的过程就是把构建语句或脚本交给自动构建工具，然后让它自己去按规则执行脚本</strong></li>
+</ol>
+<h3 id="持续集成的核心价值在于：">持续集成的核心价值在于：</h3><ol>
+<li>持续集成中的任何一个环节都是<em>自动完成</em>的，无需太多的人工干预，有利于减少重复过程以节省时间、费用和工作量；</li>
+<li>持续集成保障了每个时间点上团队成员提交的代码是能成功集成的。换言之，任何时间点都能第一时间发现软件的集成问题，使任意时间发布可部署的软件成为了可能；</li>
+<li>持续集成还能利于软件本身的发展趋势，这点在需求不明确或是频繁性变更的情景中尤其重要，持续集成的质量能帮助团队进行有效决策，同时建立团队对开发产品的信心。</li>
+</ol>
+<h3 id="持续集成的原则">持续集成的原则</h3><p>业界普遍认同的持续集成的原则包括：</p>
+<ol>
+<li>需要版本控制软件保障团队成员提交的代码不会导致集成失败。常用的版本控制软件有 IBM Rational ClearCase、CVS、Subversion 等；</li>
+<li>开发人员必须及时向版本控制库中提交代码，也必须经常性地从版本控制库中更新代码到本地；</li>
+<li>需要有专门的集成服务器来执行集成构建。根据项目的具体实际，集成构建可以被软件的修改来直接触发，也可以定时启动，如每半个小时构建一次；</li>
+<li>必须保证构建的成功。如果构建失败，修复构建过程中的错误是优先级最高的工作。一旦修复，需要手动启动一次构建。</li>
+</ol>
+<h3 id="持续集成系统的组成">持续集成系统的组成</h3><p>由此可见，一个完整的构建系统必须包括：</p>
+<ul>
+<li>一个自动构建过程，包括自动编译、分发、部署和测试等。</li>
+<li>一个代码存储库，即需要版本控制软件来保障代码的可维护性，同时作为构建过程的素材库。</li>
+<li>一个持续集成服务器。本文中介绍的 Jenkins 就是一个配置简单和使用方便的持续集成服务器。</li>
+</ul>
+</span>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
               <a class="post-title-link" href="/2015/05/23/kibana_modules/" itemprop="url">
                 kibana的模块依赖机制
               </a>
@@ -1030,110 +1135,6 @@ var _hmt = _hmt || [];
 
 
     
-      
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
-            
-              <a class="post-title-link" href="/2014/12/19/AngularDataBind/" itemprop="url">
-                AngularJS 1.x 双向数据绑定是如何做到的？
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2014-11-19T16:24:09+08:00" content="2014-11-19">
-            2014-11-19
-          </time>
-        </span>
-
-        
-          <span class="post-category" >
-            &nbsp; | &nbsp; 分类于
-            
-              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                <a href="/categories/AngularJS/" itemprop="url" rel="index">
-                  <span itemprop="name">AngularJS</span>
-                </a>
-              </span>
-
-              
-              
-
-            
-          </span>
-        
-
-        
-          
-            <span class="post-comments-count">
-              &nbsp; | &nbsp;
-              <a href="/2014/12/19/AngularDataBind/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2014/12/19/AngularDataBind/" itemprop="commentsCount"></span>
-              </a>
-            </span>
-          
-        
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <p>在知乎上看到一个对AngularJS的双向数据绑定讲解很清楚的一个帖子。特此记录下来。</p>
-<h3 id="归纳总结">归纳总结</h3><ul>
-<li>双向绑定，无非是从界面的操作能实时反映到数据，数据的变更能实时展现到界面。</li>
-<li>angular并不存在定时脏检测。</li>
-<li>angular对做了以下封装，ng只有在指定事件出发后，才进入$digest circle进行脏检查，进而更新视图： 在里面触发进入angular的digest流程:<ol>
-<li>DOM事件，譬如用户输入文本，点击按钮等。(ng-click)</li>
-<li>XHR响应事件 ($http)</li>
-<li>浏览器Location变更事件 ($location)</li>
-<li>Timer事件($timeout, $interval)</li>
-<li>执行$digest()或$apply()    </li>
-</ol>
-</li>
-<li>在digest流程里面， 会从rootscope开始遍历， 检查所有的watcher。</li>
-<li>Angular的设计，同一时间只允许一个$digest运行，而ng-click这种内置指令已经触发了$digest。如果在其中再次调用，就会报错。</li>
-<li>当调用$digest的时候，只触发当前作用域和它的子作用域上的监控，但是当调用$apply的时候，会触发作用域树上的所有监控。</li>
-<li>传统的JS MVC框架, 数据变更是通过setter去触发事件，然后立即更新UI。而angular则是进入$digest cycle，等待所有model都稳定后，才批量一次性更新UI。这种机制能减少浏览器repaint次数，从而提高性能。</li>
-</ul>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2014/12/19/AngularDataBind/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1172,21 +1173,21 @@ var _hmt = _hmt || [];
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">46</span>
+              <span class="site-state-item-count">47</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
 
           <div class="site-state-item site-state-categories">
             <a href="/categories">
-              <span class="site-state-item-count">15</span>
+              <span class="site-state-item-count">16</span>
               <span class="site-state-item-name">分类</span>
               </a>
           </div>
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">29</span>
+              <span class="site-state-item-count">30</span>
               <span class="site-state-item-name">标签</span>
               </a>
           </div>
@@ -1220,7 +1221,7 @@ var _hmt = _hmt || [];
       <div class="footer-inner"> <div class="copyright" >
   
   &copy; &nbsp; 
-  <span itemprop="copyrightYear">2015</span>
+  <span itemprop="copyrightYear">2016</span>
 <span class="author" itemprop="copyrightHolder">猫儿</span>  
 <span class="with-love">
     <i class="icon-next-heart"></i>
