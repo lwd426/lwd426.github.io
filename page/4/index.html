@@ -977,7 +977,7 @@ var _hmt = _hmt || [];
 
       
         
-          <span itemprop="articleBody"><h4 id="1-CSS选择器">1.CSS选择器</h4><p>选择器分以下几种：</p>
+          <span itemprop="articleBody"><h3 id="1-CSS选择器">1.CSS选择器</h3><p>选择器分以下几种：</p>
 <ul>
 <li>类选择器 ：.class {}</li>
 <li>ID选择器 ：#id {} <strong>注意：一个页面的ID唯一</strong></li>
@@ -992,7 +992,7 @@ var _hmt = _hmt || [];
 </ol>
 </li>
 </ul>
-<h4 id="2-水平格式化">2.水平格式化</h4><ol>
+<h3 id="块级元素">块级元素</h3><h4 id="水平格式化">水平格式化</h4><ol>
 <li>宽度：元素框（包含块）≥ 可见元素框 ≥ 内容区</li>
 <li>包含块（父级块元素）的width = marginLeft+boderWidth+paddingLeft+width+paddingRight+marginRight</li>
 <li>水平格式化无论有多复杂，一定遵循的<strong>原则</strong>：<strong>7个水平属性的总和要等于父元素的width</strong></li>
@@ -1006,6 +1006,15 @@ var _hmt = _hmt || [];
 <li>外边距为负数：遵循“原则”计算。(只有外边距可以为负数)</li>
 <li>长度还是百分比不重要，重要是遵循“原则”</li>
 <li>替换元素：以上说的对于替换元素和非替换元素都适合，但是有一种情况例外：当替换元素的width为auto时，元素宽度就是他的固有宽度（但可以对其进行设置宽度）。</li>
+</ol>
+<h4 id="垂直格式化">垂直格式化</h4><ol>
+<li>包含块（父级块元素）的height = marginTop+boderWidth+paddingTop+height+paddingBottom+marginBottom</li>
+<li>一个块元素的高度由其内容决定。高度还会受到宽度的影响。</li>
+<li>设置的高度&gt;内容，则留白显示；设置的高度&lt;内容高度，则采用overflow-y属性</li>
+<li><strong>原则：7个属性的值必须等于元素的包含块的height</strong></li>
+<li>如果一个元素的上、下边距设置为auto,实际上他们都会重置为0，使元素框没有外边距</li>
+<li>百分数高度</li>
+<li>负数高度</li>
 </ol>
 </span>
         
