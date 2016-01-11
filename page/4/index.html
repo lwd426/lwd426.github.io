@@ -977,7 +977,7 @@ var _hmt = _hmt || [];
 
       
         
-          <span itemprop="articleBody"><p>选择器分以下几种：</p>
+          <span itemprop="articleBody"><h4 id="1-CSS选择器">1.CSS选择器</h4><p>选择器分以下几种：</p>
 <ul>
 <li>类选择器 ：.class {}</li>
 <li>ID选择器 ：#id {} <strong>注意：一个页面的ID唯一</strong></li>
@@ -992,6 +992,21 @@ var _hmt = _hmt || [];
 </ol>
 </li>
 </ul>
+<h4 id="2-水平格式化">2.水平格式化</h4><ol>
+<li>宽度：元素框（包含块）≥ 可见元素框 ≥ 内容区</li>
+<li>包含块（父级块元素）的width = marginLeft+boderWidth+paddingLeft+width+paddingRight+marginRight</li>
+<li>水平格式化无论有多复杂，一定遵循的<strong>原则</strong>：<strong>7个水平属性的总和要等于父元素的width</strong></li>
+<li>只有marginLeft、marginRight和width能设置为auto，其他的都必须为具体值（默认为0）</li>
+<li>使用auto：<ul>
+<li>1个auto：按照“原则”扩展为auto的这个值</li>
+<li>2个auto：如果width为具体值，那么元素居中；如果marginLeft或marginRight其中一个为auto,则把该属性设置为0</li>
+<li>3个auto：两个外边距都会为0,width会尽可能宽。</li>
+</ul>
+</li>
+<li>外边距为负数：遵循“原则”计算。(只有外边距可以为负数)</li>
+<li>长度还是百分比不重要，重要是遵循“原则”</li>
+<li>替换元素：以上说的对于替换元素和非替换元素都适合，但是有一种情况例外：当替换元素的width为auto时，元素宽度就是他的固有宽度（但可以对其进行设置宽度）。</li>
+</ol>
 </span>
         
       
