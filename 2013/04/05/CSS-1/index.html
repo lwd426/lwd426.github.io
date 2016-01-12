@@ -62,7 +62,7 @@ ID选择器 ：#id {} 注意：一个页面的ID唯一
 具体属性 ： 元素[属性1 = val][属性2=val2] 注意：严格匹配属性值
 部分属性 ： 元素[属性1 ~= val] 属性值中包含val元素[属性2 ^= val] 属性值以val开头
 元素[属性3 $= val">
-<meta property="og:updated_time" content="2016-01-11T10:02:00.000Z">
+<meta property="og:updated_time" content="2016-01-12T01:32:29.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CSS学习笔记-选择器">
 <meta name="twitter:description" content="1.CSS选择器选择器分以下几种：
@@ -294,8 +294,18 @@ var _hmt = _hmt || [];
 <li>设置的高度&gt;内容，则留白显示；设置的高度&lt;内容高度，则采用overflow-y属性</li>
 <li><strong>原则：7个属性的值必须等于元素的包含块的height</strong></li>
 <li>如果一个元素的上、下边距设置为auto,实际上他们都会重置为0，使元素框没有外边距</li>
-<li>百分数高度</li>
-<li>负数高度</li>
+<li>百分数高度：<ul>
+<li>如果包含块显示设置height,那么子块的高度就为包含块height的一个百分数</li>
+<li>如果包含块没有显示设置height,那么子块的百分数高度会重置为auto。</li>
+</ul>
+</li>
+<li>auto 高度：块级正常硫元素设置为height:auto,显示时其高度将恰好足以包含其内联内容（包括文本）的行盒，具体又分以下两种：<ul>
+<li>只有块级子元素，他的默认高度将是从最高块级子元素的<strong>外边框边界</strong>到最低块级子元素的<strong>外边框边界</strong>的距离</li>
+<li>如果它有内边距或边框，那么他的高度则是从其最高子元素的<strong>上外边距</strong>到其最低子元素的<strong>下外边距</strong>之间的距离</li>
+</ul>
+</li>
+<li>垂直外边距合并：大吃小</li>
+<li>负数高度：如果垂直外边距都设置为负值，浏览器会取两个外边距绝对值的最大值。如果一个正外边距与一个负外边距合并，会从正外边距减去负外边距的绝对值。</li>
 </ol>
 </span>
       
