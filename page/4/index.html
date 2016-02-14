@@ -889,6 +889,7 @@ var _hmt = _hmt || [];
 <li>如果想给一个实例对象添加私有属性和方法，直接点加;</li>
 <li>如果想给所有的实例对象添加共有方法或属性，在原型对象（构造函数.prototype）中点加。</li>
 <li>所有的函数都有原型对象O.prototype</li>
+<li><strong>重要：让一个对象继承另一个对象，只需要让两者基于共同的原型，然后调用apply来有共同的私有属性，与父子没有一点关系！！！</strong></li>
 </ol>
           <div class="post-more-link text-center">
             <a class="btn" href="/2013/07/09/ObjectAndPrototype/#more" rel="contents">

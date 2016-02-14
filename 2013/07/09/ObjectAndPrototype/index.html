@@ -65,7 +65,7 @@
 由这个过程可以看出
 构造函数可以只是一个函数，它的">
 <meta property="og:image" content="http://lwd426.com/images/objectAndPrototype.jpg">
-<meta property="og:updated_time" content="2016-02-14T03:41:36.000Z">
+<meta property="og:updated_time" content="2016-02-14T07:11:34.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="就看它就够了！学习笔记--自己对构造函数、原型和实例最深刻的理解">
 <meta name="twitter:description" content="自己总算是把JS中那些错综复杂的各种对象、函数、原型以及基于原型继承的原理搞清楚了。以下是自己做的笔记
@@ -278,6 +278,7 @@ var _hmt = _hmt || [];
 <li>如果想给一个实例对象添加私有属性和方法，直接点加;</li>
 <li>如果想给所有的实例对象添加共有方法或属性，在原型对象（构造函数.prototype）中点加。</li>
 <li>所有的函数都有原型对象O.prototype</li>
+<li><strong>重要：让一个对象继承另一个对象，只需要让两者基于共同的原型，然后调用apply来有共同的私有属性，与父子没有一点关系！！！</strong></li>
 </ol>
 <a id="more"></a>
 <h3 id="理论联合实际">理论联合实际</h3><p><em>按照这个结论就可以解释为什么把arguments这个类数组对象转成数组对象时用Array.prototype.slice.apply(arguments)而不用Array.slice了。</em></p>
