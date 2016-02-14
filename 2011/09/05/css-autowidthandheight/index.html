@@ -31,7 +31,7 @@
 
 
 
-  <meta name="keywords" content="思绪万千," />
+  <meta name="keywords" content="CSS,学习笔记," />
 
 
 
@@ -40,22 +40,31 @@
   <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.1" />
 
 
-<meta name="description" content="我必须承认：放松的状态会激发人的所有感官，让人的存在感更强，更真实生动的感受到周围的一切，包括思想。所以，更有助于灵感迸现和绅审视自我。
-明天就要离开了。大家今天都以各种自己喜欢的方式让这一天变得更加难忘美丽。">
+<meta name="description" content="首先要明白几个点
+
+块元素的宽和高的百分比的形式参照基准是不一致的：width是参照包含块内容区的宽，height是参照包含块的内容区的高。
+一般宽度是好设置的，而高是没办法通过百分比设置的，因为块元素很多时候高度都是由内容决定撑开的
+margin和padding以百分比的形式设置的时候按照基准都是 包含块的内容区的宽
+margintop和marginbottom不设置的时候就会取默认值，为0.">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Our Puket">
-<meta property="og:url" content="http://lwd426.com/2015/10/25/puket/index.html">
+<meta property="og:title" content="CSS学习笔记-让div垂直水平居中">
+<meta property="og:url" content="http://lwd426.com/2011/09/05/css-autowidthandheight/index.html">
 <meta property="og:site_name" content="修身养性">
-<meta property="og:description" content="我必须承认：放松的状态会激发人的所有感官，让人的存在感更强，更真实生动的感受到周围的一切，包括思想。所以，更有助于灵感迸现和绅审视自我。
-明天就要离开了。大家今天都以各种自己喜欢的方式让这一天变得更加难忘美丽。">
-<meta property="og:image" content="http://lwd426.com/images/puket3.jpeg">
-<meta property="og:image" content="http://lwd426.com/images/puket1.jpeg">
-<meta property="og:image" content="http://lwd426.com/images/puket2.jpeg">
-<meta property="og:updated_time" content="2015-10-01T13:27:50.000Z">
+<meta property="og:description" content="首先要明白几个点
+
+块元素的宽和高的百分比的形式参照基准是不一致的：width是参照包含块内容区的宽，height是参照包含块的内容区的高。
+一般宽度是好设置的，而高是没办法通过百分比设置的，因为块元素很多时候高度都是由内容决定撑开的
+margin和padding以百分比的形式设置的时候按照基准都是 包含块的内容区的宽
+margintop和marginbottom不设置的时候就会取默认值，为0.">
+<meta property="og:updated_time" content="2016-01-13T02:03:39.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Our Puket">
-<meta name="twitter:description" content="我必须承认：放松的状态会激发人的所有感官，让人的存在感更强，更真实生动的感受到周围的一切，包括思想。所以，更有助于灵感迸现和绅审视自我。
-明天就要离开了。大家今天都以各种自己喜欢的方式让这一天变得更加难忘美丽。">
+<meta name="twitter:title" content="CSS学习笔记-让div垂直水平居中">
+<meta name="twitter:description" content="首先要明白几个点
+
+块元素的宽和高的百分比的形式参照基准是不一致的：width是参照包含块内容区的宽，height是参照包含块的内容区的高。
+一般宽度是好设置的，而高是没办法通过百分比设置的，因为块元素很多时候高度都是由内容决定撑开的
+margin和padding以百分比的形式设置的时候按照基准都是 包含块的内容区的宽
+margintop和marginbottom不设置的时候就会取默认值，为0.">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -72,7 +81,7 @@ var _hmt = _hmt || [];
 })();
 </script>
 
-  <title> Our Puket | 修身养性 </title>
+  <title> CSS学习笔记-让div垂直水平居中 | 修身养性 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -190,7 +199,7 @@ var _hmt = _hmt || [];
           
           
             
-              Our Puket
+              CSS学习笔记-让div垂直水平居中
             
           
         </h1>
@@ -199,8 +208,8 @@ var _hmt = _hmt || [];
       <div class="post-meta">
         <span class="post-time">
           发表于
-          <time itemprop="dateCreated" datetime="2015-09-25T10:20:10+08:00" content="2015-09-25">
-            2015-09-25
+          <time itemprop="dateCreated" datetime="2011-08-05T10:09:03+08:00" content="2011-08-05">
+            2011-08-05
           </time>
         </span>
 
@@ -209,8 +218,8 @@ var _hmt = _hmt || [];
             &nbsp; | &nbsp; 分类于
             
               <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                <a href="/categories/思绪万千/" itemprop="url" rel="index">
-                  <span itemprop="name">思绪万千</span>
+                <a href="/categories/学习笔记/" itemprop="url" rel="index">
+                  <span itemprop="name">学习笔记</span>
                 </a>
               </span>
 
@@ -225,8 +234,8 @@ var _hmt = _hmt || [];
           
             <span class="post-comments-count">
               &nbsp; | &nbsp;
-              <a href="/2015/10/25/puket/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2015/10/25/puket/" itemprop="commentsCount"></span>
+              <a href="/2011/09/05/css-autowidthandheight/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2011/09/05/css-autowidthandheight/" itemprop="commentsCount"></span>
               </a>
             </span>
           
@@ -240,18 +249,25 @@ var _hmt = _hmt || [];
       
 
       
-        <span itemprop="articleBody"><p><em>我必须承认：放松的状态会激发人的所有感官，让人的存在感更强，更真实生动的感受到周围的一切，包括思想。所以，更有助于灵感迸现和绅审视自我。</em></p>
-<p>明天就要离开了。大家今天都以各种自己喜欢的方式让这一天变得更加难忘美丽。<br><a id="more"></a><br>斌哥选择了独自一人带着少量水、一本书和一些人民币去karon海滩上放松放纵了一整个下午。 @刘斌 欣和岳哥选择最后一次去jungceylen大采购，然后打包两个大纸箱子抱回酒店。 @系统-钊欣 瑞哥选择吹着海风沐浴着晌午温暖的阳光在酒店的阳台上做梦。</p>
-<p><img src="/images/puket3.jpeg" alt=""></p>
-<p>63和男友选择做一次专业的massage，被大妈压扁并享受着。 @刘珊 </p>
-<p>鹏选择自己一个人走路到酒店附近的店里寄明信片（记得他第一天就问导游哪里可以寄），结果因为没有邮票没有成功，买了个雪糕，自己吹着海风晒着太阳回来了。 @陈鹏 </p>
-<p><img src="/images/puket1.jpeg" alt=""></p>
-<p>我跟婷儿选择去她一直想去的悬崖餐厅体验故事里的晚餐。结果一切美得像画，最后，我向侍者询问能否把花瓶里的玫瑰送给我，然后我送给我老婆，她用泰式最温和的笑容回答我说”of course”。 @丫头 </p>
-<p><img src="/images/puket2.jpeg" alt=""></p>
-<p>一切就这么如乳白色上翠绿的浪花温柔而自然的发生了，天空也作美，给了我们一个挂着千姿百态云彩的蓝色天空，阳光倾斜着在温和的海面上撒出碎银子般的光，海风轻轻吹拂在我们的面庞，一股暖流从心间流淌。</p>
-<p>生活，本应该如此如此。</p>
-<p>Good night,everybody.</p>
-<p>请相信，生活永远有美好等待着我们去体验。</p>
+        <span itemprop="articleBody"><p>首先要明白几个点</p>
+<ol>
+<li>块元素的宽和高的百分比的形式参照基准是不一致的：width是参照包含块内容区的宽，height是参照包含块的内容区的高。</li>
+<li>一般宽度是好设置的，而高是没办法通过百分比设置的，因为块元素很多时候高度都是由内容决定撑开的</li>
+<li>margin和padding以百分比的形式设置的时候按照基准都是 包含块的内容区的宽</li>
+<li>margintop和marginbottom不设置的时候就会取默认值，为0. 都为auto的时候，会重置为0。</li>
+<li>margin是不会影响height的，而paddingtop 和paddingbottom和背景都是会影响height 的。行内元素也一样</li>
+</ol>
+<p>所以要做自适应宽高的容器（块元素）的话就要依照一下思路：</p>
+<p>首先我们可以按照需求设置容器的width为百分比</p>
+<p>高度的自适应我们就不能用百分比的方式设置了。而margin和padding是可以依赖包含块高的，我们可以控制的。</p>
+<p>高的自适应有一下两个思路：</p>
+<p>为了避免替换元素的闪烁，我们需要通过手段把高度设置好，有两个思路：</p>
+<ul>
+<li>第一个通过设置paddingtop来撑开容器内容区的高度，所以设置paddingtop为百分比就好了（弊端，这种方法的使用，其实height还是0，所以Max height是失效的</li>
+<li>第二种方法，为了解决第一个方法的弊端，我们就必须用内容撑开高度，而非padding，第二种方法是我们给容器加一个字元素，然后设置他的margin或padding为100%，就好了。这里最好用伪元素来代替子元素</li>
+</ul>
+<p>内容已经有东西，所以我们往容器里填内容的时候就必须脱离文档流了，用绝对定位，position:absolute;top:0;width:100%;就好了 </p>
+<p>源文档地点：<a href="http://blog.jobbole.com/49173/" target="_blank" rel="external">http://blog.jobbole.com/49173/</a></p>
 </span>
       
     </div>
@@ -260,7 +276,9 @@ var _hmt = _hmt || [];
       
         <div class="post-tags">
           
-            <a href="/tags/思绪万千/" rel="tag">#思绪万千</a>
+            <a href="/tags/CSS/" rel="tag">#CSS</a>
+          
+            <a href="/tags/学习笔记/" rel="tag">#学习笔记</a>
           
         </div>
       
@@ -269,13 +287,11 @@ var _hmt = _hmt || [];
         <div class="post-nav">
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2015/10/29/beautifulStyles_applycallbind/" rel="prev">【优雅代码】巧用Javascript中apply、call、bind</a>
+              <a href="/2011/09/05/block&inline/" rel="prev">CSS学习笔记-块级元素和行内元素的区别</a>
             
           </div>
 
           <div class="post-nav-next post-nav-item">
-            
-              <a href="/2015/10/19/sevensths/" rel="next">七个对我最好的职业建议(来自阮一峰老师翻译)</a>
             
           </div>
         </div>
@@ -290,10 +306,10 @@ var _hmt = _hmt || [];
 
     <div class="post-spread">
       
-        <div class="ds-share flat" data-thread-key="2015/10/25/puket/"
-     data-title="Our Puket"
+        <div class="ds-share flat" data-thread-key="2011/09/05/css-autowidthandheight/"
+     data-title="CSS学习笔记-让div垂直水平居中"
      data-content=""
-     data-url="http://lwd426.com/2015/10/25/puket/">
+     data-url="http://lwd426.com/2011/09/05/css-autowidthandheight/">
   <div class="ds-share-inline">
     <ul  class="ds-share-icons-16">
 
@@ -319,8 +335,8 @@ var _hmt = _hmt || [];
         
           <div class="comments" id="comments">
             
-              <div class="ds-thread" data-thread-key="2015/10/25/puket/"
-                   data-title="Our Puket" data-url="http://lwd426.com/2015/10/25/puket/">
+              <div class="ds-thread" data-thread-key="2011/09/05/css-autowidthandheight/"
+                   data-title="CSS学习笔记-让div垂直水平居中" data-url="http://lwd426.com/2011/09/05/css-autowidthandheight/">
               </div>
             
           </div>
