@@ -31,7 +31,7 @@
 
 
 
-  <meta name="keywords" content="异步," />
+  <meta name="keywords" content="学习笔记,读书笔记," />
 
 
 
@@ -40,19 +40,25 @@
   <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.1" />
 
 
-<meta name="description" content="题记因为node是单线程，所以要用异步来提升性能。但编程一牵扯到“异步”两个字，那么什么时候调用回调函数就不是我们自己说了算的了。当我们进行顺序性特别强的多异步任务协作时，一切就会显得“不那么美好”了。所以我们要想办法更好更方便的进行异步编程。
-三种异步编程方案">
+<meta name="description" content="今天在研究JS使用定时器和回调函数的方式防止代码阻塞的过程中，看到了知乎上对JS的单线程异步执行的一个解释，感觉非常好，特此记录下来.
+
+
+JS的单线程是指一个浏览器进程中只有一个JS的执行线程，同一时刻内只会有一段代码在执行（你可以使用IE的标签式浏览试试看效果，这时打开的多个页面使用的都是同一个JS执行线程，如果其中一个页面在执行一个运算量较大的function时，其他窗口的JS就会停止工作）">
 <meta property="og:type" content="article">
-<meta property="og:title" content="自己对node异步编程方案的理解">
-<meta property="og:url" content="http://lwd426.com/2014/06/20/nodeasync/index.html">
+<meta property="og:title" content="学习笔记--“JS为什么是单线程异步的“精辟回答！">
+<meta property="og:url" content="http://lwd426.com/2013/01/09/jsThead/index.html">
 <meta property="og:site_name" content="修身养性">
-<meta property="og:description" content="题记因为node是单线程，所以要用异步来提升性能。但编程一牵扯到“异步”两个字，那么什么时候调用回调函数就不是我们自己说了算的了。当我们进行顺序性特别强的多异步任务协作时，一切就会显得“不那么美好”了。所以我们要想办法更好更方便的进行异步编程。
-三种异步编程方案">
-<meta property="og:updated_time" content="2015-09-18T15:58:19.000Z">
+<meta property="og:description" content="今天在研究JS使用定时器和回调函数的方式防止代码阻塞的过程中，看到了知乎上对JS的单线程异步执行的一个解释，感觉非常好，特此记录下来.
+
+
+JS的单线程是指一个浏览器进程中只有一个JS的执行线程，同一时刻内只会有一段代码在执行（你可以使用IE的标签式浏览试试看效果，这时打开的多个页面使用的都是同一个JS执行线程，如果其中一个页面在执行一个运算量较大的function时，其他窗口的JS就会停止工作）">
+<meta property="og:updated_time" content="2016-03-01T03:10:06.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="自己对node异步编程方案的理解">
-<meta name="twitter:description" content="题记因为node是单线程，所以要用异步来提升性能。但编程一牵扯到“异步”两个字，那么什么时候调用回调函数就不是我们自己说了算的了。当我们进行顺序性特别强的多异步任务协作时，一切就会显得“不那么美好”了。所以我们要想办法更好更方便的进行异步编程。
-三种异步编程方案">
+<meta name="twitter:title" content="学习笔记--“JS为什么是单线程异步的“精辟回答！">
+<meta name="twitter:description" content="今天在研究JS使用定时器和回调函数的方式防止代码阻塞的过程中，看到了知乎上对JS的单线程异步执行的一个解释，感觉非常好，特此记录下来.
+
+
+JS的单线程是指一个浏览器进程中只有一个JS的执行线程，同一时刻内只会有一段代码在执行（你可以使用IE的标签式浏览试试看效果，这时打开的多个页面使用的都是同一个JS执行线程，如果其中一个页面在执行一个运算量较大的function时，其他窗口的JS就会停止工作）">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -69,7 +75,7 @@ var _hmt = _hmt || [];
 })();
 </script>
 
-  <title> 自己对node异步编程方案的理解 | 修身养性 </title>
+  <title> 学习笔记--“JS为什么是单线程异步的“精辟回答！ | 修身养性 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -187,7 +193,7 @@ var _hmt = _hmt || [];
           
           
             
-              自己对node异步编程方案的理解
+              学习笔记--“JS为什么是单线程异步的“精辟回答！
             
           
         </h1>
@@ -196,19 +202,34 @@ var _hmt = _hmt || [];
       <div class="post-meta">
         <span class="post-time">
           发表于
-          <time itemprop="dateCreated" datetime="2014-05-20T09:15:49+08:00" content="2014-05-20">
-            2014-05-20
+          <time itemprop="dateCreated" datetime="2012-12-09T16:24:09+08:00" content="2012-12-09">
+            2012-12-09
           </time>
         </span>
 
+        
+          <span class="post-category" >
+            &nbsp; | &nbsp; 分类于
+            
+              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                <a href="/categories/读书笔记/" itemprop="url" rel="index">
+                  <span itemprop="name">读书笔记</span>
+                </a>
+              </span>
+
+              
+              
+
+            
+          </span>
         
 
         
           
             <span class="post-comments-count">
               &nbsp; | &nbsp;
-              <a href="/2014/06/20/nodeasync/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2014/06/20/nodeasync/" itemprop="commentsCount"></span>
+              <a href="/2013/01/09/jsThead/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2013/01/09/jsThead/" itemprop="commentsCount"></span>
               </a>
             </span>
           
@@ -222,19 +243,20 @@ var _hmt = _hmt || [];
       
 
       
-        <span itemprop="articleBody"><h3 id="题记">题记</h3><p>因为node是单线程，所以要用异步来提升性能。但编程一牵扯到“异步”两个字，那么什么时候调用回调函数就不是我们自己说了算的了。当我们进行顺序性特别强的多异步任务协作时，一切就会显得“不那么美好”了。所以我们要想办法更好更方便的进行异步编程。</p>
-<h3 id="三种异步编程方案">三种异步编程方案</h3><a id="more"></a>
-<blockquote>
-<p>朴灵写到：<br>目前，异步编程的主要解决方案有如下3种:</p>
-<ol>
-<li>事件发布/订阅模式</li>
-<li>Promise/Defered模式</li>
-<li>流程控制库</li>
-</ol>
+        <span itemprop="articleBody"><blockquote>
+<p>今天在研究JS使用定时器和回调函数的方式防止代码阻塞的过程中，看到了知乎上对JS的单线程异步执行的一个解释，感觉非常好，特此记录下来.</p>
 </blockquote>
-<h4 id="事件发布/订阅模式">事件发布/订阅模式</h4><p>其中事件发布模式我已经在我之前的博客中<br><a href="http://lwd426.com/2015/09/15/nodeevent/#more" title="自己对node事件驱动的理解">自己对node事件驱动的理解</a>中大致描述清楚了。算是比较原始的方式。</p>
-<h4 id="Promise模式">Promise模式</h4><p>Promise/Defered模式很巧妙地使用这种事件订阅/发布模式抽象出了一套需要<code>预先定义好</code>的异步任务模型：<code>对异步调用的部分进行封装，暴露出自定义部分（成功执行函数和失败执行函数）</code>。这种模式需要封装，但很强大，有侵入性。各种Promise规范的实现库（Q、Bluebird等）也对<code>多个异步协作任务的异步调用部分也进行了很好的封装</code>，使用者可以十分方便的直接调用api，可读性也十分好，可以链式调用等，所以，个人推荐此种方法进行异步编程。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> fs = <span class="built_in">require</span>(<span class="string">'fs'</span>)</span><br><span class="line"><span class="keyword">var</span> <span class="built_in">Promise</span> = <span class="built_in">require</span>(<span class="string">'bluebird'</span>)</span><br><span class="line"><span class="comment">//改造fs.readFile为Promise版本</span></span><br><span class="line"><span class="keyword">var</span> readFileAsync = <span class="function"><span class="keyword">function</span>(<span class="params">path</span>)</span>&#123;</span><br><span class="line">	<span class="comment">//返回一个Promise对象，初始状态pending</span></span><br><span class="line">	<span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="keyword">function</span>(<span class="params">fulfill, reject</span>)</span>&#123;</span><br><span class="line">		fs.readFile(path,  <span class="string">'utf8'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">err, content</span>)</span>&#123;</span><br><span class="line">			<span class="comment">//由pending状态进入rejected状态</span></span><br><span class="line">			<span class="keyword">if</span>(err)<span class="keyword">return</span> reject(err)</span><br><span class="line">			<span class="comment">//由pending状态进入fulfilled状态</span></span><br><span class="line">			<span class="keyword">return</span> fulfill(content)</span><br><span class="line">		&#125;)</span><br><span class="line">	&#125;)</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//开始使用，调用其then方法，回调接受执行成功的返回值</span></span><br><span class="line">readFileAsync(<span class="string">'./promise-1.js'</span>).then(<span class="function"><span class="keyword">function</span>(<span class="params">content</span>)</span>&#123;</span><br><span class="line">	<span class="built_in">console</span>.log(content)</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
-<h4 id="流程控制库">流程控制库</h4><p>对于流程控制库，与Promise的思路完全不同，是另外一种解决方案。（Promise的重点在于<code>封装异步调用</code>的部分，流程控制库则没有显示的模式，将处理重点放到了<code>回调函数注入</code>（使用高阶函数注入）上。）它与事件订阅/发布模式基本无关，而是在回调函数上做文章，通过对所有异步操作数组里的结果进行”缓存“–最终向使用者暴露出总回调函数（封装了缓存的结果数组）来达到流程控制的目的。如果有一个异步任务失败，则都会把失败信息放到总回调中的第一个参数中。比较流行的有async库。这种方案更为灵活。<br>async示例：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//异步的串行任务（异步的并行任务只需要把series方法换成parallel就ok了）</span></span><br><span class="line"><span class="keyword">async</span>.series([</span><br><span class="line">        <span class="function"><span class="keyword">function</span> (<span class="params">callback</span>) </span>&#123;</span><br><span class="line">          fs.readFile(<span class="string">'file1.txt'</span>,<span class="string">'utf-8'</span>,callback);</span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="function"><span class="keyword">function</span>(<span class="params">callback</span>) </span>&#123;</span><br><span class="line">          fs.readFile(<span class="string">'file2.txt'</span>,<span class="string">'utf-8'</span>,callback);</span><br><span class="line">        &#125;</span><br><span class="line">      ],<span class="function"><span class="keyword">function</span>(<span class="params">err, results</span>)</span>&#123;</span><br><span class="line">        <span class="comment">//results =&gt; [file1.txt,file2.txt]</span></span><br><span class="line">        TODO</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<ol>
+<li><p>JS的单线程是指一个浏览器进程中只有一个JS的<strong>执行线程</strong>，同一时刻内只会有一段代码在执行（你可以使用IE的标签式浏览试试看效果，这时打开的多个页面使用的都是同一个JS执行线程，如果其中一个页面在执行一个运算量较大的function时，其他窗口的JS就会停止工作）。</p>
+</li>
+<li><p>而异步机制是浏览器的两个或以上常驻线程共同完成的，例如:</p>
+<ul>
+<li>异步请求是由两个常驻线程：JS执行线程和事件触发线程共同完成的，JS的执行线程发起异步请求（这时浏览器会开一条新的HTTP请求线程来执行请求，这时JS的任务已完成，继续执行线程队列中剩下的其他任务），然后在未来的某一时刻事件触发线程监视到之前的发起的HTTP请求已完成，它就会把完成事件插入到JS执行队列的尾部等待JS处理。</li>
+<li>又例如定时触发（settimeout和setinterval）是由浏览器的定时器线程执行的定时计数，然后在定时时间把定时处理函数的执行请求插入到JS执行队列的尾端（所以用这两个函数的时候，实际的执行时间是大于或等于指定时间的，不保证能准确定时的）。</li>
+</ul>
+</li>
+<li>所以，所谓的JS的单线程和异步更多的应该是属于浏览器的行为，他们之间没有冲突，更不是同一种事物，没有什么区别不区别的。</li>
+</ol>
 </span>
       
     </div>
@@ -243,7 +265,9 @@ var _hmt = _hmt || [];
       
         <div class="post-tags">
           
-            <a href="/tags/异步/" rel="tag">#异步</a>
+            <a href="/tags/学习笔记/" rel="tag">#学习笔记</a>
+          
+            <a href="/tags/读书笔记/" rel="tag">#读书笔记</a>
           
         </div>
       
@@ -252,13 +276,13 @@ var _hmt = _hmt || [];
         <div class="post-nav">
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2014/06/21/nodeevent/" rel="prev">自己对node事件驱动的理解</a>
+              <a href="/2013/02/20/session/" rel="prev">session和cookie</a>
             
           </div>
 
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2014/04/13/javascript-eventloop/" rel="next">自己对javascript异步IO和事件循环的理解</a>
+              <a href="/2012/10/11/javascript_scope/" rel="next">词法作用域、动态作用域和块级作用域</a>
             
           </div>
         </div>
@@ -273,10 +297,10 @@ var _hmt = _hmt || [];
 
     <div class="post-spread">
       
-        <div class="ds-share flat" data-thread-key="2014/06/20/nodeasync/"
-     data-title="自己对node异步编程方案的理解"
+        <div class="ds-share flat" data-thread-key="2013/01/09/jsThead/"
+     data-title="学习笔记--“JS为什么是单线程异步的“精辟回答！"
      data-content=""
-     data-url="http://lwd426.com/2014/06/20/nodeasync/">
+     data-url="http://lwd426.com/2013/01/09/jsThead/">
   <div class="ds-share-inline">
     <ul  class="ds-share-icons-16">
 
@@ -302,8 +326,8 @@ var _hmt = _hmt || [];
         
           <div class="comments" id="comments">
             
-              <div class="ds-thread" data-thread-key="2014/06/20/nodeasync/"
-                   data-title="自己对node异步编程方案的理解" data-url="http://lwd426.com/2014/06/20/nodeasync/">
+              <div class="ds-thread" data-thread-key="2013/01/09/jsThead/"
+                   data-title="学习笔记--“JS为什么是单线程异步的“精辟回答！" data-url="http://lwd426.com/2013/01/09/jsThead/">
               </div>
             
           </div>
@@ -385,7 +409,7 @@ var _hmt = _hmt || [];
           <div class="post-toc">
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#题记"><span class="nav-number">1.</span> <span class="nav-text">题记</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三种异步编程方案"><span class="nav-number">2.</span> <span class="nav-text">三种异步编程方案</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#事件发布/订阅模式"><span class="nav-number">2.1.</span> <span class="nav-text">事件发布/订阅模式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Promise模式"><span class="nav-number">2.2.</span> <span class="nav-text">Promise模式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#流程控制库"><span class="nav-number">2.3.</span> <span class="nav-text">流程控制库</span></a></li></ol></li></ol></div>
+              <p class="post-toc-empty">此文章未包含目录</p>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>
