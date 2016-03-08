@@ -185,6 +185,141 @@ var _hmt = _hmt || [];
           
           
             
+              <a class="post-title-link" href="/2012/03/01/js_closepackage副本/" itemprop="url">
+                DOM的节点类型NodeType
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2012-02-01T10:08:34+08:00" content="2012-02-01">
+            2012-02-01
+          </time>
+        </span>
+
+        
+          <span class="post-category" >
+            &nbsp; | &nbsp; 分类于
+            
+              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                <a href="/categories/基础/" itemprop="url" rel="index">
+                  <span itemprop="name">基础</span>
+                </a>
+              </span>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+            <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2012/03/01/js_closepackage副本/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2012/03/01/js_closepackage副本/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody"><p>总结下DOM下的节点类型：</p>
+<h3 id="nodeType">nodeType</h3><p>根据 W3C 的 HTML DOM 标准，HTML 文档中的所有内容都是节点：</p>
+<ol>
+<li>整个文档是一个文档节点</li>
+<li>每个 HTML 元素是元素节点</li>
+<li>HTML 元素内的文本是文本节点</li>
+<li>每个 HTML 属性是属性节点</li>
+<li>注释是注释节点</li>
+</ol>
+<p>nodeType 属性可返回节点的类型。最重要的节点类型是：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">元素类型</th>
+<th style="text-align:center">节点类型</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">元素element</td>
+<td style="text-align:center">1</td>
+</tr>
+<tr>
+<td style="text-align:center">属性attr</td>
+<td style="text-align:center">2</td>
+</tr>
+<tr>
+<td style="text-align:center">文本text</td>
+<td style="text-align:center">3</td>
+</tr>
+<tr>
+<td style="text-align:center">注释comments</td>
+<td style="text-align:center">8</td>
+</tr>
+<tr>
+<td style="text-align:center">文档document</td>
+<td style="text-align:center">9</td>
+</tr>
+</tbody>
+</table>
+<h3 id="nodeName_属性含有某个节点的名称。">nodeName 属性含有某个节点的名称。</h3><ol>
+<li>元素节点的 nodeName 是标签名称</li>
+<li>属性节点的 nodeName 是属性名称</li>
+<li>文本节点的 nodeName 永远是 #text</li>
+<li>文档节点的 nodeName 永远是 #document</li>
+<li>注释：nodeName 所包含的 XML 元素的标签名称永远是大写的</li>
+</ol>
+<h2 id="nodeValue">nodeValue</h2><ul>
+<li>对于文本节点，nodeValue 属性包含文本。</li>
+<li>对于属性节点，nodeValue 属性包含属性值。</li>
+<li>nodeValue 属性对于文档节点和元素节点是不可用的。</li>
+</ul>
+</span>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
               <a class="post-title-link" href="/2011/09/05/block&inline/" itemprop="url">
                 CSS学习笔记-块级元素和行内元素的区别
               </a>
@@ -442,21 +577,21 @@ var _hmt = _hmt || [];
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">52</span>
+              <span class="site-state-item-count">53</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
 
           <div class="site-state-item site-state-categories">
             <a href="/categories">
-              <span class="site-state-item-count">17</span>
+              <span class="site-state-item-count">18</span>
               <span class="site-state-item-name">分类</span>
               </a>
           </div>
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">31</span>
+              <span class="site-state-item-count">32</span>
               <span class="site-state-item-name">标签</span>
               </a>
           </div>
