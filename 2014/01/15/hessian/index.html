@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta name="baidu-site-verification" content="VMH9oYMJXO" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="协议," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="一、什么是Hessian Hessian 是一个基于 binary-RPC 实现的远程通讯 library。使用二进制传输数据。Hessian通常通过Web应用来提供服务，通过接口暴露。Servlet和Spring的DispatcherServlet都可以把请求转发给Hessian服务。由以下两种方式提供，分别为：com.caucho.hessian.server.HessianServlet、o">
+<meta name="keywords" content="协议">
+<meta property="og:type" content="article">
+<meta property="og:title" content="hessian 的简单介绍">
+<meta property="og:url" content="http://blog.lwdle.xin/2014/01/15/hessian/index.html">
+<meta property="og:site_name" content="我是个大盗贼，什么都不怕">
+<meta property="og:description" content="一、什么是Hessian Hessian 是一个基于 binary-RPC 实现的远程通讯 library。使用二进制传输数据。Hessian通常通过Web应用来提供服务，通过接口暴露。Servlet和Spring的DispatcherServlet都可以把请求转发给Hessian服务。由以下两种方式提供，分别为：com.caucho.hessian.server.HessianServlet、o">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-08-13T09:02:29.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="hessian 的简单介绍">
+<meta name="twitter:description" content="一、什么是Hessian Hessian 是一个基于 binary-RPC 实现的远程通讯 library。使用二进制传输数据。Hessian通常通过Web应用来提供服务，通过接口暴露。Servlet和Spring的DispatcherServlet都可以把请求转发给Hessian服务。由以下两种方式提供，分别为：com.caucho.hessian.server.HessianServlet、o">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"right","display":"always","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://blog.lwdle.xin/2014/01/15/hessian/"/>
+
+
+
+
+
+  <title>hessian 的简单介绍 | 我是个大盗贼，什么都不怕</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta custom-logo">
+    
+      <div class="site-meta-headline">
+        <a>
+          <img class="custom-logo-image" src="/images/logo.png"
+               alt="我是个大盗贼，什么都不怕"/>
+        </a>
+      </div>
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">我是个大盗贼，什么都不怕</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">品质源于专注，走未知的路，然后留下脚印</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://blog.lwdle.xin/2014/01/15/hessian/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="lwd426">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/logo.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="我是个大盗贼，什么都不怕">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">hessian 的简单介绍</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2014-01-15T10:11:09+08:00">
+                2014-01-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/基础/" itemprop="url" rel="index">
+                    <span itemprop="name">基础</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="一、什么是Hessian">一、什么是Hessian</h3><blockquote>
+<p>Hessian 是一个基于 binary-RPC 实现的远程通讯 library。使用二进制传输数据。Hessian通常通过Web应用来提供服务，通过接口暴露。Servlet和Spring的DispatcherServlet都可以把请求转发给Hessian服务。由以下两种方式提供，分别为：com.caucho.hessian.server.HessianServlet、org.springframework.web.servlet.DispatcherServlet。</p>
+</blockquote>
+<p>关于hessian的7个问题：</p>
+<ol>
+<li><p>是基于什么协议实现的？</p>
+<p> 基于Binary-RPC协议实现。</p>
+</li>
+<li><p>怎么发起请求？</p>
+<p> 需通过Hessian本身提供的API来发起请求。</p>
+</li>
+<li><p>怎么 将请求转化为符合协议的格式的？</p>
+<a id="more"></a>   
+<p> Hessian通过其自定义的串行化机制将请求信息进行序列化，产生二进制流。</p>
+</li>
+<li><p>使用什么 传输协议传输？</p>
+<p> Hessian基于Http协议进行传输。</p>
+</li>
+<li><p>响应端基于什么机制来接收请求？</p>
+<p> 响应端根据Hessian提供的API来接收请求。<br>6.怎么将流还原为传输格式的？</p>
+<p> Hessian根据其私有的串行化机制来将请求信息进行反序列化，传递给使用者时已是相应的请求信息对象了。</p>
+</li>
+<li><p>处理完毕后怎么回应？</p>
+<p>处理完毕后直接返回，hessian将结果对象进行序列化，传输至调用端。</p>
+<h3 id="二、hessian的优缺点">二、hessian的优缺点</h3></li>
+</ol>
+<p><strong>优点：</strong></p>
+<ul>
+<li>简单易用，面向接口，通过接口暴露服务，jar包只有200、300k，不需要配置防火墙</li>
+<li>效率高，复杂对象序列化速度仅次于RMI，简单对象序列化优于RMI，二进制传输</li>
+<li>多语言支持：wiki、Java、Flash/Flex、Python、C++、.NET C#、PHP、Ruby、Objective-C</li>
+<li>可与spring集成，配置简单，HessianServiceExporte</li>
+</ul>
+<p><strong>缺点：</strong></p>
+<ul>
+<li>缺乏安全机制，传输没有加密处理</li>
+<li>异常机制不完善，总是报一些错误，错误原因也是千奇百怪，提示信息不足</li>
+<li>事务处理欠缺</li>
+<li>版本问题，spring 2.5.6对照3.1.3版，spring 3对照4.0及以上版本，需要使用spring MVC</li>
+</ul>
+<h3 id="三、各个通讯协议对比：">三、各个通讯协议对比：</h3><p>通讯效率测试结果:</p>
+<p>RMI &gt; Httpinvoker &gt;= Hessian &gt;&gt; Burlap &gt;&gt; Web service</p>
+<ol>
+<li>RMI 是 Java 首选远程调用协议，非常高效稳定，特别是在数据结构复杂，数据量大的情况下，与其他通讯协议的差距尤为明显。但不能跨语言。</li>
+<li>HttpInvoker 使用 java 的序列化技术传输对象，与 RMI 在本质上是一致的。从效率上看，两者也相差无几， HttpInvoker 与 RMI 的传输时间基本持平。</li>
+<li>Hessian 在传输少量对象时，比 RMI 还要快速高效，但传输数据结构复杂的对象或大量数据对象时，较 RMI 要慢 20% 左右。但这只是在数据量特别大，<br>数据结构很复杂的情况下才能体现出来，中等或少量数据时， Hessian并不比RMI慢。 Hessian 的好处是精简高效，可以跨语言使用，而且协议规范公开，<br>我们可以针对任意语言开发对其协议的实现。另外， Hessian与WEB服务器结合非常好，借助WEB服务器的成熟功能，在处理大量用户并发访问时会有很大优势，在资源分配，<br>线程排队，异常处理等方面都可以由成熟的WEB服务器保证。而 RMI 本身并不提供多线程的服务器。而且，RMI 需要开防火墙端口， Hessian 不用。</li>
+<li>Burlap 采用 xml 格式传输。仅在传输 1 条数据时速度尚可，通常情况下，它的毫时是 RMI 的 3 倍。</li>
+<li>Web Service 的效率低下是众所周知的，平均来看， Web Service 的通讯毫时是 RMI 的 10 倍。</li>
+</ol>
+<h3 id="四、基本应用流程">四、基本应用流程</h3><p><strong>客户端必须具备以下几点：</strong></p>
+<ul>
+<li>java客户端包含Hessian.jar的包。</li>
+<li>具有和服务器端结构一样的接口。</li>
+<li>利用HessianProxyFactory调用远程接口。</li>
+<li>使用spring方式需要配置HessianProxyFactoryBean</li>
+<li>注意：使用resin容器时，resin已经包含了hessian.jar包<br>JAVA服务器端必须具备以下几点：</li>
+<li>包含Hessian的jar包。</li>
+<li>设计一个接口，用来给客户端调用。</li>
+<li>实现该接口的功能。</li>
+<li>配置web.xml，配好相应的servlet。</li>
+<li>对象必须实现Serializable 接口。</li>
+<li>对于spring方式DispatcherServlet拦截url,HessianServiceExporter提供Bean服务</li>
+</ul>
+<h3 id="五、几种Remoting实现的比较">五、几种Remoting实现的比较</h3><p>Spring支持的Remoting实现技术是非常多的，虽然Spring屏蔽了这些技术使用上的差异，但是选择一个合适的Remoting技术仍然对系统有非常积极的作用，下面就来讲述这些实现技术的优缺点。</p>
+<ol>
+<li>RMI：<br>RMI使用Java的序列化机制实现调用及返回值的编组(marshal)与反编组(unmarshal)，可以使用任何可序列化的对象作为参数和返回值。其缺点是RMI只能通过RMI协议来进行访问，无法通过HTTP协议访问，无法穿透防火墙。</li>
+<li>Hessian：<br>Hessian也是将网络传输的对象转换为二进制流通过Http进行传递，不过它是使用自己的序列化机制实现的编组与反编组，其支持的数据类型是有限制的，不支持复杂的对象。Hessian的优点是可以透过防火墙。</li>
+<li>Burlap：<br>Burlap是将网络传输的对象转换为XML文本格式通过Http进行传递，支持的对象与Hessian相比更少。XML一般比二进制流占 用空间大，在网络上传递所需要的时间比二进制流长，XML的解析过程也会耗用更多的内存。Burlap可以穿透防火墙，而且由于传输的格式是XML文本， 可以与其他系统(比如.NET)集成，从某种程度来讲，Burlap是一种不标准的WebService。</li>
+<li>HttpInvoker：<br>HttpInvoker将参数和返回值通过Java的序列化机制进行编组和反编组，它具有RMI的支持所有可序列化对象的优点。 Http Invoker是使用Http协议传输二进制流的，而同时又具有Hessian、Burlap的优点。</li>
+</ol>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/协议/" rel="tag"># 协议</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2014/01/03/js-typecheck/" rel="next" title="javascript检测类型方法汇总">
+                <i class="fa fa-chevron-left"></i> javascript检测类型方法汇总
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2014/03/28/RESTful/" rel="prev" title="理解RESTful架构（转）">
+                理解RESTful架构（转） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/logo.png"
+               alt="lwd426" />
+          <p class="site-author-name" itemprop="name">lwd426</p>
+           
+              <p class="site-description motion-element" itemprop="description">好的产品，是用心打磨的，我永远相信这句话</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">70</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">20</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">41</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#一、什么是Hessian"><span class="nav-number">1.</span> <span class="nav-text">一、什么是Hessian</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二、hessian的优缺点"><span class="nav-number">2.</span> <span class="nav-text">二、hessian的优缺点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三、各个通讯协议对比："><span class="nav-number">3.</span> <span class="nav-text">三、各个通讯协议对比：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#四、基本应用流程"><span class="nav-number">4.</span> <span class="nav-text">四、基本应用流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#五、几种Remoting实现的比较"><span class="nav-number">5.</span> <span class="nav-text">五、几种Remoting实现的比较</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">lwd426</span>
+
+  
+</div>
+
+
+  <div class="powered-by">
+    思维
+  </div>
+
+  <span class="post-meta-divider">|</span>
+
+  <div class="theme-info">
+    眼界 &mdash;
+  </div>
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

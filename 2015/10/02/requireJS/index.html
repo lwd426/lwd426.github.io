@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta name="baidu-site-verification" content="VMH9oYMJXO" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="自己的笔记,模块化," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="题记–js模块化js的模块化一直在用，用的就是RequireJS。但是很多牛逼的用法，确是在不经意间使用的，特此查明白为什么。 模块化：前端和后端模块化分为前端模块化和后端模块化。 后端模块化—npm后端模块化使用的最多的当属npm(node 模块管理器)了，它采用的是CommonJS规范定义和加载模块：  定义模块：你只需要在定义模块的js文件里require()来加载其他模块（npm会为你找到">
+<meta name="keywords" content="自己的笔记,模块化">
+<meta property="og:type" content="article">
+<meta property="og:title" content="学习笔记--RequireJS的一些使用理解（结合kibana源码）">
+<meta property="og:url" content="http://blog.lwdle.xin/2015/10/02/requireJS/index.html">
+<meta property="og:site_name" content="我是个大盗贼，什么都不怕">
+<meta property="og:description" content="题记–js模块化js的模块化一直在用，用的就是RequireJS。但是很多牛逼的用法，确是在不经意间使用的，特此查明白为什么。 模块化：前端和后端模块化分为前端模块化和后端模块化。 后端模块化—npm后端模块化使用的最多的当属npm(node 模块管理器)了，它采用的是CommonJS规范定义和加载模块：  定义模块：你只需要在定义模块的js文件里require()来加载其他模块（npm会为你找到">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-08-13T09:02:29.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="学习笔记--RequireJS的一些使用理解（结合kibana源码）">
+<meta name="twitter:description" content="题记–js模块化js的模块化一直在用，用的就是RequireJS。但是很多牛逼的用法，确是在不经意间使用的，特此查明白为什么。 模块化：前端和后端模块化分为前端模块化和后端模块化。 后端模块化—npm后端模块化使用的最多的当属npm(node 模块管理器)了，它采用的是CommonJS规范定义和加载模块：  定义模块：你只需要在定义模块的js文件里require()来加载其他模块（npm会为你找到">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"right","display":"always","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://blog.lwdle.xin/2015/10/02/requireJS/"/>
+
+
+
+
+
+  <title>学习笔记--RequireJS的一些使用理解（结合kibana源码） | 我是个大盗贼，什么都不怕</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta custom-logo">
+    
+      <div class="site-meta-headline">
+        <a>
+          <img class="custom-logo-image" src="/images/logo.png"
+               alt="我是个大盗贼，什么都不怕"/>
+        </a>
+      </div>
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">我是个大盗贼，什么都不怕</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">品质源于专注，走未知的路，然后留下脚印</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://blog.lwdle.xin/2015/10/02/requireJS/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="lwd426">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/logo.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="我是个大盗贼，什么都不怕">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">学习笔记--RequireJS的一些使用理解（结合kibana源码）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2015-10-02T09:10:09+08:00">
+                2015-10-02
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/模块化/" itemprop="url" rel="index">
+                    <span itemprop="name">模块化</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="题记–js模块化">题记–js模块化</h3><p>js的模块化一直在用，用的就是RequireJS。但是很多牛逼的用法，确是在不经意间使用的，特此查明白为什么。</p>
+<h3 id="模块化：前端和后端">模块化：前端和后端</h3><p>模块化分为前端模块化和后端模块化。</p>
+<h4 id="后端模块化—npm">后端模块化—npm</h4><p>后端模块化使用的最多的当属npm(node 模块管理器)了，它采用的是CommonJS规范定义和加载模块：</p>
+<ol>
+<li>定义模块：你只需要在定义模块的js文件里require()来加载其他模块（npm会为你找到对应的模块），然后使用module.exports导出自身供其他模块使用。</li>
+<li>只是使用模块：不需要导出，只是使用就好了</li>
+</ol>
+<a id="more"></a>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">module</span>.js</div><div class="line"><span class="keyword">var</span> _ = <span class="built_in">require</span>(<span class="string">'lodash'</span>);<span class="comment">//引入第三方模块</span></div><div class="line"><span class="keyword">var</span> myself = <span class="built_in">require</span>(__dirname+<span class="string">'/myself/index'</span>);<span class="comment">//引入自定义模块</span></div><div class="line"></div><div class="line">.....使用加载的模块....</div><div class="line"></div><div class="line">（如果<span class="built_in">module</span>.js也是一个自定义的模块，那么就要<span class="built_in">module</span>.exports = &#123;&#125;来导出自己，供其他模块引入）</div><div class="line"><span class="built_in">module</span>.exports = &#123;</div><div class="line">	func = func();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="前端模块化—requireJS">前端模块化—requireJS</h4><p>前端模块化使用的最多的就是requireJS这个库了。它采用的是AMD(异步加载模块)规范来异步加载模块。特点如下：</p>
+<ol>
+<li><strong>requireJS使用的模块必须符合AMD规范</strong>，所以当你使用不符合此规范的第三方库时，你就要使用require.config(配置对象);一般此配置都单独放到一个文件里(require.config.js)。配置对象有两个参数对象：paths和shim。</li>
+<li><strong>paths</strong>: 为了方便管理，把所有的模块可以在此处做一个路径映射，这样，在定义和使用模块的时候，只需要引入对应的模块key值就行了。</li>
+<li><strong>shim</strong>:简单来说就是对requirejs要引用的第三方非AMD规范的插件、类库的特殊处理。<strong>为那些没有使用define()来声明依赖关系、设置模块的”浏览器全局变量注入”型脚本做依赖和导出配置。</strong>通常有两种方法：<ul>
+<li>A: AMD化.通过define封装一下</li>
+<li>B: config shim. </li>
+</ul>
+</li>
+<li><strong>加载require.js</strong>:要在视图里引入require.js和require.config.js。</li>
+<li><strong>每个模块定义在一个js文件中</strong></li>
+<li><strong>定义模块</strong>：defind([‘a’,’b’,’c’],function(a, b ,c){ … return {}}); (还有一种懒加载的方式引入模块，见下文)</li>
+<li><strong>使用模块</strong>：require([‘a’,’b’,’c’],function(a,b,b){…});(还有一种懒加载的方式引入模块，见下文)</li>
+<li>加载完毕基础文件后，不需要加载模块文件，只需要<strong>加载主模块文件</strong>，有以下两种方式：<ul>
+<li>直接在require.js引入引入标签里，定义一个data-main属性，值为主模块（入口模块）的路径</li>
+<li>直接在加载完require.config.js后，用require([‘主模块’]，function(){});</li>
+</ul>
+</li>
+</ol>
+<p>以下举例说明这些要点。</p>
+<h3 id="RequireJS的基本用法–demo">RequireJS的基本用法–demo</h3><p>这块不用啰嗦，直接上段demo，然后指出几点就ok了。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//定义模块:使用define()方法（基础方法）  main.js</span></div><div class="line">define([<span class="string">'jquery'</span>, <span class="string">'underscore'</span>, <span class="string">'angular'</span>, <span class="string">'first'</span>, <span class="string">'app'</span>,<span class="string">'ctrl'</span>], <span class="function"><span class="keyword">function</span>(<span class="params">$, _ , angular, f, app, ctrl</span>)</span>&#123;</div><div class="line">		<span class="keyword">var</span> kibana = &#123;&#125;;</div><div class="line">		kibana.init = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">		 	$(<span class="built_in">document</span>).ready(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">		 		angular.bootstrap(<span class="built_in">document</span>, [<span class="string">"appccc"</span>]);</div><div class="line">		 	&#125;);</div><div class="line">		&#125;</div><div class="line">		<span class="keyword">return</span> kibana;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//定义映射文件：使用require.config(&#123;&#125;);</span></div><div class="line"><span class="built_in">require</span>.config(&#123;</div><div class="line">	paths: &#123;</div><div class="line">		<span class="string">"jquery"</span>: <span class="string">"/bower_components/jquery/dist/jquery.min"</span>,</div><div class="line">		<span class="string">"underscore"</span>: <span class="string">"/bower_components/underscore/underscore-min"</span>,</div><div class="line">		<span class="string">"angular"</span>: <span class="string">"/bower_components/angular/angular.min"</span>,</div><div class="line">		<span class="string">"angular-route"</span>: <span class="string">"/bower_components/angular-route/angular-route.min"</span>,</div><div class="line">		<span class="string">"first"</span>: <span class="string">"amd_modules/first"</span>,</div><div class="line">		<span class="string">"app"</span>: <span class="string">"amd_modules/app"</span>,</div><div class="line">		<span class="string">"ctrl"</span>: <span class="string">"amd_modules/ctrl"</span>,</div><div class="line">		<span class="string">"lwd426"</span>: <span class="string">"main"</span></div><div class="line">	&#125;,</div><div class="line">	shim: &#123;</div><div class="line">		<span class="string">"angular"</span>:&#123;</div><div class="line">			exports: <span class="string">"angular"</span></div><div class="line">		&#125;,</div><div class="line">		<span class="string">"angular-route"</span>: &#123;</div><div class="line">			deps: [<span class="string">"angular"</span>],</div><div class="line">			exports: <span class="string">"angular-route"</span></div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//加载require.js、配置文件和引用模块</span></div><div class="line">&lt;!DOCTYPE html&gt;</div><div class="line">&lt;html&gt;</div><div class="line">  &lt;head&gt;</div><div class="line">    &lt;title&gt;这是我的测试&lt;<span class="regexp">/title&gt;</span></div><div class="line"><span class="regexp">    &lt;link rel='stylesheet' href='/</span>stylesheets/style.css<span class="string">' /&gt;</span></div><div class="line"><span class="string">    &lt;link rel='</span>stylesheet<span class="string">' href='</span>/bower_components/bootstrap/dist/css/bootstrap.min.css<span class="string">' /&gt;</span></div><div class="line"><span class="string">  &lt;/head&gt; </span></div><div class="line"><span class="string">  &lt;body&gt;</span></div><div class="line"><span class="string">    &lt;div class="container"&gt;</span></div><div class="line"><span class="string">      &lt;div ng-controller="hahaControler"&gt;</span></div><div class="line"><span class="string">        &lt;h1 ng-bind="text.message"&gt;&lt;/h1&gt;</span></div><div class="line"><span class="string">      &lt;/div&gt;</span></div><div class="line"><span class="string">    &lt;/div&gt;</span></div><div class="line"><span class="string">    &lt;!-- 这是一种加载入口模块的方法 --&gt;</span></div><div class="line"><span class="string">    &lt;script src="bower_components/requirejs/require.js" data-main='</span>xxx/main<span class="string">'&gt;&lt;/script&gt;</span></div><div class="line"><span class="string">    &lt;script type="text/javascript" src="require.config.js"&gt;&lt;/script&gt;</span></div><div class="line"><span class="string">    &lt;script type="text/javascript"&gt;</span></div><div class="line"><span class="string">    	//这是另一种加载入口模块的方法</span></div><div class="line"><span class="string">    	require(['</span>lwd426<span class="string">'],function(app)&#123;</span></div><div class="line"><span class="string">    		app.init();</span></div><div class="line"><span class="string">    	&#125;);</span></div><div class="line"><span class="string">    &lt;/script&gt;</span></div><div class="line"><span class="string">	&lt;/body&gt;</span></div><div class="line"><span class="string">&lt;/html&gt;</span></div></pre></td></tr></table></figure>
+<h3 id="灵活加载模块的方式">灵活加载模块的方式</h3><p>为了让代码更灵活，可以采用commonJS加载模块的方式。下面，使用这种方式来重写定义模块的代码：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">define(<span class="function"><span class="keyword">function</span>(<span class="params">require</span>)</span>&#123;</div><div class="line">		<span class="keyword">var</span> $ = <span class="built_in">require</span>(<span class="string">'jquery'</span>);</div><div class="line">		<span class="keyword">var</span> _ = <span class="built_in">require</span>(<span class="string">'underscore'</span>);</div><div class="line">		<span class="keyword">var</span> angular = <span class="built_in">require</span>(<span class="string">'angular'</span>);</div><div class="line">		<span class="keyword">var</span> f = <span class="built_in">require</span>(<span class="string">'first'</span>);</div><div class="line">		<span class="keyword">var</span> app = <span class="built_in">require</span>(<span class="string">'app'</span>);</div><div class="line">		<span class="keyword">var</span> ctrl = <span class="built_in">require</span>(<span class="string">'ctrl'</span>);</div><div class="line">		<span class="keyword">var</span> kibana = &#123;&#125;;</div><div class="line">		 <span class="comment">//var app = angular.module("app", []);</span></div><div class="line">		 kibana.init = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">		 	$(<span class="built_in">document</span>).ready(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">		 		angular.bootstrap(<span class="built_in">document</span>, [<span class="string">"appccc"</span>]);</div><div class="line">		 	&#125;);</div><div class="line">		 &#125;</div><div class="line">		 <span class="keyword">return</span> kibana;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<h4 id="懒加载模块">懒加载模块</h4><p>在模块使用时才加载模块能够提高性能，以下写个小demo:<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">define(<span class="function"><span class="keyword">function</span>(<span class="params">require</span>)</span>&#123;</div><div class="line">	<span class="keyword">var</span> _ = <span class="built_in">require</span>(<span class="string">'lodash'</span>);</div><div class="line">	<span class="comment">//以下为伪代码，释义即可</span></div><div class="line">	xxx.onclick = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">		<span class="built_in">require</span>(<span class="string">'click_uitls'</span>).click(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">			...</div><div class="line">		&#125;);</div><div class="line">	&#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
+<h3 id="require()和define()的概念问题">require()和define()的概念问题</h3><p>可以参考<a href="http://www.zhihu.com/question/21260764" target="_blank" rel="external">http://www.zhihu.com/question/21260764</a></p>
+<h3 id="有关前端模块化打包和使用Browerify来在前端使用npm的话题，以后在写吧">有关前端模块化打包和使用Browerify来在前端使用npm的话题，以后在写吧</h3>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/自己的笔记/" rel="tag"># 自己的笔记</a>
+          
+            <a href="/tags/模块化/" rel="tag"># 模块化</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/09/12/js_modules/" rel="next" title="学习笔记--Javascript模块化那些事（总结导图）">
+                <i class="fa fa-chevron-left"></i> 学习笔记--Javascript模块化那些事（总结导图）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2015/10/09/AsyncAndPromise/" rel="prev" title="学习笔记—异步流程控制库和回调处理">
+                学习笔记—异步流程控制库和回调处理 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/logo.png"
+               alt="lwd426" />
+          <p class="site-author-name" itemprop="name">lwd426</p>
+           
+              <p class="site-description motion-element" itemprop="description">好的产品，是用心打磨的，我永远相信这句话</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">70</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">20</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">41</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#题记–js模块化"><span class="nav-number">1.</span> <span class="nav-text">题记–js模块化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#模块化：前端和后端"><span class="nav-number">2.</span> <span class="nav-text">模块化：前端和后端</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#后端模块化—npm"><span class="nav-number">2.1.</span> <span class="nav-text">后端模块化—npm</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#前端模块化—requireJS"><span class="nav-number">2.2.</span> <span class="nav-text">前端模块化—requireJS</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RequireJS的基本用法–demo"><span class="nav-number">3.</span> <span class="nav-text">RequireJS的基本用法–demo</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#灵活加载模块的方式"><span class="nav-number">4.</span> <span class="nav-text">灵活加载模块的方式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#懒加载模块"><span class="nav-number">4.1.</span> <span class="nav-text">懒加载模块</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#require()和define()的概念问题"><span class="nav-number">5.</span> <span class="nav-text">require()和define()的概念问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#有关前端模块化打包和使用Browerify来在前端使用npm的话题，以后在写吧"><span class="nav-number">6.</span> <span class="nav-text">有关前端模块化打包和使用Browerify来在前端使用npm的话题，以后在写吧</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">lwd426</span>
+
+  
+</div>
+
+
+  <div class="powered-by">
+    思维
+  </div>
+
+  <span class="post-meta-divider">|</span>
+
+  <div class="theme-info">
+    眼界 &mdash;
+  </div>
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

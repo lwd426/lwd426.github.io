@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta name="baidu-site-verification" content="VMH9oYMJXO" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="nodejs," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="题记 终于把node的异步IO给搞的稍微明白些了，之前看朴灵老师的《深入浅出NodeJS》还有些吃力，最近终于可以下定决心把它搞明白。以下是我参阅朴灵老师的《深入浅出NodeJS》后，自己对node异步io的理解，画了一张图，记录一下。(2017年更新)">
+<meta name="keywords" content="nodejs">
+<meta property="og:type" content="article">
+<meta property="og:title" content="自己对nodeJS的事件循环Event Loop机制的理解">
+<meta property="og:url" content="http://blog.lwdle.xin/2014/07/10/nodejsio/index.html">
+<meta property="og:site_name" content="我是个大盗贼，什么都不怕">
+<meta property="og:description" content="题记 终于把node的异步IO给搞的稍微明白些了，之前看朴灵老师的《深入浅出NodeJS》还有些吃力，最近终于可以下定决心把它搞明白。以下是我参阅朴灵老师的《深入浅出NodeJS》后，自己对node异步io的理解，画了一张图，记录一下。(2017年更新)">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://blog.lwdle.xin/images/nodeio2.png">
+<meta property="og:image" content="http://blog.lwdle.xin/images/nodeio3.png">
+<meta property="og:image" content="http://blog.lwdle.xin/images/nodeio.png">
+<meta property="og:updated_time" content="2017-08-22T02:08:05.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="自己对nodeJS的事件循环Event Loop机制的理解">
+<meta name="twitter:description" content="题记 终于把node的异步IO给搞的稍微明白些了，之前看朴灵老师的《深入浅出NodeJS》还有些吃力，最近终于可以下定决心把它搞明白。以下是我参阅朴灵老师的《深入浅出NodeJS》后，自己对node异步io的理解，画了一张图，记录一下。(2017年更新)">
+<meta name="twitter:image" content="http://blog.lwdle.xin/images/nodeio2.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"right","display":"always","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://blog.lwdle.xin/2014/07/10/nodejsio/"/>
+
+
+
+
+
+  <title>自己对nodeJS的事件循环Event Loop机制的理解 | 我是个大盗贼，什么都不怕</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta custom-logo">
+    
+      <div class="site-meta-headline">
+        <a>
+          <img class="custom-logo-image" src="/images/logo.png"
+               alt="我是个大盗贼，什么都不怕"/>
+        </a>
+      </div>
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">我是个大盗贼，什么都不怕</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">品质源于专注，走未知的路，然后留下脚印</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://blog.lwdle.xin/2014/07/10/nodejsio/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="lwd426">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/logo.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="我是个大盗贼，什么都不怕">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">自己对nodeJS的事件循环Event Loop机制的理解</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2014-07-10T01:15:49+08:00">
+                2014-07-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/nodeJS/" itemprop="url" rel="index">
+                    <span itemprop="name">nodeJS</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="题记">题记</h3><blockquote>
+<p>终于把node的异步IO给搞的稍微明白些了，之前看朴灵老师的《深入浅出NodeJS》还有些吃力，最近终于可以下定决心把它搞明白。以下是我参阅朴灵老师的《深入浅出NodeJS》后，自己对node异步io的理解，画了一张图，记录一下。(2017年更新)<br><a id="more"></a></p>
+</blockquote>
+<h3 id="大神给了张图">大神给了张图</h3><p>这张是朴灵老师在他的Infoq中画的一张图：</p>
+<p><img src="/images/nodeio2.png" alt=""></p>
+<h3 id="事件循环和异步调用">事件循环和异步调用</h3><p>朴灵老师对事件循环的描述如下：</p>
+<blockquote>
+<p>在调用uv_fs_open方法的过程中实际上应用到了事件循环。以在Windows平台下的实现中，启动Node.js时，便创建了一个基于IOCP的事件循环loop，并一直处于执行状态。</p>
+</blockquote>
+<p><code>uv_run(uv_default_loop());</code></p>
+<blockquote>
+<p>每次循环中，它会调用IOCP相关的<em>GetQueuedCompletionStatus</em>方法检查是否线程池中有执行完的请求，如果存在，poll操作会将请求对象加入到loop的pending_reqs_tail属性上。 另一边这个循环也会不断检查loop对象上的pending_reqs_tail引用，如果有可用的请求对象，就取出请求对象的result属性作为结果传递给oncomplete_sym执行，以此达到调用JavaScript中传入的回调函数的目的。 至此，整个异步I/O的流程完成结束。其流程如下：</p>
+</blockquote>
+<p><img src="/images/nodeio3.png" alt="事件循环和异步调用"></p>
+<blockquote>
+<p><code>事件循环</code>和<code>请求对象</code>构成了Node.js的异步I/O模型的两个基本元素，这也是典型的消费者生产者场景。在Windows下通过IOCP的GetQueuedCompletionStatus、PostQueuedCompletionStatus、QueueUserWorkItem方法与事件循环实。对于*nix平台下，这个流程的不同之处在与实现这些功能的方法是由libeio和libev提供。</p>
+</blockquote>
+<h3 id="以下是我个人的理解：">以下是我个人的理解：</h3><p><img src="/images/nodeio.png" alt="NodeJS异步IO和事件循环图解"></p>
+<h4 id="参与者们">参与者们</h4><p>完成NodeJS的整个异步I/O环节的有事件循环、观察者（队列）、IOCP和请求对象等。</p>
+<p>（此为2017年修改）</p>
+<ol>
+<li><code>执行栈</code>：事件循环的左侧应该还有一个node的执行栈，此处是同步的代码和通过事件循环拉取到执行栈里的回调函数的执行逻辑    </li>
+<li><code>事件循环</code>：nodejs自身的执行模型–事件循环。它处于执行栈和观察者队列之间，是在node启动时创建的，每执行一次循环体称做Tick.每个Tick的过程就是<code>看观察者队列里是否有事件要处理，如果有，就把它放到执行栈里进行执行</code>。</li>
+<li><code>观察者（队列）</code>：先进先出的。在Node中，事件主要来源于网络请求、文件I/O等，所以<code>Node用观察者把事件分类</code>，这些事件对应的观察者有网络请求观察者、文件I/O观察者等，当线程池中的请求对象执行完毕，就会把执行结果req–&gt;result后，调用<code>PostQueueCompletionStatus()</code>通知IOCP该请求对象执行完毕。</li>
+<li><code>IOCP</code>:事件观察者会在每次Tick的过程中，都会<code>调用GetQueueCompletionStatus()询问IOCP线程池中是否有执行完的请求</code>。如果有，则把它加入到对应的<code>观察者队列</code>中，等待被事件循环执行。</li>
+<li><code>请求对象</code>：它可以理解为node从js发起异步调用到内核执行完异步操作的一个<code>中间载体</code>。它在libuv层被组装，组装的时候把各种参数、回调函数、执行状态都封装了进去。当请求对象执行完毕后，会把执行结果封装到他的result中。最终由<code>事件循环调用回调函数（result）</code>.</li>
+</ol>
+<h3 id="使用异步IO构建web服务器">使用异步IO构建web服务器</h3><p>异步I/O不仅仅应用在文件操作中，对于网络套接字，node也用到了I/O。以下描述<code>node构建web服务器的原理</code>：</p>
+<ol>
+<li>开始</li>
+<li>监听端口（套接字）</li>
+<li>事件循环会不断的处理这些网络I/O事件：<ul>
+<li>接收到网络请求</li>
+<li>把请求对象发给I/O观察者形成事件</li>
+<li>请求对象进入到事件循环</li>
+<li>执行I/O观察者中事件对象的回调函数</li>
+<li>判断是否有业务层逻辑的回调函数：如果是，则执行回调，如果没有回调，则结束</li>
+</ul>
+</li>
+</ol>
+<p>以上是我在阅读《深入浅出NodeJS》后，查询很多资料后的一些个人理解，其中肯定肯定有理解上的不足，姑且记录下，慢慢理解提升。</p>
+<p>参考：</p>
+<ul>
+<li>《nodejs异步IO的实现》<a href="http://cnodejs.org/blog/?p=244" target="_blank" rel="external">http://cnodejs.org/blog/?p=244</a></li>
+<li>《深入浅出Node.js（五）：初探Node.js的异步I/O实现》<a href="http://www.infoq.com/cn/articles/nodejs-asynchronous-io" target="_blank" rel="external">http://www.infoq.com/cn/articles/nodejs-asynchronous-io</a></li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/nodejs/" rel="tag"># nodejs</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2014/06/21/nodeevent/" rel="next" title="自己对node事件驱动的理解">
+                <i class="fa fa-chevron-left"></i> 自己对node事件驱动的理解
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2014/07/20/node-WebSocket/" rel="prev" title="自己对WebSocket+nodeJS的理解">
+                自己对WebSocket+nodeJS的理解 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/logo.png"
+               alt="lwd426" />
+          <p class="site-author-name" itemprop="name">lwd426</p>
+           
+              <p class="site-description motion-element" itemprop="description">好的产品，是用心打磨的，我永远相信这句话</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">70</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">20</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">41</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#题记"><span class="nav-number">1.</span> <span class="nav-text">题记</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#大神给了张图"><span class="nav-number">2.</span> <span class="nav-text">大神给了张图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#事件循环和异步调用"><span class="nav-number">3.</span> <span class="nav-text">事件循环和异步调用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#以下是我个人的理解："><span class="nav-number">4.</span> <span class="nav-text">以下是我个人的理解：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#参与者们"><span class="nav-number">4.1.</span> <span class="nav-text">参与者们</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用异步IO构建web服务器"><span class="nav-number">5.</span> <span class="nav-text">使用异步IO构建web服务器</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">lwd426</span>
+
+  
+</div>
+
+
+  <div class="powered-by">
+    思维
+  </div>
+
+  <span class="post-meta-divider">|</span>
+
+  <div class="theme-info">
+    眼界 &mdash;
+  </div>
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

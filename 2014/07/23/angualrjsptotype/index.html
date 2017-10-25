@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta name="baidu-site-verification" content="VMH9oYMJXO" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="AngularJS," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="一、遇到的问题问题发生在使用 AngularJS 嵌套 Controller 的时候。因为每个 Controller 都有它对应的 Scope（相当于作用域、控制范围），所以 Controller 的嵌套，也就意味着 Scope 的嵌套。这个时候如果两个 Scope 内都有同名的 Model 会发生什么呢？从子 Scope 怎样更新父 Scope 里的 Model 呢？ 这个问题很典型，比方说当前">
+<meta name="keywords" content="AngularJS">
+<meta property="og:type" content="article">
+<meta property="og:title" content="javascript原型集成到angularJS继承">
+<meta property="og:url" content="http://blog.lwdle.xin/2014/07/23/angualrjsptotype/index.html">
+<meta property="og:site_name" content="我是个大盗贼，什么都不怕">
+<meta property="og:description" content="一、遇到的问题问题发生在使用 AngularJS 嵌套 Controller 的时候。因为每个 Controller 都有它对应的 Scope（相当于作用域、控制范围），所以 Controller 的嵌套，也就意味着 Scope 的嵌套。这个时候如果两个 Scope 内都有同名的 Model 会发生什么呢？从子 Scope 怎样更新父 Scope 里的 Model 呢？ 这个问题很典型，比方说当前">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://blog.lwdle.xin/images/angularjs/angularjs1.png">
+<meta property="og:image" content="http://blog.lwdle.xin/images/angularjs/angularjs2.png">
+<meta property="og:image" content="http://blog.lwdle.xin/images/angularjs/angularjs3.png">
+<meta property="og:image" content="http://blog.lwdle.xin/images/angularjs/angularjs4.png">
+<meta property="og:image" content="http://blog.lwdle.xin/images/angularjs/angularjs5.png">
+<meta property="og:image" content="http://blog.lwdle.xin/images/angularjs/angularjs6.png">
+<meta property="og:image" content="http://blog.lwdle.xin/images/angularjs/angularjs7.png">
+<meta property="og:image" content="http://blog.lwdle.xin/images/angularjs/angularjs8.png">
+<meta property="og:image" content="http://blog.lwdle.xin/images/angularjs/angularjs9.png">
+<meta property="og:updated_time" content="2017-08-13T09:02:29.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="javascript原型集成到angularJS继承">
+<meta name="twitter:description" content="一、遇到的问题问题发生在使用 AngularJS 嵌套 Controller 的时候。因为每个 Controller 都有它对应的 Scope（相当于作用域、控制范围），所以 Controller 的嵌套，也就意味着 Scope 的嵌套。这个时候如果两个 Scope 内都有同名的 Model 会发生什么呢？从子 Scope 怎样更新父 Scope 里的 Model 呢？ 这个问题很典型，比方说当前">
+<meta name="twitter:image" content="http://blog.lwdle.xin/images/angularjs/angularjs1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"right","display":"always","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://blog.lwdle.xin/2014/07/23/angualrjsptotype/"/>
+
+
+
+
+
+  <title>javascript原型集成到angularJS继承 | 我是个大盗贼，什么都不怕</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta custom-logo">
+    
+      <div class="site-meta-headline">
+        <a>
+          <img class="custom-logo-image" src="/images/logo.png"
+               alt="我是个大盗贼，什么都不怕"/>
+        </a>
+      </div>
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">我是个大盗贼，什么都不怕</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">品质源于专注，走未知的路，然后留下脚印</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://blog.lwdle.xin/2014/07/23/angualrjsptotype/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="lwd426">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/logo.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="我是个大盗贼，什么都不怕">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">javascript原型集成到angularJS继承</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2014-07-23T10:15:49+08:00">
+                2014-07-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/AngularJS/" itemprop="url" rel="index">
+                    <span itemprop="name">AngularJS</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="一、遇到的问题">一、遇到的问题</h3><p>问题发生在使用 AngularJS 嵌套 Controller 的时候。因为每个 Controller 都有它对应的 Scope（相当于作用域、控制范围），所以 Controller 的嵌套，也就意味着 Scope 的嵌套。这个时候如果两个 Scope 内都有同名的 Model 会发生什么呢？从子 Scope 怎样更新父 Scope 里的 Model 呢？</p>
+<p>这个问题很典型，比方说当前页面是一个产品列表，那么就需要定义一个 ProductListController</p>
+<a id="more"></a>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">ProductListController</span>(<span class="params">$scope, $http</span>) </span>&#123;</div><div class="line">    $http.get(<span class="string">'/api/products.json'</span>)</div><div class="line">        .success(<span class="function"><span class="keyword">function</span>(<span class="params">data</span>)</span>&#123;</div><div class="line">            $scope.productList = data;</div><div class="line">        &#125;);</div><div class="line">    $scope.selectedProduct = &#123;&#125;;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>你大概看到了在 Scope 里还定义了一个 selectedProduct 的 Model，表示选中了某一个产品。这时会获取该产品详情，而页面通过 AngularJS 中的 $routeProvider 自动更新，拉取新的详情页模板，模板中有一个 ProductDetailController</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">ProductDetailController</span>(<span class="params">$scope, $http, $routeParams</span>) </span>&#123;</div><div class="line">    $http.get(<span class="string">'/api/products/'</span>+$routeParams.productId+<span class="string">'.json'</span>)</div><div class="line">        .success(<span class="function"><span class="keyword">function</span>(<span class="params">data</span>)</span>&#123;</div><div class="line">            $scope.selectedProduct = data;</div><div class="line">        &#125;);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>有趣的事情发生了，在这里也有一个 selectedProduct ，它会怎样影响 ProductListController 中的 selectedProduct 呢？</p>
+<p>答案是没有影响。在 AnuglarJS 里子 Scope 确实会继承父 Scope 中的对象，但当你试下对基本数据类型（string, number, boolean）的 双向数据绑定 时，就会发现一些奇怪的行为，继承并不像你想象的那样工作。子 Scope 的属性隐藏（覆盖）了父 Scope 中的同名属性，对子 Scope 属性（表单元素）的更改并不更新父 Scope 属性的值。这个行为实际上不是 AngularJS 特有的，JavaScript 本身的原型链就是这样工作的。开发者通常都没有意识到 ng-repeat, ng-switch, ng-view 和 ng-include 统统都创建了他们新的子 scopes，所以在用到这些 directive 时也经常出问题。</p>
+<h3 id="二、解决的办法">二、解决的办法</h3><p>解决的办法就是不使用基本数据类型，而在 Model 里永远多加一个点.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">使用</div><div class="line">&lt;input type=<span class="string">"text"</span> ng-model=<span class="string">"someObj.prop1"</span>&gt;</div><div class="line">来替代</div><div class="line">&lt;input type=<span class="string">"text"</span> ng-model=<span class="string">"prop1"</span>&gt;</div></pre></td></tr></table></figure>
+<p>是不是很坑爹？下面这个例子很明确地表达了我所想表达的奇葩现象</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">app.controller(<span class="string">'ParentController'</span>,<span class="function"><span class="keyword">function</span>(<span class="params">$scope</span>)</span>&#123;</div><div class="line">    $scope.parentPrimitive = <span class="string">"some primitive"</span></div><div class="line">    $scope.parentObj = &#123;&#125;;</div><div class="line">    $scope.parentObj.parentProperty = <span class="string">"some value"</span>;</div><div class="line">&#125;);</div><div class="line">app.controller(<span class="string">'ChildController'</span>,<span class="function"><span class="keyword">function</span>(<span class="params">$scope</span>)</span>&#123;</div><div class="line">    $scope.parentPrimitive = <span class="string">"this will NOT modify the parent"</span></div><div class="line">    $scope.parentObj.parentProperty = <span class="string">"this WILL modify the parent"</span>;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>但是我真的确实十分很非常需要使用 string number 等原始数据类型怎么办呢？2 个方法:</p>
+<ul>
+<li>在子 Scope 中使用 $parent.parentPrimitive。 这将阻止子 Scope 创建它自己的属性。</li>
+<li>在父 Scope 中定义一个函数，让子 Scope 调用，传递原始数据类型的参数给父亲，从而更新父 Scope 中的属性。（并不总是可行）</li>
+</ul>
+<h3 id="三、JavaScript_的原型链继承">三、JavaScript 的原型链继承</h3><p>吐槽完毕，我们来深入了解一下 JavaScript 的原型链。这很重要，特别是当你从服务器端开发转到前端，你应该会很熟悉经典的 Class 类继承，我们来回顾一下。</p>
+<p>假设父类 parentScope 有如下成员属性 aString, aNumber, anArray, anObject, 以及 aFunction。子类 childScope 原型继承父类 parentScope，于是我们有：</p>
+<p><img src="/images/angularjs/angularjs1.png" alt=""></p>
+<p>如果子 Scope 尝试去访问 parentScope 中定义的属性，JavaScript 会先在子 Scope 中查找，如果没有该属性，则找它继承的 scope 去获取属性，如果继承的原型对象 parentScope 中都没有该属性，那么继续在它的原型中寻找，从原型链一直往上直到到达 rootScope。所以，下面的表达式结果都是 ture：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">childScope.aString === <span class="string">'parent string'</span>childScope.anArray[<span class="number">1</span>] === <span class="number">20</span>childScope.anObject.property1 === <span class="string">'parent prop1'</span>childScope.aFunction() === <span class="string">'parent output'</span></div></pre></td></tr></table></figure>
+<p>假设我们执行下面的语句</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">childScope.aString = <span class="string">'child string'</span></div></pre></td></tr></table></figure>
+<p>原型链并没有被查询，反而是在 childScope 中增加了一个新属性 aString。这个新属性隐藏（覆盖）了 parentScope 中的同名属性。在下面我们讨论 ng-repeat 和 ng-include 时这个概念很重要。</p>
+<p><img src="/images/angularjs/angularjs2.png" alt=""></p>
+<p>假设我们执行这个操作：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">childScope.anArray[1] = &apos;22&apos;childScope.anObject.property1 = &apos;child prop1&apos;</div></pre></td></tr></table></figure>
+<p>原型链被查询了，因为对象 anArray 和 anObject 在 childScope 中没有找到。它们在 parentScope 中被找到了，并且值被更新。childScope 中没有增加新的属性，也没有任何新的对象被创建。（注：在 JavaScript 中，array 和 function 都是对象）</p>
+<p><img src="/images/angularjs/angularjs3.png" alt=""></p>
+<p>假设我们执行这个操作：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">childScope.anArray = [100, 555]childScope.anObject = &#123; name: &apos;Mark&apos;, country: &apos;USA&apos; &#125;</div></pre></td></tr></table></figure>
+<p>原型链没有被查询，并且子 Scope 新加入了两个新的对象属性，它们隐藏（覆盖）了 parentScope 中的同名对象属性。</p>
+<p><img src="/images/angularjs/angularjs4.png" alt=""></p>
+<p>应该可以总结</p>
+<p>如果读取 childScope.propertyX，并且 childScope 有属性 propertyX，那么原型链没有被查询。<br>如果设置 childScope.propertyX，原型链不会被查询。<br>最后一种情况，</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">delete childScope.anArraychildScope.anArray[1] === 22  // true</div></pre></td></tr></table></figure>
+<p>我们从 childScope 删除了属性，则当我们再次访问该属性时，原型链会被查询。删除对象的属性会让来自原型链中的属性浮现出来。</p>
+<p><img src="/images/angularjs/angularjs5.png" alt=""></p>
+<p>四、AngularJS 的 Scope 继承<br>创建新的 Scope，并且原型继承：ng-repeat, ng-include, ng-switch, ng-view, ng-controller, directive withscope: true, directive with transclude: true<br>创建新的 Scope，但不继承：directive with scope: { … }。它会创建一个独立 Scope。<br>注：默认情况下 directive 不创建新 Scope，即默认参数是 scope: false。</p>
+<p>ng-include<br>假设在我们的 controller 中，</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$scope.myPrimitive = 50;$scope.myObject    = &#123;aNumber: 11&#125;;</div></pre></td></tr></table></figure>
+<p>HTML 为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;script type=&quot;text/ng-template&quot; id=&quot;/tpl1.html&quot;&gt;</div><div class="line">    &lt;input ng-model=&quot;myPrimitive&quot;&gt;&lt;/script&gt;&lt;div ng-include src=&quot;&apos;/tpl1.html&apos;&quot;&gt;&lt;/div&gt; &lt;script type=&quot;text/ng-template&quot; id=&quot;/tpl2.html&quot;&gt;</div><div class="line">    &lt;input ng-model=&quot;myObject.aNumber&quot;&gt;&lt;/script&gt;&lt;div ng-include src=&quot;&apos;/tpl2.html&apos;&quot;&gt;&lt;/div&gt;</div></pre></td></tr></table></figure>
+<p>每一个 ng-include 会生成一个子 Scope，每个子 Scope 都继承父 Scope。</p>
+<p><img src="/images/angularjs/angularjs6.png" alt=""></p>
+<p>输入（比如”77″）到第一个 input 文本框，则子 Scope 将获得一个新的 myPrimitive 属性，覆盖掉父 Scope 的同名属性。这可能和你预想的不一样。</p>
+<p><img src="/images/angularjs/angularjs7.png" alt=""></p>
+<p>输入（比如”99″）到第二个 input 文本框，并不会在子 Scope 创建新的属性，因为 tpl2.html 将 model 绑定到了一个对象属性（an object property），原型继承在这时发挥了作用，ngModel 寻找对象 myObject 并且在它的父 Scope 中找到了。</p>
+<p><img src="/images/angularjs/angularjs8.png" alt=""></p>
+<p>如果我们不想把 model 从 number 基础类型改为对象，我们可以用 $parent 改写第一个模板：</p>
+<p><input ng-model="$parent.myPrimitive"><br>输入（比如”22″）到这个文本框也不会创建新属性了。model 被绑定到了父 scope 的属性上（因为 $parent 是子 Scope 指向它的父 Scope 的一个属性）。</p>
+<p><img src="/images/angularjs/angularjs9.png" alt=""></p>
+<p>对于所有的 scope （原型继承的或者非继承的），Angular 总是会通过 Scope 的 $parent, $$childHead 和 $$childTail 属性记录父-子关系（也就是继承关系），图中为简化而未画出这些属性。</p>
+<p>在没有表单元素的情况下，另一种方法是在父 Scope 中定义一个函数来修改基本数据类型。因为有原型继承，子 Scope 确保能够调用这个函数。例如，</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">// 父 Scope 中$scope.setMyPrimitive = function(value) &#123;</div><div class="line">    $scope.myPrimitive = value;&#125;</div></pre></td></tr></table></figure>
+<h4 id="总结">总结</h4><p>一共有四种 Scope：</p>
+<ul>
+<li>普通进行原型继承的 Scope —— ng-include, ng-switch, ng-controller, directive with scope: true</li>
+<li>普通原型继承的 Scope 但拷贝赋值 —— ng-repeat。 每个 ng-repeat 的循环都创建新的子 Scope，并且子 Scope 总是获得新的属性。</li>
+<li>独立的 isolate scope —— directive with scope: {…}。它不是原型继承，但 ‘=’, ‘@’ 和 ‘&amp;’ 提供了访问父 Scope 属性的机制。</li>
+<li>transcluded scope —— directive with transclude: true。它也遵循原型继承，但它同时是任何 isolate scope 的兄弟。<br>对于所有的 Scope，Angular 总是会通过 Scope 的 $parent, $$childHead 和 $$childTail 属性记录父-子关系。</li>
+</ul>
+<p>参考链接<br><a href="http://stackoverflow.com/questions/14049480/what-are-the-nuances-of-scope-prototypal-prototypical-inheritance-in-angularjs" target="_blank" rel="external">http://stackoverflow.com/questions/14049480/what-are-the-nuances-of-scope-prototypal-prototypical-inheritance-in-angularjs</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/AngularJS/" rel="tag"># AngularJS</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2014/07/20/node-WebSocket/" rel="next" title="自己对WebSocket+nodeJS的理解">
+                <i class="fa fa-chevron-left"></i> 自己对WebSocket+nodeJS的理解
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2014/08/05/CasesOfRESTful/" rel="prev" title="RESTful API 设计指南（转）">
+                RESTful API 设计指南（转） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/logo.png"
+               alt="lwd426" />
+          <p class="site-author-name" itemprop="name">lwd426</p>
+           
+              <p class="site-description motion-element" itemprop="description">好的产品，是用心打磨的，我永远相信这句话</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">70</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">20</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">41</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#一、遇到的问题"><span class="nav-number">1.</span> <span class="nav-text">一、遇到的问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二、解决的办法"><span class="nav-number">2.</span> <span class="nav-text">二、解决的办法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三、JavaScript_的原型链继承"><span class="nav-number">3.</span> <span class="nav-text">三、JavaScript 的原型链继承</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#总结"><span class="nav-number">3.1.</span> <span class="nav-text">总结</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">lwd426</span>
+
+  
+</div>
+
+
+  <div class="powered-by">
+    思维
+  </div>
+
+  <span class="post-meta-divider">|</span>
+
+  <div class="theme-info">
+    眼界 &mdash;
+  </div>
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

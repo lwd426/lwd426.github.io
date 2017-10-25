@@ -1,0 +1,891 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta name="baidu-site-verification" content="VMH9oYMJXO" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="nodejs,HTTP," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="题记 一直对node的服务器和客户端稀里糊涂的，只是会用，知道可以用createServer(function( req, res){....}).listen(3000);的方式来建立一个服务器程序，监听客户端连接过来、数据（req）发送过来然后处理数据、然后通过res把数据返回给客户端。再者就是可以使用诸如connect或者express的这种对http封装过的框架，采用中间件的方式在服务器程">
+<meta name="keywords" content="nodejs,HTTP">
+<meta property="og:type" content="article">
+<meta property="og:title" content="HTTP服务的那些事---node对http模块的基础实现">
+<meta property="og:url" content="http://blog.lwdle.xin/2015/03/22/httpServer&Clinet/index.html">
+<meta property="og:site_name" content="我是个大盗贼，什么都不怕">
+<meta property="og:description" content="题记 一直对node的服务器和客户端稀里糊涂的，只是会用，知道可以用createServer(function( req, res){....}).listen(3000);的方式来建立一个服务器程序，监听客户端连接过来、数据（req）发送过来然后处理数据、然后通过res把数据返回给客户端。再者就是可以使用诸如connect或者express的这种对http封装过的框架，采用中间件的方式在服务器程">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-08-13T09:02:29.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="HTTP服务的那些事---node对http模块的基础实现">
+<meta name="twitter:description" content="题记 一直对node的服务器和客户端稀里糊涂的，只是会用，知道可以用createServer(function( req, res){....}).listen(3000);的方式来建立一个服务器程序，监听客户端连接过来、数据（req）发送过来然后处理数据、然后通过res把数据返回给客户端。再者就是可以使用诸如connect或者express的这种对http封装过的框架，采用中间件的方式在服务器程">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"right","display":"always","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://blog.lwdle.xin/2015/03/22/httpServer&Clinet/"/>
+
+
+
+
+
+  <title>HTTP服务的那些事---node对http模块的基础实现 | 我是个大盗贼，什么都不怕</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta custom-logo">
+    
+      <div class="site-meta-headline">
+        <a>
+          <img class="custom-logo-image" src="/images/logo.png"
+               alt="我是个大盗贼，什么都不怕"/>
+        </a>
+      </div>
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">我是个大盗贼，什么都不怕</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">品质源于专注，走未知的路，然后留下脚印</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://blog.lwdle.xin/2015/03/22/httpServer&Clinet/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="lwd426">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/logo.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="我是个大盗贼，什么都不怕">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">HTTP服务的那些事---node对http模块的基础实现</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2015-03-22T10:09:10+08:00">
+                2015-03-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/nodeJS/" itemprop="url" rel="index">
+                    <span itemprop="name">nodeJS</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="题记">题记</h2><blockquote>
+<p>一直对node的服务器和客户端稀里糊涂的，只是会用，知道可以用<code>createServer(function( req, res){....}).listen(3000);</code><br>的方式来建立一个服务器程序，监听客户端连接过来、数据（req）发送过来然后处理数据、然后通过res把数据返回给客户端。再者就是可以使用诸如connect或者express的这种对http封装过的框架，采用中间件的方式在服务器程序处理请求之前、之后对数据进行操作。就这么多了，再深入就不知道怎么回事了。</p>
+</blockquote>
+<h2 id="待解决问题">待解决问题</h2><p>所以，这次特意来搞明白：</p>
+<ol>
+<li>http的服务器和客户端到底张什么玩意？</li>
+<li>connect对http模块进行了哪些封装？</li>
+<li>express又对http模块进行了哪些封装？</li>
+</ol>
+<p>今天就先来搞明白读一个问题！~<br><a id="more"></a></p>
+<h2 id="http服务器和http客户端">http服务器和http客户端</h2><p>简要的说：</p>
+<ul>
+<li>Node.js标准库提供了http模块，其中封装了一个高效的（高并发）http服务器和一个简易的客户端。</li>
+<li>http.Server是一个<code>基于事件的http服务器</code></li>
+<li>http.Server核心由Node.js下层的C++部分实现的，而上层接口是由javascript封装，兼顾了高性能和简易性。</li>
+<li>http.request是一个客户端工具，用于向http服务器发起请求，如内容获取等。</li>
+</ul>
+<p>从特性上说，http模块是：</p>
+<ul>
+<li>Node的http模块是对HTTP处理逻辑的封装（采用事件机制）。* Node中，HTTP服务(http模块)继承自TCP服务（net模块）。</li>
+<li>是<code>基于事件驱动</code>的，继承自EventEmitter类，所以可以在node的单线程上做到高并发。</li>
+<li>HTTP服务以request为单位，而TCP服务以connecttion为单位进行服务，http模块是将connection到request的过程进行了封装.</li>
+</ul>
+<h3 id="http服务器">http服务器</h3><p>http.Server是一个基于事件驱动的服务器，它把服务器相关的<code>逻辑都用事件进行封装</code>，用户只需要实现相关事件对应的响应函数，就可以完成服务器逻辑逻辑的处理，实现服务器的所有功能。</p>
+<p>在使用过程中，最常用的就是当请求到来时，request封装出的request对象和response对象。他们两个分别是http.ServerRequest和http.ServerResponse的实例，表示请求和响应信息。</p>
+<h4 id="http服务器事件">http服务器事件</h4><p>http.Sever继承自EventEmitter，提供了以下几个事件，从而完成服务器的基本功能。</p>
+<ol>
+<li><code>request</code>:当客户端请求到来时，该事件被触发，提供两个参数req和res，分别是http.ServerRequest和http.ServerResponse的实例，表示请求和响应信息。</li>
+<li><code>connection</code>:当TCP连接建立时，该事件被触发，提供一个参数socket，为net.Socket的实例。connection事件的粒度要大于request，因为客户端在Keep-Alive模式下可能会在同一个连接内发送多次请求。</li>
+<li><code>close</code>：当服务器关闭时，该事件触发。注意不是在用户连接断开时。</li>
+<li>除此之外还有checkContinue、upgrade、clientError事件，通常我们不需要关心，只有实现复杂的HTTP服务器的时候才会用到。</li>
+</ol>
+<p>在这些事件中，最常用的就是request了，因此http提供了一个捷径：<br><code>http.createServer([requestListener])</code>，功能是创建一个HTTP服务器并将requestListener作为request事件的监听函数，这也是上面例子中的实现方式。</p>
+<p><em>注意:无论服务器端在处理业务逻辑时是否发生异常，务必在结束时调用res.end()结束请求，否则客户端将一直处于等待状态。当然，也可以通过延迟res.end()的方式实现客户端与服务端之间的长连接，但结束时务必关闭连接。</em></p>
+<p>下面是显式方式注册request事件：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//httpserver.js</span></div><div class="line"><span class="keyword">var</span> http =<span class="built_in">require</span>(‘http’);</div><div class="line"><span class="keyword">var</span> server = http.Server();</div><div class="line">sever.on(‘request’,<span class="function"><span class="keyword">function</span>(<span class="params">req,res</span>)</span>&#123;</div><div class="line">   res.writeHead(<span class="number">200</span>,&#123;‘Content-Type’:’text/html’&#125;);</div><div class="line">   res.write(‘&lt;h1&gt;Node.js&lt;<span class="regexp">/h1&gt;’);</span></div><div class="line"><span class="regexp">  res.end(‘&lt;p&gt;Hello World&lt;/</span>p&gt;’);</div><div class="line">&#125;);</div><div class="line">sever.listen(<span class="number">3000</span>);</div><div class="line"><span class="built_in">console</span>.log(“HTTPserver is listening at port <span class="number">3000.</span>”);</div></pre></td></tr></table></figure>
+<blockquote>
+<p>http请求对象和http响应对象是相对较底层的封装，现行的Web框架如Connect和Express都是这两个对象的基础之上进行高层封装完成的。</p>
+</blockquote>
+<h4 id="请求对象http-ServerRequest">请求对象http.ServerRequest</h4><p>http.ServerRequest是HTTP请求的信息，是后端开发者最关注的内容。<code>它一般由http.Server的request事件发送，作为第一个参数传递，通常简称为request或req。</code><br>属性有：</p>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th style="text-align:center">含义           </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>complete</td>
+<td style="text-align:center">客户端请求是否已经发送完成</td>
+</tr>
+<tr>
+<td>httpVersion</td>
+<td style="text-align:center">HTTP协议版本，通常是1.0或1.1</td>
+</tr>
+<tr>
+<td>method</td>
+<td style="text-align:center">HTTP请求方法，如GET POST PUT DELETE</td>
+</tr>
+<tr>
+<td>url</td>
+<td style="text-align:center">原始请求路径</td>
+</tr>
+<tr>
+<td>headers</td>
+<td style="text-align:center">HTTP请求头</td>
+</tr>
+<tr>
+<td>trailers</td>
+<td style="text-align:center">HTTP请求尾（不常见）</td>
+</tr>
+<tr>
+<td>connection</td>
+<td style="text-align:center">当前http连接套接字，为net.Socket的实例</td>
+</tr>
+<tr>
+<td>socket</td>
+<td style="text-align:center">connection属性的别名</td>
+</tr>
+<tr>
+<td>client</td>
+<td style="text-align:center">client属性的别名</td>
+</tr>
+</tbody>
+</table>
+<p>HTTP请求一般可以分为两部分：请求头和请求体。以上内容由于长度较短都可以<code>在请求头解析完成后立即读取</code>。</p>
+<p>而请求体可能相对较长，需要一定的时间传输，因此http.ServerRequest提供了以下3个事件用于控制请求体传输。</p>
+<ul>
+<li><code>data</code>:当请求体数据到来时，该事件触发。该事件提供一个参数chunk，表示接收到的数据，如果该事件没有被监听，那么请求体将被抛弃。该事件可能会被调用多次。</li>
+<li>end:当请求体数据传输完成时，该事件被触发，此后将不会再有数据到来。</li>
+<li>close:用户当前请求结束时，该事件触发。不同于end，如果用户强制终止了传输，也还是调用close。</li>
+</ul>
+<p>对请求参数的解析分为两种情况：get请求和post请求</p>
+<h5 id="解析请求属性（get）">解析请求属性（get）</h5><p>使用url模块的parse方法来解析get请求参数，实例如下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> http =<span class="built_in">require</span>(‘http’);</div><div class="line"><span class="keyword">var</span> url = <span class="built_in">require</span>(‘url’);</div><div class="line">http.createServer(<span class="function"><span class="keyword">function</span>(<span class="params">req,res</span>)</span>&#123;</div><div class="line">   res.writeHead(<span class="number">200</span>,&#123;‘Content-Type’:’text/html’&#125;);</div><div class="line">   res.end(url.parse(req.url,<span class="literal">true</span>));</div><div class="line">&#125;).listen(<span class="number">3000</span>);</div><div class="line"></div><div class="line"><span class="comment">//parse后返回的对象包含</span></div><div class="line">&#123;</div><div class="line">    search:’?name=aaa&amp;key=…’,</div><div class="line">    query:&#123;<span class="attr">name</span>:’aaa’,<span class="attr">key</span>:’’&#125;</div><div class="line">    pathname:’问号前的如/user’</div><div class="line">    path:’’,</div><div class="line">    href:’’</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h5 id="解析请求体(post)">解析请求体(post)</h5><p>HTTP协议1.1版本提供了8种标准的请求方法，其中最常见的就是GET和POST。<code>POST请求的内容全部都在请求体中</code>。http.ServerRequest并没有一个属性内容为请求体，原因是等待请求体传输可能是一件耗时的工作，譬如上传文件。而很多时候我们可能并不需要理会请求的内容，恶意的POST请求会消耗服务器的资源。所以Node.js默认是不会解析请求体的，当你需要的时候需要手动来做。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//httpserverrequestpost.js</span></div><div class="line"><span class="keyword">var</span> http =<span class="built_in">require</span>(‘http’);</div><div class="line"><span class="keyword">var</span> querystring =<span class="built_in">require</span>(‘querystring’);</div><div class="line"><span class="keyword">var</span> util =<span class="built_in">require</span>(‘util’);</div><div class="line">http.createServer(<span class="function"><span class="keyword">function</span>(<span class="params">req,res</span>)</span>&#123;</div><div class="line">   <span class="keyword">var</span> post = ‘’;</div><div class="line">   req.on(‘data’,<span class="function"><span class="keyword">function</span>(<span class="params">chunk</span>)</span>&#123;</div><div class="line">         post+=chunk;</div><div class="line">   &#125;);</div><div class="line">   req.on(‘end’,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">            post = questring.parse(post);</div><div class="line">            res.end(util.inspect(post));</div><div class="line">   &#125;);</div><div class="line">&#125;).listen(<span class="number">3000</span>);</div></pre></td></tr></table></figure>
+<p>通过querystring.parse将post解析为真正的POST请求格式.</p>
+<h4 id="响应对象http-SeverResponse">响应对象http.SeverResponse</h4><p>http.ServerResponse是返回给客户端的信息，决定了用户最终能看到的结果。<code>它也是由http.Server的request事件发送的，作为第二个参数传递，一般简称为response或res。</code></p>
+<p>httpServerResponse有三个重要的成员函数，用于<code>返回响应头</code>、<code>响应内容</code>以及<code>结束请求</code>。</p>
+<ul>
+<li><code>response.writeHead(statusCode,[headers]):向请求的客户端发送响应头</code>。statusCode是HTTP状态码，如：200，404。headers是一个类似关联数组的对象，表示响应头的每个属性。该函数在一个请求内最多只能调用一次，如果不调用，则会自动生成一个响应头。</li>
+<li><code>response.write(data,[encoding])：向请求的客户端发送响应内容</code>。data是一个Buffer或字符串，表示要发送的内容。如果data是字符串，那么需要指定encoding来说明它的编码方式，默认是utf-8。在response.end调用之前，response.write可以被多次调用。</li>
+<li><code>response.end([data],[encoding])：结束响应，告知客户端所有发送已经完成</code>。当所有返回的内容发送完毕的时候，该函数必须被调用一次。如果不调用该函数，客户端将永远处于等待状态。<code>注意高级框架express的很多方法比如res.json都已经包含了end方法，所以不需要再次end.</code></li>
+</ul>
+<h3 id="http客户端">http客户端</h3><blockquote>
+<p>客户端是我们最常用的，就是要连接服务器前，要声明url、method、请求头、参数列表（get或post）用户名、密码等基本信息，然后用一个request连过去，就ok了。接下来就可以在回调函数（或事件中）接受服务器返回的结果，然后处理了。</p>
+</blockquote>
+<p>http模块提供了两个函数http.request和http.get，功能是<code>作为客户端向HTTP服务器发起请求</code>。</p>
+<h4 id="http-request(options,callback)">http.request(options,callback)</h4><p>http.request(options,callback)发起HTTP请求，接受两个参数，option是一个类似关联数组的对象，表示请求的参数，callback是请求的回调函数。</p>
+<ul>
+<li><p>option常用参数如下:</p>
+<ol>
+<li>host:请求网站的域名或IP地址。</li>
+<li>port:请求网站的端口，默认80。</li>
+<li>method:请求方法，默认是GET</li>
+<li>path:请求相对根的路径，默认是“/”QueryString应该包含在其中。</li>
+<li>headers：一个关联数组对象，为请求头的内容</li>
+</ol>
+</li>
+<li><p>callback接收一个参数，为http.ClientResponse的实例</p>
+</li>
+</ul>
+<p>http.request返回一个http.ClientRequest的实例。如下通过http.request发送POST请求代码：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//httprequest.js</span></div><div class="line"><span class="keyword">var</span> http =<span class="built_in">require</span>(‘http’);</div><div class="line"><span class="keyword">var</span> querystring =<span class="built_in">require</span>(‘querystring’);</div><div class="line"><span class="keyword">var</span> contents =querystring.stringify(&#123;</div><div class="line">      name:’will’,</div><div class="line">      email:’aa@qq.com’,</div><div class="line">      adress:’fsfsdfsdfs’;</div><div class="line">&#125;);</div><div class="line"><span class="keyword">var</span> options = &#123;</div><div class="line">      host:’www.byvoid.com’,</div><div class="line">      path:’/application/node/post.php’,</div><div class="line">      method:’POST’,</div><div class="line">      headers:&#123;</div><div class="line">         ‘Content-Type’:’application/x-www.form-urlencoded’,</div><div class="line">         ‘Content-Length:contents.length,</div><div class="line">      &#125;</div><div class="line">&#125;;</div><div class="line"><span class="keyword">var</span> req =http.request(options,<span class="function"><span class="keyword">function</span>(<span class="params">res</span>)</span>&#123;</div><div class="line">      res.setEncoding(‘utf<span class="number">-8</span>’);</div><div class="line">      res.on(‘data’,<span class="function"><span class="keyword">function</span>(<span class="params">data</span>)</span>&#123;</div><div class="line">          <span class="built_in">console</span>.log(data);</div><div class="line">      &#125;);</div><div class="line">&#125;);</div><div class="line">req.write(contents);</div><div class="line">req.end();</div></pre></td></tr></table></figure>
+<h4 id="http-get(options,callback)">http.get(options,callback)</h4><p>http模块还提供了一个更加简便的方法便于处理GET请求：http.get。它是http.request的简化版，唯一区别在于http.get自动将请求方法设备成GET请求，同时不需要手动调用req.end();</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">httpget.js</div><div class="line"><span class="keyword">var</span> http =<span class="built_in">require</span>(‘http’);</div><div class="line">http.get(&#123;<span class="attr">host</span>:’www.baidu.com’&#125;,<span class="function"><span class="keyword">function</span>(<span class="params">res</span>)</span>&#123;</div><div class="line">    res.setEncoding(‘utf8’);</div><div class="line">    res.on(‘data’,<span class="function"><span class="keyword">function</span>(<span class="params">data</span>)</span>&#123;</div><div class="line">           <span class="built_in">console</span>.log(data);</div><div class="line">    &#125;);</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<h4 id="请求对象http-ClientRequest">请求对象http.ClientRequest</h4><p>http.ClientRequest是由http.request或http.get返回产生对象，表示<code>一个已经产生而且正在进行中的HTTP请求</code>。它提供一个response事件，即http.request或http.get第二个参数指定的回调函数的绑定对象。也可以显式地绑定这个事件的监听函数</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//httpresponse.js</span></div><div class="line"><span class="keyword">var</span> http =<span class="built_in">require</span>(‘http’);</div><div class="line"><span class="keyword">var</span> req =http.get(&#123;<span class="attr">host</span>:’www.baidu.com’&#125;);</div><div class="line">req.on(“response”,<span class="function"><span class="keyword">function</span>(<span class="params">res</span>)</span>&#123;</div><div class="line">     res.setEncoding(‘utf8’);</div><div class="line">     res.on(‘data’,<span class="function"><span class="keyword">function</span>(<span class="params">data</span>)</span>&#123;</div><div class="line">             <span class="built_in">console</span>.log(data);</div><div class="line">     &#125;</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<p>http.ClientRequest像http.ServerResponse一样也提供了write和end函数，用于向服务器发送请求体，通常用于POST、PUT等操作。所有写结束以后必须调用end函数以通知服务器，否则请求无效。<br>它还提供以下函数：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">request.abort():终止正在发送的请求</div><div class="line">request.setTimeout(timeout,[callback])设置请求超时时间，</div><div class="line">request.setNoDelay([noDelay])</div><div class="line">request.setSocketKeepAlive([enable],[initialDelay])等函数</div></pre></td></tr></table></figure>
+<h4 id="响应对象http-ClientResponse">响应对象http.ClientResponse</h4><p>http.ClientResponse与http.ServerRequest相似，提供三个事件data,end,和close，分别在数据到达、传输结束和连接结束时触发，其中data事件传递一个参数chunk,表示接收到数据。<br>http.ClientResponse也提供了一些属性，用于表示请求的结果状态，</p>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th style="text-align:center">含义           </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>statusCode</td>
+<td style="text-align:center">200/404</td>
+</tr>
+<tr>
+<td>httpVersion</td>
+<td style="text-align:center">HTTP协议版本，通常是1.0或1.1</td>
+</tr>
+<tr>
+<td>headers</td>
+<td style="text-align:center">HTTP请求头</td>
+</tr>
+<tr>
+<td>trailers</td>
+<td style="text-align:center">HTTP请求尾（不常见）</td>
+</tr>
+</tbody>
+</table>
+<p>还提供以下特殊函数：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">response.setEncoding([encoding]);当data事件被触发时，数据将会以encoding编码。默认值为<span class="literal">null</span>,即不编码，以Buffer形式存储。常用utf8</div><div class="line">response.pause():暂停接收数据和发送事件，方便实现下载功能</div><div class="line">response.resume():从暂停状态中恢复。</div></pre></td></tr></table></figure>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/nodejs/" rel="tag"># nodejs</a>
+          
+            <a href="/tags/HTTP/" rel="tag"># HTTP</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/01/09/Reading/" rel="next" title="读书笔记—《JavaScript设计模式与开发实践》- 深入原型的道理">
+                <i class="fa fa-chevron-left"></i> 读书笔记—《JavaScript设计模式与开发实践》- 深入原型的道理
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2015/04/02/React1/" rel="prev" title="学习笔记--对reactjs的初感">
+                学习笔记--对reactjs的初感 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/logo.png"
+               alt="lwd426" />
+          <p class="site-author-name" itemprop="name">lwd426</p>
+           
+              <p class="site-description motion-element" itemprop="description">好的产品，是用心打磨的，我永远相信这句话</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">70</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">20</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">41</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#题记"><span class="nav-number">1.</span> <span class="nav-text">题记</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#待解决问题"><span class="nav-number">2.</span> <span class="nav-text">待解决问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#http服务器和http客户端"><span class="nav-number">3.</span> <span class="nav-text">http服务器和http客户端</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#http服务器"><span class="nav-number">3.1.</span> <span class="nav-text">http服务器</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#http服务器事件"><span class="nav-number">3.1.1.</span> <span class="nav-text">http服务器事件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#请求对象http-ServerRequest"><span class="nav-number">3.1.2.</span> <span class="nav-text">请求对象http.ServerRequest</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#解析请求属性（get）"><span class="nav-number">3.1.2.1.</span> <span class="nav-text">解析请求属性（get）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#解析请求体(post)"><span class="nav-number">3.1.2.2.</span> <span class="nav-text">解析请求体(post)</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#响应对象http-SeverResponse"><span class="nav-number">3.1.3.</span> <span class="nav-text">响应对象http.SeverResponse</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#http客户端"><span class="nav-number">3.2.</span> <span class="nav-text">http客户端</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#http-request(options,callback)"><span class="nav-number">3.2.1.</span> <span class="nav-text">http.request(options,callback)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#http-get(options,callback)"><span class="nav-number">3.2.2.</span> <span class="nav-text">http.get(options,callback)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#请求对象http-ClientRequest"><span class="nav-number">3.2.3.</span> <span class="nav-text">请求对象http.ClientRequest</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#响应对象http-ClientResponse"><span class="nav-number">3.2.4.</span> <span class="nav-text">响应对象http.ClientResponse</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">lwd426</span>
+
+  
+</div>
+
+
+  <div class="powered-by">
+    思维
+  </div>
+
+  <span class="post-meta-divider">|</span>
+
+  <div class="theme-info">
+    眼界 &mdash;
+  </div>
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

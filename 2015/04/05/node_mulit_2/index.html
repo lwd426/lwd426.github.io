@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta name="baidu-site-verification" content="VMH9oYMJXO" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="nodejs,集群,多进程," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="多核编程的重要性无需多说， 我们直奔主题，目前nodejs 的网络服务器有以下几种支持多进程的方式：  开启多个进程，每个进程绑定不同的端口开启多个进程，每个进程绑定不同的端口，用反向代理服务器如 Nginx 做负载均衡，好处是我们可以借助强大的 Nginx 做一些过滤检查之类的操作，同时能够实现比较好的均衡策略，但坏处也是显而易见 —我们引入了一个间接层。">
+<meta name="keywords" content="nodejs,集群,多进程">
+<meta property="og:type" content="article">
+<meta property="og:title" content="思考：转-NodeJs 多核多进程并行框架实作">
+<meta property="og:url" content="http://blog.lwdle.xin/2015/04/05/node_mulit_2/index.html">
+<meta property="og:site_name" content="我是个大盗贼，什么都不怕">
+<meta property="og:description" content="多核编程的重要性无需多说， 我们直奔主题，目前nodejs 的网络服务器有以下几种支持多进程的方式：  开启多个进程，每个进程绑定不同的端口开启多个进程，每个进程绑定不同的端口，用反向代理服务器如 Nginx 做负载均衡，好处是我们可以借助强大的 Nginx 做一些过滤检查之类的操作，同时能够实现比较好的均衡策略，但坏处也是显而易见 —我们引入了一个间接层。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-08-13T09:02:29.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="思考：转-NodeJs 多核多进程并行框架实作">
+<meta name="twitter:description" content="多核编程的重要性无需多说， 我们直奔主题，目前nodejs 的网络服务器有以下几种支持多进程的方式：  开启多个进程，每个进程绑定不同的端口开启多个进程，每个进程绑定不同的端口，用反向代理服务器如 Nginx 做负载均衡，好处是我们可以借助强大的 Nginx 做一些过滤检查之类的操作，同时能够实现比较好的均衡策略，但坏处也是显而易见 —我们引入了一个间接层。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"right","display":"always","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://blog.lwdle.xin/2015/04/05/node_mulit_2/"/>
+
+
+
+
+
+  <title>思考：转-NodeJs 多核多进程并行框架实作 | 我是个大盗贼，什么都不怕</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta custom-logo">
+    
+      <div class="site-meta-headline">
+        <a>
+          <img class="custom-logo-image" src="/images/logo.png"
+               alt="我是个大盗贼，什么都不怕"/>
+        </a>
+      </div>
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">我是个大盗贼，什么都不怕</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">品质源于专注，走未知的路，然后留下脚印</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://blog.lwdle.xin/2015/04/05/node_mulit_2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="lwd426">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/logo.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="我是个大盗贼，什么都不怕">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">思考：转-NodeJs 多核多进程并行框架实作</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2015-04-05T10:24:00+08:00">
+                2015-04-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/nodejs/" itemprop="url" rel="index">
+                    <span itemprop="name">nodejs</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>多核编程的重要性无需多说， 我们直奔主题，目前nodejs 的网络服务器有以下几种支持多进程的方式：</p>
+</blockquote>
+<h3 id="开启多个进程，每个进程绑定不同的端口">开启多个进程，每个进程绑定不同的端口</h3><p>开启多个进程，每个进程绑定不同的端口，用反向代理服务器如 Nginx 做负载均衡，好处是我们可以借助强大的 Nginx 做一些过滤检查之类的操作，同时能够实现比较好的均衡策略，但坏处也是显而易见 —我们引入了一个间接层。</p>
+<a id="more"></a>
+<h3 id="多进程绑定在同一个端口侦听">多进程绑定在同一个端口侦听</h3><p>在nodejs 中，提供了进程间发送“文件句柄” 的功能，这个功能实在是太有用了（貌似是yahoo 的工程师提交的一个patch）</p>
+<p>不明真相的群众可以看这里： <a href="http://www.lst.de/~okir/blackhats/node121.html" target="_blank" rel="external">http://www.lst.de/~okir/blackhats/node121.html</a></p>
+<p>在 node 中我们可以通过以下函数达到效果：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">stream.write(string, encoding=’utf8’, [fd]）</div></pre></td></tr></table></figure>
+<p>或在 node v0.5.9+ 中 fork 子进程之后： </p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">child.send(message, [sendHandle])</div></pre></td></tr></table></figure>
+<p>所以我们设计以下方案：master 进程生成了listen 端口之后，发送这个 listenfd 给所有的worker 子进程，worker 子进程接收到handle 之后，执行listen 操作： </p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div></pre></td><td class="code"><pre><div class="line">master ： </div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">startWorker</span>(<span class="params">handle</span>)</span>&#123;</div><div class="line"></div><div class="line">  output(“start workers :” + WORKER_NUMBER);</div><div class="line"></div><div class="line">  worker_succ_count = <span class="number">0</span>;</div><div class="line"></div><div class="line">  <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>; i&lt;WORKER_NUMBER; i++)&#123;</div><div class="line"></div><div class="line">    <span class="keyword">var</span> c  =  cp.fork(WORKER_PATH);</div><div class="line"></div><div class="line">    c.send(&#123;<span class="string">"server"</span> : <span class="literal">true</span>&#125;, handle);</div><div class="line"></div><div class="line">  &#125;</div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">startServer</span>(<span class="params"></span>)</span>&#123;</div><div class="line"></div><div class="line">  <span class="keyword">var</span> tcpServer = net.createServer();</div><div class="line"></div><div class="line">  tcpServer.on(“error<span class="string">", function(err)&#123;</span></div><div class="line"><span class="string"></span></div><div class="line"><span class="string">    output(“server error ,check the port…”);</span></div><div class="line"><span class="string"></span></div><div class="line"><span class="string">    about_exit();</span></div><div class="line"><span class="string"></span></div><div class="line"><span class="string">  &#125;)</span></div><div class="line"><span class="string"></span></div><div class="line"><span class="string"></span></div><div class="line"><span class="string">  tcpServer.listen(PORT , function()&#123;</span></div><div class="line"><span class="string"></span></div><div class="line"><span class="string">    startWorker(tcpServer._handle);</span></div><div class="line"><span class="string"></span></div><div class="line"><span class="string">    tcpServer.close();</span></div><div class="line"><span class="string"></span></div><div class="line"><span class="string">  &#125;);</span></div><div class="line"><span class="string"></span></div><div class="line"><span class="string">&#125;</span></div><div class="line"><span class="string"></span></div><div class="line"><span class="string">startServer();</span></div></pre></td></tr></table></figure>
+<p>注意，因为我们只需要一个handle ，httpServer 其实是netServer 的一层封装，所以我们在master进程启动netServer ，发送这个listen套接字 “handle” 到各个子进程 </p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div></pre></td><td class="code"><pre><div class="line">worker ：</div><div class="line">server = http.createServer(<span class="function"><span class="keyword">function</span>(<span class="params">req, res</span>)</span>&#123;</div><div class="line"></div><div class="line">  <span class="keyword">var</span> i,r;</div><div class="line"></div><div class="line">  <span class="keyword">for</span>(i=<span class="number">0</span>; i&lt;<span class="number">10000</span>; i++)&#123;</div><div class="line"></div><div class="line">    r = <span class="built_in">Math</span>.random();</div><div class="line"></div><div class="line">  &#125;</div><div class="line"></div><div class="line"></div><div class="line">  res.writeHead(<span class="number">200</span> ,&#123;<span class="string">"content-type” : “text/html"</span>&#125;);</div><div class="line"></div><div class="line">  res.end(“hello,world”);</div><div class="line"></div><div class="line">  child_req_count++;</div><div class="line"></div><div class="line">&#125;);</div><div class="line"></div><div class="line">process.on(“message<span class="string">",function(m ,handle)&#123;</span></div><div class="line"><span class="string"></span></div><div class="line"><span class="string">  if(handle)&#123;</span></div><div class="line"><span class="string"></span></div><div class="line"><span class="string">    server.listen(handle, function(err)&#123;</span></div><div class="line"><span class="string"></span></div><div class="line"><span class="string">      if(err)&#123;</span></div><div class="line"><span class="string"></span></div><div class="line"><span class="string">        output(“worker listen error”);</span></div><div class="line"><span class="string"></span></div><div class="line"><span class="string">      &#125;else&#123;</span></div><div class="line"><span class="string"></span></div><div class="line"><span class="string">        process.send(&#123;"</span>listenOK” : <span class="literal">true</span>&#125;);</div><div class="line"></div><div class="line">        output(“worker listen ok”);</div><div class="line"></div><div class="line">      &#125;</div><div class="line"></div><div class="line"></div><div class="line">   &#125;);</div><div class="line"></div><div class="line">  …</div><div class="line"></div><div class="line"> &#125;);</div></pre></td></tr></table></figure>
+<p>worker 进程收到handle后，立即进行listen ，这样就会有多个worker进程 listen同一个socket端口，即同一个套接字被加入到多个进程的epoll 监控结构中，当一个外部连接到来时，此时只有一个幸运的worker 进程得到激活事件，接收这个连接。（在UNP 中讲到这种情况下会导致 “惊群” 效应，但据江湖传闻2.6以上的Linux 系统中，阻塞式的listenfd 已消除惊群现象，非阻塞的listenfd 依然存在，即我们的epoll还是会存在这个问题的，但个人认为nodejs 的epoll 结构中往往有很多的监控句柄而非仅listenfd，所以这时候惊群造成的影响应该是比较小的…） </p>
+<p>我们开5个worker 测试 （以下测试均为开启keep-alive模式，本机测试）： </p>
+<p>测试业务如上代码所示：运行10K次 Math.random(), 然后输出 ”hello,world“;</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div></pre></td><td class="code"><pre><div class="line">系统配置： </div><div class="line">Linux <span class="number">2.6</span><span class="number">.18</span><span class="number">-164.</span>el5xen x86_64 </div><div class="line"></div><div class="line">CPU X5 ，Intel® Xeon® CPU E5620 @ <span class="number">2.40</span>GHz </div><div class="line"></div><div class="line">free -m </div><div class="line">total used free shared buffers cached </div><div class="line">Mem: <span class="number">7500</span> <span class="number">3672</span> <span class="number">3827</span> <span class="number">0</span> <span class="number">863</span> <span class="number">1183</span> </div><div class="line"></div><div class="line">siege -c <span class="number">100</span> -r <span class="number">1000</span> -b localhost:<span class="number">3458</span>/ </div><div class="line"></div><div class="line">结果为： </div><div class="line"></div><div class="line">ransactions: <span class="number">100000</span> hits </div><div class="line">Availability: <span class="number">100.00</span> % </div><div class="line">Elapsed time: <span class="number">10.95</span> secs </div><div class="line">Data transferred: <span class="number">1.05</span> MB </div><div class="line">Response time: <span class="number">0.01</span> secs </div><div class="line">Transaction rate: <span class="number">9132.42</span> trans/sec </div><div class="line">Throughput: <span class="number">0.10</span> MB/sec </div><div class="line">Concurrency: <span class="number">55.61</span> </div><div class="line">Successful transactions: <span class="number">100000</span></div><div class="line"></div><div class="line"></div><div class="line"><span class="number">5</span> 个worker 处理的请求量分别是： </div><div class="line">child req total : <span class="number">23000</span> </div><div class="line">child req total : <span class="number">16000</span> </div><div class="line">child req total : <span class="number">17000</span> </div><div class="line">child req total : <span class="number">22000</span> </div><div class="line">child req total : <span class="number">22000</span></div><div class="line"></div><div class="line"></div><div class="line">再测一次： </div><div class="line">child req total : <span class="number">13000</span> </div><div class="line">child req total : <span class="number">30000</span> </div><div class="line">child req total : <span class="number">14000</span> </div><div class="line">child req total : <span class="number">22000</span> </div><div class="line">child req total : <span class="number">21000</span></div></pre></td></tr></table></figure>
+<p>在这种情况下，我们的负载均衡是建立在各个worker“随机接收“的特征基础上的，由操作系统来保证的，长期运行情况下应该是均衡的，但短期内还是会有可能导致负载倾斜的现象，特别是在客户端使用keep-alive连接并长期不关闭的情况下。 </p>
+<h3 id="一个进程负责监听、接收连接，然后把接收到的连接平均发送到子进程中去处理">一个进程负责监听、接收连接，然后把接收到的连接平均发送到子进程中去处理</h3><p>我们先看一下正常情况下一个http server 服务的流程 ，其大体可分为几 个阶段:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">listenfd 绑定侦听 -&gt; 接收到的Tcp 连接对象 → 包装成socket 对象 → 生成(req ,res)对象 -&gt; 调用用户代码</div></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">(#1) TCP.bind — &gt; TCP.listen (process.binding(“tcp_wrap”)) </div><div class="line">                                                | </div><div class="line">                                                |TCP.emit(“connection” ,handle) </div><div class="line">                                                |</div><div class="line"></div><div class="line">(#2) Wrap TCP handle to Socket (Tcp.onconnection) </div><div class="line">                                                | </div><div class="line">                                                |Net.Server.emit(”connection” , socket) </div><div class="line">                                                | </div><div class="line">(#3)Create Req ,Res based on a Socket(net.server.connectionListen) </div><div class="line">                                                | </div><div class="line">                                                |Http.server.emit(“request” ,req ,res) </div><div class="line">                                                | </div><div class="line">(#4)your code writen here ：function(req ,res)&#123; </div><div class="line">    res.writeHead(<span class="number">200</span> ,“content-type/text/html”); </div><div class="line">    res.end(“hello,world”) </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>nodejs 的child.send(message, [sendHandle]) 函数 ，此处的 sendHandle 这时应该为一个 tcp_wrap 对象，所以我们不能直接使用 net.createServer 返回给我们的socket ，否则的话我们需要”回滚“ 从Tcp 到 Socket 这一步骤，不仅浪费资源，同时也是不安全的，所以我们在tcpMaster 中 直接使用 tcp_wrap : </p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> TCP = process.binding(“tcp_wrap”).TCP;</div><div class="line"></div><div class="line"><span class="keyword">var</span> childs = [];</div><div class="line"></div><div class="line"><span class="keyword">var</span> last_child_pos = <span class="number">0</span>;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">startWorker</span>(<span class="params"></span>)</span>&#123;</div><div class="line"></div><div class="line">  <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>; i&lt;WORKER_NUMBER; i++)&#123;</div><div class="line"></div><div class="line">    <span class="keyword">var</span> c  =  cp.fork(WORKER_PATH);</div><div class="line"></div><div class="line">    childs.push©;</div><div class="line"></div><div class="line">  &#125;</div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">startServer</span>(<span class="params"></span>)</span>&#123;</div><div class="line"></div><div class="line">    server = <span class="keyword">new</span> TCP();</div><div class="line"></div><div class="line">    server.bind(ADDRESS, PORT);</div><div class="line"></div><div class="line">    server.onconnection = onconnection;</div><div class="line"></div><div class="line">    server.listen(BACK_LOG);</div><div class="line"></div><div class="line">  &#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">onconnection</span>(<span class="params">handle</span>)</span>&#123;</div><div class="line"></div><div class="line">    <span class="comment">//output(“master on connection”);</span></div><div class="line"></div><div class="line">    last_child_pos++;</div><div class="line"></div><div class="line">    <span class="keyword">if</span>(last_child_pos &gt;= WORKER_NUMBER)&#123;</div><div class="line"></div><div class="line">      last_child_pos = <span class="number">0</span>;</div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    childs[last_child_pos].send(&#123;<span class="string">"handle” : true&#125;, handle);</span></div><div class="line"><span class="string"></span></div><div class="line"><span class="string">    handle.close();</span></div><div class="line"><span class="string"></span></div><div class="line"><span class="string">&#125;</span></div><div class="line"><span class="string"></span></div><div class="line"><span class="string">startServer();</span></div><div class="line"><span class="string"></span></div><div class="line"><span class="string">startWorker();</span></div></pre></td></tr></table></figure>
+<p>以上为tcpMaster 进程把接收的tcp 连接 均匀分配给 tcpWorkers ： </p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">onhandle</span>(<span class="params">self, handle</span>)</span>&#123;</div><div class="line"></div><div class="line">    <span class="keyword">if</span>(self.maxConnections &amp;&amp; self.connections &gt;= self.maxConnections)&#123;</div><div class="line"></div><div class="line">      handle.close();</div><div class="line"></div><div class="line">      <span class="keyword">return</span>;</div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">var</span> socket = <span class="keyword">new</span> net.Socket(&#123;</div><div class="line"></div><div class="line">      handle : handle,</div><div class="line"></div><div class="line">      allowHalfOpen : self.allowHalfOpen</div><div class="line"></div><div class="line">    &#125;);</div><div class="line"></div><div class="line">    socket.readable = socket.writable = <span class="literal">true</span>;</div><div class="line"></div><div class="line">    socket.resume();</div><div class="line"></div><div class="line">    self.connections++;</div><div class="line"></div><div class="line">    socket.server = self;</div><div class="line"></div><div class="line">    self.emit(“connection<span class="string">", socket);</span></div><div class="line"><span class="string"></span></div><div class="line"><span class="string">    socket.emit(“connect”);</span></div><div class="line"><span class="string"></span></div><div class="line"><span class="string">  &#125;</span></div><div class="line"><span class="string"></span></div><div class="line"><span class="string">server = http.createServer(function(req, res)&#123;</span></div><div class="line"><span class="string"></span></div><div class="line"><span class="string">    var r, i;</span></div><div class="line"><span class="string"></span></div><div class="line"><span class="string">      for(i=0; i&lt;10000; i++)&#123;</span></div><div class="line"><span class="string"></span></div><div class="line"><span class="string">        r = Math.random();</span></div><div class="line"><span class="string"></span></div><div class="line"><span class="string">      &#125;</span></div><div class="line"><span class="string"></span></div><div class="line"><span class="string"></span></div><div class="line"><span class="string">      res.writeHead(200 ,&#123;"</span>content-type” : <span class="string">"text/html"</span>&#125;);</div><div class="line"></div><div class="line">      res.end(“hello,world”);</div><div class="line"></div><div class="line">      child_req_count++;</div><div class="line"></div><div class="line">    &#125;);</div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line"> process.on(“message<span class="string">",function(m ,handle)&#123;</span></div><div class="line"><span class="string"></span></div><div class="line"><span class="string">     if(handle)&#123;</span></div><div class="line"><span class="string"></span></div><div class="line"><span class="string">        onhandle(server, handle);</span></div><div class="line"><span class="string"></span></div><div class="line"><span class="string">     &#125;</span></div><div class="line"><span class="string"></span></div><div class="line"><span class="string"></span></div><div class="line"><span class="string">    if(m.status == “update”)&#123;</span></div><div class="line"><span class="string"></span></div><div class="line"><span class="string">      process.send(&#123;"</span>status” : process.memoryUsage()&#125;);</div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line"></div><div class="line">  &#125;);</div></pre></td></tr></table></figure>
+<p>以上为tcpWorker 将接收到的tcp handle 封装成socket ，为了充分的与http.server类兼容，我们还对connections的数量进行检查，并把socket.server 设为当前的server ，然后激发http.server 的 ”connection“ 事件. </p>
+<p>通过这种方式，我们用尽量小的开销，在充分保证http.server 类的兼容性的前提下，用尽量少而优雅的代码实现了负载均衡与高效并行。<br>测试结果如下：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">ransactions: <span class="number">100000</span> hits </div><div class="line">Availability: <span class="number">100.00</span> % </div><div class="line">Elapsed time: <span class="number">10.47</span> secs </div><div class="line">Data transferred: <span class="number">1.05</span> MB </div><div class="line">Response time: <span class="number">0.01</span> secs </div><div class="line">Transaction rate: <span class="number">9551.10</span> trans/sec </div><div class="line">Throughput: <span class="number">0.10</span> MB/sec </div><div class="line">Concurrency: <span class="number">60.68</span> </div><div class="line">Successful transactions: <span class="number">100000</span></div><div class="line"></div><div class="line">child req total : <span class="number">20000</span> </div><div class="line">child req total : <span class="number">20000</span> </div><div class="line">child req total : <span class="number">20000</span> </div><div class="line">child req total : <span class="number">20000</span> </div><div class="line">child req total : <span class="number">20000</span></div></pre></td></tr></table></figure></p>
+<p>数据会有所起伏，qps 总体在 8000~11000 范围内，注意以上worker 数目均设为5个，适量增大worker数目，qps 可以稳定达到10k，但这时系统load比较高，使用时需谨慎选择。 </p>
+<p>几次测试完成后，我们查看/proc/[tcpMaster]/fd , 其占用的端口如下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="number">0</span> -&gt; <span class="regexp">/dev/</span>pts/<span class="number">30</span> </div><div class="line"><span class="number">1</span> -&gt; <span class="regexp">/dev/</span>pts/<span class="number">30</span> </div><div class="line"><span class="number">10</span> -&gt; socket:[<span class="number">71040</span>] </div><div class="line"><span class="number">11</span> -&gt; socket:[<span class="number">71044</span>] </div><div class="line"><span class="number">12</span> -&gt; socket:[<span class="number">71054</span>] </div><div class="line"><span class="number">2</span> -&gt; <span class="regexp">/dev/</span>pts/<span class="number">30</span> </div><div class="line"><span class="number">3</span> -&gt; eventpoll:[<span class="number">71027</span>] </div><div class="line"><span class="number">4</span> -&gt; pipe:[<span class="number">71028</span>] </div><div class="line"><span class="number">5</span> -&gt; pipe:[<span class="number">71028</span>] </div><div class="line"><span class="number">6</span> -&gt; socket:[<span class="number">71030</span>] </div><div class="line"><span class="number">8</span> -&gt; socket:[<span class="number">71032</span>] </div><div class="line"><span class="number">9</span> -&gt; socket:[<span class="number">71036</span>]</div><div class="line"></div><div class="line">查看其中一个tcpWorker： </div><div class="line"><span class="number">0</span> -&gt; socket:[<span class="number">71031</span>] </div><div class="line"><span class="number">1</span> -&gt; <span class="regexp">/dev/</span>pts/<span class="number">30</span> </div><div class="line"><span class="number">2</span> -&gt; <span class="regexp">/dev/</span>pts/<span class="number">30</span> </div><div class="line"><span class="number">3</span> -&gt; eventpoll:[<span class="number">71049</span>] </div><div class="line"><span class="number">4</span> -&gt; pipe:[<span class="number">71050</span>] </div><div class="line"><span class="number">5</span> -&gt; pipe:[<span class="number">71050</span>]</div></pre></td></tr></table></figure>
+<p>tcpMaster 的fds 意义分别如下： </p>
+<p>1个socket为listenfd</p>
+<p>5个socket 用作父子进程通信</p>
+<p>2个pipe（一对）用于asyn_watcher/signal_watcher 的触发</p>
+<p>剩余的不解释…</p>
+<p>tcpWorker 的fds 意义分别如下： </p>
+<p>1个socket（这儿就是stdin）用作与父进程通信</p>
+<p>其余fd与master中fd作用类似</p>
+<p>所以tcpMaster/tcpWorker 端口占用正常，没有句柄泄露问题，负载均衡可控，但负责接收socket的master需要重新分配发送socket ，引入了额外的开销. </p>
+<p>小结： </p>
+<p>本文介绍了2种比较高效的多进程运行方式，两种方式各有优劣，需要使用者自行选择，在node v0.5.10+ 中，内置了cluster 库，不过在我看来，其宣传意义大于实用意义，因为这样官方就可理直气壮的宣称直接支持多进程运行方式，nodejs 官方为了让API 接口傻瓜化，用了一些比较trick 的方法，代码也比较绕，且这种多进程的方式，不可避免的要牵涉到进程通信、进程管理之类的东西，但我们往往有自己的需求，现在nodejs官方把它固化到lib中，我们就无法自由的更改添加一些功能。 </p>
+<p>此外，有两个node 的module ，multi-node 和 cluster ，采用的策略和本文介绍的类似，但使用这些module往往有一些缺点： </p>
+<p>更新不及时</p>
+<p>复杂庞大，往往绑定了很多其他的功能，用户往往被绑架</p>
+<p>遇到问题难以hack</p>
+<p>基于本文的介绍，你可以很方便的打造自己的高性能的、易维护的、最简的、优雅实用的cluster ，enjoy it！ </p>
+<p>源码地址：<a href="https://github.com/windyrobin/iCluster" target="_blank" rel="external">https://github.com/windyrobin/iCluster</a> </p>
+<p>原文地址：<a href="https://cnodejs.org/topic/4f16442ccae1f4aa27001081" target="_blank" rel="external">https://cnodejs.org/topic/4f16442ccae1f4aa27001081</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/nodejs/" rel="tag"># nodejs</a>
+          
+            <a href="/tags/集群/" rel="tag"># 集群</a>
+          
+            <a href="/tags/多进程/" rel="tag"># 多进程</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/04/03/node_mlti/" rel="next" title="玩转nodejs多进程">
+                <i class="fa fa-chevron-left"></i> 玩转nodejs多进程
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2015/04/12/React2/" rel="prev" title="学习笔记--React定义组件的原则和注意点">
+                学习笔记--React定义组件的原则和注意点 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/logo.png"
+               alt="lwd426" />
+          <p class="site-author-name" itemprop="name">lwd426</p>
+           
+              <p class="site-description motion-element" itemprop="description">好的产品，是用心打磨的，我永远相信这句话</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">70</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">20</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">41</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#开启多个进程，每个进程绑定不同的端口"><span class="nav-number">1.</span> <span class="nav-text">开启多个进程，每个进程绑定不同的端口</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#多进程绑定在同一个端口侦听"><span class="nav-number">2.</span> <span class="nav-text">多进程绑定在同一个端口侦听</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#一个进程负责监听、接收连接，然后把接收到的连接平均发送到子进程中去处理"><span class="nav-number">3.</span> <span class="nav-text">一个进程负责监听、接收连接，然后把接收到的连接平均发送到子进程中去处理</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">lwd426</span>
+
+  
+</div>
+
+
+  <div class="powered-by">
+    思维
+  </div>
+
+  <span class="post-meta-divider">|</span>
+
+  <div class="theme-info">
+    眼界 &mdash;
+  </div>
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta name="baidu-site-verification" content="VMH9oYMJXO" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="javascript,基础," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="JavaScript的创建对象和继承什么的真的好绕人啊！今天把它们搞明白！  JavaScript生成对象的几种方式 JavaScript继承对象的两种方式  怎么生成JS对象？这个问题好简单啊！直接var obj = {};不就生成了一个对象么？还可以用构造函数var obj = new F();额…应该就这两种了吧。我相信很多js初学者都熟悉这两种生成JS对象的方式。但你真的明白么？或者说，你">
+<meta name="keywords" content="javascript,基础">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaScript的对象和继承者们">
+<meta property="og:url" content="http://blog.lwdle.xin/2012/08/04/javascript_object/index.html">
+<meta property="og:site_name" content="我是个大盗贼，什么都不怕">
+<meta property="og:description" content="JavaScript的创建对象和继承什么的真的好绕人啊！今天把它们搞明白！  JavaScript生成对象的几种方式 JavaScript继承对象的两种方式  怎么生成JS对象？这个问题好简单啊！直接var obj = {};不就生成了一个对象么？还可以用构造函数var obj = new F();额…应该就这两种了吧。我相信很多js初学者都熟悉这两种生成JS对象的方式。但你真的明白么？或者说，你">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-08-13T09:02:29.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JavaScript的对象和继承者们">
+<meta name="twitter:description" content="JavaScript的创建对象和继承什么的真的好绕人啊！今天把它们搞明白！  JavaScript生成对象的几种方式 JavaScript继承对象的两种方式  怎么生成JS对象？这个问题好简单啊！直接var obj = {};不就生成了一个对象么？还可以用构造函数var obj = new F();额…应该就这两种了吧。我相信很多js初学者都熟悉这两种生成JS对象的方式。但你真的明白么？或者说，你">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"right","display":"always","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://blog.lwdle.xin/2012/08/04/javascript_object/"/>
+
+
+
+
+
+  <title>JavaScript的对象和继承者们 | 我是个大盗贼，什么都不怕</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta custom-logo">
+    
+      <div class="site-meta-headline">
+        <a>
+          <img class="custom-logo-image" src="/images/logo.png"
+               alt="我是个大盗贼，什么都不怕"/>
+        </a>
+      </div>
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">我是个大盗贼，什么都不怕</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">品质源于专注，走未知的路，然后留下脚印</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://blog.lwdle.xin/2012/08/04/javascript_object/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="lwd426">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/logo.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="我是个大盗贼，什么都不怕">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">JavaScript的对象和继承者们</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2012-08-04T14:50:08+08:00">
+                2012-08-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/javascript/" itemprop="url" rel="index">
+                    <span itemprop="name">javascript</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>JavaScript的创建对象和继承什么的真的好绕人啊！今天把它们搞明白！</p>
+<ul>
+<li>JavaScript生成对象的几种方式</li>
+<li>JavaScript继承对象的两种方式</li>
+</ul>
+<h3 id="怎么生成JS对象？">怎么生成JS对象？</h3><p>这个问题好简单啊！直接<code>var obj = {};</code>不就生成了一个对象么？还可以用构造函数<code>var obj = new F();</code>额…应该就这两种了吧。我相信很多js初学者都熟悉这两种生成JS对象的方式。但你真的明白么？或者说，你知道什么叫“明白”么？下面就来说说吧。<br><a id="more"></a></p>
+<ol>
+<li>通过对象字面量直接创建对象</li>
+<li>通过new 构造函数()创建对象</li>
+<li>通过原型继承（其实是高级的构造函数的使用）</li>
+<li>通过Object.create创建对象</li>
+</ol>
+<h4 id="对象字面量">对象字面量</h4><p>创建对象的最简单的方式就是使用对象字面量，就如上面的例子，这种方法<code>最好，效率也最好，推荐使用</code>以下用代码说明：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//使用对象字面量生成对象</span></div><div class="line"><span class="keyword">var</span> obj = &#123;<span class="string">'name'</span>:<span class="string">'lwd426'</span>,<span class="string">'age'</span>:<span class="number">26</span>,<span class="string">'sex'</span>:male&#125;;</div></pre></td></tr></table></figure>
+<p>但这种方式有一个特别大的短板，就是可能生成一个对象，如果要生成很多具有共性的对象，那就得一个一个的码字了。<strong>当需要生成简单的少数的对象时，推荐使用这种简便的做法。</strong></p>
+<h4 id="构造函数">构造函数</h4><p>当我们稀里糊涂的使用java的new新对象的时候，似乎觉得js使用这种方式生成类的实例很正常，似乎一切也行得通，代码照跑不误。其实不是这样的，只是‘貌似’，‘神’可不似。为了解决<code>对象字面量只能创建单一对象</code>的问题，JS让我们可以使用构造函数（当函数被new操作符调用，函数就成为了构造函数，他的行为有些不一样了）来创建构造函数的<code>实例</code>（构造函数返回的对象我们可以成为‘实例’）。同时，我们也可以通过传参的方式让我们的对象有一些个性化预定义属性。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//构造函数</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">F</span>(<span class="params">proa, pron</span>)</span>&#123;</div><div class="line">	<span class="keyword">this</span>.proa = proa;</div><div class="line">	<span class="keyword">this</span>.pron = pron;</div><div class="line">	<span class="keyword">this</span>.proarray = [];</div><div class="line">	<span class="keyword">this</span>.getProa = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">		<span class="keyword">return</span> <span class="keyword">this</span>.proa;</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">var</span> f1 = <span class="keyword">new</span> F(<span class="string">'pro1'</span>, <span class="number">3</span>);</div><div class="line"><span class="keyword">var</span> f2 = <span class="keyword">new</span> F(<span class="string">'pro2'</span>, <span class="number">1</span>);</div><div class="line"><span class="built_in">console</span>.log(f.pron); <span class="comment">//2</span></div><div class="line"><span class="built_in">console</span>.log(f.pron); <span class="comment">//2</span></div></pre></td></tr></table></figure>
+<ul>
+<li>构造函数可以创造多个共享特定属性和行为的对象。</li>
+<li><p>new让函数执行过程有点不一样：</p>
+<ol>
+<li>创建新对象F，让继承自构造器函数的原型对象，F连接到构造器prototype的新对象</li>
+<li>执行构造器函数，绑定函数的this到新对象上</li>
+<li><p>返回新对象this</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//new的实现逻辑（模拟）</span></div><div class="line"><span class="comment">//method方法为扩展原型的工具方法</span></div><div class="line"><span class="comment">//Object.create为生成一个原对象为原型的新对象</span></div><div class="line"><span class="built_in">Function</span>.method(<span class="string">'new'</span>， <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">	<span class="keyword">var</span> obj = <span class="built_in">Object</span>.create(<span class="keyword">this</span>.prototype);</div><div class="line">	<span class="keyword">this</span>.apply(obj, <span class="built_in">arguments</span>);</div><div class="line">	<span class="keyword">return</span> obj;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+</li>
+</ol>
+</li>
+</ul>
+<p>但是，每一个对象都要给自己实例化一遍所有方法，挂到this下，这好浪费资源啊。我要是能把方法提出来就好了，咱要‘面向对象’嘛，搞个类出来不就ok了么！现在多流行啊。</p>
+<h4 id="原型继承">原型继承</h4><p>不过，<code>JavaScript是基于原型继承的，没有类的概念</code>。于是牛逼的设计者就为JS设计出了个对象，叫原型。把所有对象共有的属性和方法都放到原型对象中，来共享对象的属性和方法，再让对象继承这个原型对象，这样就解决了上面的问题。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//构造函数</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">F</span>(<span class="params">proa, pron</span>)</span>&#123;</div><div class="line">	<span class="keyword">this</span>.proa = proa;</div><div class="line">	<span class="keyword">this</span>.pron = pron;</div><div class="line">	<span class="keyword">this</span>.proarray = [];</div><div class="line">&#125;</div><div class="line"></div><div class="line">F.prototype.getProa = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">	<span class="keyword">return</span> <span class="keyword">this</span>.proa;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">var</span> f1 = <span class="keyword">new</span> F(<span class="string">'pro1'</span>, <span class="number">3</span>);</div><div class="line"><span class="keyword">var</span> f2 = <span class="keyword">new</span> F(<span class="string">'pro2'</span>, <span class="number">1</span>);</div><div class="line"><span class="built_in">console</span>.log(f.pron); <span class="comment">//2</span></div><div class="line"><span class="built_in">console</span>.log(f.pron); <span class="comment">//2</span></div></pre></td></tr></table></figure>
+<ul>
+<li>原型是存放继承特征的地方（也就是共享属性和方法的地方）</li>
+<li>JS的所有对象都连接到一个原型对象，并且新对象可以从原型对象中继承属性和方法</li>
+<li>JS的所有对象都有一个属性叫prototype,这个属性指向自己的原型对象。</li>
+<li>原型关系是一种动态的关系。如果在原型对象中添加一个新属性，那么该属性会立即对所有基于该原型创建的对象生效可见。</li>
+</ul>
+<p>有了原型，一切似乎变得简单起来：</p>
+<ul>
+<li>对象可以直接从另一个对象<code>继承</code>属性，只需要以旧对象为原型，做‘差异性继承’就好了。</li>
+<li>使用原型可以轻松完成<code>创建</code>一个对象的另一个对象。</li>
+</ul>
+<p>所以我们又有了第三种创建对象的方法：</p>
+<h4 id="var_obj_=_Object-create(OriginObj);">var obj = Object.create(OriginObj);</h4><p>此为道格拉斯发明的方法，推荐使用这种方法来创建对象：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">Object</span>.create方法的实现</div><div class="line"><span class="keyword">if</span>(<span class="keyword">typeof</span> <span class="built_in">Object</span>.beget !== <span class="string">'function'</span>)&#123;</div><div class="line">	<span class="built_in">Object</span>.create = <span class="function"><span class="keyword">function</span>(<span class="params">o</span>)</span>&#123;</div><div class="line">		<span class="keyword">var</span> F = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;&#125;;</div><div class="line">		F.prototype = o;</div><div class="line">		<span class="keyword">return</span> <span class="keyword">new</span> F();</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">//旧对象</span></div><div class="line"><span class="keyword">var</span> originObj = &#123;<span class="string">'first_name'</span>:<span class="string">'lwd426'</span>,<span class="string">'second_name'</span>:<span class="string">'Liu'</span>&#125;;</div><div class="line"></div><div class="line"><span class="keyword">var</span> obj1 = <span class="built_in">Object</span>.create(originObj);</div><div class="line"><span class="keyword">var</span> obj2 = <span class="built_in">Object</span>.create(originObj);</div></pre></td></tr></table></figure>
+<h3 id="怎么继承对象？">怎么继承对象？</h3><blockquote>
+<p>其实js设计出来是没有想做继承的，因为它被设计出来仅仅是为了满足简单的浏览器和用户交互的功能，没想到会今天单页面程序这种大型的前端架构的出现。</p>
+</blockquote>
+<p>怎么新建对象已经搞得挺明白，起码够用了。现在有一个更实用的问题摆在面前：怎么继承对象呢？</p>
+<blockquote>
+<p>JavaScript是一门基于<code>原型</code>的语言，这意味着对象可以直接从其他对象继承</p>
+<p>在一个纯粹的原型继模式中，我们会摒弃类，转而专注于对象。</p>
+<p>基于原型的继承先对基于类的继承在概念上更加简单：一个对象可以继承以旧的对象。</p>
+</blockquote>
+<p>有两种继承的方法：</p>
+<ol>
+<li>伪类继承：没有私有环境，不能访问父类方法</li>
+<li>模块模式完成继承：可以保护私有信息，可以访问父类</li>
+</ol>
+<h4 id="伪类">伪类</h4><p>简单来说就是：</p>
+<ul>
+<li>原型对象用作是存放继承特征的地方</li>
+<li>定义一个中间伪类（子类）继承父类构造函数实例</li>
+<li>然后添加/覆盖伪类（子类）新方法/属性。</li>
+<li>最后，新建子类的实例</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div></pre></td><td class="code"><pre><div class="line"> <span class="comment">//引用《JavaScript精粹》的例子代码</span></div><div class="line"> <span class="comment">//我们可以定义一个构造器并扩充它的原型以作父类</span></div><div class="line">  <span class="keyword">var</span> Mammal = <span class="function"><span class="keyword">function</span> (<span class="params">name</span>) </span>&#123;</div><div class="line">	<span class="keyword">this</span>.name = name;</div><div class="line">&#125;;</div><div class="line"></div><div class="line">Mammal.prototype.get_name = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">	<span class="keyword">return</span> <span class="keyword">this</span>.name;</div><div class="line">&#125;;</div><div class="line"></div><div class="line">Mamal.prototype.says = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">	<span class="keyword">return</span> <span class="keyword">this</span>.saying || <span class="string">''</span>;</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="comment">//再构造一个实例：</span></div><div class="line"><span class="keyword">var</span> myMammal = <span class="keyword">new</span> Mammal(<span class="string">'Herb the Mamal'</span>);</div><div class="line"><span class="keyword">var</span> name = myMammal.get_name(); <span class="comment">// 'Herb the Mammal';</span></div><div class="line"><span class="built_in">document</span>.writeln(name);</div><div class="line"></div><div class="line"><span class="comment">//构造一个伪类来继承Mammal，这是通过定义它的constructor函数并替换它的prototype为一个Manmal的实例来实现的：</span></div><div class="line"><span class="keyword">var</span> Cat = <span class="function"><span class="keyword">function</span> (<span class="params">name</span>) </span>&#123;</div><div class="line">	<span class="keyword">this</span>.name = name;</div><div class="line">	<span class="keyword">this</span>.saying = <span class="string">'meow'</span>;</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="comment">// 替换 Cat.prototype 为一个新的 Mammal 实例</span></div><div class="line">Cat.prototype = <span class="keyword">new</span> Mammal();</div><div class="line"><span class="comment">// 扩充新原型对象，增加 purr 和 get_name 方法</span></div><div class="line">Cat.prototype.purr = <span class="function"><span class="keyword">function</span> (<span class="params">n</span>) </span>&#123;</div><div class="line">	<span class="keyword">var</span> i, s = <span class="string">''</span>;</div><div class="line">	<span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; n; i += <span class="number">1</span>) &#123;</div><div class="line">		<span class="keyword">if</span> (s) &#123;</div><div class="line">			s +- <span class="string">'-'</span>;</div><div class="line">		&#125;</div><div class="line">		s += <span class="string">'r'</span>;</div><div class="line">	&#125;</div><div class="line">	<span class="keyword">return</span> s;</div><div class="line">&#125;;</div><div class="line">Cat.prototype.get_name	= <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">	<span class="keyword">return</span> <span class="keyword">this</span>.says() + <span class="string">' '</span> + <span class="keyword">this</span>.name + <span class="string">' '</span> + <span class="keyword">this</span>.says();</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="keyword">var</span> myCat = <span class="keyword">new</span> Cat(<span class="string">'Henrietta'</span>);</div><div class="line"><span class="keyword">var</span> says = myCat.says(); <span class="comment">// 'meow'</span></div><div class="line"><span class="keyword">var</span> purr = myCat.purr(<span class="number">5</span>); <span class="comment">// 'r-r-r-r-r'</span></div><div class="line"><span class="keyword">var</span> name = myCat.get_name(); <span class="comment">// 'meow Henrietta meow'</span></div></pre></td></tr></table></figure>
+<p>好费劲啊，这种方式是想模拟面向对象的思想，但是真的很生硬，我们为什么要继承父‘类’的实例，而不是直接继承父‘类’呢，这不是更好么？所以我们可以通过使用method方法来定义一个inherits方法来封装以上的逻辑实现伪类的继承：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">Function</span>.method(<span class="string">'inherits'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">Parent</span>)</span>&#123;</div><div class="line">    <span class="keyword">this</span>.prototype = <span class="keyword">new</span> Parent();</div><div class="line">    <span class="keyword">return</span> <span class="keyword">this</span>;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> Cat = <span class="function"><span class="keyword">function</span>(<span class="params">name</span>)</span>&#123;</div><div class="line">	<span class="keyword">this</span>.name = name;</div><div class="line">	<span class="keyword">this</span>.saying = <span class="string">'meow'</span>;</div><div class="line">&#125;</div><div class="line">.inherits(Mammal)</div><div class="line">.method(<span class="string">'purr'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">n</span>) </span>&#123;</div><div class="line">		<span class="keyword">var</span> i, s = <span class="string">''</span>;</div><div class="line">		<span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; n; i += <span class="number">1</span>) &#123;</div><div class="line">			<span class="keyword">if</span> (s) &#123;</div><div class="line">				s +- <span class="string">'-'</span>;</div><div class="line">			&#125;</div><div class="line">			s += <span class="string">'r'</span>;</div><div class="line">		&#125;</div><div class="line">		<span class="keyword">return</span> s;</div><div class="line">&#125;)</div><div class="line">.method(<span class="string">'get_name'</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">		<span class="keyword">return</span> <span class="keyword">this</span>.says() + <span class="string">' '</span> + <span class="keyword">this</span>.name + <span class="string">' '</span> + 				<span class="keyword">this</span>.says();</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>伪类模式继承的问题：</p>
+<ol>
+<li>没有私有环境，所有属性都是公开的。无法访问super（父类）方法。</li>
+<li>如果在调用构造器函数时候忘记调用new操作符，那么this将不会绑定到新的对象上，而是全局window上。</li>
+<li>“伪类”的形式可以给不收悉js的程序员便利，但它也隐藏了该语言的真实本质。借鉴类的表示法可能误导程序员去编写过于深入与复杂的层次结构。</li>
+<li>construction的指向错误。</li>
+</ol>
+<h4 id="模块模式">模块模式</h4><p>大部分所看到的继承模式的一个弱点就是<code>没办法去保护隐私</code>。对象的属性都是可见的。没有办法得到私有的变量和函数。所以我们使用<code>模块模式</code>利用闭包保护隐私信息，提供特殊函数做为接口对外服务。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> consturctor = <span class="function"><span class="keyword">function</span>(<span class="params">spec, my</span>)</span>&#123;</div><div class="line">    <span class="keyword">var</span> that,   <span class="comment">// 其他的私有实例变量</span></div><div class="line">        my = my || &#123;&#125;;</div><div class="line"></div><div class="line">    <span class="comment">// 把共享的变量和函数添加到 my 中</span></div><div class="line">    <span class="comment">// 给 that = 一个新的对象</span></div><div class="line">    <span class="comment">// 添加给 that 的特权方法</span></div><div class="line"></div><div class="line">    <span class="comment">// 最后把 that 对象返回</span></div><div class="line">    <span class="keyword">return</span> that;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<ol>
+<li>创建一个对象。</li>
+<li>定义私有实例的变量和方法。</li>
+<li>给这个新的对象扩充方法，这些方法拥有特权去访问参数。</li>
+<li>返回那个对象。</li>
+</ol>
+<p><code>spec</code>对象包含构造器需要构造一个新的实例的所有信息。spec的可能会被复制到私有变量中，或者被其他函数改变，或者方法可以在需要的时候访问spec的信息。</p>
+<p>声明该对象私有的实例变量的方法。通过简单地声明变量就可以做到了。构造器的变量和内部函数变成了该实例的私有成员。</p>
+<p><code>my</code>对象是一个为继承链中的构构造器提供的秘密共享的容器。通过给my对象添加共享秘密成员：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">my.member = value;</div></pre></td></tr></table></figure>
+<p>然后构造一个新的对象并且把它赋值给that。接着扩充that，加入组成该对象接口的特权方法。可以分配一个新函数成为that的成员方法，然后再把它分配给that：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> methodical = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123; ... &#125;;</div><div class="line"></div><div class="line">that.methodical = methodical;</div></pre></td></tr></table></figure>
+<p>分两步去定义methodical的好处就是，如果其他方法想要调用methodical,它们可以直接调用methodical()而是不是that.methodical()。如果实例遭到破坏或修改，调用methodical照样会继续工作，因为它们私有的methodical不会该实例被修改的影响。</p>
+<p>最后把that返回。</p>
+<p>函数化模式有很大的灵活性。它相比伪类模式不仅带来的工作更少，还让我们得到更好的封装和信息隐藏，以及访问父类方法的能力。</p>
+<p>如果对象的所有状态都是私有的，那么该对象就成为一个“防伪”对象。该对象的属性可以被替换或删除，但该对象的完整性不会受到伤害。</p>
+<h3 id="工具方法">工具方法</h3><p>好了，让我们总结所有用到的工具方法吧：</p>
+<h4 id="new的实现逻辑（模拟):">new的实现逻辑（模拟):</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//method方法为扩展原型的工具方法</span></div><div class="line"><span class="comment">//Object.create为生成一个原对象为原型的新对象</span></div><div class="line"><span class="built_in">Function</span>.method(<span class="string">'new'</span>， <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    <span class="keyword">var</span> obj = <span class="built_in">Object</span>.create(<span class="keyword">this</span>.prototype);</div><div class="line">    <span class="keyword">this</span>.apply(obj, <span class="built_in">arguments</span>);</div><div class="line">    <span class="keyword">return</span> obj;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<h4 id="创建对象方法的实现:">创建对象方法的实现:</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span>(<span class="keyword">typeof</span> <span class="built_in">Object</span>.beget !== <span class="string">'function'</span>)&#123;</div><div class="line">	<span class="built_in">Object</span>.create = <span class="function"><span class="keyword">function</span>(<span class="params">o</span>)</span>&#123;</div><div class="line">		<span class="keyword">var</span> F = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;&#125;;</div><div class="line">		F.prototype = o;</div><div class="line">		<span class="keyword">return</span> <span class="keyword">new</span> F();</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="继承方法的实现：">继承方法的实现：</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">Function</span>.method(<span class="string">'inherits'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">Parent</span>)</span>&#123;</div><div class="line">    <span class="keyword">this</span>.prototype = <span class="keyword">new</span> Parent();</div><div class="line">    <span class="keyword">return</span> <span class="keyword">this</span>;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<h4 id="扩展原型方法的实现：">扩展原型方法的实现：</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">Function</span>.prototype.method = <span class="function"><span class="keyword">function</span>(<span class="params">name, func</span>)</span>&#123;</div><div class="line">	<span class="keyword">if</span>(!<span class="keyword">this</span>.prototype[name])&#123;</div><div class="line">		<span class="keyword">this</span>.prototype[name] = func;</div><div class="line">	&#125;</div><div class="line">	<span class="keyword">return</span> <span class="keyword">this</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/javascript/" rel="tag"># javascript</a>
+          
+            <a href="/tags/基础/" rel="tag"># 基础</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2012/07/09/javascript_writenStyle/" rel="next" title="JavaScript应该使用的编码风格">
+                <i class="fa fa-chevron-left"></i> JavaScript应该使用的编码风格
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2012/10/11/javascript_scope/" rel="prev" title="词法作用域、动态作用域和块级作用域">
+                词法作用域、动态作用域和块级作用域 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/logo.png"
+               alt="lwd426" />
+          <p class="site-author-name" itemprop="name">lwd426</p>
+           
+              <p class="site-description motion-element" itemprop="description">好的产品，是用心打磨的，我永远相信这句话</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">70</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">20</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">41</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#怎么生成JS对象？"><span class="nav-number">1.</span> <span class="nav-text">怎么生成JS对象？</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#对象字面量"><span class="nav-number">1.1.</span> <span class="nav-text">对象字面量</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#构造函数"><span class="nav-number">1.2.</span> <span class="nav-text">构造函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#原型继承"><span class="nav-number">1.3.</span> <span class="nav-text">原型继承</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#var_obj_=_Object-create(OriginObj);"><span class="nav-number">1.4.</span> <span class="nav-text">var obj = Object.create(OriginObj);</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#怎么继承对象？"><span class="nav-number">2.</span> <span class="nav-text">怎么继承对象？</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#伪类"><span class="nav-number">2.1.</span> <span class="nav-text">伪类</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#模块模式"><span class="nav-number">2.2.</span> <span class="nav-text">模块模式</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#工具方法"><span class="nav-number">3.</span> <span class="nav-text">工具方法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#new的实现逻辑（模拟):"><span class="nav-number">3.1.</span> <span class="nav-text">new的实现逻辑（模拟):</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#创建对象方法的实现:"><span class="nav-number">3.2.</span> <span class="nav-text">创建对象方法的实现:</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#继承方法的实现："><span class="nav-number">3.3.</span> <span class="nav-text">继承方法的实现：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#扩展原型方法的实现："><span class="nav-number">3.4.</span> <span class="nav-text">扩展原型方法的实现：</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">lwd426</span>
+
+  
+</div>
+
+
+  <div class="powered-by">
+    思维
+  </div>
+
+  <span class="post-meta-divider">|</span>
+
+  <div class="theme-info">
+    眼界 &mdash;
+  </div>
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

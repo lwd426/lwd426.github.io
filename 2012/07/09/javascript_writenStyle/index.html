@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta name="baidu-site-verification" content="VMH9oYMJXO" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="javascript," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="写代码一直都是‘随心而写’，并没有什么风格和过多的思考，这也导致后来阅读代码和修改bug的过程变得十分困难，所以，还是尽早的注意下编码风格这些东西吧。这里借鉴《javascript语言精粹》的第9章，和自己平时的经验，总结一下：">
+<meta name="keywords" content="javascript">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaScript应该使用的编码风格">
+<meta property="og:url" content="http://blog.lwdle.xin/2012/07/09/javascript_writenStyle/index.html">
+<meta property="og:site_name" content="我是个大盗贼，什么都不怕">
+<meta property="og:description" content="写代码一直都是‘随心而写’，并没有什么风格和过多的思考，这也导致后来阅读代码和修改bug的过程变得十分困难，所以，还是尽早的注意下编码风格这些东西吧。这里借鉴《javascript语言精粹》的第9章，和自己平时的经验，总结一下：">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-08-13T09:02:29.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JavaScript应该使用的编码风格">
+<meta name="twitter:description" content="写代码一直都是‘随心而写’，并没有什么风格和过多的思考，这也导致后来阅读代码和修改bug的过程变得十分困难，所以，还是尽早的注意下编码风格这些东西吧。这里借鉴《javascript语言精粹》的第9章，和自己平时的经验，总结一下：">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"right","display":"always","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://blog.lwdle.xin/2012/07/09/javascript_writenStyle/"/>
+
+
+
+
+
+  <title>JavaScript应该使用的编码风格 | 我是个大盗贼，什么都不怕</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta custom-logo">
+    
+      <div class="site-meta-headline">
+        <a>
+          <img class="custom-logo-image" src="/images/logo.png"
+               alt="我是个大盗贼，什么都不怕"/>
+        </a>
+      </div>
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">我是个大盗贼，什么都不怕</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">品质源于专注，走未知的路，然后留下脚印</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://blog.lwdle.xin/2012/07/09/javascript_writenStyle/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="lwd426">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/logo.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="我是个大盗贼，什么都不怕">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">JavaScript应该使用的编码风格</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2012-07-09T12:10:09+08:00">
+                2012-07-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/基础/" itemprop="url" rel="index">
+                    <span itemprop="name">基础</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>写代码一直都是‘随心而写’，并没有什么风格和过多的思考，这也导致后来阅读代码和修改bug的过程变得十分困难，所以，还是尽早的注意下编码风格这些东西吧。这里借鉴《javascript语言精粹》的第9章，和自己平时的经验，总结一下：<br><a id="more"></a></p>
+<ol>
+<li><p>要在逗号，和冒号：左右都加一个空格，这样有较好的阅读便利；</p>
+ <figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">obj = &#123;</div><div class="line">	name : <span class="string">'lwd426'</span></div><div class="line">&#125;</div><div class="line"></div><div class="line">obj.say( <span class="string">'hello'</span>, <span class="string">'nacy'</span>);</div></pre></td></tr></table></figure>
+</li>
+<li><p>在if和(之间也加一个空格，这能告诉我们‘这不是个调用语句’</p>
+</li>
+<li>只有在调用的时候才紧密连接，比如obj.saysth();和array[0];</li>
+<li><p>在if语句中，无论有多少条语句（即便是一条）也要用{}框住;</p>
+ <figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span> (valid) &#123;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>使用K&amp;R风格，把{放到一行的结尾，而不是下一行的开头，这能避免js的return语句中的一个可怕的设计错误：</p>
+<blockquote>
+<p>因为js会自动为行尾插入分号，所以如下代码就会让人好难过啊：</p>
+</blockquote>
+ <figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span>(<span class="params">name</span>) </span>&#123;</div><div class="line">	<span class="keyword">return</span> </div><div class="line">	&#123;</div><div class="line">		name : name</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line">到<span class="keyword">return</span>就直接返回了<span class="literal">undefined</span>,一直是<span class="literal">undefined</span>.</div></pre></td></tr></table></figure>
+</li>
+<li><p>代码一定要有注释，并保持其是最新的。</p>
+</li>
+<li><p>不要用无谓的初始化代码。比如</p>
+  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> i = <span class="number">0</span>;</div></pre></td></tr></table></figure>
+</li>
+<li><p>在函数最起始部分声明所有的变量；</p>
+</li>
+<li><p>不在if的条件语句中使用赋值表达式，因为会于比较表达式弄混：</p>
+ <figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span> (a = b) &#123; ... &#125;</div><div class="line">可能的本意是：</div><div class="line"><span class="keyword">if</span> (a === b) &#123; ... &#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>在switch case语句中，每个case都用break，不要穿越；</p>
+</li>
+<li>最多只用一个全局变量，像很多库一样（jQuery）;</li>
+<li>使用闭包来隐藏信息，增强模块的健壮性；</li>
+<li><p>简单的if语句可以用三项表达式表示：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> c = <span class="literal">false</span>;</div><div class="line"><span class="keyword">if</span> (a &gt; <span class="number">0</span>) &#123;</div><div class="line">	c = <span class="literal">true</span>;</div><div class="line">&#125; <span class="keyword">else</span> &#123;</div><div class="line">	c = <span class="literal">false</span>;</div><div class="line">&#125;</div><div class="line">可以等价于</div><div class="line"><span class="keyword">var</span> c = a &gt; <span class="number">0</span> ? <span class="literal">true</span> : <span class="literal">false</span>;</div></pre></td></tr></table></figure>
+</li>
+<li><p>用 || 来确保变量有默认值：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> a = b || <span class="number">0</span>;</div></pre></td></tr></table></figure>
+</li>
+<li><p>parseInt是一个把字符串转换为整数的函数。</p>
+<ul>
+<li><p>当遇到非数字就停止解析，所以:</p>
+  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">parseInt</span>(<span class="string">'16'</span>) === <span class="built_in">parseInt</span>(<span class="string">'16 tons'</span>)。</div></pre></td></tr></table></figure>
+</li>
+<li><p>当第一个字符是0，那么它会用八进制解析。所以一定要带上此函数的第二个参数—基数参数。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">parseInt</span>(<span class="string">'08'</span>, <span class="number">10</span>) === <span class="number">8</span> <span class="comment">//true</span></div></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p><strong>把所有的变量声明都放到函数体的顶端。</strong></p>
+<p> js执行环境分为声明阶段和执行阶段:</p>
+<ul>
+<li>声明阶段:JavaScript引擎会为所有的变量与函数声明<code>创建标识符</code>,然后<code>定义函数</code>。</li>
+<li><p>执行阶段：<code>函数均已被定义</code>，但<code>所有变量（包括函数表达式）</code>的值均<code>未定义</code></p>
+<p>原因：<code>变量提升</code>指函数中所有变量声明会在函数执行时被“提升”至函数体顶端。规律如下：</p>
+</li>
+<li>变量的声明会被提升，赋值不会</li>
+<li>函数声明时，函数标示符和函数体都会被提升，所以函数不受影响</li>
+<li>函数表达式与变量一样，只是标示符声明被提升。</li>
+</ul>
+</li>
+<li><p>DOM操作为更新列表内容时，不使用html()方法，而是用$(“ol”).empty().append(列表数组);原因如下：</p>
+<ul>
+<li>已存在的DOM元素理应被清理掉，这样做利于解除相关事件监听器的引用，使内存得到回收</li>
+<li>这是一项比html()方法更稳妥的一种清理方法。html()方法在富客户端js应用中使用，可能会导致一些极为怪异的bug</li>
+</ul>
+</li>
+<li><p>优化switch的臃肿结构的通常做法是采用对象的键值对的方式,这样代码嵌套变浅了，而且代码看起来更清爽：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">switch</span>(name)&#123;</div><div class="line">	<span class="keyword">case</span> <span class="string">'A'</span> : <span class="comment">//todo1 break;</span></div><div class="line">	<span class="keyword">case</span> <span class="string">'B'</span> : <span class="comment">//todo2 break;</span></div><div class="line">	<span class="keyword">case</span> <span class="string">'C'</span> : <span class="comment">//todo3 break;</span></div><div class="line">	<span class="keyword">case</span> <span class="string">'D'</span> : <span class="comment">//todo4 break;	</span></div><div class="line">	<span class="keyword">default</span>: <span class="comment">//todo</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">//优化</span></div><div class="line"><span class="keyword">var</span> nameList = &#123;</div><div class="line">	<span class="string">'A'</span> : <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123; <span class="comment">//todo1 &#125;,</span></div><div class="line">	<span class="string">'B'</span> : <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123; <span class="comment">//todo2 &#125;,</span></div><div class="line">	<span class="string">'C'</span> : <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123; <span class="comment">//todo3 &#125;,</span></div><div class="line">	<span class="string">'D'</span> : <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123; <span class="comment">//todo4 &#125;,</span></div><div class="line">&#125;</div><div class="line"></div><div class="line">nameList[name];</div></pre></td></tr></table></figure>
+</li>
+<li><p>类数组对象转成数组对象：Javascript中存在一种名为伪数组的对象结构。比较特别的是 arguments 对象。我们能通过 Array.prototype.slice.call 转换为真正的数组的带有 length 属性的对象，这样 类数组对象 就可以应用 Array 下的所有方法了。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line">	<span class="function"><span class="keyword">function</span> <span class="title">log</span>(<span class="params"></span>)</span>&#123;</div><div class="line">  		<span class="keyword">var</span> args = <span class="built_in">Array</span>.prototype.slice.call(<span class="built_in">arguments</span>);</div><div class="line">  		args.unshift(<span class="string">'(app)'</span>);</div><div class="line">  		<span class="built_in">console</span>.log.apply(<span class="built_in">console</span>, args);</div><div class="line">	&#125;;</div><div class="line">	<span class="string">``</span><span class="string">`	</span></div><div class="line"><span class="string">	</span></div><div class="line"><span class="string">20. **this的设计错误**：当一个函数并非做为一个对象的方法时，那么它就是被当做一个函数来调用的：</span></div><div class="line"><span class="string"></span></div><div class="line"><span class="string">	`</span><span class="string">``</span>javascript</div><div class="line">	<span class="keyword">var</span> sum = add(<span class="number">3</span>, <span class="number">4</span>); <span class="comment">//sum 的值为7</span></div><div class="line">	<span class="string">``</span><span class="string">` </span></div><div class="line"><span class="string">	</span></div><div class="line"><span class="string">  当函数以此模式调用时，this被绑定到全局对象。这是语言设计上的一个错误，倘若语言设计正确，**当内部函数被调用时，this应该仍然绑定到外部函数的this变量**。这个设计错误错误的后果是方法**不能利用内部函数来帮助它工作，因为内部函数的this被绑定了错误的值，所以不能共享该方法对对象的访问权**。幸运的是，有一个很容易的解决方案：如果该方法定义一个变量并给他赋值为this，那么内部函数就可以通过那个变量访问到this。</span></div><div class="line"><span class="string">  </span></div><div class="line"><span class="string">  `</span><span class="string">``</span>javascript</div><div class="line">	<span class="comment">//给myObject增加一个double方法</span></div><div class="line">	myObject.double = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">   	 	<span class="keyword">var</span> that = <span class="keyword">this</span>; <span class="comment">//解决方案</span></div><div class="line">   	 	<span class="keyword">var</span> helper = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">        	that.value = add(that.value,that.value);</div><div class="line">    	&#125;;</div><div class="line">    	helper();<span class="comment">//以函数的形式调用helper</span></div><div class="line">	&#125;;</div><div class="line">	<span class="comment">//以方法的形式调用double</span></div><div class="line">	myObject.double();</div><div class="line">	<span class="built_in">document</span>.writeln(myObject.getValue()); <span class="comment">//6</span></div></pre></td></tr></table></figure>
+</li>
+</ol>
+<ol>
+<li><p><strong>利用模块定义组件</strong>：（来自《JavaScript应用程序设计》-89页）。思路如下：</p>
+<ul>
+<li>在模块内定义DOM结构并给DOM注册事件，完成整个组件静态DOM的编写</li>
+<li>在公开接口函数中传入外部数据，函数的实现逻辑就是利用外部数据来填充DOM，实现DOM。</li>
+<li>最后通过module.exports = 公开接口函数导出组件实例。</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line"> <span class="keyword">var</span> $ = <span class="built_in">require</span>(<span class="string">'jquery-browserify'</span>),</div><div class="line"> 	checkedinClass = <span class="string">'icon-check'</span>,</div><div class="line"> 	listClass = <span class="string">'dropdown-menu'</span>,</div><div class="line"> 	guestClass = <span class="string">'guest'</span>;</div><div class="line">	</div><div class="line">	toggleCheckedIn = <span class="function"><span class="keyword">function</span> <span class="title">toggleCheckedIn</span>(<span class="params">e</span>)</span>&#123;</div><div class="line">		$(<span class="keyword">this</span>).toggleClass(checkedinClass):</div><div class="line">	&#125;</div><div class="line">	</div><div class="line">	$listView = $(<span class="string">'&lt;ol&gt;'</span>, &#123;</div><div class="line">		id : <span class="string">'guestlist-view'</span>,</div><div class="line">		<span class="string">'class'</span> : listClass</div><div class="line">	&#125;).on(<span class="string">'click'</span>, <span class="string">'.'</span> + guestClass, toggleCheckedIn),</div><div class="line">	</div><div class="line">	render = <span class="function"><span class="keyword">function</span> <span class="title">render</span>(<span class="params">guestlist</span>)</span>&#123;</div><div class="line">		guestlist.forEach(<span class="function"><span class="keyword">function</span> (<span class="params">guest</span>)</span>&#123;</div><div class="line">			$guest = $(<span class="string">'&lt;li class=&gt;"'</span> + guestClass + <span class="string">'"&gt;'</span> + <span class="string">'&lt;span class="name"&gt;'</span> + guest + <span class="string">'&lt;/span&gt;&lt;/li&gt;'</span>);</div><div class="line">			$guest.appendTO($listView);</div><div class="line">		&#125;);</div><div class="line">		</div><div class="line">		<span class="keyword">return</span> $listView;</div><div class="line">	&#125;,</div><div class="line">	</div><div class="line">	api = &#123;</div><div class="line">		render : render</div><div class="line">	&#125;;</div><div class="line">	</div><div class="line"><span class="built_in">module</span>.exports = api;</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<ol>
+<li><p>parseInt与parseFloat的区别：parseInt()和parseFloat()两个方法都是从左边的字符串开始查找，如果第一个字符不是数字或者负号（在parseFloat()还可以是个小数点)。一旦它们遇到了这样的一个字符，它们就返回自己提取的数字:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">parseInt</span>(<span class="string">"1234blue"</span>); <span class="comment">//returns 1234 </span></div><div class="line"><span class="built_in">parseInt</span>(<span class="string">"0xA"</span>); <span class="comment">//returns 10 </span></div><div class="line"><span class="built_in">parseInt</span>(<span class="string">"22.5"</span>); <span class="comment">//returns 22 </span></div><div class="line"><span class="built_in">parseInt</span>(<span class="string">"blue"</span>); <span class="comment">//returns NaN</span></div><div class="line"><span class="built_in">parseInt</span>(<span class="string">"010"</span>); <span class="comment">//returns 8 </span></div><div class="line"><span class="built_in">parseInt</span>(<span class="string">"010"</span>, <span class="number">8</span>); <span class="comment">//returns 8 </span></div><div class="line"><span class="built_in">parseInt</span>(<span class="string">"010"</span>, <span class="number">10</span>); <span class="comment">//returns 10</span></div><div class="line"><span class="built_in">parseInt</span>(<span class="string">"-10.9Blue"</span>); <span class="comment">//return -10</span></div><div class="line"><span class="built_in">parseInt</span>(<span class="string">".9Blue"</span>); <span class="comment">//return 0</span></div><div class="line"><span class="built_in">parseInt</span>(<span class="string">"-2.1e4xyz"</span>) <span class="comment">//-2</span></div><div class="line"></div><div class="line"><span class="built_in">parseFloat</span>(<span class="string">"1234blue"</span>); <span class="comment">//returns 1234.0 </span></div><div class="line"><span class="built_in">parseFloat</span>(<span class="string">"0xA"</span>); <span class="comment">//returns NaN </span></div><div class="line"><span class="built_in">parseFloat</span>(<span class="string">"22.5"</span>); <span class="comment">//returns 22.5 </span></div><div class="line"><span class="built_in">parseFloat</span>(<span class="string">"22.34.5"</span>); <span class="comment">//returns 22.34 </span></div><div class="line"><span class="built_in">parseFloat</span>(<span class="string">"0908"</span>); <span class="comment">//returns 908 </span></div><div class="line"><span class="built_in">parseFloat</span>(<span class="string">"blue"</span>); <span class="comment">//returns NaN</span></div><div class="line"><span class="built_in">parseInt</span>(<span class="string">"-10.9Blue"</span>); <span class="comment">//return -10.9</span></div><div class="line"><span class="built_in">parseInt</span>(<span class="string">".9Blue"</span>); <span class="comment">//return .9</span></div><div class="line"><span class="built_in">parseFloat</span>(<span class="string">"-2.1e4xyz"</span>) <span class="comment">//-21000</span></div></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>继续完善….</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/javascript/" rel="tag"># javascript</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2012/06/10/no_user/" rel="next" title="12种不宜使用的Javascript语法">
+                <i class="fa fa-chevron-left"></i> 12种不宜使用的Javascript语法
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2012/08/04/javascript_object/" rel="prev" title="JavaScript的对象和继承者们">
+                JavaScript的对象和继承者们 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview sidebar-panel sidebar-panel-active">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/logo.png"
+               alt="lwd426" />
+          <p class="site-author-name" itemprop="name">lwd426</p>
+           
+              <p class="site-description motion-element" itemprop="description">好的产品，是用心打磨的，我永远相信这句话</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">70</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">20</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">41</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">lwd426</span>
+
+  
+</div>
+
+
+  <div class="powered-by">
+    思维
+  </div>
+
+  <span class="post-meta-divider">|</span>
+
+  <div class="theme-info">
+    眼界 &mdash;
+  </div>
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
