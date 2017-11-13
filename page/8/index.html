@@ -689,8 +689,7 @@
 
       
         
-          
-            <blockquote>
+          <blockquote>
 <p>本文导读：正则表达式是个很有力的字符处理工具，真的该好好学、好好用。</p>
 </blockquote>
 <h3 id="字符串的一般操作（javascript）">字符串的一般操作（javascript）</h3><ol>
@@ -699,133 +698,14 @@
 <li>substring : 获取子字符串 （’1234567890’.substring(2,5) //‘345’）</li>
 <li>split : 分隔字符串，获得数组 （’1234567890’.split(‘5’) //[‘1234’,’67890’])</li>
 </ol>
-<h3 id="什么是正则表达式">什么是正则表达式</h3><ol>
-<li>正则表达式是<strong>给计算机（js引擎）制定一种规则，告诉它按照此规则去解析字符串</strong>。就跟人一看apple就知道是苹果一样，让计算机能够认识apple</li>
-<li>正则表达式是一种<strong>强大的字符串匹配（和操作）</strong>工具</li>
-<li>定义：<ul>
-<li>new RegExp(‘\d+’) : 当正则表达式中有变量的时候，必须用这种方法</li>
-<li>/\d+/: 一般用这种方式</li>
-</ul>
-</li>
-</ol>
-<h3 id="正则表达式的几种用法">正则表达式的几种用法</h3><table>
-<thead>
-<tr>
-<th>方法名</th>
-<th>定义</th>
-<th>返回值</th>
-<th>用法</th>
-<th>example</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>test</td>
-<td>字符串判断</td>
-<td>返回真假</td>
-<td>正则.test(字符串)</td>
-<td>/b/.test(‘abcdef’) //true</td>
-</tr>
-<tr>
-<td>match</td>
-<td>获取匹配的项目</td>
-<td>返回数组</td>
-<td>字符串.match(正则)</td>
-<td>‘haj123sdk54hask33dkhalsd879’.match(/\d+/g) //[‘123’,’54’,’33’,’879’]</td>
-</tr>
-<tr>
-<td>search</td>
-<td>正则去匹配字符串</td>
-<td>返回出现的位置(否则返回-1)</td>
-<td>字符串.search(正则)</td>
-<td>‘abcdef’.search(/b/i) //1</td>
-</tr>
-<tr>
-<td>replace</td>
-<td>替换所有匹配</td>
-<td>返回替换后的字符串</td>
-<td>字符串.replace(正则,想替换的)</td>
-<td>‘aaa’.replace(/a+/,’b’) //b</td>
-</tr>
-</tbody>
-</table>
-<p>说明：</p>
-<ol>
-<li>正则默认：正则匹配成功就会结束，不会继续匹配; 如果想全部查找，就要加标识 <strong>g</strong>(全局匹配)</li>
-<li>是区分大小写的，如果不区分大小写的话，在正则的最后加标识 <strong>i</strong> </li>
-<li>量词 : 匹配不确定的位置 <ul>
-<li>+ : 至少出现一次</li>
-<li>* : 0 到多次</li>
-</ul>
-</li>
-</ol>
-<h3 id="高级匹配">高级匹配</h3><ol>
-<li>量词：<ul>
-<li>出现的次数。{n,m}，至少出现n次，最多m次</li>
-<li>常用量词<ul>
-<li>{n,}    至少n次</li>
-<li>*        任意次    {0,}</li>
-<li>？    零次或一次    {0,1}</li>
-<li>+    一次或任意次{1,}</li>
-<li>{n}    正好n次</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>^ 开始 $ 结束: 例子: ‘ test ‘.replace(/^\s+|\s+$/g, ‘’) // test</li>
-<li>转义字符：<ul>
-<li>特殊字符：n \n r \r t \t</li>
-<li>.（点）– 任意字符</li>
-<li>特殊匹配： <ul>
-<li>\s : 空格</li>
-<li>\S : 非空格</li>
-<li>\d : 数字</li>
-<li>\D : 非数字</li>
-<li>\w : 字符   ( 字母 ，数字，下划线_ ) example: ‘sf我是33让d<em>sf@!df#$’.match(/\w/g) // [“s”, “f”, “3”, “3”, “d”, “</em>“, “s”, “f”, “d”, “f”]</li>
-<li>\W : 非字符 ( 中文， 特殊字符 等) example: ‘sf我是33让d_sf@!df#$’.match(/\W/g) // [“我”, “是”, “让”, “@”, “!”, “#”, “$”]</li>
-</ul>
-</li>
-<li><ol>
-<li>\1：重复子项 example: ‘sf我是33让d_sf@!d334f#$’.match(/(\w)\1+/g) //[‘33’,’33’] 解释：返回所有匹配到的与第二个匹配项相同的内容</li>
-</ol>
-</li>
-</ul>
-</li>
-<li>正则表达式中的匹配字符的几种书写方法<ul>
-<li>任意字符（枚举）： [abc] - 例子：：o[usb]t——obt、ost、out</li>
-<li>范围：[a-z]、[0-9] - 例子：例子：id[0-9]——id0、id5</li>
-<li>排除：[^a] 例子：o[^0-9]t——oat、o?t、o t</li>
-<li>组合: [a-z0-9A-Z] 可以匹配左右的字母和数字（单个），如果要匹配多个要用{a-z0-9A-Z]+</li>
-</ul>
-</li>
-<li>小括号（）的使用意义：定义子项或者分组，用于replace或者match的返回数组的子项定义 </li>
-<li>replace的第二项可以为回调函数，通过return开完成替换操作，结合子项使用，完成高级的字符串查找和替换目的</li>
-<li><p>匹配子项：</p>
-<ul>
-<li>概念: 把正则的整体叫做（母亲）, 然后把左边第一个小括号里面的正则，叫做这个第一个子项(母亲的子项),第二个小括号就是第二个子项，以此类推</li>
-<li><p>说明用法： </p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> str = <span class="string">'2013-6-7'</span>;</div><div class="line"><span class="keyword">var</span> re = <span class="regexp">/(\d+)(-)/g</span>;</div><div class="line">str = str.replace(re,<span class="function"><span class="keyword">function</span>(<span class="params">$<span class="number">0</span>,$<span class="number">1</span>,$<span class="number">2</span></span>)</span>&#123;</div><div class="line">	<span class="comment">//第一个参数：$0（母亲）,第二个参数 : $1(第一个孩子)</span></div><div class="line">	<span class="comment">//,第二个参数 : $1(第二个孩子)</span></div><div class="line">	<span class="keyword">return</span> $<span class="number">0.</span>substring(<span class="number">0</span>,$<span class="number">0.</span>length<span class="number">-1</span>) + <span class="string">'.'</span>;</div><div class="line">	</div><div class="line">&#125;);</div><div class="line">alert( str );   <span class="comment">//2013.6.7</span></div></pre></td></tr></table></figure>
-</li>
-<li><p>注意：当match不加g的时候（也就是非全局匹配）才可以获取到子项的集合 </p>
-<ul>
-<li>‘abc’.match(/(a)(b)(c)/) //[“abc”, “a”, “b”, “c” ]</li>
-<li>‘abc’.match(/(a)(b)(c)/g) //[‘abc’]</li>
-</ul>
-</li>
-</ul>
-</li>
-</ol>
-<h3 id="Usecase">Usecase</h3><ul>
-<li>匹配中文：[\u4e00-\u9fa5]</li>
-<li>行首行尾空格：^\s<em>|\s</em>$</li>
-<li>Email：^\w+@[a-z0-9]+(.[a-z]+){1,3}$</li>
-<li>网址：[a-zA-z]+://[^\s]*</li>
-<li>QQ号：[1-9][0-9]{4,9}</li>
-<li>邮政编码：[1-9]\d{5}</li>
-<li>身份证：[1-9]\d{14}|[1-9]\d{17}|[1-9]\d{16}x</li>
-</ul>
-
-          
+<h3 id="什么是正则表达式">什么是正则表达式</h3>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2013/06/05/regExp/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
