@@ -285,6 +285,165 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://blog.lwd426.com/2015/04/24/javascript_this2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="lwd426">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/logo.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="我是个大盗贼，什么都不怕">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2015/04/24/javascript_this2/" itemprop="url">对this新的认识--更深刻</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2015-04-24T10:25:00+08:00">
+                2015-04-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/基础/" itemprop="url" rel="index">
+                    <span itemprop="name">基础</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <blockquote>
+<p>今天，在cnode上看到一篇真的是很不错的文章<a href="https://cnodejs.org/topic/5599521293cb46f578f0a57e" target="_blank" rel="external">《图解Javascript上下文与作用域》</a>，已经被设置为精华帖了。</p>
+</blockquote>
+<h3 id="自己之前的理解：">自己之前的理解：</h3><p>改变了我之前对js的基础概念的以下简单的看法：</p>
+<ul>
+<li>执行上下文: 就是函数的执行环境，比如<code>a.func();</code>里，func函数执行时的上下文就是对象a。</li>
+<li>this: 就是在新建对象时，把新建的对象的引用赋给了this变量；</li>
+<li>作用域链: 这个理解是对的，简单的说就是<code>函数的作用域链就是函数以及他上面一直到global的所有定义的变量对象串成的链</code>。</li>
+<li>闭包: 就是在返回值是函数的情况下，返回函数里拥有外层函数的作用域链。</li>
+</ul>
+<h3 id="引文重要观点摘录">引文重要观点摘录</h3><ol>
+<li>每一个上下文都会绑定一个变量对象（variable object），它就像一个容器，用来存<code>当前上下文中所有已定义或可获取的变量、函数等</code></li>
+<li>Js解释器总是在上下文堆栈的顶上下文中执行</li>
+<li>在生成新的上下文时，首先会:
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2015/04/24/javascript_this2/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://blog.lwd426.com/2015/04/12/React2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1352,156 +1511,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://blog.lwd426.com/2014/11/20/product/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="lwd426">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/logo.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="我是个大盗贼，什么都不怕">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2014/11/20/product/" itemprop="url">做过的一个angular+node产品实录</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2014-11-20T10:15:49+08:00">
-                2014-11-20
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/前端/" itemprop="url" rel="index">
-                    <span itemprop="name">前端</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h3 id="题记：">题记：</h3><p>分享一下自己之前做的一个产品，这个产品有个特点：<code>所有前端工作，包括页面及交互设计、css、所有js代码包括后端部分node接口都是我一个人搞的。现在想想，好像当年很强大的样子T_T</code></p>
-<blockquote>
-<p>ps:由于本文只是用来讲解页面构成和组件划分。为了避免侵权行为，特意把所有文字都p掉了，影响了美观，请谅解。</p>
-</blockquote>
-<h3 id="下面是实际页面图：">下面是实际页面图：</h3>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2014/11/20/product/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1552,7 +1561,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">73</span>
+                <span class="site-state-item-count">74</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
